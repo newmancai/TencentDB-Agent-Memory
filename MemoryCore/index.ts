@@ -42,6 +42,12 @@ import { registerMemoryTdaiCli } from "./src/cli/index.js";
 import { initDataDirectories, resetStores } from "./src/utils/pipeline-factory.js";
 import { getOrCreateInstanceId, initReporter, report, resetReporter } from "./src/core/report/reporter.js";
 import { ensureL2L3Local } from "./src/core/profile/profile-sync.js";
+import {
+  JsonlRecallShadowObserver,
+} from "./src/core/self-supervision/recall-shadow-adapter.js";
+import {
+  OpenClawRecallTurnBridge,
+} from "./src/core/self-supervision/openclaw-recall-turn-bridge.js";
 
 // Core abstractions (host-neutral)
 import { OpenClawHostAdapter } from "./src/adapters/openclaw/host-adapter.js";
@@ -276,6 +282,27 @@ export default function register(api: OpenClawPluginApi) {
   const pluginDataDir = path.join(openclawStateDir, "memory-tdai");
   initDataDirectories(pluginDataDir);
   api.logger.debug?.(`${TAG} Data dir: ${pluginDataDir} (all subdirectories initialized)`);
+
+  // Shadow telemetry must never become a plugin availability dependency. A
+  // truncated/corrupt sidecar (for example after a process crash) is reported
+  // and disabled for this process instead of aborting plugin registration.
+  let recallShadowBridge: OpenClawRecallTurnBridge | undefined;
+  if (cfg.shadowFeedback.enabled) {
+    try {
+      recallShadowBridge = new OpenClawRecallTurnBridge({
+        observer: new JsonlRecallShadowObserver(path.join(pluginDataDir, "shadow-feedback")),
+        logger: api.logger,
+      });
+    } catch (error) {
+      api.logger.warn(
+        `${TAG} EXP-000 shadow feedback unavailable; continuing without telemetry: ` +
+        `${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  }
+  if (recallShadowBridge) {
+    api.logger.info(`${TAG} EXP-000 shadow feedback enabled (observation-only, no Memory writes)`);
+  }
 
   // ============================
   // Create OpenClawHostAdapter + TdaiCore
@@ -712,11 +739,24 @@ export default function register(api: OpenClawPluginApi) {
       if (!resolvedSessionKey) {
         return;
       }
+      const shadowTurn = recallShadowBridge?.beginTurn({
+        sessionKey: resolvedSessionKey,
+        sessionId: ctx.sessionId,
+      });
 
       try {
         await coreReady;
         const recallStartMs = Date.now();
-        const result = await core.handleBeforeRecall(userText, resolvedSessionKey);
+        const result = await core.handleBeforeRecall(userText, resolvedSessionKey, {
+          shadowTap: shadowTurn?.shadowTap,
+        });
+        if (shadowTurn) {
+          recallShadowBridge?.recordHookReturn({
+            sessionKey: resolvedSessionKey,
+            taskRunId: shadowTurn.taskRunId,
+            prependContext: result?.prependContext,
+          });
+        }
         const elapsedMs = Date.now() - startMs;
         const recallDurationMs = Date.now() - recallStartMs;
 
@@ -760,6 +800,43 @@ export default function register(api: OpenClawPluginApi) {
             impact: "non-blocking",
           });
         }
+      }
+    });
+  }
+
+  // `before_prompt_build` only proves that Memory context was prepared. The
+  // later llm_input hook observes the actual model prompt and upgrades a row to
+  // exposed only when the returned context appears byte-for-byte.
+  if (recallShadowBridge) {
+    api.on("llm_input", (event, ctx) => {
+      const resolvedSessionKey = resolveSessionKey(ctx.sessionKey);
+      if (!resolvedSessionKey) return;
+      const observation = recallShadowBridge.onLlmInput({
+        sessionKey: resolvedSessionKey,
+        prompt: event.prompt,
+      });
+      if (observation) {
+        const exposedCount = observation.candidates.filter((candidate) => candidate.exposed).length;
+        api.logger.debug?.(
+          `${TAG} [shadow-feedback] taskRunId=${observation.taskRunId ?? "missing"} ` +
+          `prompt=${observation.promptAssemblyEvidence} exposed=${exposedCount}`,
+        );
+      }
+    });
+
+    api.on("agent_end", (event, ctx) => {
+      const resolvedSessionKey = resolveSessionKey(ctx.sessionKey);
+      if (!resolvedSessionKey) return;
+      const turn = recallShadowBridge.endTurn({
+        sessionKey: resolvedSessionKey,
+        messages: Array.isArray(event.messages) ? event.messages : [],
+      });
+      if (turn) {
+        api.logger.debug?.(
+          `${TAG} [shadow-feedback] turn complete taskRunId=${turn.taskRunId} ` +
+          `exposure=${turn.observation?.promptAssemblyEvidence ?? "not_observed"} ` +
+          `assistantOutput=${turn.assistantText === null ? "missing" : "observed"}`,
+        );
       }
     });
   }

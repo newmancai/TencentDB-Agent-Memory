@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "tdai-r1-mixed-claim-replay.v1",
+  "generatedAt": "2026-09-07T14:05:23.427Z",
+  "scope": "read-only replay of the saved r1 Qwen candidate and its cited user source",
+  "sourceArtifacts": {
+    "eventsPath": "<local-evidence-root>/feedback-cross-family-r1/families/vendor_boreal_en/anchors/adjusted/trace/events.jsonl",
+    "sourcesPath": "<local-evidence-root>/feedback-cross-family-r1/families/vendor_boreal_en/anchors/adjusted/trace/source-messages.json"
+  },
+  "metrics": {
+    "candidates": 2,
+    "oldActiveRecords": 1,
+    "newActiveRecords": 1,
+    "oldActiveMarkerRecords": 1,
+    "newActiveMarkerRecords": 0,
+    "factTokensPreserved": 3,
+    "totalFactTokens": 3,
+    "modelCalls": 0,
+    "modelTokens": 0,
+    "elapsedMs": 6.340378999999984
+  },
+  "oldDecisions": [
+    {
+      "candidateIndex": 0,
+      "disposition": "retain",
+      "reasonCodes": [
+        "non_instruction_not_changed",
+        "candidate_language_mismatch"
+      ],
+      "afterContent": "用户（user）在 2026-09-07T12:38:17.409Z 于 未指定地点 对 Vendor Boreal 的生产阻塞问题做出决策：仅允许在预发布环境进行试点，有效期至 2027-03-31，且要求 AI 以 REVIEW|vendor|decision|expiry 格式回复。"
+    },
+    {
+      "candidateIndex": 1,
+      "disposition": "quarantine",
+      "reasonCodes": [
+        "durable_scope_not_established",
+        "candidate_language_mismatch"
+      ],
+      "afterContent": null
+    }
+  ],
+  "newDecisions": [
+    {
+      "candidateIndex": 0,
+      "validity": "supported",
+      "disposition": "retain",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source",
+        "candidate_language_mismatch"
+      ],
+      "afterContent": "Vendor Boreal review: production is blocked pending SOC 2. A staging-only pilot is allowed through 2027-03-31."
+    },
+    {
+      "candidateIndex": 1,
+      "validity": "refuted",
+      "disposition": "quarantine",
+      "reasonCodes": [
+        "source_explicitly_bounded",
+        "candidate_language_mismatch"
+      ],
+      "afterContent": null
+    }
+  ]
+}

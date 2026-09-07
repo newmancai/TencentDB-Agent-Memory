@@ -99,6 +99,12 @@ export interface RecallConfig {
   timeoutMs: number;
 }
 
+/** Opt-in local telemetry for EXP-000 host-level exposure verification. */
+export interface ShadowFeedbackConfig {
+  /** Capture exact recall exposure observations to an isolated JSONL sidecar. */
+  enabled: boolean;
+}
+
 /** Embedding service configuration for vector search. */
 export interface EmbeddingConfig {
   /** User-facing default is true in schema, but provider="none" still disables embedding effectively. */
@@ -316,6 +322,7 @@ export interface MemoryTdaiConfig {
   persona: PersonaConfig;
   pipeline: PipelineTriggerConfig;
   recall: RecallConfig;
+  shadowFeedback: ShadowFeedbackConfig;
   embedding: EmbeddingConfig;
   /** Storage backend: "sqlite" (default) or "tcvdb" */
   storeBackend: StoreBackend;
@@ -387,6 +394,9 @@ export function parseConfig(raw: Record<string, unknown> | undefined): MemoryTda
 
   // --- Recall ---
   const recallGroup = obj(c, "recall");
+
+  // --- Value-first shadow feedback (default off) ---
+  const shadowFeedbackGroup = obj(c, "shadowFeedback");
 
   // --- Embedding ---
   const embeddingGroup = obj(c, "embedding");
@@ -576,6 +586,9 @@ export function parseConfig(raw: Record<string, unknown> | undefined): MemoryTda
       scoreThreshold: num(recallGroup, "scoreThreshold") ?? 0.3,
       strategy: validateStrategy(str(recallGroup, "strategy")) ?? "hybrid",
       timeoutMs: num(recallGroup, "timeoutMs") ?? 5000,
+    },
+    shadowFeedback: {
+      enabled: bool(shadowFeedbackGroup, "enabled") ?? false,
     },
     embedding: {
       enabled: embeddingEnabled,

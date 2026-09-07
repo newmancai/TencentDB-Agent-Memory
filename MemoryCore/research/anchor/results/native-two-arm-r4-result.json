@@ -1,0 +1,652 @@
+{
+  "schemaVersion": "tdai-native-feedback-two-arm-result.v2",
+  "runRoot": "/tmp/feedback-native-two-arm-r4",
+  "claim": "new synthetic business targets; real local Qwen; development n=2/arm/target",
+  "rows": [
+    {
+      "target": "format_conflict",
+      "block": 1,
+      "arm": "unadjusted",
+      "final": "CHECK|INTG-AP-010,INTG-AP-011",
+      "exactOutput": true,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": true,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "CHECK|INTG-AP-010,INTG-AP-011",
+        "repaired": false,
+        "reason": "already_valid"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 0,
+      "searchInterventionApplied": null,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "369e2059-986a-436b-ae76-2e39fa0aad52",
+      "nativeBoundObservations": 1,
+      "observationCount": 1,
+      "outcome": {
+        "status": "success",
+        "outputHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "b4eebfe6641f2a998fed2745aef8502a917bd9641e6379b9177fb9961f30e6d2"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "369e2059-986a-436b-ae76-2e39fa0aad52",
+        "outcomeStatus": "success",
+        "executionStatus": "unknown",
+        "feedbackStage": "task_verified",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": false,
+        "reasonCodes": []
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3606,
+        "output_tokens": 60,
+        "generation_ms": 8318.483139039017
+      },
+      "elapsedSeconds": 13.728595626889728
+    },
+    {
+      "target": "format_conflict",
+      "block": 1,
+      "arm": "adjusted",
+      "final": "CHECK|INTG-AP-010,INTG-AP-011",
+      "exactOutput": true,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": true,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "CHECK|INTG-AP-010,INTG-AP-011",
+        "repaired": false,
+        "reason": "already_valid"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 0,
+      "searchInterventionApplied": null,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "e46581db-8239-4421-9d5f-810d96791a48",
+      "nativeBoundObservations": 1,
+      "observationCount": 1,
+      "outcome": {
+        "status": "success",
+        "outputHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "b69abf6f16d5de4175e610fd9ee737586b756a5332281a267d23e000a42b783d"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "e46581db-8239-4421-9d5f-810d96791a48",
+        "outcomeStatus": "success",
+        "executionStatus": "unknown",
+        "feedbackStage": "task_verified",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": false,
+        "reasonCodes": []
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3436,
+        "output_tokens": 60,
+        "generation_ms": 8533.829007996246
+      },
+      "elapsedSeconds": 13.208343849983066
+    },
+    {
+      "target": "format_conflict",
+      "block": 2,
+      "arm": "adjusted",
+      "final": "CHECK|INTG-AP-010,INTG-AP-011",
+      "exactOutput": true,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": true,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "CHECK|INTG-AP-010,INTG-AP-011",
+        "repaired": false,
+        "reason": "already_valid"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 0,
+      "searchInterventionApplied": null,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "5aa0e560-e6eb-4fed-b33b-ab5e1982117c",
+      "nativeBoundObservations": 1,
+      "observationCount": 1,
+      "outcome": {
+        "status": "success",
+        "outputHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "b41ee8fd247d81699601077d7ceb4b2a924e633d0d73a976ddda77fc61cffd51"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "5aa0e560-e6eb-4fed-b33b-ab5e1982117c",
+        "outcomeStatus": "success",
+        "executionStatus": "unknown",
+        "feedbackStage": "task_verified",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": false,
+        "reasonCodes": []
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3436,
+        "output_tokens": 60,
+        "generation_ms": 8502.01355793979
+      },
+      "elapsedSeconds": 12.705922010936774
+    },
+    {
+      "target": "format_conflict",
+      "block": 2,
+      "arm": "unadjusted",
+      "final": "CHECK|INTG-AP-010,INTG-AP-011",
+      "exactOutput": true,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": true,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "CHECK|INTG-AP-010,INTG-AP-011",
+        "repaired": false,
+        "reason": "already_valid"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 0,
+      "searchInterventionApplied": null,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "fed1fe9b-7bc1-4d28-9e9d-ddd33e8a3a4c",
+      "nativeBoundObservations": 1,
+      "observationCount": 1,
+      "outcome": {
+        "status": "success",
+        "outputHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "e5374aff1c697d5b644208e052a85ecb37a0e8e8f23aa9a58e9edfcd659a00f4"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "5d4add52be094fff6dd8d3f0f494e8e163a0cc70a8b315bf46491948f305fc81"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "fed1fe9b-7bc1-4d28-9e9d-ddd33e8a3a4c",
+        "outcomeStatus": "success",
+        "executionStatus": "unknown",
+        "feedbackStage": "task_verified",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": false,
+        "reasonCodes": []
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3606,
+        "output_tokens": 60,
+        "generation_ms": 8590.813484974205
+      },
+      "elapsedSeconds": 13.237289013923146
+    },
+    {
+      "target": "fact_preservation",
+      "block": 1,
+      "arm": "unadjusted",
+      "final": "INTG-EU-002,INTG-US-004,INTG-AP-006",
+      "exactOutput": false,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": false,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "IDS|INTG-EU-002,INTG-US-004,INTG-AP-006",
+        "repaired": true,
+        "reason": "missing_prefix_repaired"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 1,
+      "searchInterventionApplied": true,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "ab9a9eae-60dc-4ec0-9a94-662c358b075e",
+      "nativeBoundObservations": 0,
+      "observationCount": 0,
+      "outcome": {
+        "status": "failure",
+        "outputHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "fail",
+            "score": 0,
+            "evidenceHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "ab9a9eae-60dc-4ec0-9a94-662c358b075e",
+        "outcomeStatus": "failure",
+        "executionStatus": "unknown",
+        "feedbackStage": "exposure_or_use",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": true,
+        "reasonCodes": [
+          "memory_exposed_without_use_evidence"
+        ]
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3730,
+        "output_tokens": 56,
+        "generation_ms": 7272.574532078579
+      },
+      "elapsedSeconds": 11.211206822074018
+    },
+    {
+      "target": "fact_preservation",
+      "block": 1,
+      "arm": "adjusted",
+      "final": "INTG-EU-002,INTG-US-004,INTG-AP-006",
+      "exactOutput": false,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": false,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "IDS|INTG-EU-002,INTG-US-004,INTG-AP-006",
+        "repaired": true,
+        "reason": "missing_prefix_repaired"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 1,
+      "searchInterventionApplied": true,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "b960e762-8fab-43d6-8e10-cb32f2308392",
+      "nativeBoundObservations": 0,
+      "observationCount": 0,
+      "outcome": {
+        "status": "failure",
+        "outputHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "fail",
+            "score": 0,
+            "evidenceHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "b960e762-8fab-43d6-8e10-cb32f2308392",
+        "outcomeStatus": "failure",
+        "executionStatus": "unknown",
+        "feedbackStage": "exposure_or_use",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": true,
+        "reasonCodes": [
+          "memory_exposed_without_use_evidence"
+        ]
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3472,
+        "output_tokens": 57,
+        "generation_ms": 8255.052405060269
+      },
+      "elapsedSeconds": 12.715390859055333
+    },
+    {
+      "target": "fact_preservation",
+      "block": 2,
+      "arm": "adjusted",
+      "final": "INTG-EU-002,INTG-US-004,INTG-AP-006",
+      "exactOutput": false,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": false,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "IDS|INTG-EU-002,INTG-US-004,INTG-AP-006",
+        "repaired": true,
+        "reason": "missing_prefix_repaired"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 1,
+      "searchInterventionApplied": true,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "9dd9832f-cc00-4286-945d-f91d7e7e2102",
+      "nativeBoundObservations": 0,
+      "observationCount": 0,
+      "outcome": {
+        "status": "failure",
+        "outputHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "fail",
+            "score": 0,
+            "evidenceHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "9dd9832f-cc00-4286-945d-f91d7e7e2102",
+        "outcomeStatus": "failure",
+        "executionStatus": "unknown",
+        "feedbackStage": "exposure_or_use",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": true,
+        "reasonCodes": [
+          "memory_exposed_without_use_evidence"
+        ]
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3472,
+        "output_tokens": 57,
+        "generation_ms": 7357.915141037665
+      },
+      "elapsedSeconds": 11.710014640935697
+    },
+    {
+      "target": "fact_preservation",
+      "block": 2,
+      "arm": "unadjusted",
+      "final": "INTG-EU-002,INTG-US-004,INTG-AP-006",
+      "exactOutput": false,
+      "semanticFactsCorrect": true,
+      "outputProtocolCorrect": false,
+      "noMutations": true,
+      "prefixRepair": {
+        "output": "IDS|INTG-EU-002,INTG-US-004,INTG-AP-006",
+        "repaired": true,
+        "reason": "missing_prefix_repaired"
+      },
+      "hostNormalizedExact": true,
+      "activeL1SearchCount": 1,
+      "searchInterventionApplied": true,
+      "excludedRecordLeaked": false,
+      "hasRequiredRead": true,
+      "taskRunId": "36de0070-ee38-4b6c-b1f1-1383475a7427",
+      "nativeBoundObservations": 0,
+      "observationCount": 0,
+      "outcome": {
+        "status": "failure",
+        "outputHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c",
+        "environmentHash": "7a7445e3e110a722597eb017e8ad862b7b3e67a54dc8d8b3edd74dcf655c20ad",
+        "modelId": "Qwen3-4B-Instruct-2507-bf16",
+        "validators": [
+          {
+            "validatorId": "exact_output",
+            "validatorVersion": "1",
+            "oracleKind": "exact",
+            "status": "fail",
+            "score": 0,
+            "evidenceHash": "703503cf843ef132ea8b5dfb81df4505b96d324686afa45193fdfd9cee62a19c"
+          },
+          {
+            "validatorId": "no_mutations",
+            "validatorVersion": "1",
+            "oracleKind": "database",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "validatorId": "required_read",
+            "validatorVersion": "1",
+            "oracleKind": "constraint",
+            "status": "pass",
+            "score": 1,
+            "evidenceHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          }
+        ]
+      },
+      "assessment": {
+        "taskRunId": "36de0070-ee38-4b6c-b1f1-1383475a7427",
+        "outcomeStatus": "failure",
+        "executionStatus": "unknown",
+        "feedbackStage": "exposure_or_use",
+        "taskOutcomeAuthority": true,
+        "eligibleForMemoryAttributionStudy": true,
+        "reasonCodes": [
+          "memory_exposed_without_use_evidence"
+        ]
+      },
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3730,
+        "output_tokens": 56,
+        "generation_ms": 7809.660292929038
+      },
+      "elapsedSeconds": 12.227363731013611
+    }
+  ],
+  "metrics": {
+    "unadjusted": {
+      "passed": 2,
+      "total": 4,
+      "passRate": 0.5,
+      "severeRegressions": 0,
+      "semanticFactsCorrect": 4,
+      "outputProtocolCorrect": 2,
+      "hostNormalizedExact": 4,
+      "calls": 8,
+      "inputTokens": 14672,
+      "outputTokens": 232,
+      "generationMs": 31991.53144902084
+    },
+    "adjusted": {
+      "passed": 2,
+      "total": 4,
+      "passRate": 0.5,
+      "severeRegressions": 0,
+      "semanticFactsCorrect": 4,
+      "outputProtocolCorrect": 2,
+      "hostNormalizedExact": 4,
+      "calls": 8,
+      "inputTokens": 13816,
+      "outputTokens": 234,
+      "generationMs": 32648.81011203397
+    },
+    "passRateDelta": 0,
+    "nativeTaskBinding": {
+      "count": 4,
+      "total": 4,
+      "rate": 1
+    },
+    "objectiveOutcomeCoverage": 1,
+    "adjustedActiveSearchIntervention": {
+      "passed": 2,
+      "total": 2,
+      "excludedRecordLeaks": 0
+    },
+    "feedbackStageCounts": {
+      "task_verified": 4,
+      "exposure_or_use": 4
+    },
+    "projectionMs": {
+      "total": 0.7680060000000282,
+      "p95": 0.3054050000000075
+    },
+    "modelCallsPerSuccess": {
+      "unadjusted": 4,
+      "adjusted": 4
+    }
+  },
+  "productionMemoryActions": 0
+}

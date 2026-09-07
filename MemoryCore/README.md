@@ -1,5 +1,7 @@
 # MemoryCore
 
+> **Anchor preview:** this branch includes an opt-in, source-grounded memory feedback layer that keeps useful facts while isolating one-off behavior. See [`research/anchor/`](research/anchor/) for the design, tests, results, and report.
+
 MemoryCore is the **memory and metadata core** of TencentDB Agent Memory. It provides unified storage and APIs for three types of data:
 
 - **Memory**: L0 conversations, L1 atomic memories, L2 scenarios, and L3 profiles.

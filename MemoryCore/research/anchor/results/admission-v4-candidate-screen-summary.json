@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "tdai-admission-v4-candidate-screen-summary.v1",
+  "status": "CANDIDATE_SCREEN_COMPLETE_NOT_FULL_V4_ACCEPTANCE",
+  "fixture": {
+    "cases": 48,
+    "retain": 24,
+    "quarantine": 24,
+    "groups": 8,
+    "diagnosticMetadataRemovedFromExternalInput": true,
+    "fixedDenominator": true
+  },
+  "alwaysRetain": {
+    "disposition": "24/48",
+    "validity": "3/48",
+    "falseActive": "24/24",
+    "usefulRetained": "24/24"
+  },
+  "legacyLexicalV1": {
+    "disposition": "27/48",
+    "validity": "18/48",
+    "falseActive": "15/24",
+    "usefulRetained": "18/24",
+    "modelCalls": 0
+  },
+  "codexDirect": {
+    "system": "codex-cli-gpt-5.6-sol-medium",
+    "trials": 3,
+    "protocolValidTrials": "3/3",
+    "dispositionSuccesses": "144/144",
+    "validitySuccesses": "133/144",
+    "firstTrialDisposition": "48/48",
+    "firstTrialValidity": "43/48",
+    "observedDispositionPass3": "48/48",
+    "observedValidityPass3": "43/48",
+    "falseActive": "0/72",
+    "usefulRetained": "72/72",
+    "reportedTotalTokens": 118258
+  },
+  "memoryCoreIndependentFinalDraftReview": {
+    "semanticReviewer": "codex-cli-gpt-5.6-sol-medium",
+    "trials": 1,
+    "stoppedReason": "observed wall-clock exceeded the <=2x direct-review development budget",
+    "protocolValid": true,
+    "exactEvidenceReferencesValid": "48/48",
+    "disposition": "48/48",
+    "validity": "45/48",
+    "falseActive": "0/24",
+    "usefulRetained": "24/24",
+    "reportedTotalTokens": 38641
+  },
+  "limitations": [
+    "All 48 cases are candidate-decision checks; the planned 16 raw-conversation end-to-end cases remain pending.",
+    "Synthetic fixtures were authored in the same development window, so this is metadata-clean but not an independently administered strict blind test.",
+    "The independent-review arm stopped after one trial on its predeclared latency rule and has no pass@3 claim.",
+    "No production Memory action was performed."
+  ]
+}

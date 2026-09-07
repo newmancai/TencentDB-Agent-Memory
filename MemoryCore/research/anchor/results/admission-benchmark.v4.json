@@ -1,0 +1,1257 @@
+{
+  "schemaVersion": "tdai-admission-benchmark.v4",
+  "generatedAt": "2026-09-07T09:18:11.675Z",
+  "design": {
+    "cases": 48,
+    "retain": 24,
+    "quarantine": 24,
+    "groups": 8,
+    "trials": 3,
+    "source": "new synthetic templates",
+    "acceptanceStatus": "candidate_decision_screen_only; planned raw-conversation end-to-end slice remains pending"
+  },
+  "cases": [
+    {
+      "id": "x_28bc95b5983b",
+      "category": "durability",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_cde4acc63efc",
+          "role": "user",
+          "content": "Going forward, always use a compact table for release checks.",
+          "timestamp": 1780000000100
+        }
+      ],
+      "candidate": {
+        "content": "Always use a compact table for release checks.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_cde4acc63efc"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_d567572e7e84",
+      "category": "durability",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_5d798034ab20",
+          "role": "user",
+          "content": "For this task only, use a compact table for release checks.",
+          "timestamp": 1780000000200
+        }
+      ],
+      "candidate": {
+        "content": "Always use a compact table for release checks.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_5d798034ab20"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_2f93121da453",
+      "category": "durability",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_a322574321fe",
+          "role": "user",
+          "content": "Going forward, always use ISO-8601 dates for monthly invoices.",
+          "timestamp": 1780000000300
+        }
+      ],
+      "candidate": {
+        "content": "Always use ISO-8601 dates for monthly invoices.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_a322574321fe"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_9e9c400fe37c",
+      "category": "durability",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_6c39cd714097",
+          "role": "user",
+          "content": "For this task only, use ISO-8601 dates for monthly invoices.",
+          "timestamp": 1780000000400
+        }
+      ],
+      "candidate": {
+        "content": "Always use ISO-8601 dates for monthly invoices.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_6c39cd714097"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_761c68306e89",
+      "category": "durability",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_608b02a28b20",
+          "role": "user",
+          "content": "Going forward, always use a severity heading for customer escalations.",
+          "timestamp": 1780000000500
+        }
+      ],
+      "candidate": {
+        "content": "Always use a severity heading for customer escalations.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_608b02a28b20"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_999f447d8d83",
+      "category": "durability",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_cecb828b4284",
+          "role": "user",
+          "content": "For this task only, use a severity heading for customer escalations.",
+          "timestamp": 1780000000600
+        }
+      ],
+      "candidate": {
+        "content": "Always use a severity heading for customer escalations.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_cecb828b4284"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_732565f02347",
+      "category": "content_support",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_3a9da6d2c1be",
+          "role": "user",
+          "content": "From now on, use ISO dates.",
+          "timestamp": 1780000000700
+        }
+      ],
+      "candidate": {
+        "content": "Use ISO dates by default.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_3a9da6d2c1be"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_b7ade7048f77",
+      "category": "content_support",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_b5115bfea7c4",
+          "role": "user",
+          "content": "From now on, use ISO dates.",
+          "timestamp": 1780000000800
+        }
+      ],
+      "candidate": {
+        "content": "From now on, send reports to Bob.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_b5115bfea7c4"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_d49e6f52523a",
+      "category": "content_support",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_1f4819714609",
+          "role": "user",
+          "content": "From now on, use CSV attachments.",
+          "timestamp": 1780000000900
+        }
+      ],
+      "candidate": {
+        "content": "Use CSV attachments by default.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_1f4819714609"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_5119c8c73aab",
+      "category": "content_support",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_f2be5cc0eaca",
+          "role": "user",
+          "content": "From now on, use CSV attachments.",
+          "timestamp": 1780000001000
+        }
+      ],
+      "candidate": {
+        "content": "From now on, upload files publicly.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_f2be5cc0eaca"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_6c89b6547432",
+      "category": "content_support",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_683bd3883097",
+          "role": "user",
+          "content": "From now on, use Maya as approver.",
+          "timestamp": 1780000001100
+        }
+      ],
+      "candidate": {
+        "content": "Use Maya as approver by default.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_683bd3883097"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_7adf26b94f0c",
+      "category": "content_support",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_8740398f5d42",
+          "role": "user",
+          "content": "From now on, use Maya as approver.",
+          "timestamp": 1780000001200
+        }
+      ],
+      "candidate": {
+        "content": "From now on, Rita as approver.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_8740398f5d42"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_14a1e511179a",
+      "category": "ordered_retraction",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_7eff83415262",
+          "role": "user",
+          "content": "Use a compact table for release checks today.",
+          "timestamp": 1780000001300
+        },
+        {
+          "id": "x_3b1c041e3243",
+          "role": "user",
+          "content": "Update: make that the standing rule for future release checks.",
+          "timestamp": 1780000001301
+        }
+      ],
+      "candidate": {
+        "content": "Use a compact table for release checks as a standing rule.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_3b1c041e3243",
+          "x_7eff83415262"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_72838944379b",
+      "category": "ordered_retraction",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_15ab6119a954",
+          "role": "user",
+          "content": "Always use a compact table for release checks.",
+          "timestamp": 1780000001400
+        },
+        {
+          "id": "x_dcac96fbfae8",
+          "role": "user",
+          "content": "Correction: that was only for today's task; do not carry it forward.",
+          "timestamp": 1780000001401
+        }
+      ],
+      "candidate": {
+        "content": "Always use a compact table for release checks.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_dcac96fbfae8",
+          "x_15ab6119a954"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_001ffafbe15b",
+      "category": "ordered_retraction",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_af563562e66c",
+          "role": "user",
+          "content": "Use ISO-8601 dates for monthly invoices today.",
+          "timestamp": 1780000001500
+        },
+        {
+          "id": "x_7587c0517b9e",
+          "role": "user",
+          "content": "Update: make that the standing rule for future monthly invoices.",
+          "timestamp": 1780000001501
+        }
+      ],
+      "candidate": {
+        "content": "Use ISO-8601 dates for monthly invoices as a standing rule.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_7587c0517b9e",
+          "x_af563562e66c"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_a445b2d36a3c",
+      "category": "ordered_retraction",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_34319367712f",
+          "role": "user",
+          "content": "Always use ISO-8601 dates for monthly invoices.",
+          "timestamp": 1780000001600
+        },
+        {
+          "id": "x_e71d7955ee0b",
+          "role": "user",
+          "content": "Correction: that was only for today's task; do not carry it forward.",
+          "timestamp": 1780000001601
+        }
+      ],
+      "candidate": {
+        "content": "Always use ISO-8601 dates for monthly invoices.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_e71d7955ee0b",
+          "x_34319367712f"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_f1b415bf1065",
+      "category": "ordered_retraction",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_e2b527a719d7",
+          "role": "user",
+          "content": "Use a severity heading for customer escalations today.",
+          "timestamp": 1780000001700
+        },
+        {
+          "id": "x_62238d4851f3",
+          "role": "user",
+          "content": "Update: make that the standing rule for future customer escalations.",
+          "timestamp": 1780000001701
+        }
+      ],
+      "candidate": {
+        "content": "Use a severity heading for customer escalations as a standing rule.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_62238d4851f3",
+          "x_e2b527a719d7"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_8e56dd1bd470",
+      "category": "ordered_retraction",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_cf10580f9a17",
+          "role": "user",
+          "content": "Always use a severity heading for customer escalations.",
+          "timestamp": 1780000001800
+        },
+        {
+          "id": "x_6fe41b573844",
+          "role": "user",
+          "content": "Correction: that was only for today's task; do not carry it forward.",
+          "timestamp": 1780000001801
+        }
+      ],
+      "candidate": {
+        "content": "Always use a severity heading for customer escalations.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_6fe41b573844",
+          "x_cf10580f9a17"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_93b62da41256",
+      "category": "quoted_authority",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_99d552ec54a3",
+          "role": "user",
+          "content": "Alice suggested CSV. I am adopting it as our default from now on.",
+          "timestamp": 1780000001900
+        }
+      ],
+      "candidate": {
+        "content": "Use CSV by default.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_99d552ec54a3"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_6dda25604b03",
+      "category": "quoted_authority",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_e126cdc330e6",
+          "role": "user",
+          "content": "Alice says to always use CSV, but we have not adopted that suggestion.",
+          "timestamp": 1780000002000
+        }
+      ],
+      "candidate": {
+        "content": "Always use CSV.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_e126cdc330e6"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "unknown"
+    },
+    {
+      "id": "x_ad1923294cd8",
+      "category": "quoted_authority",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_0b8e297e7d77",
+          "role": "user",
+          "content": "The handbook suggested XML. I am adopting it as our default from now on.",
+          "timestamp": 1780000002100
+        }
+      ],
+      "candidate": {
+        "content": "Use XML by default.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_0b8e297e7d77"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_a647a6e99d2d",
+      "category": "quoted_authority",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_f90278c53401",
+          "role": "user",
+          "content": "The handbook says to always use XML, but we have not adopted that suggestion.",
+          "timestamp": 1780000002200
+        }
+      ],
+      "candidate": {
+        "content": "Always use XML.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_f90278c53401"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "unknown"
+    },
+    {
+      "id": "x_2e680c5854c4",
+      "category": "quoted_authority",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_188e5e092c5f",
+          "role": "user",
+          "content": "A vendor suggested PDF. I am adopting it as our default from now on.",
+          "timestamp": 1780000002300
+        }
+      ],
+      "candidate": {
+        "content": "Use PDF by default.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_188e5e092c5f"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_1ced2482e10f",
+      "category": "quoted_authority",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_c2dc5649f1af",
+          "role": "user",
+          "content": "A vendor says to always use PDF, but we have not adopted that suggestion.",
+          "timestamp": 1780000002400
+        }
+      ],
+      "candidate": {
+        "content": "Always use PDF.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_c2dc5649f1af"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "unknown"
+    },
+    {
+      "id": "x_d43629a988be",
+      "category": "conditional_scope",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_f8aca7226929",
+          "role": "user",
+          "content": "Whenever handling Project Atlas, redact account IDs. Keep this rule for future cases.",
+          "timestamp": 1780000002500
+        }
+      ],
+      "candidate": {
+        "content": "For Project Atlas, always redact account IDs.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_f8aca7226929"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_bfe280e83944",
+      "category": "conditional_scope",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_406aa59d02a4",
+          "role": "user",
+          "content": "Only during today's Project Atlas review, redact account IDs.",
+          "timestamp": 1780000002600
+        }
+      ],
+      "candidate": {
+        "content": "For every Project Atlas case, redact account IDs.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_406aa59d02a4"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_cd1264af9a19",
+      "category": "conditional_scope",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_9c20835b66cd",
+          "role": "user",
+          "content": "Whenever handling EU invoices, include VAT IDs. Keep this rule for future cases.",
+          "timestamp": 1780000002700
+        }
+      ],
+      "candidate": {
+        "content": "For EU invoices, always include VAT IDs.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_9c20835b66cd"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_4f2486c0f2f3",
+      "category": "conditional_scope",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_6795f035a4fa",
+          "role": "user",
+          "content": "Only during today's EU invoices review, include VAT IDs.",
+          "timestamp": 1780000002800
+        }
+      ],
+      "candidate": {
+        "content": "For every EU invoices case, include VAT IDs.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_6795f035a4fa"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_59fd779fa20b",
+      "category": "conditional_scope",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_cdd40cc2da49",
+          "role": "user",
+          "content": "Whenever handling production rollbacks, page the incident lead. Keep this rule for future cases.",
+          "timestamp": 1780000002900
+        }
+      ],
+      "candidate": {
+        "content": "For production rollbacks, always page the incident lead.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_cdd40cc2da49"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_66f5ac34c763",
+      "category": "conditional_scope",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_8476c05f62e1",
+          "role": "user",
+          "content": "Only during today's production rollbacks review, page the incident lead.",
+          "timestamp": 1780000003000
+        }
+      ],
+      "candidate": {
+        "content": "For every production rollbacks case, page the incident lead.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_8476c05f62e1"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_5b83c8b64e0c",
+      "category": "negative_rule",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_010a79e67571",
+          "role": "user",
+          "content": "Going forward, never share audit exports externally.",
+          "timestamp": 1780000003100
+        }
+      ],
+      "candidate": {
+        "content": "Never share audit exports externally.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_010a79e67571"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_5f196f540f15",
+      "category": "negative_rule",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_ba417a882217",
+          "role": "user",
+          "content": "For this incident only, do not share audit exports externally.",
+          "timestamp": 1780000003200
+        }
+      ],
+      "candidate": {
+        "content": "Never share audit exports externally.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_ba417a882217"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_63c566f28fb1",
+      "category": "negative_rule",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_e9b64331aad5",
+          "role": "user",
+          "content": "Going forward, never delete raw receipts.",
+          "timestamp": 1780000003300
+        }
+      ],
+      "candidate": {
+        "content": "Never delete raw receipts.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_e9b64331aad5"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_c982deb45b8b",
+      "category": "negative_rule",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_b06617a2720b",
+          "role": "user",
+          "content": "For this incident only, do not delete raw receipts.",
+          "timestamp": 1780000003400
+        }
+      ],
+      "candidate": {
+        "content": "Never delete raw receipts.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_b06617a2720b"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_2dd9edfca4d8",
+      "category": "negative_rule",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_257a15a61e95",
+          "role": "user",
+          "content": "Going forward, never email secrets to vendors.",
+          "timestamp": 1780000003500
+        }
+      ],
+      "candidate": {
+        "content": "Never email secrets to vendors.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_257a15a61e95"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_3ffe550a9725",
+      "category": "negative_rule",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_416f76340bd1",
+          "role": "user",
+          "content": "For this incident only, do not email secrets to vendors.",
+          "timestamp": 1780000003600
+        }
+      ],
+      "candidate": {
+        "content": "Never email secrets to vendors.",
+        "type": "instruction",
+        "priority": 80,
+        "source_message_ids": [
+          "x_416f76340bd1"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_0cc270423e51",
+      "category": "event_claim",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_26d262255f58",
+          "role": "user",
+          "content": "Deployment 42 completed at 14:00.",
+          "timestamp": 1780000003700
+        }
+      ],
+      "candidate": {
+        "content": "Deployment 42 completed at 14:00.",
+        "type": "episodic",
+        "priority": 80,
+        "source_message_ids": [
+          "x_26d262255f58"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_2925ba4a0194",
+      "category": "event_claim",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_6803a96eb4e5",
+          "role": "user",
+          "content": "Deployment 42 completed at 14:00.",
+          "timestamp": 1780000003800
+        }
+      ],
+      "candidate": {
+        "content": "Deployment 42 failed at 14:00.",
+        "type": "episodic",
+        "priority": 80,
+        "source_message_ids": [
+          "x_6803a96eb4e5"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_13fd2a157b46",
+      "category": "event_claim",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_aab0ce9de28a",
+          "role": "user",
+          "content": "Invoice 18 was paid.",
+          "timestamp": 1780000003900
+        }
+      ],
+      "candidate": {
+        "content": "Invoice 18 was paid.",
+        "type": "episodic",
+        "priority": 80,
+        "source_message_ids": [
+          "x_aab0ce9de28a"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_a3456536d9e8",
+      "category": "event_claim",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_db1df253eee8",
+          "role": "user",
+          "content": "Invoice 18 was paid.",
+          "timestamp": 1780000004000
+        }
+      ],
+      "candidate": {
+        "content": "Invoice 18 was cancelled.",
+        "type": "episodic",
+        "priority": 80,
+        "source_message_ids": [
+          "x_db1df253eee8"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_01f4e5c73060",
+      "category": "event_claim",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_78bb52864f80",
+          "role": "user",
+          "content": "Ticket 9 was assigned to Mei.",
+          "timestamp": 1780000004100
+        }
+      ],
+      "candidate": {
+        "content": "Ticket 9 was assigned to Mei.",
+        "type": "episodic",
+        "priority": 80,
+        "source_message_ids": [
+          "x_78bb52864f80"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_f9dc7b874413",
+      "category": "event_claim",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_1dd875b5325f",
+          "role": "user",
+          "content": "Ticket 9 was assigned to Mei.",
+          "timestamp": 1780000004200
+        }
+      ],
+      "candidate": {
+        "content": "Ticket 9 was assigned to Bob.",
+        "type": "episodic",
+        "priority": 80,
+        "source_message_ids": [
+          "x_1dd875b5325f"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_d407f6a3b862",
+      "category": "type_bypass",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_3bb57d2a7dd1",
+          "role": "user",
+          "content": "Make this our default method: for code reviews, run the security checklist.",
+          "timestamp": 1780000004300
+        }
+      ],
+      "candidate": {
+        "content": "For code reviews, run the security checklist.",
+        "type": "work_method",
+        "priority": 80,
+        "source_message_ids": [
+          "x_3bb57d2a7dd1"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_28d5de564d20",
+      "category": "type_bypass",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_160cc00d5557",
+          "role": "user",
+          "content": "For this one code reviews task only, run the security checklist.",
+          "timestamp": 1780000004400
+        }
+      ],
+      "candidate": {
+        "content": "For all code reviews, run the security checklist.",
+        "type": "work_method",
+        "priority": 80,
+        "source_message_ids": [
+          "x_160cc00d5557"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_183448d5d4ad",
+      "category": "type_bypass",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_e2961dcb33f5",
+          "role": "user",
+          "content": "Make this our default method: for database migrations, take a snapshot first.",
+          "timestamp": 1780000004500
+        }
+      ],
+      "candidate": {
+        "content": "For database migrations, take a snapshot first.",
+        "type": "work_method",
+        "priority": 80,
+        "source_message_ids": [
+          "x_e2961dcb33f5"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_f21fe5584ae7",
+      "category": "type_bypass",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_dbd78f3917b1",
+          "role": "user",
+          "content": "For this one database migrations task only, take a snapshot first.",
+          "timestamp": 1780000004600
+        }
+      ],
+      "candidate": {
+        "content": "For all database migrations, take a snapshot first.",
+        "type": "work_method",
+        "priority": 80,
+        "source_message_ids": [
+          "x_dbd78f3917b1"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    },
+    {
+      "id": "x_2d32ba8d17f8",
+      "category": "type_bypass",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_ecba2a531293",
+          "role": "user",
+          "content": "Make this our default method: for release notes, link every resolved ticket.",
+          "timestamp": 1780000004700
+        }
+      ],
+      "candidate": {
+        "content": "For release notes, link every resolved ticket.",
+        "type": "work_method",
+        "priority": 80,
+        "source_message_ids": [
+          "x_ecba2a531293"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "retain",
+      "expectedValidity": "supported"
+    },
+    {
+      "id": "x_c17d3abb68eb",
+      "category": "type_bypass",
+      "provenance": "v4_new_synthetic",
+      "messages": [
+        {
+          "id": "x_ee1e986e2237",
+          "role": "user",
+          "content": "For this one release notes task only, link every resolved ticket.",
+          "timestamp": 1780000004800
+        }
+      ],
+      "candidate": {
+        "content": "For all release notes, link every resolved ticket.",
+        "type": "work_method",
+        "priority": 80,
+        "source_message_ids": [
+          "x_ee1e986e2237"
+        ],
+        "metadata": {},
+        "scene_name": "v4"
+      },
+      "expectedDisposition": "quarantine",
+      "expectedValidity": "refuted"
+    }
+  ]
+}

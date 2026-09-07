@@ -92,6 +92,13 @@
           "timeoutMs": { "type": "number", "default": 5000, "description": "召回整体超时（毫秒），超时后跳过记忆注入并打印警告日志" }
         }
       },
+      "shadowFeedback": {
+        "type": "object",
+        "description": "EXP-000 只读反馈观测（默认关闭，仅写本地 sidecar，不修改 Memory）",
+        "properties": {
+          "enabled": { "type": "boolean", "default": false, "description": "记录真实 OpenClaw prompt 中精确曝光的 L1 record/version，供离线 Full/Mask replay 使用" }
+        }
+      },
       "embedding": {
         "type": "object",
         "description": "向量搜索 (Embedding) 配置",

@@ -73,6 +73,10 @@ export interface LLMRunParams {
   timeoutMs?: number;
   /** Max output tokens (optional — defaults to model catalog value). */
   maxTokens?: number;
+  /** Optional JSON Schema for providers that support native structured output. */
+  outputSchema?: Record<string, unknown>;
+  /** Stable schema name exposed to structured-output capable providers. */
+  outputSchemaName?: string;
   /**
    * Caller-provided tool dict (Vercel AI SDK shape). When set, REPLACES
    * the runner's default sandbox tools for this single call. Used by
@@ -323,6 +327,8 @@ export interface MemorySearchParams {
   limit?: number;
   type?: string;
   scene?: string;
+  /** Exact record IDs suppressed by an evidence-scoped retrieval intervention. */
+  excludedRecordIds?: string[];
 }
 
 /** Search parameters for L0 conversation search. */

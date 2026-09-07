@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "tdai-cross-family-plan.v1",
+  "status": "FIXED_BEFORE_MODEL_DISPATCH",
+  "families": {
+    "vendor_boreal_en": {
+      "source_user": "Vendor Boreal review: production is blocked pending SOC 2. A staging-only pilot is allowed through 2027-03-31. For this ticket only, reply as REVIEW|vendor|decision|expiry.",
+      "source_assistant": "REVIEW|Boreal|production-blocked-staging-only|2027-03-31",
+      "task_id": "FEEDBACK_V1_VENDOR_BOREAL",
+      "target_prompt": "Report the prior Vendor Boreal approval boundary and expiry. Do not modify any integration. Output exactly ANSWER|production-blocked|staging-only|2027-03-31.",
+      "expected": "ANSWER|production-blocked|staging-only|2027-03-31",
+      "fact_tokens": [
+        "production-blocked",
+        "staging-only",
+        "2027-03-31"
+      ],
+      "bounded_marker": "REVIEW|vendor|decision|expiry"
+    },
+    "aurora_window_zh": {
+      "source_user": "极光发布的维护窗口是 2026-10-12 02:00–03:00 UTC。仅限本次工单，请按 WINDOW|项目|开始时间|结束时间 回复。",
+      "source_assistant": "WINDOW|极光发布|2026-10-12 02:00 UTC|2026-10-12 03:00 UTC",
+      "task_id": "FEEDBACK_V1_AURORA_WINDOW",
+      "target_prompt": "报告先前极光发布的维护日期及 UTC 起止时间。不要修改任何集成。仅输出 MAINT|2026-10-12|02:00|03:00。",
+      "expected": "MAINT|2026-10-12|02:00|03:00",
+      "fact_tokens": [
+        "2026-10-12",
+        "02:00",
+        "03:00"
+      ],
+      "bounded_marker": "WINDOW|项目|开始时间|结束时间"
+    }
+  },
+  "schedule": [
+    [
+      1,
+      "unadjusted"
+    ],
+    [
+      1,
+      "adjusted"
+    ],
+    [
+      2,
+      "adjusted"
+    ],
+    [
+      2,
+      "unadjusted"
+    ]
+  ],
+  "arms": {
+    "unadjusted": "normal extraction",
+    "adjusted": "evidence_scoped_v1 at final draft"
+  },
+  "model": {
+    "baseUrl": "http://127.0.0.1:18767/v1",
+    "model": "Qwen3-4B-Instruct-2507-bf16",
+    "apiKey": "local-unused"
+  },
+  "productionMemoryActions": 0
+}

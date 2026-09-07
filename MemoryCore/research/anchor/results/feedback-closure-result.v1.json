@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "tdai-feedback-closure-result.v1",
+  "generatedAt": "2026-09-07T11:52:28.808Z",
+  "evidence": "zero-feedback-phase1-r1 persisted traces",
+  "evaluationBoundary": "offline development replay; post-run action grader is not runtime feedback",
+  "taskEvidenceReplay": {
+    "rows": [
+      {
+        "case": "near",
+        "arm": "baseline",
+        "actionTaskPass": true,
+        "expectedStage": "task_verified",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "76141a18-bbf3-46e0-aaf5-3253ec075eee",
+          "outcomeStatus": "success",
+          "executionStatus": "verified",
+          "feedbackStage": "task_verified",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": true,
+          "reasonCodes": []
+        }
+      },
+      {
+        "case": "near",
+        "arm": "candidate",
+        "actionTaskPass": true,
+        "expectedStage": "task_verified",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "d862a2bf-46f2-4c3f-a478-82fc00c2fb77",
+          "outcomeStatus": "success",
+          "executionStatus": "verified",
+          "feedbackStage": "task_verified",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": true,
+          "reasonCodes": []
+        }
+      },
+      {
+        "case": "far",
+        "arm": "baseline",
+        "actionTaskPass": true,
+        "expectedStage": "task_verified",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "6ca7eef4-c740-4ad5-b861-963abed67bc1",
+          "outcomeStatus": "success",
+          "executionStatus": "verified",
+          "feedbackStage": "task_verified",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": true,
+          "reasonCodes": []
+        }
+      },
+      {
+        "case": "far",
+        "arm": "candidate",
+        "actionTaskPass": false,
+        "expectedStage": "exposure_or_use",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "c5d98e7e-4ea9-4544-b30b-e2202d51d138",
+          "outcomeStatus": "failure",
+          "executionStatus": "unknown",
+          "feedbackStage": "exposure_or_use",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": true,
+          "reasonCodes": [
+            "memory_exposed_without_use_evidence"
+          ]
+        }
+      },
+      {
+        "case": "unrelated",
+        "arm": "baseline",
+        "actionTaskPass": true,
+        "expectedStage": "task_verified",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "23dab79e-e82b-45a0-b1bf-718e51b935d3",
+          "outcomeStatus": "success",
+          "executionStatus": "unknown",
+          "feedbackStage": "task_verified",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": false,
+          "reasonCodes": []
+        }
+      },
+      {
+        "case": "unrelated",
+        "arm": "candidate",
+        "actionTaskPass": true,
+        "expectedStage": "task_verified",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "dd241c8c-9a75-4197-97a7-5d8def467f83",
+          "outcomeStatus": "success",
+          "executionStatus": "unknown",
+          "feedbackStage": "task_verified",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": false,
+          "reasonCodes": []
+        }
+      },
+      {
+        "case": "missing",
+        "arm": "baseline",
+        "actionTaskPass": true,
+        "expectedStage": "task_verified",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "43d69639-d647-44da-b609-8e0a183ec1ff",
+          "outcomeStatus": "success",
+          "executionStatus": "failed",
+          "feedbackStage": "task_verified",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": false,
+          "reasonCodes": []
+        }
+      },
+      {
+        "case": "missing",
+        "arm": "candidate",
+        "actionTaskPass": true,
+        "expectedStage": "task_verified",
+        "stageMatchesReview": true,
+        "assessment": {
+          "taskRunId": "4e9e2aa1-f882-47d1-a1f8-16a7749a181c",
+          "outcomeStatus": "success",
+          "executionStatus": "failed",
+          "feedbackStage": "task_verified",
+          "taskOutcomeAuthority": true,
+          "eligibleForMemoryAttributionStudy": false,
+          "reasonCodes": []
+        }
+      }
+    ],
+    "metrics": {
+      "targetRuns": 8,
+      "toolObservations": 16,
+      "nativeTaskBinding": {
+        "count": 0,
+        "rate": 0
+      },
+      "deterministicallyRecoveredBinding": {
+        "count": 16,
+        "rate": 1,
+        "basis": "isolated episode exposure.taskRunId equals observation.sessionId"
+      },
+      "authoritativeOutcomeCoverage": 1,
+      "localExecutionJudgeableCoverage": 0.625,
+      "reviewedStageAgreement": 1,
+      "stageCounts": {
+        "task_verified": 7,
+        "exposure_or_use": 1
+      },
+      "modelCalls": 0,
+      "tokens": 0,
+      "projectionLatencyMs": {
+        "total": 1.2266339999999616,
+        "p95": 0.5815580000000011
+      }
+    }
+  },
+  "memoryAdjustment": {
+    "source": "phase1 actual Qwen extraction",
+    "before": {
+      "retainedRecords": 2,
+      "behaviorTypedRecords": 1,
+      "eventRecords": 1
+    },
+    "feedbackDecision": {
+      "recordId": "phase1-spurious-format-instruction",
+      "storageDisposition": "quarantine",
+      "activation": "inactive",
+      "validity": "unknown",
+      "semanticEscalation": true,
+      "reasonCodes": [
+        "claim_not_lexically_grounded"
+      ]
+    },
+    "afterShadowAdjustment": {
+      "retainedRetrievableEventRecords": 1,
+      "activeBehaviorRulesFromFormatCandidate": 0,
+      "quarantinedRecords": 1,
+      "rawL0Preserved": true
+    },
+    "componentChecks": {
+      "temporaryFormatNotActivatedCrossTask": true,
+      "approvedSubsetStillAvailableInEvent": true,
+      "passed": 2,
+      "total": 2
+    },
+    "limitation": "Component-level shadow replay only; no new model task was executed."
+  },
+  "closureDecision": {
+    "memoryUtilityCredit": "none",
+    "reason": "single observational failure localizes to exposure/use but does not identify harmful Memory content",
+    "admissionAction": "quarantine_unproven_behavior_activation",
+    "preservedEvidence": [
+      "raw_l0",
+      "episodic_l1"
+    ],
+    "executionAction": "require_current_task_receipt",
+    "optimizationReady": false
+  },
+  "totalRunnerMs": 20.960295000000002,
+  "productionMemoryActions": 0
+}

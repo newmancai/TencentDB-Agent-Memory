@@ -18,7 +18,7 @@
 
 import fsPromises from "node:fs/promises";
 import path from "node:path";
-import { generateText, tool, stepCountIs, jsonSchema } from "ai";
+import { generateText, tool, stepCountIs, jsonSchema, Output } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
 import { report } from "../../core/report/reporter.js";
 import type {
@@ -318,6 +318,12 @@ export class StandaloneLLMRunner implements LLMRunner {
         ? AbortSignal.any([timeoutSignal, params.abortSignal])
         : timeoutSignal;
 
+      const structuredOutput = params.outputSchema
+        ? Output.object({
+          schema: jsonSchema(params.outputSchema),
+          name: params.outputSchemaName ?? "structured_output",
+        })
+        : undefined;
       const result = await generateText({
         model: provider.chat(this.model),
         system: params.systemPrompt,
@@ -328,6 +334,7 @@ export class StandaloneLLMRunner implements LLMRunner {
         ...(tools && Object.keys(tools).length > 0
           ? { tools, stopWhen: stepCountIs(maxIterations) }
           : {}),
+        ...(structuredOutput ? { output: structuredOutput } : {}),
         maxOutputTokens: maxTokens,
         abortSignal: combinedSignal,
         experimental_telemetry: {
@@ -337,7 +344,9 @@ export class StandaloneLLMRunner implements LLMRunner {
         },
       });
 
-      const text = (result.text ?? "").trim();
+      const text = structuredOutput
+        ? JSON.stringify(result.output)
+        : (result.text ?? "").trim();
       const totalMs = Date.now() - runStartMs;
 
       // 暴露 token usage 到 side-channel（供 MetricTrackingRunner 读取）

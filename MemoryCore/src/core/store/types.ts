@@ -46,6 +46,29 @@ export {
 /** Minimal logger interface accepted by store implementations. */
 export type StoreLogger = Logger;
 
+/**
+ * Application-level acknowledgement emitted only after an existing persistence
+ * method reports success.  It is deliberately explicit about the observation
+ * basis: current stores do not expose a native transaction/ETag receipt, so a
+ * caller must not silently promote `upsert_returned_true` into stronger proof.
+ *
+ * The shadow observation plane hashes this whole object when it needs to bind a
+ * capture event to the concrete write acknowledgement.  Failure paths have no
+ * receipt; they are represented by the surrounding passive write observation.
+ */
+export interface MemoryPersistenceReceipt {
+  schemaVersion: "tdai-memory-persistence-receipt.v1";
+  receiptId: string;
+  layer: "L0" | "L1";
+  sink: "storage_jsonl" | "local_jsonl" | "memory_store";
+  acknowledgementBasis: "append_resolved" | "upsert_returned_true";
+  target: string;
+  recordIds: string[];
+  versions: number[];
+  payloadSha256: string;
+  acknowledgedAt: string;
+}
+
 // ============================
 // L1 Types (Structured Memories)
 // ============================

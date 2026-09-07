@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "tdai-mixed-claim-projection-benchmark.v1",
+  "generatedAt": "2026-09-07T13:47:46.677Z",
+  "method": "deterministic adversarial component check; fixed handcrafted cases; not a blind model evaluation",
+  "metrics": {
+    "cases": 14,
+    "newSourceTemplates": 14,
+    "actionCorrect": 14,
+    "contentCorrect": 14,
+    "projected": 8,
+    "quarantined": 2,
+    "unchanged": 4,
+    "boundedProtocolActiveBefore": 10,
+    "boundedProtocolActiveAfter": 0,
+    "modelCalls": 0,
+    "modelTokens": 0,
+    "elapsedMs": 16.835174999999992
+  },
+  "rows": [
+    {
+      "caseNumber": 1,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "Falcon release remains blocked by CAB. A canary is approved through Friday. Only for this incident, respond with INCIDENT|service|status.",
+      "candidate": "Falcon is blocked by CAB, a canary is approved through Friday, and the user requested INCIDENT|service|status replies.",
+      "actualContent": "Falcon release remains blocked by CAB. A canary is approved through Friday.",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source"
+      ]
+    },
+    {
+      "caseNumber": 2,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "The Delta invoice total is USD 480. This session, return the answer in JSON.",
+      "candidate": "The invoice total is USD 480 and the assistant must return the answer in JSON.",
+      "actualContent": "The Delta invoice total is USD 480.",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source"
+      ]
+    },
+    {
+      "caseNumber": 3,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "The Cedar backup completed at 02:10 UTC. For today's audit only, reply using AUDIT|job|time.",
+      "candidate": "The Cedar backup completed at 02:10 UTC; the user asked the assistant to reply using AUDIT|job|time.",
+      "actualContent": "The Cedar backup completed at 02:10 UTC.",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source"
+      ]
+    },
+    {
+      "caseNumber": 4,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "Mica access expires at 18:00. During the migration only, output as ACCESS|account|expiry.",
+      "candidate": "Mica access expires at 18:00 and the assistant should output as ACCESS|account|expiry.",
+      "actualContent": "Mica access expires at 18:00.",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source"
+      ]
+    },
+    {
+      "caseNumber": 5,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "青禾数据库已完成切换。新主库位于上海三区。本轮请按 CHECK|cluster|zone 回复。",
+      "candidate": "青禾数据库已完成切换，新主库位于上海三区，用户要求助手按 CHECK|cluster|zone 回复。",
+      "actualContent": "青禾数据库已完成切换。 新主库位于上海三区。",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source"
+      ]
+    },
+    {
+      "caseNumber": 6,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "云杉服务只能部署到预发布环境。授权在 9 月 12 日到期。仅限这个工单，请以 DEPLOY|env|expiry 回复。",
+      "candidate": "云杉服务仅允许预发布部署，授权到 9 月 12 日；请以 DEPLOY|env|expiry 回复。",
+      "actualContent": "云杉服务只能部署到预发布环境。 授权在 9 月 12 日到期。",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source"
+      ]
+    },
+    {
+      "caseNumber": 7,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "Project Iris owner is Li. 仅限本次，reply as OWNER|name.",
+      "candidate": "Iris 项目负责人是 Li，并要求助手回复 OWNER|name。",
+      "actualContent": "Project Iris owner is Li.",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source",
+        "candidate_language_mismatch"
+      ]
+    },
+    {
+      "caseNumber": 8,
+      "expectedAction": "project",
+      "actualAction": "project",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "Orchid maintenance starts at 01:00. For this ticket only, answer in the template ORCHID|start.",
+      "candidate": "Orchid maintenance starts at 01:00 and the user asked the assistant to answer in the template ORCHID|start.",
+      "actualContent": "Orchid maintenance starts at 01:00.",
+      "reasonCodes": [
+        "bounded_response_protocol_removed",
+        "projected_from_cited_user_source"
+      ]
+    },
+    {
+      "caseNumber": 9,
+      "expectedAction": "quarantine",
+      "actualAction": "quarantine",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "For this task, region eu-west-1 is approved; reply as REGION|name.",
+      "candidate": "Region eu-west-1 is approved and the user requested REGION|name replies.",
+      "actualContent": null,
+      "reasonCodes": [
+        "mixed_fact_behavior_unresolved"
+      ]
+    },
+    {
+      "caseNumber": 10,
+      "expectedAction": "quarantine",
+      "actualAction": "quarantine",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "本次窗口为 04:00，请按 WINDOW|time 回复。",
+      "candidate": "窗口为 04:00，用户要求按 WINDOW|time 回复。",
+      "actualContent": null,
+      "reasonCodes": [
+        "mixed_fact_behavior_unresolved"
+      ]
+    },
+    {
+      "caseNumber": 11,
+      "expectedAction": "unchanged",
+      "actualAction": "unchanged",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "Today's API response format changed to JSON for this release.",
+      "candidate": "Today's API response format changed to JSON for this release.",
+      "actualContent": "Today's API response format changed to JSON for this release.",
+      "reasonCodes": [
+        "non_instruction_not_changed"
+      ]
+    },
+    {
+      "caseNumber": 12,
+      "expectedAction": "unchanged",
+      "actualAction": "unchanged",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "本次工单批准集成 A。",
+      "candidate": "本次工单批准集成 A。",
+      "actualContent": "本次工单批准集成 A。",
+      "reasonCodes": [
+        "non_instruction_not_changed"
+      ]
+    },
+    {
+      "caseNumber": 13,
+      "expectedAction": "unchanged",
+      "actualAction": "unchanged",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "The phrase 'reply as JSON' appears in the migration guide.",
+      "candidate": "The phrase 'reply as JSON' appears in the migration guide.",
+      "actualContent": "The phrase 'reply as JSON' appears in the migration guide.",
+      "reasonCodes": [
+        "non_instruction_not_changed"
+      ]
+    },
+    {
+      "caseNumber": 14,
+      "expectedAction": "unchanged",
+      "actualAction": "unchanged",
+      "actionCorrect": true,
+      "contentCorrect": true,
+      "source": "今天批处理输出格式由 CSV 改为 Parquet。",
+      "candidate": "今天批处理输出格式由 CSV 改为 Parquet。",
+      "actualContent": "今天批处理输出格式由 CSV 改为 Parquet。",
+      "reasonCodes": [
+        "non_instruction_not_changed"
+      ]
+    }
+  ]
+}

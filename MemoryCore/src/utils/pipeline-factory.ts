@@ -46,6 +46,11 @@ import {
 } from "../core/profile/profile-sync.js";
 import { createScopedStorageAdapter, type StorageAdapter } from "../core/storage/adapter.js";
 import type { Logger } from "../core/types.js";
+import type { MemoryAdmissionDecision } from "../core/self-supervision/evidence-scoped-admission.js";
+import {
+  createLlmFinalDraftReviewer,
+  type FinalDraftAdmissionDecision,
+} from "../core/self-supervision/final-draft-admission.js";
 
 const TAG = "[memory-tdai] [pipeline-factory]";
 
@@ -372,6 +377,10 @@ export function createL1Runner(opts: {
   llmRunner?: import("../core/types.js").LLMRunner;
   /** StorageAdapter for file operations (COS/local). */
   storage?: StorageAdapter;
+  /** Opt-in evidence-scoped L1 admission; omitted by every production caller. */
+  admissionPolicy?: "evidence_scoped_v1";
+  /** Opt-in post-dedup semantic review; omitted by production callers. */
+  finalDraftAdmissionStrategy?: "single_structured" | "independent_behavior_verifier";
 }): (params: { sessionKey: string }) => Promise<{
   processedCount: number;
   storedCount: number;
@@ -380,8 +389,18 @@ export function createL1Runner(opts: {
   /** True iff the over-fetch returned exactly L1_BATCH_QUERY rows (i.e. likely large backlog). */
   hasFullBacklog: boolean;
   profileScopes: string[];
+  /** Present for opt-in runs so source-bound decisions remain auditable. */
+  admissionDecisions?: MemoryAdmissionDecision[];
+  finalDraftAdmissionDecisions?: FinalDraftAdmissionDecision[];
+  reviewQueuePersisted?: boolean;
 }> {
-  const { pluginDataDir, cfg, openclawConfig, vectorStore, embeddingService, logger, getInstanceId, llmRunner, storage } = opts;
+  const {
+    pluginDataDir, cfg, openclawConfig, vectorStore, embeddingService, logger,
+    getInstanceId, llmRunner, storage, admissionPolicy, finalDraftAdmissionStrategy,
+  } = opts;
+  if (finalDraftAdmissionStrategy && !llmRunner) {
+    throw new Error("finalDraftAdmissionStrategy requires an explicit host-neutral llmRunner");
+  }
   const config = openclawConfig as Record<string, unknown> | undefined;
 
   return async ({ sessionKey }) => {
@@ -418,7 +437,7 @@ export function createL1Runner(opts: {
           for (const m of g.messages) {
             flat.push({
               id: m.id,
-              role: m.role as "user" | "assistant",
+              role: m.role as ConversationMessage["role"],
               content: m.content,
               timestamp: m.timestamp,
               sessionId: g.sessionId,
@@ -452,7 +471,7 @@ export function createL1Runner(opts: {
           for (const m of g.messages) {
             flat.push({
               id: m.id,
-              role: m.role as "user" | "assistant",
+              role: m.role as ConversationMessage["role"],
               content: m.content,
               timestamp: m.timestamp,
               sessionId: g.sessionId,
@@ -560,6 +579,9 @@ export function createL1Runner(opts: {
       let totalStored = 0;
       let lastSceneName: string | undefined;
       const profileScopes = new Set<string>();
+      const admissionDecisions: MemoryAdmissionDecision[] = [];
+      const finalDraftAdmissionDecisions: FinalDraftAdmissionDecision[] = [];
+      let reviewQueuePersisted = true;
 
       for (const group of groups) {
         logger.debug?.(
@@ -587,6 +609,11 @@ export function createL1Runner(opts: {
             conflictRecallTopK: cfg.embedding.conflictRecallTopK,
             embeddingTimeoutMs: cfg.embedding.captureTimeoutMs ?? cfg.embedding.timeoutMs,
             llmRunner,
+            admissionPolicy,
+            finalDraftAdmission: finalDraftAdmissionStrategy && llmRunner ? {
+              strategy: finalDraftAdmissionStrategy,
+              reviewer: createLlmFinalDraftReviewer(llmRunner),
+            } : undefined,
           },
           logger,
           instanceId: getInstanceId?.(),
@@ -595,6 +622,11 @@ export function createL1Runner(opts: {
 
         totalExtracted += l1Result.extractedCount;
         totalStored += l1Result.storedCount;
+        if (l1Result.admissionDecisions) admissionDecisions.push(...l1Result.admissionDecisions);
+        if (l1Result.finalDraftAdmissionDecisions) {
+          finalDraftAdmissionDecisions.push(...l1Result.finalDraftAdmissionDecisions);
+          reviewQueuePersisted = reviewQueuePersisted && l1Result.reviewQueuePersisted !== false;
+        }
         if (l1Result.storedCount > 0) {
           // L2/L3 output is team+agent scoped, but each L2 extraction input must
           // stay bounded to the source session that just produced L1. Encode the
@@ -620,7 +652,16 @@ export function createL1Runner(opts: {
         `${TAG} [l1] L1 complete: extracted=${totalExtracted}, stored=${totalStored} (${groups.length} group(s))`,
       );
 
-      return { processedCount: totalMessages, storedCount: totalStored, hasMore, hasFullBacklog, profileScopes: Array.from(profileScopes) };
+      return {
+        processedCount: totalMessages,
+        storedCount: totalStored,
+        hasMore,
+        hasFullBacklog,
+        profileScopes: Array.from(profileScopes),
+        admissionDecisions: admissionPolicy ? admissionDecisions : undefined,
+        finalDraftAdmissionDecisions: finalDraftAdmissionStrategy ? finalDraftAdmissionDecisions : undefined,
+        reviewQueuePersisted: finalDraftAdmissionStrategy ? reviewQueuePersisted : undefined,
+      };
     } catch (err) {
       logger.error(`${TAG} [l1] L1 failed: ${err instanceof Error ? err.stack ?? err.message : String(err)}`);
       throw err;

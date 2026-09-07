@@ -33,7 +33,11 @@ import type { MemoryTdaiConfig } from "../config.js";
 import type { IMemoryStore } from "./store/types.js";
 import type { EmbeddingService } from "./store/embedding.js";
 import type { StorageAdapter } from "./storage/adapter.js";
-import { performAutoRecall } from "./hooks/auto-recall.js";
+import {
+  performAutoRecall,
+  type AutoRecallIntervention,
+  type AutoRecallShadowTap,
+} from "./hooks/auto-recall.js";
 import { reportRecallMetrics } from "./report/metric-tracking-recall.js";
 import { performAutoCapture } from "./hooks/auto-capture.js";
 import { executeMemorySearch, formatSearchResponse } from "./tools/memory-search.js";
@@ -137,6 +141,14 @@ export interface TdaiCoreOptions {
    * （零耦合：OpenClaw 无 MetadataService 场景仍可安全构造）。
    */
   skillAssetHooks?: SkillAssetHooks;
+}
+
+/** Per-call options for normal recall and isolated value replay arms. */
+export interface BeforeRecallOptions {
+  /** Optional shadow trace sink; omitted in the normal production path. */
+  shadowTap?: AutoRecallShadowTap;
+  /** Remove exact record IDs before retrieval, then run the normal recall path. */
+  intervention?: AutoRecallIntervention;
 }
 
 // ============================
@@ -371,7 +383,11 @@ export class TdaiCore {
    * Handle recall (memory retrieval) before an LLM turn.
    * Maps to: OpenClaw `before_prompt_build` / Hermes `prefetch()`.
    */
-  async handleBeforeRecall(userText: string, sessionKey: string): Promise<RecallResult> {
+  async handleBeforeRecall(
+    userText: string,
+    sessionKey: string,
+    options: BeforeRecallOptions = {},
+  ): Promise<RecallResult> {
     await this.storeReady?.catch(() => {});
 
     const tStart = performance.now();
@@ -385,6 +401,8 @@ export class TdaiCore {
       vectorStore: this.vectorStore,
       embeddingService: this.embeddingService,
       storage: this.storage,
+      shadowTap: options.shadowTap,
+      intervention: options.intervention,
     });
     const recallLatencyMs = performance.now() - tStart;
 
@@ -441,6 +459,7 @@ export class TdaiCore {
       limit: params.limit ?? 5,
       type: params.type,
       scene: params.scene,
+      excludedRecordIds: params.excludedRecordIds,
       vectorStore: this.vectorStore,
       embeddingService: this.embeddingService,
       logger: this.logger,

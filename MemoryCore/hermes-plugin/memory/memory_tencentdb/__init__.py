@@ -696,11 +696,20 @@ class MemoryTencentdbProvider(MemoryProvider):
             if l2_entries:
                 lines = []
                 for s in l2_entries:
-                    name = s.get("path", "").replace(".md", "")
-                    lines.append(f"- Scene: {name}")
+                    # Keep the gateway's exact read handle and topic summary.
+                    # A filename alone often cannot tell the agent which block
+                    # contains the policy it needs; full blocks stay on demand.
+                    scene_id = s.get("path", "")
+                    if not scene_id or scene_id.endswith("/"):
+                        continue
+                    lines.append(f"- scene_id: {json.dumps(scene_id, ensure_ascii=False)}")
+                    summary = s.get("summary")
+                    if isinstance(summary, str) and summary.strip():
+                        lines.append(f"  Summary: {' '.join(summary.split())}")
                 parts.append(
                     "<scene-navigation>\n"
-                    "Available scenes:\n"
+                    "Available scene summaries. Use memory_tencentdb_read_scene "
+                    "with the listed scene_id to read the full block when relevant:\n"
                     + "\n".join(lines)
                     + "\n</scene-navigation>"
                 )

@@ -14,8 +14,7 @@ import type { MemoryTdaiConfig } from "../../config.js";
 import { readSceneIndex } from "../scene/scene-index.js";
 import { generateSceneNavigation, stripSceneNavigation } from "../scene/scene-navigation.js";
 import { RecallErrors, toRecallFailure, type RecallError } from "./recall-errors.js";
-import type { MemoryRecord } from "../record/l1-reader.js";
-import type { IMemoryStore, L1SearchResult, L1FtsResult } from "../store/types.js";
+import type { IMemoryStore, L1SearchResult } from "../store/types.js";
 import { buildFtsQuery } from "../store/sqlite.js";
 import type { EmbeddingService, EmbeddingCallOptions } from "../store/embedding.js";
 import { sanitizeText } from "../../utils/sanitize.js";
@@ -28,11 +27,39 @@ import {
   type ProfileIsolation,
 } from "../profile/profile-sync.js";
 import type { Logger } from "../types.js";
+import {
+  applyStructuredRecallBudget,
+  createRecallShadowDraft,
+  type BudgetedRecallCandidate,
+  type RecallSearchFacts,
+  type RecallShadowDraft,
+  type StructuredRecallCandidate,
+} from "../self-supervision/recall-shadow-adapter.js";
 
 const TAG = "[memory-tdai] [recall]";
-const RECALL_TRUNCATION_SUFFIX = "…（已截断；可用 tdai_memory_search 或 tdai_conversation_search 查看详情）";
-const MIN_TRUNCATED_RECALL_LINE_CHARS = 40;
 const RECALL_LINE_SEPARATOR = "\n";
+
+/**
+ * Optional, default-off handoff into the shadow observation plane. The hook
+ * emits only an in-memory draft; a host-level prompt acknowledgement must
+ * finalize it before any candidate can be called exposed.
+ */
+export interface AutoRecallShadowTap {
+  traceId: string;
+  capturedAt?: string;
+  sessionId?: string | null;
+  taskRunId?: string | null;
+  onDraft: (draft: RecallShadowDraft) => void | Promise<void>;
+}
+
+/**
+ * Shadow-only retrieval intervention used by value replay. The listed records
+ * are removed before ranking so the normal TDAI retrieval/budget path is run
+ * again over the remaining Memory set.
+ */
+export interface AutoRecallIntervention {
+  excludedRecordIds?: readonly string[];
+}
 
 /**
  * Memory tools usage guide — injected at the end of memory context so the
@@ -102,6 +129,10 @@ export async function performAutoRecall(params: {
   storage?: StorageAdapter;
   /** L2/L3 profile scope. Defaults to the standalone default team and agent. */
   profileIsolation?: ProfileIsolation;
+  /** Default-off, fail-open shadow recall tap. It cannot mutate Memory. */
+  shadowTap?: AutoRecallShadowTap;
+  /** Optional pre-retrieval exclusion for isolated counterfactual replay. */
+  intervention?: AutoRecallIntervention;
 }): Promise<RecallResult | undefined> {
   const { cfg, logger } = params;
   const timeoutMs = cfg.recall.timeoutMs ?? 5000;
@@ -156,6 +187,8 @@ async function performAutoRecallCore(params: {
   embeddingService?: EmbeddingService;
   storage?: StorageAdapter;
   profileIsolation?: ProfileIsolation;
+  shadowTap?: AutoRecallShadowTap;
+  intervention?: AutoRecallIntervention;
 }): Promise<RecallResult | undefined> {
   const { userText, cfg, pluginDataDir, logger, vectorStore, embeddingService, storage } = params;
   const tRecallStart = performance.now();
@@ -176,29 +209,62 @@ async function performAutoRecallCore(params: {
   // Search relevant memories (L1 layer) — skip only when userText is empty/undefined
   const tSearchStart = performance.now();
   let memoryLines: string[] = [];
+  let budgetedCandidates: BudgetedRecallCandidate[] = [];
   let effectiveStrategy = "skipped";
   let recalledL1Memories: RecalledMemory[] = [];
+  let searchFacts: RecallSearchFacts = {
+    strategy: "skipped",
+    status: "skipped",
+    failureCode: null,
+    queryEligible: false,
+    configuredMaxResults: cfg.recall.maxResults ?? 5,
+    configuredScoreThreshold: cfg.recall.scoreThreshold ?? 0.3,
+    rawCandidateCount: 0,
+    scoreFilteredCount: 0,
+    rankPrunedCount: 0,
+    selectedCandidateCount: 0,
+    smallCorpusThresholdBypass: false,
+  };
   let searchTiming: SearchTiming = { ftsMs: 0, embeddingMs: 0, ftsHits: 0, embeddingHits: 0 };
   if (!userText || userText.length === 0) {
     logger?.debug?.(`${TAG} User text empty/undefined, skipping memory search (persona/scene still injected)`);
   } else {
     effectiveStrategy = cfg.recall.strategy ?? "hybrid";
-    const searchResult = await searchMemories(userText, pluginDataDir, cfg, logger, effectiveStrategy as "keyword" | "embedding" | "hybrid", vectorStore, embeddingService);
-    memoryLines = searchResult.lines;
+    const searchResult = await searchMemories(
+      userText,
+      pluginDataDir,
+      cfg,
+      logger,
+      effectiveStrategy as "keyword" | "embedding" | "hybrid",
+      vectorStore,
+      embeddingService,
+      params.intervention?.excludedRecordIds,
+    );
     searchTiming = searchResult.timing;
-    memoryLines = applyRecallBudget(memoryLines, cfg.recall, logger);
+    searchFacts = searchResult.facts;
+    budgetedCandidates = applyStructuredRecallBudget(searchResult.candidates, cfg.recall);
+    memoryLines = budgetedCandidates.flatMap((candidate) =>
+      candidate.budgetedText === null ? [] : [candidate.budgetedText]);
+    recalledL1Memories = budgetedCandidates.flatMap((candidate) => candidate.budgetedText === null
+      ? []
+      : [{
+        content: candidate.row.content,
+        // Preserve the public metric payload's legacy behavior: only the
+        // native-hybrid path previously surfaced scores. The shadow tuple
+        // still retains the real score for every strategy.
+        score: searchResult.exposeScoresToMetrics ? candidate.score : 0,
+        type: candidate.row.type,
+      }]);
 
-    // Extract structured RecalledMemory from formatted lines for metric reporting
-    recalledL1Memories = memoryLines.map((line, i) => {
-      const match = line.match(/^-\s+\[([^\]]+)\]\s+(.+?)(?:\s*\(活动时间:.*\))?$/);
-      if (match) {
-        const tag = match[1];
-        const content = match[2].trim();
-        const typePart = tag.includes("|") ? tag.split("|")[0] : tag;
-        return { content, score: searchResult.scores?.[i] ?? 0, type: typePart };
-      }
-      return { content: line, score: searchResult.scores?.[i] ?? 0, type: "unknown" };
-    });
+    const truncatedCount = budgetedCandidates.filter((candidate) => candidate.truncated).length;
+    const droppedCount = budgetedCandidates.filter((candidate) => candidate.notExposedReason === "budget_pruned").length;
+    if (truncatedCount > 0 || droppedCount > 0) {
+      logger?.debug?.(
+        `${TAG} Recall budget applied: input=${budgetedCandidates.length}, output=${memoryLines.length}, ` +
+        `truncated=${truncatedCount}, dropped=${droppedCount}, ` +
+        `maxCharsPerMemory=${cfg.recall.maxCharsPerMemory}, maxTotalRecallChars=${cfg.recall.maxTotalRecallChars}`,
+      );
+    }
   }
   const tSearchEnd = performance.now();
 
@@ -252,6 +318,7 @@ async function performAutoRecallCore(params: {
       `scene=${(tSceneEnd - tSceneStart).toFixed(0)}ms — no context to inject`,
     );
     logger?.debug?.(`${TAG} No memories/persona/scenes to inject`);
+    emitShadowRecallDraft(params, searchFacts, budgetedCandidates, undefined);
     return undefined;
   }
 
@@ -303,13 +370,71 @@ async function performAutoRecallCore(params: {
     return undefined;
   }
 
-  return {
+  const result: RecallResult = {
     prependContext,
     appendSystemContext,
     recalledL1Memories,
     recalledL3Persona: personaContent ?? null,
     recallStrategy: effectiveStrategy,
   };
+  emitShadowRecallDraft(params, searchFacts, budgetedCandidates, prependContext);
+  return result;
+}
+
+function emitShadowRecallDraft(
+  params: {
+    userText: string;
+    actorId: string;
+    sessionKey: string;
+    cfg: MemoryTdaiConfig;
+    logger?: Logger;
+    shadowTap?: AutoRecallShadowTap;
+  },
+  search: RecallSearchFacts,
+  candidates: BudgetedRecallCandidate[],
+  expectedPrependContext: string | undefined,
+): void {
+  const tap = params.shadowTap;
+  if (!tap) return;
+
+  let draft: RecallShadowDraft;
+  try {
+    draft = createRecallShadowDraft({
+      traceId: tap.traceId,
+      capturedAt: tap.capturedAt ?? new Date().toISOString(),
+      sessionKey: params.sessionKey,
+      sessionId: tap.sessionId,
+      taskRunId: tap.taskRunId,
+      actorId: params.actorId,
+      query: params.userText,
+      expectedPrependContext,
+      search,
+      limits: params.cfg.recall,
+      candidates,
+    });
+  } catch (error) {
+    params.logger?.warn?.(
+      `${TAG} shadow recall draft capture failed (ignored): ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return;
+  }
+
+  // The observation sidecar is deliberately outside the recall critical
+  // path. Both a synchronous throw and an asynchronously rejected observer
+  // promise are contained and can never change the user-visible result.
+  queueMicrotask(() => {
+    try {
+      void Promise.resolve(tap.onDraft(draft)).catch((error: unknown) => {
+        params.logger?.warn?.(
+          `${TAG} shadow recall draft capture failed (ignored): ${error instanceof Error ? error.message : String(error)}`,
+        );
+      });
+    } catch (error) {
+      params.logger?.warn?.(
+        `${TAG} shadow recall draft capture failed (ignored): ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  });
 }
 
 /**
@@ -334,6 +459,8 @@ async function performAutoRecallInner(params: {
   embeddingService?: EmbeddingService;
   storage?: StorageAdapter;
   profileIsolation?: ProfileIsolation;
+  shadowTap?: AutoRecallShadowTap;
+  intervention?: AutoRecallIntervention;
 }): Promise<RecallResult | undefined> {
   try {
     return await performAutoRecallCore(params);
@@ -367,11 +494,6 @@ async function performAutoRecallInner(params: {
 // Multi-strategy search dispatcher
 // ============================
 
-interface ScoredRecord {
-  record: MemoryRecord;
-  score: number;
-}
-
 /** Timing breakdown from memory search */
 interface SearchTiming {
   ftsMs: number;
@@ -381,44 +503,11 @@ interface SearchTiming {
 }
 
 interface SearchResult {
-  lines: string[];
+  candidates: StructuredRecallCandidate[];
   timing: SearchTiming;
-  /** Per-line similarity scores (parallel to `lines`). Only populated on TCVDB nativeHybridSearch path. */
-  scores?: number[];
-}
-
-/**
- * Search memories and return both formatted lines and structured details.
- *
- * This is a thin wrapper around `searchMemories` that also captures
- * the recalled memory metadata for metric reporting (agent_turn event).
- * It parses the returned formatted lines to extract type/content info.
- */
-async function searchMemoriesWithDetails(
-  userText: string,
-  pluginDataDir: string,
-  cfg: MemoryTdaiConfig,
-  logger: Logger | undefined,
-  strategy: "keyword" | "embedding" | "hybrid",
-  vectorStore?: IMemoryStore,
-  embeddingService?: EmbeddingService,
-): Promise<{ lines: string[]; memories: RecalledMemory[]; timing: SearchTiming }> {
-  const result = await searchMemories(userText, pluginDataDir, cfg, logger, strategy, vectorStore, embeddingService);
-
-  // Extract structured data from formatted memory lines.
-  // Format: "- [type|scene] content (活动时间: ...)" or "- [type] content"
-  const memories: RecalledMemory[] = result.lines.map((line, i) => {
-    const match = line.match(/^-\s+\[([^\]]+)\]\s+(.+?)(?:\s*\(活动时间:.*\))?$/);
-    if (match) {
-      const tag = match[1];
-      const content = match[2].trim();
-      const typePart = tag.includes("|") ? tag.split("|")[0] : tag;
-      return { content, score: result.scores?.[i] ?? 0, type: typePart };
-    }
-    return { content: line, score: result.scores?.[i] ?? 0, type: "unknown" };
-  });
-
-  return { lines: result.lines, memories, timing: result.timing };
+  facts: RecallSearchFacts;
+  /** Backward compatibility for the existing public metric-only payload. */
+  exposeScoresToMetrics?: true;
 }
 
 /**
@@ -438,8 +527,30 @@ async function searchMemories(
   strategy: "keyword" | "embedding" | "hybrid",
   vectorStore?: IMemoryStore,
   embeddingService?: EmbeddingService,
+  excludedRecordIds?: readonly string[],
 ): Promise<SearchResult> {
-  const emptyResult: SearchResult = { lines: [], timing: { ftsMs: 0, embeddingMs: 0, ftsHits: 0, embeddingHits: 0 } };
+  const maxResults = cfg.recall.maxResults ?? 5;
+  const threshold = cfg.recall.scoreThreshold ?? 0.3;
+  const excludedIds = new Set(
+    (excludedRecordIds ?? []).filter((recordId) => typeof recordId === "string" && recordId.trim().length > 0),
+  );
+  const emptyResult: SearchResult = {
+    candidates: [],
+    timing: { ftsMs: 0, embeddingMs: 0, ftsHits: 0, embeddingHits: 0 },
+    facts: {
+      strategy,
+      status: "skipped",
+      failureCode: null,
+      queryEligible: false,
+      configuredMaxResults: maxResults,
+      configuredScoreThreshold: threshold,
+      rawCandidateCount: 0,
+      scoreFilteredCount: 0,
+      rankPrunedCount: 0,
+      selectedCandidateCount: 0,
+      smallCorpusThresholdBypass: false,
+    },
+  };
   // Strip gateway-injected inbound metadata (Sender, timestamps, media markers,
   // base64 image data, etc.) so FTS / embedding queries are based on pure user intent.
   const cleanText = sanitizeText(userText);
@@ -455,8 +566,8 @@ async function searchMemories(
     );
   }
 
-  const maxResults = cfg.recall.maxResults ?? 5;
-  const threshold = cfg.recall.scoreThreshold ?? 0.3;
+  emptyResult.facts.queryEligible = true;
+  emptyResult.facts.status = "completed";
 
   const embeddingAvailable = !!vectorStore && !!embeddingService;
 
@@ -487,33 +598,99 @@ async function searchMemories(
   try {
     if (effectiveStrategy === "keyword") {
       const tFts = performance.now();
-      const lines = await searchByKeyword(cleanText, pluginDataDir, maxResults, threshold, logger, vectorStore);
-      return { lines, timing: { ftsMs: performance.now() - tFts, embeddingMs: 0, ftsHits: lines.length, embeddingHits: 0 } };
+      const result = await searchByKeyword(
+        cleanText,
+        pluginDataDir,
+        maxResults,
+        threshold,
+        logger,
+        vectorStore,
+        excludedIds,
+      );
+      const candidates = toStructuredCandidates(result.rows, "l1_keyword");
+      return {
+        candidates,
+        timing: { ftsMs: performance.now() - tFts, embeddingMs: 0, ftsHits: candidates.length, embeddingHits: 0 },
+        facts: {
+          ...emptyResult.facts,
+          rawCandidateCount: result.rawCandidateCount,
+          scoreFilteredCount: result.scoreFilteredCount,
+          rankPrunedCount: result.rankPrunedCount,
+          selectedCandidateCount: candidates.length,
+          smallCorpusThresholdBypass: result.smallCorpusThresholdBypass,
+        },
+      };
     }
 
     if (effectiveStrategy === "embedding") {
       const tEmb = performance.now();
-      const lines = await searchByEmbedding(cleanText, maxResults, threshold, vectorStore!, embeddingService!, logger, embeddingCallOpts);
-      return { lines, timing: { ftsMs: 0, embeddingMs: performance.now() - tEmb, ftsHits: 0, embeddingHits: lines.length } };
+      const result = await searchByEmbedding(
+        cleanText,
+        maxResults,
+        threshold,
+        vectorStore!,
+        embeddingService!,
+        logger,
+        embeddingCallOpts,
+        excludedIds,
+      );
+      const candidates = toStructuredCandidates(result.rows, "l1_embedding");
+      return {
+        candidates,
+        timing: { ftsMs: 0, embeddingMs: performance.now() - tEmb, ftsHits: 0, embeddingHits: candidates.length },
+        facts: {
+          ...emptyResult.facts,
+          rawCandidateCount: result.rawCandidateCount,
+          scoreFilteredCount: result.scoreFilteredCount,
+          rankPrunedCount: result.rankPrunedCount,
+          selectedCandidateCount: candidates.length,
+        },
+      };
     }
 
     // Hybrid: if the store natively supports hybrid search (e.g. TCVDB does
     // server-side dense + sparse + RRF in a single API call), short-circuit
     // to avoid a redundant second HTTP request and a wasted local embed().
-    if (vectorStore?.getCapabilities().nativeHybridSearch) {
+    if (vectorStore?.getCapabilities().nativeHybridSearch && vectorStore.searchL1Hybrid) {
       const tNative = performance.now();
-      const results = await vectorStore.searchL1Hybrid({ query: cleanText, topK: maxResults });
+      const rawResults = await vectorStore.searchL1Hybrid({
+        query: cleanText,
+        topK: maxResults + excludedIds.size,
+      });
+      const availableResults = rawResults.filter((row) => !excludedIds.has(row.record_id));
+      const results = availableResults.slice(0, maxResults);
       const nativeMs = performance.now() - tNative;
       logger?.debug?.(`${TAG} [hybrid-native] Single-call hybrid: ${results.length} results in ${nativeMs.toFixed(0)}ms`);
-      const lines = results.map((r) => formatMemoryLine(vectorResultToFormatable(r)));
-      const scores = results.map((r) => r.score);
-      return { lines, scores, timing: { ftsMs: 0, embeddingMs: nativeMs, ftsHits: 0, embeddingHits: results.length } };
+      const candidates = toStructuredCandidates(results, "l1_hybrid");
+      return {
+        candidates,
+        timing: { ftsMs: 0, embeddingMs: nativeMs, ftsHits: 0, embeddingHits: results.length },
+        exposeScoresToMetrics: true,
+        facts: {
+          ...emptyResult.facts,
+          rawCandidateCount: availableResults.length,
+          rankPrunedCount: Math.max(0, availableResults.length - results.length),
+          selectedCandidateCount: candidates.length,
+        },
+      };
     }
 
     // Fallback: run keyword + embedding in parallel, merge with client-side RRF (SQLite path)
-    return await searchHybrid(cleanText, pluginDataDir, maxResults, threshold, vectorStore!, embeddingService!, logger, embeddingCallOpts);
+    return await searchHybrid(
+      cleanText,
+      pluginDataDir,
+      maxResults,
+      threshold,
+      vectorStore!,
+      embeddingService!,
+      logger,
+      embeddingCallOpts,
+      excludedIds,
+    );
   } catch (err) {
     logger?.warn?.(`${TAG} Memory search failed (strategy=${effectiveStrategy}): ${err instanceof Error ? err.message : String(err)}`);
+    emptyResult.facts.status = "failed";
+    emptyResult.facts.failureCode = err instanceof Error && err.name ? err.name : "unknown_error";
     return emptyResult;
   }
 }
@@ -529,25 +706,41 @@ async function searchByKeyword(
   threshold: number,
   logger?: Logger,
   vectorStore?: IMemoryStore,
-): Promise<string[]> {
+  excludedIds: ReadonlySet<string> = new Set(),
+): Promise<{
+  rows: L1SearchResult[];
+  rawCandidateCount: number;
+  scoreFilteredCount: number;
+  rankPrunedCount: number;
+  smallCorpusThresholdBypass: boolean;
+}> {
   // Prefer FTS5 if available
   if (vectorStore?.isFtsAvailable()) {
     const ftsQuery = buildFtsQuery(userText);
     if (ftsQuery) {
       logger?.debug?.(`${TAG} [keyword-fts] Using FTS5 BM25 search: query="${ftsQuery}"`);
-      const ftsResults = await vectorStore.searchL1Fts(ftsQuery, maxResults * 2);
+      const rawFtsResults = await vectorStore.searchL1Fts(
+        ftsQuery,
+        maxResults * 2 + excludedIds.size,
+      );
+      const ftsResults = rawFtsResults.filter((row) => !excludedIds.has(row.record_id));
       if (ftsResults.length > 0) {
         logger?.debug?.(
           `${TAG} [keyword-fts] FTS5 raw results (${ftsResults.length}): ` +
           ftsResults.map((r) => `id=${r.record_id} score=${r.score.toFixed(6)}`).join(", "),
         );
-        const filtered = ftsResults
-          .filter((r) => r.score >= threshold)
-          .slice(0, maxResults);
+        const aboveThreshold = ftsResults.filter((r) => r.score >= threshold);
+        const filtered = aboveThreshold.slice(0, maxResults);
 
         if (filtered.length > 0) {
           logger?.debug?.(`${TAG} [keyword-fts] FTS5 found ${filtered.length} results (from ${ftsResults.length} raw, threshold=${threshold})`);
-          return filtered.map((r) => formatMemoryLine(ftsResultToFormatable(r)));
+          return {
+            rows: filtered,
+            rawCandidateCount: ftsResults.length,
+            scoreFilteredCount: ftsResults.length - aboveThreshold.length,
+            rankPrunedCount: aboveThreshold.length - filtered.length,
+            smallCorpusThresholdBypass: false,
+          };
         }
 
         // BM25 absolute scores are unreliable when the document set is very
@@ -558,16 +751,35 @@ async function searchByKeyword(
             `${TAG} [keyword-fts] All ${ftsResults.length} results below threshold=${threshold} ` +
             `but document set is small — returning all matched results`,
           );
-          return ftsResults.slice(0, maxResults).map((r) => formatMemoryLine(ftsResultToFormatable(r)));
+          return {
+            rows: ftsResults.slice(0, maxResults),
+            rawCandidateCount: ftsResults.length,
+            scoreFilteredCount: 0,
+            rankPrunedCount: Math.max(0, ftsResults.length - maxResults),
+            smallCorpusThresholdBypass: true,
+          };
         }
         logger?.debug?.(`${TAG} [keyword-fts] FTS5 returned 0 results above threshold (from ${ftsResults.length} raw)`);
+        return {
+          rows: [],
+          rawCandidateCount: ftsResults.length,
+          scoreFilteredCount: ftsResults.length,
+          rankPrunedCount: 0,
+          smallCorpusThresholdBypass: false,
+        };
       }
     }
   }
 
   // FTS5 not available or returned no results — skip in-memory fallback to avoid O(N) full scan
   logger?.debug?.(`${TAG} [keyword] FTS5 unavailable or no results, skipping keyword search`);
-  return [];
+  return {
+    rows: [],
+    rawCandidateCount: 0,
+    scoreFilteredCount: 0,
+    rankPrunedCount: 0,
+    smallCorpusThresholdBypass: false,
+  };
 }
 
 // ============================
@@ -582,7 +794,13 @@ async function searchByEmbedding(
   embeddingService: EmbeddingService,
   logger?: Logger,
   embeddingCallOpts?: EmbeddingCallOptions,
-): Promise<string[]> {
+  excludedIds: ReadonlySet<string> = new Set(),
+): Promise<{
+  rows: L1SearchResult[];
+  rawCandidateCount: number;
+  scoreFilteredCount: number;
+  rankPrunedCount: number;
+}> {
   logger?.debug?.(
     `${TAG} [embedding-search] START query="${userText.slice(0, 80)}...", maxResults=${maxResults}, threshold=${threshold}`,
   );
@@ -593,11 +811,15 @@ async function searchByEmbedding(
     `searching top-${maxResults * 2}...`,
   );
   // Retrieve more candidates for subsequent filtering
-  const vecResults: L1SearchResult[] = await vectorStore.searchL1Vector(queryEmbedding, maxResults * 2);
+  const rawVecResults: L1SearchResult[] = await vectorStore.searchL1Vector(
+    queryEmbedding,
+    maxResults * 2 + excludedIds.size,
+  );
+  const vecResults = rawVecResults.filter((row) => !excludedIds.has(row.record_id));
 
   if (vecResults.length === 0) {
     logger?.debug?.(`${TAG} [embedding-search] Returned 0 results`);
-    return [];
+    return { rows: [], rawCandidateCount: 0, scoreFilteredCount: 0, rankPrunedCount: 0 };
   }
 
   logger?.debug?.(`${TAG} [embedding-search] Got ${vecResults.length} candidates, filtering by threshold=${threshold}`);
@@ -608,17 +830,26 @@ async function searchByEmbedding(
     );
   }
 
-  const filtered = vecResults
-    .filter((r) => r.score >= threshold)
-    .slice(0, maxResults);
+  const aboveThreshold = vecResults.filter((r) => r.score >= threshold);
+  const filtered = aboveThreshold.slice(0, maxResults);
 
   if (filtered.length > 0) {
     logger?.debug?.(`${TAG} [embedding-search] Found ${filtered.length} relevant memories above threshold (from ${vecResults.length} candidates)`);
-    return filtered.map((r) => formatMemoryLine(vectorResultToFormatable(r)));
+    return {
+      rows: filtered,
+      rawCandidateCount: vecResults.length,
+      scoreFilteredCount: vecResults.length - aboveThreshold.length,
+      rankPrunedCount: aboveThreshold.length - filtered.length,
+    };
   }
 
   logger?.debug?.(`${TAG} [embedding-search] No results above threshold ${threshold}`);
-  return [];
+  return {
+    rows: [],
+    rawCandidateCount: vecResults.length,
+    scoreFilteredCount: vecResults.length,
+    rankPrunedCount: 0,
+  };
 }
 
 // ============================
@@ -644,9 +875,10 @@ async function searchHybrid(
   embeddingService: EmbeddingService,
   logger?: Logger,
   embeddingCallOpts?: EmbeddingCallOptions,
+  excludedIds: ReadonlySet<string> = new Set(),
 ): Promise<SearchResult> {
   // Run keyword and embedding searches in parallel
-  const candidateK = maxResults * 3; // retrieve more for merging
+  const candidateK = maxResults * 3 + excludedIds.size; // retrieve more for merging
 
   const [keywordResult, embeddingResult] = await Promise.all([
     // Keyword search: FTS5 only (no in-memory fallback)
@@ -657,37 +889,20 @@ async function searchHybrid(
         if (vectorStore.isFtsAvailable()) {
           const ftsQuery = buildFtsQuery(userText);
           if (ftsQuery) {
-            const ftsResults = await vectorStore.searchL1Fts(ftsQuery, candidateK);
+            const rawFtsResults = await vectorStore.searchL1Fts(ftsQuery, candidateK);
+            const ftsResults = rawFtsResults.filter((row) => !excludedIds.has(row.record_id));
             if (ftsResults.length > 0) {
               logger?.debug?.(`${TAG} [hybrid-keyword-fts] FTS5 found ${ftsResults.length} candidates`);
-              // Convert FtsSearchResult to ScoredRecord for RRF merge
-              const records = ftsResults.map((r): ScoredRecord => ({
-                record: {
-                  id: r.record_id,
-                  content: r.content,
-                  type: r.type as MemoryRecord["type"],
-                  priority: r.priority,
-                  scene_name: r.scene_name,
-                  source_message_ids: [],
-                  metadata: r.metadata_json ? (() => { try { return JSON.parse(r.metadata_json); } catch { return {}; } })() : {},
-                  timestamps: [r.timestamp_str].filter(Boolean),
-                  createdAt: "",
-                  updatedAt: "",
-                  sessionKey: r.session_key,
-                  sessionId: r.session_id,
-                },
-                score: r.score,
-              }));
-              return { records, ms: performance.now() - tStart };
+              return { rows: ftsResults as L1SearchResult[], ms: performance.now() - tStart };
             }
           }
         }
         // FTS5 not available or returned no results — skip in-memory fallback
         logger?.debug?.(`${TAG} [hybrid-keyword] FTS5 unavailable or no results, skipping keyword part`);
-        return { records: [] as ScoredRecord[], ms: performance.now() - tStart };
+        return { rows: [] as L1SearchResult[], ms: performance.now() - tStart };
       } catch (err) {
         logger?.warn?.(`${TAG} Hybrid: keyword part failed: ${err instanceof Error ? err.message : String(err)}`);
-        return { records: [] as ScoredRecord[], ms: performance.now() - tStart };
+        return { rows: [] as L1SearchResult[], ms: performance.now() - tStart };
       }
     })(),
     // Embedding search
@@ -699,7 +914,8 @@ async function searchHybrid(
         logger?.debug?.(
           `${TAG} [hybrid-embedding] Embedding OK, dims=${queryEmbedding.length}, searching top-${candidateK}...`,
         );
-        const results = await vectorStore.searchL1Vector(queryEmbedding, candidateK, userText);
+        const rawResults = await vectorStore.searchL1Vector(queryEmbedding, candidateK, userText);
+        const results = rawResults.filter((row) => !excludedIds.has(row.record_id));
         logger?.debug?.(`${TAG} [hybrid-embedding] Got ${results.length} candidates`);
         return { results, ms: performance.now() - tStart };
       } catch (err) {
@@ -709,7 +925,7 @@ async function searchHybrid(
     })(),
   ]);
 
-  const keywordResults = keywordResult.records;
+  const keywordResults = keywordResult.rows;
   const embeddingResults = embeddingResult.results;
   const timing: SearchTiming = {
     ftsMs: keywordResult.ms,
@@ -720,25 +936,42 @@ async function searchHybrid(
 
   if (keywordResults.length === 0 && embeddingResults.length === 0) {
     logger?.debug?.(`${TAG} Hybrid search: both strategies returned 0 results`);
-    return { lines: [], timing };
+    return {
+      candidates: [],
+      timing,
+      facts: {
+        strategy: "hybrid",
+        status: "completed",
+        failureCode: null,
+        queryEligible: true,
+        configuredMaxResults: maxResults,
+        configuredScoreThreshold: _threshold,
+        rawCandidateCount: 0,
+        scoreFilteredCount: 0,
+        rankPrunedCount: 0,
+        selectedCandidateCount: 0,
+        smallCorpusThresholdBypass: false,
+      },
+    };
   }
 
   // RRF merge: k=60 is a standard constant from the RRF paper
   const RRF_K = 60;
 
-  // Map: record_id → { rrfScore, formatable }
-  const mergedMap = new Map<string, { rrfScore: number; formatable: FormatableMemory }>();
+  // Map: record_id → { rrfScore, row }. Keep the full persisted identity
+  // instead of reducing records to formatted text during fusion.
+  const mergedMap = new Map<string, { rrfScore: number; row: L1SearchResult }>();
 
   // Process keyword results
   for (let rank = 0; rank < keywordResults.length; rank++) {
     const r = keywordResults[rank];
-    const id = r.record.id;
+    const id = r.record_id;
     const rrfScore = 1 / (RRF_K + rank + 1);
     const existing = mergedMap.get(id);
     if (existing) {
       existing.rrfScore += rrfScore;
     } else {
-      mergedMap.set(id, { rrfScore, formatable: recordToFormatable(r.record) });
+      mergedMap.set(id, { rrfScore, row: r });
     }
   }
 
@@ -751,7 +984,7 @@ async function searchHybrid(
     if (existing) {
       existing.rrfScore += rrfScore;
     } else {
-      mergedMap.set(id, { rrfScore, formatable: vectorResultToFormatable(r) });
+      mergedMap.set(id, { rrfScore, row: r });
     }
   }
 
@@ -765,11 +998,50 @@ async function searchHybrid(
       `${TAG} Hybrid search found ${sorted.length} results ` +
       `(keyword=${keywordResults.length}, embedding=${embeddingResults.length})`,
     );
-    return { lines: sorted.map(([, { formatable }]) => formatMemoryLine(formatable)), timing };
+    const candidates = sorted.map(([, { row, rrfScore }], index): StructuredRecallCandidate => ({
+      row,
+      retrievalRank: index + 1,
+      score: rrfScore,
+      stage: "l1_hybrid",
+      renderedText: formatMemoryLine(vectorResultToFormatable(row)),
+    }));
+    return {
+      candidates,
+      timing,
+      facts: {
+        strategy: "hybrid",
+        status: "completed",
+        failureCode: null,
+        queryEligible: true,
+        configuredMaxResults: maxResults,
+        configuredScoreThreshold: _threshold,
+        rawCandidateCount: mergedMap.size,
+        scoreFilteredCount: 0,
+        rankPrunedCount: Math.max(0, mergedMap.size - candidates.length),
+        selectedCandidateCount: candidates.length,
+        smallCorpusThresholdBypass: false,
+      },
+    };
   }
 
   logger?.debug?.(`${TAG} Hybrid search: no results after merge`);
-  return { lines: [], timing };
+  return {
+    candidates: [],
+    timing,
+    facts: {
+      strategy: "hybrid",
+      status: "completed",
+      failureCode: null,
+      queryEligible: true,
+      configuredMaxResults: maxResults,
+      configuredScoreThreshold: _threshold,
+      rawCandidateCount: mergedMap.size,
+      scoreFilteredCount: 0,
+      rankPrunedCount: mergedMap.size,
+      selectedCandidateCount: 0,
+      smallCorpusThresholdBypass: false,
+    },
+  };
 }
 
 // ============================
@@ -802,6 +1074,19 @@ interface FormatableMemory {
   timestamp?: string;
 }
 
+function toStructuredCandidates(
+  rows: L1SearchResult[],
+  stage: StructuredRecallCandidate["stage"],
+): StructuredRecallCandidate[] {
+  return rows.map((row, index) => ({
+    row,
+    retrievalRank: index + 1,
+    score: row.score,
+    stage,
+    renderedText: formatMemoryLine(vectorResultToFormatable(row)),
+  }));
+}
+
 function formatMemoryLine(m: FormatableMemory): string {
   // 1. Type tag + optional scene name
   const tag = m.scene_name ? `${m.type}|${m.scene_name}` : m.type;
@@ -832,89 +1117,6 @@ function formatMemoryLine(m: FormatableMemory): string {
   return line;
 }
 
-function applyRecallBudget(
-  lines: string[],
-  recall: MemoryTdaiConfig["recall"],
-  logger?: Logger,
-): string[] {
-  const maxCharsPerMemory = normalizeBudgetLimit(recall.maxCharsPerMemory);
-  const maxTotalRecallChars = normalizeBudgetLimit(recall.maxTotalRecallChars);
-
-  if (!maxCharsPerMemory && !maxTotalRecallChars) {
-    return lines;
-  }
-
-  const budgeted: string[] = [];
-  let usedChars = 0;
-  let truncatedCount = 0;
-  let droppedCount = 0;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const perMemoryBounded = maxCharsPerMemory
-      ? truncateRecallLine(line, maxCharsPerMemory)
-      : line;
-    let wasTruncated = perMemoryBounded !== line;
-
-    if (!maxTotalRecallChars) {
-      budgeted.push(perMemoryBounded);
-      if (wasTruncated) truncatedCount++;
-      continue;
-    }
-
-    const separatorChars = budgeted.length > 0 ? RECALL_LINE_SEPARATOR.length : 0;
-    const remainingChars = maxTotalRecallChars - usedChars - separatorChars;
-    if (remainingChars <= 0) {
-      droppedCount += lines.length - i;
-      break;
-    }
-
-    if (perMemoryBounded.length > remainingChars) {
-      const canFit = remainingChars >= MIN_TRUNCATED_RECALL_LINE_CHARS;
-      if (canFit) {
-        const totalBounded = truncateRecallLine(perMemoryBounded, remainingChars);
-        budgeted.push(totalBounded);
-        usedChars += separatorChars + totalBounded.length;
-        wasTruncated ||= totalBounded !== perMemoryBounded;
-        if (wasTruncated) truncatedCount++;
-      }
-      droppedCount += lines.length - i - (canFit ? 1 : 0);
-      break;
-    }
-
-    budgeted.push(perMemoryBounded);
-    usedChars += separatorChars + perMemoryBounded.length;
-    if (wasTruncated) truncatedCount++;
-  }
-
-  if (truncatedCount > 0 || droppedCount > 0) {
-    logger?.debug?.(
-      `${TAG} Recall budget applied: input=${lines.length}, output=${budgeted.length}, ` +
-      `truncated=${truncatedCount}, dropped=${droppedCount}, ` +
-      `maxCharsPerMemory=${recall.maxCharsPerMemory}, maxTotalRecallChars=${recall.maxTotalRecallChars}`,
-    );
-  }
-
-  return budgeted;
-}
-
-function normalizeBudgetLimit(value: number | undefined): number | undefined {
-  if (value == null || !Number.isFinite(value) || value <= 0) return undefined;
-  return Math.floor(value);
-}
-
-function truncateRecallLine(line: string, maxChars: number): string {
-  // Count and slice by code point, not UTF-16 code unit, so a cut never lands
-  // between the halves of a surrogate pair (which would corrupt a non-BMP
-  // character to U+FFFD when the line is UTF-8 encoded for the request).
-  const cps = Array.from(line);
-  if (cps.length <= maxChars) return line;
-  if (maxChars <= RECALL_TRUNCATION_SUFFIX.length) {
-    return cps.slice(0, maxChars).join("");
-  }
-  return `${cps.slice(0, maxChars - RECALL_TRUNCATION_SUFFIX.length).join("").trimEnd()}${RECALL_TRUNCATION_SUFFIX}`;
-}
-
 /**
  * Format an ISO 8601 timestamp to a concise date or datetime string.
  * - If the time part is 00:00:00 → show date only (e.g. "2025-03-01")
@@ -935,50 +1137,10 @@ function formatTimestamp(ts: string | undefined): string | undefined {
 }
 
 /**
- * Build a FormatableMemory from a full MemoryRecord (keyword search path).
- * Handles empty metadata, empty timestamps array gracefully.
- */
-function recordToFormatable(record: MemoryRecord): FormatableMemory {
-  const meta = record.metadata as { activity_start_time?: string; activity_end_time?: string } | undefined;
-  return {
-    type: record.type,
-    content: record.content,
-    scene_name: record.scene_name || undefined,
-    activity_start_time: meta?.activity_start_time || undefined,
-    activity_end_time: meta?.activity_end_time || undefined,
-    timestamp: (record.timestamps && record.timestamps.length > 0) ? record.timestamps[0] : undefined,
-  };
-}
-
-/**
  * Build a FormatableMemory from a VectorSearchResult (embedding search path).
  * Handles empty/invalid metadata_json, empty timestamp_str gracefully.
  */
 function vectorResultToFormatable(r: L1SearchResult): FormatableMemory {
-  let activityStart: string | undefined;
-  let activityEnd: string | undefined;
-  if (r.metadata_json && r.metadata_json !== "{}") {
-    try {
-      const meta = typeof r.metadata_json === "string" ? JSON.parse(r.metadata_json) : r.metadata_json;
-      activityStart = meta?.activity_start_time || undefined;
-      activityEnd = meta?.activity_end_time || undefined;
-    } catch { /* ignore parse errors — treat as no metadata */ }
-  }
-  return {
-    type: r.type,
-    content: r.content,
-    scene_name: r.scene_name || undefined,
-    activity_start_time: activityStart,
-    activity_end_time: activityEnd,
-    timestamp: r.timestamp_str || undefined,
-  };
-}
-
-/**
- * Build a FormatableMemory from an FtsSearchResult (FTS5 keyword search path).
- * Handles empty/invalid metadata_json, empty timestamp_str gracefully.
- */
-function ftsResultToFormatable(r: L1FtsResult): FormatableMemory {
   let activityStart: string | undefined;
   let activityEnd: string | undefined;
   if (r.metadata_json && r.metadata_json !== "{}") {

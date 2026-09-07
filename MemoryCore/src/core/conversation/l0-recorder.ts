@@ -19,7 +19,8 @@ import { sanitizeText, stripCodeBlocks, shouldCaptureL0 } from "../../utils/sani
 import type { StorageAdapter } from "../storage/adapter.js";
 import { StoragePaths } from "../storage/types.js";
 import type { Logger } from "../types.js";
-import { DEFAULT_ISOLATION_ID } from "../store/types.js";
+import { DEFAULT_ISOLATION_ID, type MemoryPersistenceReceipt } from "../store/types.js";
+import { createMemoryPersistenceReceipt } from "../store/persistence-receipt.js";
 
 // ============================
 // Types
@@ -28,7 +29,7 @@ import { DEFAULT_ISOLATION_ID } from "../store/types.js";
 export interface ConversationMessage {
   /** Unique message ID (used by L1 prompt for source_message_ids tracking) */
   id: string;
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "tool";
   content: string;
   timestamp: number; // epoch ms
 }
@@ -52,7 +53,7 @@ export interface L0MessageRecord {
   agentId?: string;
   recordedAt: string; // ISO timestamp
   id: string;
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "tool";
   content: string;
   timestamp: number; // epoch ms
 }
@@ -67,6 +68,23 @@ export interface L0ConversationRecord {
   recordedAt: string; // ISO timestamp
   messageCount: number;
   messages: ConversationMessage[];
+}
+
+/**
+ * Passive observation emitted after the existing JSONL write attempt.  This is
+ * not a Memory event and grants no write capability to the observer.
+ */
+export interface L0PersistenceObservation {
+  layer: "L0";
+  recordKey: string;
+  records: L0MessageRecord[];
+  receipt: MemoryPersistenceReceipt | null;
+  failure: string | null;
+}
+
+/** Optional, caller-supplied shadow observer. No production hook installs one. */
+export interface L0PersistenceObserver {
+  observeL0Persistence(observation: L0PersistenceObservation): void | Promise<void>;
 }
 
 const TAG = "[memory-tdai][l0]";
@@ -112,8 +130,10 @@ export async function recordConversation(params: {
   originalUserMessageCount?: number;
   /** StorageAdapter for file operations (COS/local). Falls back to fs when absent. */
   storage?: StorageAdapter;
+  /** Opt-in passive shadow tap. Observer failure never changes L0 task behavior. */
+  shadowObserver?: L0PersistenceObserver;
 }): Promise<ConversationMessage[]> {
-  const { sessionKey, sessionId, userId, agentId, rawMessages, baseDir, logger, originalUserText, afterTimestamp, originalUserMessageCount, storage } = params;
+  const { sessionKey, sessionId, userId, agentId, rawMessages, baseDir, logger, originalUserText, afterTimestamp, originalUserMessageCount, storage, shadowObserver } = params;
 
   // Step 1: Position slice + extract user/assistant messages.
   //
@@ -293,21 +313,52 @@ export async function recordConversation(params: {
   const shardDate = formatLocalDate(new Date());
   const recordKey = StoragePaths.conversation(shardDate);
 
+  const payload = lines.join("\n") + "\n";
+  let persistenceReceipt: MemoryPersistenceReceipt | null = null;
+  let persistenceFailure: string | null = null;
   try {
     if (storage) {
-      await storage.appendFile(recordKey, lines.join("\n") + "\n");
+      await storage.appendFile(recordKey, payload);
     } else {
       const fs = await import("node:fs/promises");
       const path = await import("node:path");
       const outDir = path.default.join(baseDir, "conversations");
       const outPath = path.default.join(outDir, `${shardDate}.jsonl`);
       await fs.default.mkdir(outDir, { recursive: true });
-      await fs.default.appendFile(outPath, lines.join("\n") + "\n", "utf-8");
+      await fs.default.appendFile(outPath, payload, "utf-8");
     }
+    persistenceReceipt = createMemoryPersistenceReceipt({
+      layer: "L0",
+      sink: storage ? "storage_jsonl" : "local_jsonl",
+      acknowledgementBasis: "append_resolved",
+      target: recordKey,
+      records: filtered.map((message) => ({ id: message.id, version: 1 })),
+      payload,
+    });
     logger?.debug?.(`${TAG} Recorded ${filtered.length} messages to ${recordKey}`);
   } catch (err) {
-    logger?.error(`${TAG} Failed to write L0 file: ${err instanceof Error ? err.message : String(err)}`);
+    persistenceFailure = err instanceof Error ? err.message : String(err);
+    logger?.error(`${TAG} Failed to write L0 file: ${persistenceFailure}`);
     // Return filtered messages anyway so L1 can still process them
+  }
+
+  // Fire-and-forget by design: the passive observer cannot delay or fail the
+  // user task. Its own implementation is responsible for fail-closed capture.
+  if (shadowObserver) {
+    const observation: L0PersistenceObservation = {
+      layer: "L0",
+      recordKey,
+      records: lines.map((line) => JSON.parse(line) as L0MessageRecord),
+      receipt: persistenceReceipt,
+      failure: persistenceFailure,
+    };
+    try {
+      void Promise.resolve(shadowObserver.observeL0Persistence(observation)).catch((error) => {
+        logger?.warn?.(`${TAG} Passive shadow observer rejected (non-fatal): ${error instanceof Error ? error.message : String(error)}`);
+      });
+    } catch (error) {
+      logger?.warn?.(`${TAG} Passive shadow observer threw (non-fatal): ${error instanceof Error ? error.message : String(error)}`);
+    }
   }
 
   return filtered;
@@ -389,7 +440,7 @@ export async function readConversationRecords(
           // Wrap into L0ConversationRecord for uniform downstream consumption
           const msg: ConversationMessage = {
             id: (typeof parsed.id === "string" && parsed.id) ? parsed.id : generateMessageId(),
-            role: parsed.role as "user" | "assistant",
+            role: parsed.role as ConversationMessage["role"],
             content: parsed.content as string,
             timestamp: typeof parsed.timestamp === "number" ? parsed.timestamp : Date.now(),
           };
@@ -556,7 +607,10 @@ function extractUserAssistantMessages(messages: unknown[]): ConversationMessage[
     const m = msg as Record<string, unknown>;
     const role = m.role as string | undefined;
 
-    if (role !== "user" && role !== "assistant") continue;
+    // Only explicitly normalized execution evidence joins the conversational L0.
+    // Raw host tool dumps retain their previous exclusion behavior.
+    if (role !== "user" && role !== "assistant"
+      && !(role === "tool" && m.tdaiExecutionEvidence === true)) continue;
 
     let content: string | undefined;
     if (typeof m.content === "string") {
@@ -586,7 +640,7 @@ function extractUserAssistantMessages(messages: unknown[]): ConversationMessage[
       const ts = typeof m.timestamp === "number" ? m.timestamp : Date.now();
       result.push({
         id: (typeof m.id === "string" && m.id) ? m.id : generateMessageId(),
-        role: role as "user" | "assistant",
+        role: role as ConversationMessage["role"],
         content: content.trim(),
         timestamp: ts,
       });

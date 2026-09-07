@@ -1,0 +1,28 @@
+{
+  "name": "High-confidence feedback and bounded memory lifecycle",
+  "version": "be-lifecycle-v1.0",
+  "publicDataset": "LongMemEval cleaned release",
+  "primarySubset": "all 500 items; knowledge-update is the positive class",
+  "candidatePool": "oracle evidence sessions from answer_session_ids",
+  "calibration": {
+    "split": "sha256(seed:question_id) bucket",
+    "percent": 30,
+    "seed": 20260821,
+    "objective": "F0.5 subject to minimum precision 0.8; abstain if infeasible"
+  },
+  "modes": [
+    "base",
+    "adaptive",
+    "forced_failure"
+  ],
+  "metrics": [
+    "feedback precision/recall/F0.5",
+    "stale exposure and suppression",
+    "false invalidations",
+    "active candidate misses",
+    "estimated injected tokens",
+    "latency p50/p95",
+    "fallback equivalence"
+  ],
+  "claimBoundary": "This protocol isolates feedback/lifecycle behavior. It does not score retrieval or end-to-end answer generation."
+}

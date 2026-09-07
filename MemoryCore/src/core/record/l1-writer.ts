@@ -17,11 +17,16 @@
  */
 
 import crypto from "node:crypto";
-import { DEFAULT_ISOLATION_ID, type IMemoryStore } from "../store/types.js";
+import {
+  DEFAULT_ISOLATION_ID,
+  type IMemoryStore,
+  type MemoryPersistenceReceipt,
+} from "../store/types.js";
 import type { EmbeddingService } from "../store/embedding.js";
 import type { StorageAdapter } from "../storage/adapter.js";
 import { StoragePaths } from "../storage/types.js";
 import type { Logger } from "../types.js";
+import { createMemoryPersistenceReceipt } from "../store/persistence-receipt.js";
 
 // ============================
 // Types
@@ -136,6 +141,27 @@ export interface DedupDecision {
   merged_timestamps?: string[];
 }
 
+/**
+ * Passive, write-result-only observation. It reports each existing sink
+ * independently because JSONL and the retrieval store are not transactional.
+ */
+export interface L1PersistenceObservation {
+  layer: "L1";
+  recordKey: string;
+  record: MemoryRecord;
+  decision: DedupDecision;
+  receipts: MemoryPersistenceReceipt[];
+  failures: {
+    jsonl: string | null;
+    memoryStore: string | null;
+  };
+}
+
+/** Optional, caller-supplied shadow observer. No production hook installs one. */
+export interface L1PersistenceObserver {
+  observeL1Persistence(observation: L1PersistenceObservation): void | Promise<void>;
+}
+
 const TAG = "[memory-tdai][l1-writer]";
 
 // ============================
@@ -178,8 +204,13 @@ export async function writeMemory(params: {
   embeddingService?: EmbeddingService;
   /** StorageAdapter for file operations (COS/local). Falls back to fs when absent. */
   storage?: StorageAdapter;
+  /** Opt-in passive shadow tap. Observer failure never changes L1 task behavior. */
+  shadowObserver?: L1PersistenceObserver;
 }): Promise<MemoryRecord | null> {
-  const { memory, decision, baseDir, sessionKey, sessionId, taskId, teamId, userId, agentId, logger, vectorStore, embeddingService, storage } = params;
+  const {
+    memory, decision, baseDir, sessionKey, sessionId, taskId, teamId, userId, agentId,
+    logger, vectorStore, embeddingService, storage, shadowObserver,
+  } = params;
 
   if (decision.action === "skip") {
     logger?.debug?.(`${TAG} Skipping memory: ${memory.content.slice(0, 50)}...`);
@@ -188,12 +219,30 @@ export async function writeMemory(params: {
 
   const now = new Date().toISOString();
 
-  let nextVersion = 0;
-  if ((decision.action === "update" || decision.action === "merge") && decision.target_ids.length > 0 && vectorStore) {
+  const replacesExisting = decision.action === "update" || decision.action === "merge";
+  // A newly stored record has an acknowledged first version. Replacement
+  // actions remain v0 unless every requested predecessor can be resolved from
+  // the store: emitting a guessed max+1 would manufacture version lineage.
+  let nextVersion = replacesExisting ? 0 : 1;
+  if (replacesExisting && decision.target_ids.length > 0 && vectorStore) {
     try {
-      const existing = await vectorStore.queryL1Records({ recordIds: decision.target_ids });
-      const maxVersion = existing.reduce((max, row) => Math.max(max, row.version ?? 0), 0);
-      nextVersion = maxVersion + 1;
+      const targetIds = [...new Set(decision.target_ids)];
+      const existing = await vectorStore.queryL1Records({ recordIds: targetIds });
+      const rowsById = new Map(existing.map((row) => [row.record_id, row]));
+      const targetRows = targetIds.map((targetId) => rowsById.get(targetId));
+      const allTargetsResolved = targetRows.every((row) => row !== undefined);
+      const versions = targetRows.map((row) => row?.version);
+      const versionsUsable = versions.every((version) =>
+        Number.isSafeInteger(version) && (version ?? -1) >= 1);
+
+      if (allTargetsResolved && versionsUsable) {
+        nextVersion = Math.max(...(versions as number[])) + 1;
+      } else {
+        logger?.warn?.(
+          `${TAG} Could not resolve every ${decision.action} target version; ` +
+          "writing v0 so downstream capture remains unresolved",
+        );
+      }
     } catch (err) {
       logger?.warn?.(`${TAG} Failed to read existing memory version, defaulting to v0: ${err instanceof Error ? err.message : String(err)}`);
     }
@@ -243,6 +292,11 @@ export async function writeMemory(params: {
 
   const shardDate = formatLocalDate(new Date());
   const recordKey = StoragePaths.record(shardDate);
+  const serializedRecord = JSON.stringify(record) + "\n";
+  let jsonlReceipt: MemoryPersistenceReceipt | null = null;
+  let jsonlFailure: string | null = null;
+  let memoryStoreReceipt: MemoryPersistenceReceipt | null = null;
+  let memoryStoreFailure: string | null = null;
 
   // Helper: append a JSONL line
   // - standalone (no storage): write to local fs
@@ -294,17 +348,35 @@ export async function writeMemory(params: {
       }
     }
     try {
-      await appendRecord(JSON.stringify(record) + "\n");
+      await appendRecord(serializedRecord);
+      jsonlReceipt = createMemoryPersistenceReceipt({
+        layer: "L1",
+        sink: storage ? "storage_jsonl" : "local_jsonl",
+        acknowledgementBasis: "append_resolved",
+        target: recordKey,
+        records: [{ id: record.id, version: record.version ?? 0 }],
+        payload: serializedRecord,
+      });
     } catch (err) {
-      logger?.warn?.(`${TAG} JSONL append failed (non-fatal, VDB write continues): ${err instanceof Error ? err.message : String(err)}`);
+      jsonlFailure = err instanceof Error ? err.message : String(err);
+      logger?.warn?.(`${TAG} JSONL append failed (non-fatal, VDB write continues): ${jsonlFailure}`);
     }
     logger?.debug?.(`${TAG} ${decision.action} memory: removed [${decision.target_ids.join(",")}] from VectorStore → ${record.id}: ${finalContent.slice(0, 80)}...`);
   } else {
     // store: append a new line
     try {
-      await appendRecord(JSON.stringify(record) + "\n");
+      await appendRecord(serializedRecord);
+      jsonlReceipt = createMemoryPersistenceReceipt({
+        layer: "L1",
+        sink: storage ? "storage_jsonl" : "local_jsonl",
+        acknowledgementBasis: "append_resolved",
+        target: recordKey,
+        records: [{ id: record.id, version: record.version ?? 0 }],
+        payload: serializedRecord,
+      });
     } catch (err) {
-      logger?.warn?.(`${TAG} JSONL append failed (non-fatal, VDB write continues): ${err instanceof Error ? err.message : String(err)}`);
+      jsonlFailure = err instanceof Error ? err.message : String(err);
+      logger?.warn?.(`${TAG} JSONL append failed (non-fatal, VDB write continues): ${jsonlFailure}`);
     }
     logger?.debug?.(`${TAG} Stored memory ${record.id}: ${finalContent.slice(0, 80)}...`);
   }
@@ -338,16 +410,51 @@ export async function writeMemory(params: {
 
       const upsertOk = await vectorStore.upsertL1(record, embedding);
       logger?.debug?.(`${TAG} [vec-dual-write] upsert result=${upsertOk} id=${record.id}`);
+      if (upsertOk) {
+        memoryStoreReceipt = createMemoryPersistenceReceipt({
+          layer: "L1",
+          sink: "memory_store",
+          acknowledgementBasis: "upsert_returned_true",
+          target: record.id,
+          records: [{ id: record.id, version: record.version ?? 0 }],
+          payload: JSON.stringify(record),
+        });
+      } else {
+        memoryStoreFailure = "upsertL1 returned false";
+      }
     } catch (err) {
       // Vector write failure should NOT block the main JSONL write
+      memoryStoreFailure = err instanceof Error ? err.message : String(err);
       logger?.warn?.(
-        `${TAG} [vec-dual-write] FAILED (JSONL already written) id=${record.id}: ${err instanceof Error ? err.message : String(err)}`,
+        `${TAG} [vec-dual-write] FAILED (JSONL already written) id=${record.id}: ${memoryStoreFailure}`,
       );
     }
   } else {
     logger?.debug?.(
       `${TAG} [vec-dual-write] SKIPPED id=${record.id}: vectorStore=${!!vectorStore}`,
     );
+  }
+
+  // Fire-and-forget by design: shadow telemetry cannot delay or fail the
+  // existing Memory write path. The observer receives no store write surface.
+  if (shadowObserver) {
+    try {
+      const observation: L1PersistenceObservation = {
+        layer: "L1",
+        recordKey,
+        record: structuredClone(record),
+        decision: structuredClone(decision),
+        receipts: [jsonlReceipt, memoryStoreReceipt].filter(
+          (receipt): receipt is MemoryPersistenceReceipt => receipt !== null,
+        ),
+        failures: { jsonl: jsonlFailure, memoryStore: memoryStoreFailure },
+      };
+      void Promise.resolve(shadowObserver.observeL1Persistence(observation)).catch((error) => {
+        logger?.warn?.(`${TAG} Passive shadow observer rejected (non-fatal): ${error instanceof Error ? error.message : String(error)}`);
+      });
+    } catch (error) {
+      logger?.warn?.(`${TAG} Passive shadow observer threw (non-fatal): ${error instanceof Error ? error.message : String(error)}`);
+    }
   }
 
   return record;

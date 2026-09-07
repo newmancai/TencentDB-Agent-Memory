@@ -27,6 +27,17 @@ import { reportL1LatencyMetrics } from "../report/metric-tracking-l1-latency.js"
 import type { LLMRunner, Logger, TraceContext } from "../types.js";
 import { buildTraceParams } from "../types.js";
 import type { StorageAdapter } from "../storage/adapter.js";
+import {
+  applyEvidenceScopedAdmission,
+  type MemoryAdmissionDecision,
+} from "../self-supervision/evidence-scoped-admission.js";
+import {
+  buildFinalMemoryDrafts,
+  gateDedupDecisions,
+  reviewFinalMemoryDrafts,
+  type FinalDraftAdmissionDecision,
+  type FinalDraftReviewer,
+} from "../self-supervision/final-draft-admission.js";
 
 const TAG = "[memory-tdai][l1-extractor]";
 
@@ -60,6 +71,16 @@ export interface L1ExtractionResult {
   sceneNames: string[];
   /** Last scene name (for continuity in next extraction) */
   lastSceneName?: string;
+  /** Present only when an opt-in admission policy reviewed extracted candidates. */
+  admissionDecisions?: MemoryAdmissionDecision[];
+  /** Candidates left active after the opt-in admission policy. */
+  admittedCount?: number;
+  /** Candidates preserved in the audit but withheld from active L1. */
+  quarantinedCount?: number;
+  /** Exact post-dedup draft decisions from the opt-in v4 contract. */
+  finalDraftAdmissionDecisions?: FinalDraftAdmissionDecision[];
+  /** Whether every withheld v4 draft was durably appended to the local review queue. */
+  reviewQueuePersisted?: boolean;
 }
 
 // ============================
@@ -101,6 +122,19 @@ export async function extractL1Memories(params: {
     previousSceneName?: string;
     /** Prompt family for L1 extraction (default: chat). */
     promptMode?: MemoryPromptMode;
+    /**
+     * Optional evidence-bound candidate review. Disabled by default so existing
+     * and production extraction behavior is unchanged.
+     */
+    admissionPolicy?: "evidence_scoped_v1";
+    /**
+     * Review the exact post-dedup write draft. Disabled by default. The first
+     * slice permits new stores only; update/merge are recorded as deferred.
+     */
+    finalDraftAdmission?: {
+      reviewer: FinalDraftReviewer;
+      strategy: "single_structured" | "independent_behavior_verifier";
+    };
     /** Vector store for cosine similarity candidate recall */
     vectorStore?: IMemoryStore;
     /** Embedding service for computing query vectors */
@@ -236,8 +270,35 @@ export async function extractL1Memories(params: {
     };
   }
 
+  let admissionDecisions: MemoryAdmissionDecision[] | undefined;
+  let admittedExtracted = allExtracted;
+  if (options.admissionPolicy === "evidence_scoped_v1") {
+    const admission = applyEvidenceScopedAdmission({ candidates: allExtracted, messages: newMessages });
+    admittedExtracted = admission.admitted;
+    admissionDecisions = admission.decisions;
+    const quarantined = admission.decisions.filter((decision) => decision.disposition === "quarantine").length;
+    logger?.info?.(
+      `${TAG} Evidence-scoped admission: candidates=${allExtracted.length}, `
+      + `admitted=${admittedExtracted.length}, quarantined=${quarantined}`,
+    );
+  }
+
+  if (admittedExtracted.length === 0) {
+    return {
+      success: true,
+      extractedCount: allExtracted.length,
+      storedCount: 0,
+      records: [],
+      sceneNames,
+      lastSceneName: sceneNames[sceneNames.length - 1],
+      admissionDecisions,
+      admittedCount: 0,
+      quarantinedCount: admissionDecisions?.length ?? 0,
+    };
+  }
+
   // Limit per session
-  let extracted = allExtracted;
+  let extracted = admittedExtracted;
   if (extracted.length > maxMemoriesPerSession) {
     logger?.debug?.(`${TAG} Limiting from ${extracted.length} to ${maxMemoriesPerSession} memories per session`);
     extracted = extracted.slice(0, maxMemoriesPerSession);
@@ -252,6 +313,30 @@ export async function extractL1Memories(params: {
   // Step 2: Batch Conflict Detection + Write
   let storedRecords: MemoryRecord[];
   let dedupLatencyMs: number | null = null;
+  let finalDraftAdmissionDecisions: FinalDraftAdmissionDecision[] | undefined;
+  let reviewQueuePersisted: boolean | undefined;
+
+  const reviewAndGate = async (decisions: DedupDecision[]): Promise<DedupDecision[]> => {
+    if (!options.finalDraftAdmission) return decisions;
+    const drafts = buildFinalMemoryDrafts({ memories: memoriesWithIds, decisions });
+    finalDraftAdmissionDecisions = await reviewFinalMemoryDrafts({
+      drafts,
+      evidenceWindow: [...backgroundMessages, ...newMessages],
+      reviewer: options.finalDraftAdmission.reviewer,
+      strategy: options.finalDraftAdmission.strategy,
+    });
+    reviewQueuePersisted = await persistFinalDraftReviewQueue({
+      decisions: finalDraftAdmissionDecisions,
+      baseDir,
+      storage,
+      sessionKey,
+      sessionId,
+      taskId,
+      strategy: options.finalDraftAdmission.strategy,
+      logger,
+    });
+    return gateDedupDecisions(decisions, finalDraftAdmissionDecisions);
+  };
 
   if (enableDedup) {
     try {
@@ -290,9 +375,10 @@ export async function extractL1Memories(params: {
         }
       }
 
+      const gatedDecisions = await reviewAndGate(decisions);
       storedRecords = await applyDecisions({
         memoriesWithIds,
-        decisions,
+        decisions: gatedDecisions,
         baseDir,
         sessionKey,
         sessionId,
@@ -308,10 +394,34 @@ export async function extractL1Memories(params: {
 
     } catch (err) {
       logger?.warn?.(`${TAG} Batch dedup failed, storing all as new: ${err instanceof Error ? err.message : String(err)}`);
-      storedRecords = await storeAllDirectly(memoriesWithIds, baseDir, sessionKey, sessionId, taskId, teamId, userId, agentId, logger, options.vectorStore, options.embeddingService, storage);
+      if (options.finalDraftAdmission) {
+        const fallbackDecisions = memoriesWithIds.map((memory) => ({
+          record_id: memory.record_id, action: "store" as const, target_ids: [],
+        }));
+        const gatedDecisions = await reviewAndGate(fallbackDecisions);
+        storedRecords = await applyDecisions({
+          memoriesWithIds, decisions: gatedDecisions, baseDir, sessionKey, sessionId, taskId,
+          teamId, userId, agentId, logger, vectorStore: options.vectorStore,
+          embeddingService: options.embeddingService, storage,
+        });
+      } else {
+        storedRecords = await storeAllDirectly(memoriesWithIds, baseDir, sessionKey, sessionId, taskId, teamId, userId, agentId, logger, options.vectorStore, options.embeddingService, storage);
+      }
     }
   } else {
-    storedRecords = await storeAllDirectly(memoriesWithIds, baseDir, sessionKey, sessionId, taskId, teamId, userId, agentId, logger, options.vectorStore, options.embeddingService, storage);
+    if (options.finalDraftAdmission) {
+      const directDecisions = memoriesWithIds.map((memory) => ({
+        record_id: memory.record_id, action: "store" as const, target_ids: [],
+      }));
+      const gatedDecisions = await reviewAndGate(directDecisions);
+      storedRecords = await applyDecisions({
+        memoriesWithIds, decisions: gatedDecisions, baseDir, sessionKey, sessionId, taskId,
+        teamId, userId, agentId, logger, vectorStore: options.vectorStore,
+        embeddingService: options.embeddingService, storage,
+      });
+    } else {
+      storedRecords = await storeAllDirectly(memoriesWithIds, baseDir, sessionKey, sessionId, taskId, teamId, userId, agentId, logger, options.vectorStore, options.embeddingService, storage);
+    }
   }
 
   logger?.info(`${TAG} Extraction complete: extracted=${extracted.length}, stored=${storedRecords.length}`);
@@ -369,12 +479,63 @@ export async function extractL1Memories(params: {
 
   return {
     success: true,
-    extractedCount: extracted.length,
+    extractedCount: admissionDecisions ? allExtracted.length : extracted.length,
     storedCount: storedRecords.length,
     records: storedRecords,
     sceneNames,
     lastSceneName: sceneNames[sceneNames.length - 1],
+    admissionDecisions,
+    admittedCount: admissionDecisions ? extracted.length : undefined,
+    quarantinedCount: admissionDecisions
+      ? admissionDecisions.filter((decision) => decision.disposition === "quarantine").length
+      : undefined,
+    finalDraftAdmissionDecisions,
+    reviewQueuePersisted,
   };
+}
+
+async function persistFinalDraftReviewQueue(input: {
+  decisions: readonly FinalDraftAdmissionDecision[];
+  baseDir: string;
+  storage?: StorageAdapter;
+  sessionKey: string;
+  sessionId?: string;
+  taskId?: string;
+  strategy: "single_structured" | "independent_behavior_verifier";
+  logger?: Logger;
+}): Promise<boolean> {
+  const withheld = input.decisions.filter((decision) =>
+    decision.disposition === "quarantine" || decision.disposition === "deferred");
+  if (withheld.length === 0) return true;
+  const now = new Date();
+  const shardDate = now.toLocaleDateString("en-CA");
+  const key = `review_queue/${shardDate}.jsonl`;
+  const line = JSON.stringify({
+    schemaVersion: "tdai.final-draft-review.v1",
+    recordedAt: now.toISOString(),
+    sessionKey: input.sessionKey,
+    sessionId: input.sessionId ?? null,
+    taskId: input.taskId ?? null,
+    strategy: input.strategy,
+    decisions: withheld,
+  }) + "\n";
+  try {
+    if (input.storage) {
+      await input.storage.appendFile(key, line);
+    } else {
+      const fs = await import("node:fs/promises");
+      const path = await import("node:path");
+      const queueDir = path.default.join(input.baseDir, "review_queue");
+      await fs.default.mkdir(queueDir, { recursive: true });
+      await fs.default.appendFile(path.default.join(queueDir, `${shardDate}.jsonl`), line, "utf8");
+    }
+    return true;
+  } catch (error) {
+    input.logger?.warn?.(
+      `${TAG} Failed to persist final-draft review queue: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return false;
+  }
 }
 
 // ============================

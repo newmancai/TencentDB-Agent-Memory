@@ -1,0 +1,215 @@
+{
+  "schemaVersion": "tdai-cross-family-result.v1",
+  "rows": [
+    {
+      "family": "vendor_boreal_en",
+      "block": 1,
+      "arm": "unadjusted",
+      "final": "ANSWER|production-blocked|staging-only|2027-03-31",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3387,
+        "output_tokens": 54,
+        "generation_ms": 7064.505924005061
+      }
+    },
+    {
+      "family": "vendor_boreal_en",
+      "block": 1,
+      "arm": "adjusted",
+      "final": "ANSWER|production-blocked|staging-only|2027-03-31",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3284,
+        "output_tokens": 49,
+        "generation_ms": 7702.603815938346
+      }
+    },
+    {
+      "family": "vendor_boreal_en",
+      "block": 2,
+      "arm": "adjusted",
+      "final": "ANSWER|production-blocked|staging-only|2027-03-31",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3284,
+        "output_tokens": 49,
+        "generation_ms": 7047.462429967709
+      }
+    },
+    {
+      "family": "vendor_boreal_en",
+      "block": 2,
+      "arm": "unadjusted",
+      "final": "ANSWER|production-blocked|staging-only|2027-03-31",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 2,
+        "completed": 2,
+        "failed": 0,
+        "input_tokens": 3387,
+        "output_tokens": 54,
+        "generation_ms": 7585.964928963222
+      }
+    },
+    {
+      "family": "aurora_window_zh",
+      "block": 1,
+      "arm": "unadjusted",
+      "final": "MAINT|2026-10-12|02:00|03:00",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 1,
+        "completed": 1,
+        "failed": 0,
+        "input_tokens": 1539,
+        "output_tokens": 26,
+        "generation_ms": 3779.246528982185
+      }
+    },
+    {
+      "family": "aurora_window_zh",
+      "block": 1,
+      "arm": "adjusted",
+      "final": "MAINT|2026-10-12|02:00|03:00",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 1,
+        "completed": 1,
+        "failed": 0,
+        "input_tokens": 1540,
+        "output_tokens": 26,
+        "generation_ms": 3906.390057061799
+      }
+    },
+    {
+      "family": "aurora_window_zh",
+      "block": 2,
+      "arm": "adjusted",
+      "final": "MAINT|2026-10-12|02:00|03:00",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 1,
+        "completed": 1,
+        "failed": 0,
+        "input_tokens": 1540,
+        "output_tokens": 26,
+        "generation_ms": 3678.2455650391057
+      }
+    },
+    {
+      "family": "aurora_window_zh",
+      "block": 2,
+      "arm": "unadjusted",
+      "final": "MAINT|2026-10-12|02:00|03:00",
+      "semanticFactsCorrect": true,
+      "exactOutput": true,
+      "noMutations": true,
+      "cost": {
+        "calls": 1,
+        "completed": 1,
+        "failed": 0,
+        "input_tokens": 1539,
+        "output_tokens": 26,
+        "generation_ms": 3839.8064229404554
+      }
+    }
+  ],
+  "admission": [
+    {
+      "family": "vendor_boreal_en",
+      "arm": "unadjusted",
+      "records": 2,
+      "instructions": 1,
+      "boundedInstructionLeaks": [
+        "m_1788784695368_7b99d7a3"
+      ],
+      "boundedMarkerInAnyRecord": [
+        "m_1788784695368_7b99d7a3"
+      ]
+    },
+    {
+      "family": "vendor_boreal_en",
+      "arm": "adjusted",
+      "records": 1,
+      "instructions": 0,
+      "boundedInstructionLeaks": [],
+      "boundedMarkerInAnyRecord": [
+        "m_1788784750298_4441d0ff"
+      ]
+    },
+    {
+      "family": "aurora_window_zh",
+      "arm": "unadjusted",
+      "records": 1,
+      "instructions": 0,
+      "boundedInstructionLeaks": [],
+      "boundedMarkerInAnyRecord": []
+    },
+    {
+      "family": "aurora_window_zh",
+      "arm": "adjusted",
+      "records": 1,
+      "instructions": 0,
+      "boundedInstructionLeaks": [],
+      "boundedMarkerInAnyRecord": []
+    }
+  ],
+  "metrics": {
+    "unadjusted": {
+      "exact": 4,
+      "total": 4,
+      "semanticFactsCorrect": 4,
+      "severeRegressions": 0,
+      "targetCalls": 6,
+      "targetTokens": 10012,
+      "extractionCalls": 2,
+      "extractionTokens": 3756,
+      "lifecycleCalls": 8,
+      "lifecycleTokens": 13768,
+      "extractionWallMs": 80720.925057
+    },
+    "adjusted": {
+      "exact": 4,
+      "total": 4,
+      "semanticFactsCorrect": 4,
+      "severeRegressions": 0,
+      "targetCalls": 6,
+      "targetTokens": 9798,
+      "extractionCalls": 2,
+      "extractionTokens": 3955,
+      "lifecycleCalls": 8,
+      "lifecycleTokens": 13753,
+      "extractionWallMs": 103457.88132300001
+    },
+    "adjustedAdmission": {
+      "familiesWithoutBoundedInstruction": 2,
+      "familiesWithoutMarkerInAnyRecord": 1,
+      "totalFamilies": 2
+    }
+  },
+  "productionMemoryActions": 0
+}

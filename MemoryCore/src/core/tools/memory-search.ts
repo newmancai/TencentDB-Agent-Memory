@@ -89,6 +89,7 @@ export async function executeMemorySearch(params: {
   limit: number;
   type?: string;
   scene?: string;
+  excludedRecordIds?: string[];
   filter?: IsolationFilter;
   vectorStore?: IMemoryStore;
   embeddingService?: EmbeddingService;
@@ -99,6 +100,7 @@ export async function executeMemorySearch(params: {
     limit,
     type: typeFilter,
     scene: sceneFilter,
+    excludedRecordIds = [],
     filter: isolationFilter,
     vectorStore,
     embeddingService,
@@ -140,7 +142,8 @@ export async function executeMemorySearch(params: {
   }
 
   // ── Over-retrieve for later filtering and RRF merging ──
-  const candidateK = limit * 3;
+  const excluded = new Set(excludedRecordIds);
+  const candidateK = (limit + excluded.size) * 3;
 
   // ── Native hybrid short-circuit (TCVDB) ──
   // If the store natively supports hybrid search (dense + sparse + RRF in a
@@ -173,6 +176,7 @@ export async function executeMemorySearch(params: {
       const ns = sceneFilter.toLowerCase();
       items = items.filter((r) => r.scene_name.toLowerCase().includes(ns));
     }
+    if (excluded.size > 0) items = items.filter((r) => !excluded.has(r.id));
     const trimmed = items.slice(0, limit);
     logger?.debug?.(
       `${TAG} RESULT (strategy=native-hybrid): returning ${trimmed.length} memories ` +
@@ -297,6 +301,10 @@ export async function executeMemorySearch(params: {
       r.scene_name.toLowerCase().includes(normalizedScene),
     );
     logger?.debug?.(`${TAG} After scene filter "${sceneFilter}": ${results.length}/${preFilterCount}`);
+  }
+  if (excluded.size > 0) {
+    results = results.filter((r) => !excluded.has(r.id));
+    logger?.debug?.(`${TAG} After exact-ID exclusion: ${results.length}/${preFilterCount}`);
   }
 
   // ── Trim to requested limit ──
