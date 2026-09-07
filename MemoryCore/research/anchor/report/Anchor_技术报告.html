@@ -1,28 +1,18 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><title>Anchor 技术报告</title><style>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>TDAI Memory 零显式反馈优化</title><style>
 @font-face { font-family: AnchorSans; src: url("file:///usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf"); }
 @font-face { font-family: AnchorSerif; src: url("file:///usr/share/fonts/truetype/arphic-gbsn00lp/gbsn00lp.ttf"); }
 @page {
   size: A4;
   margin: 18mm 17mm 18mm 17mm;
-  @top-left { content: "ANCHOR · TECHNICAL REPORT"; font: 7.5pt AnchorSans; color: #7c8798; letter-spacing: .08em; }
+  @top-left { content: "TDAI MEMORY · 内部技术作业"; font: 7.5pt AnchorSans; color: #626a75; }
   @top-right { content: "2026-09-07"; font: 7.5pt AnchorSans; color: #7c8798; }
   @bottom-center { content: counter(page); font: 8pt AnchorSans; color: #7c8798; }
 }
-@page:first { margin: 0; @top-left { content: none; } @top-right { content: none; } @bottom-center { content: none; } }
 * { box-sizing: border-box; }
 html { color: #18202b; background: white; }
 body { margin: 0; font-family: AnchorSans, "DejaVu Sans", sans-serif; font-size: 9.15pt; line-height: 1.67; }
 a { color: #2d63c8; text-decoration: none; overflow-wrap: anywhere; }
-.cover { width: 210mm; height: 297mm; padding: 30mm 24mm 24mm; color: #f6f8fb; background: #111722; page-break-after: always; position: relative; }
-.cover:before { content: ""; position: absolute; width: 98mm; height: 98mm; right: -25mm; top: -28mm; border: 1.2mm solid #759cff; border-radius: 50%; opacity: .45; }
-.cover .eyebrow { color: #91abeb; letter-spacing: .17em; font-size: 9pt; font-weight: 700; text-transform: uppercase; }
-.cover h1 { margin: 50mm 0 0; color: white; font-family: AnchorSans; font-size: 40pt; line-height: 1; letter-spacing: -.03em; border: 0; }
-.cover .tagline { margin-top: 7mm; font-size: 17pt; color: #d8e1f5; }
-.cover .subtitle { margin-top: 28mm; width: 125mm; font-family: AnchorSerif, serif; font-size: 15pt; line-height: 1.55; color: #f4f6fa; }
-.cover .meta { position: absolute; left: 24mm; bottom: 25mm; right: 24mm; border-top: .3mm solid #526178; padding-top: 6mm; display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; color: #aebbd0; font-size: 8.5pt; }
-.cover .meta a { color: #b9cdfd; }
-.cover .mark { color: #759cff; }
 main { max-width: 176mm; margin: 0 auto; }
 h1 { font-family: AnchorSerif, serif; font-size: 21pt; line-height: 1.25; color: #111722; border-bottom: .4mm solid #d6dce5; padding-bottom: 3mm; margin: 0 0 7mm; }
 h2 { font-family: AnchorSerif, serif; font-size: 15pt; line-height: 1.3; margin: 9mm 0 3.5mm; color: #172b54; break-after: avoid; }
@@ -52,235 +42,394 @@ hr { border: 0; border-top: .3mm solid #d6dce5; margin: 8mm 0; }
 .report-body > h2 { page-break-before: auto; }
 </style></head>
 <body>
-<section class="cover">
-  <div class="eyebrow">TencentDB Agent Memory · MemoryCore</div>
-  <h1>Anchor<span class="mark">.</span></h1>
-  <div class="tagline">Reliable Memory for Agents</div>
-  <div class="subtitle">面向 Agent 的可信长期记忆<br>零显式反馈闭环实现与初步评测</div>
-  <div class="meta">
-    <div>技术报告 · 开发初版<br>2026-09-07</div>
-    <div>Open source<br><a href="https://github.com/newmancai/TencentDB-Agent-Memory/tree/feat/anchor-memory">feat/anchor-memory</a><br><a href="https://github.com/newmancai/TencentDB-Agent-Memory/commit/69486006e02800ad1a686399b4c0a6cfbf9acb70">implementation 6948600</a></div>
-  </div>
-</section>
-<main class="report-body"><h1>摘要</h1>
-<p>长期记忆让 Agent 可以跨任务复用事实和经验，也会把一次性要求带到不相关的未来任务。本报告研究一个工程问题：用户没有对 Memory 打分、点赞或主动纠错时，系统能否依靠正常业务证据发现记忆问题，进行局部、可追溯的处理，并以较低推理成本验证后续任务质量。</p>
-<p>我们在 TencentDB Agent Memory 的 MemoryCore 上实现 Anchor。系统保留 L0 原始来源，在 L1 候选写入前核验内容与作用范围，dedup 后再次审核最终草稿；读取侧记录精确的 <code>recordId + version</code>、真实 prompt 暴露及当前任务工具回执。证据不足时返回 <code>unknown</code> 或进入 review queue。对于“业务事实与本次回复格式混在同一候选”的常见弱模型错误，Anchor 从用户原文投影可独立成立的事实句，在线处理增加 0 次模型调用。</p>
-<p>初步结果显示：最初词法 baseline 在 LongMemEval 上的反馈精度为 43.33%，产生 34 次错误失效；两个新业务来源的 Qwen3-4B 端到端实验中，strict exact 从普通臂 2/4 提升到调整臂 4/4，业务事实均为 4/4，严重回归为 0，全生命周期 token 下降 2.98%。新增混合主张分支在 14 个新模板上实现动作 14/14、内容 14/14，并在一条历史真实 Qwen 候选重放中将格式残留从 1 降至 0，同时保留 3/3 业务事实。</p>
-<p>这些结果证明了开发初版的可行性。端到端来源只有两个，固定模型和种子也限制了统计外推；当前结论用于工程验收和后续实验设计，不构成商业系统排行。</p>
-<div class="keyline"><strong>开源实现</strong><br><a href="https://github.com/newmancai/TencentDB-Agent-Memory/tree/feat/anchor-memory">github.com/newmancai/TencentDB-Agent-Memory · feat/anchor-memory</a><br><span class="mono">实现基准提交：69486006e02800ad1a686399b4c0a6cfbf9acb70</span></div>
-<h2>1. 研究问题与验收标准</h2>
-<h3>1.1 问题定义</h3>
-<p>Agent Memory 的写入通常由模型完成。模型能够压缩对话，也可能把局部指令泛化成长期规则。例如，用户同时描述生产限制、试点有效期，并要求“本工单按固定模板回复”。生产限制和有效期具有跨任务价值；回复模板只对当前工单有效。两者被写进同一条 active L1 后，后续任务会读到正确事实，同时受过期行为约束干扰。</p>
-<p>本项目关注三类风险：</p>
-<ol>
-<li><strong>内容风险</strong>：候选加入了来源没有支持的事实，或在改写中改变了对象、状态、时间与语言。</li>
-<li><strong>范围风险</strong>：session、ticket 或当天有效的要求被提升为长期行为。</li>
-<li><strong>归因风险</strong>：历史工具回执、模型自述或局部 API 成功被误当成当前任务完成，继而错误奖惩 Memory。</li>
-</ol>
-<h3>1.2 零显式反馈边界</h3>
-<p>运行时允许使用正常业务对话、真实工具 call/result、数据库或文件状态、业务不变量。用户对 Memory 的纠错标签、满意度评分、点赞、隐藏答案和离线 grader 不参与当次记忆决策。离线 grader 只衡量最终效果。</p>
-<p>验收同时观察四个维度：</p>
+<main class="report-body"><h1>TDAI Memory 零显式反馈优化</h1>
+<p>实现代码与初步测试结果</p>
+<p>项目代号：Anchor ｜ 基础项目：TencentDB Agent Memory / MemoryCore ｜ 日期：2026-09-07</p>
+<p>开源实现：<a href="https://github.com/newmancai/TencentDB-Agent-Memory/tree/feat/anchor-memory">https://github.com/newmancai/TencentDB-Agent-Memory/tree/feat/anchor-memory</a><br>
+固定实现提交：<a href="https://github.com/newmancai/TencentDB-Agent-Memory/commit/69486006e02800ad1a686399b4c0a6cfbf9acb70">https://github.com/newmancai/TencentDB-Agent-Memory/commit/69486006e02800ad1a686399b4c0a6cfbf9acb70</a></p>
+<h2>1. 本次作业交付了什么</h2>
+<p>本次工作完成了 B+E 的开发初版。</p>
+<ul>
+<li><strong>B：反馈信号与问题定位。</strong> 系统记录哪条记忆被召回、是否真的进入模型输入、当前任务执行了什么工具、最终业务状态是否正确，并把问题定位到 retrieval、exposure、execution 或 downstream 阶段。</li>
+<li><strong>E：记忆处理与效果验证。</strong> 系统根据原始来源决定保留、投影事实、隔离或暂缓写入；处理对象精确到 <code>recordId + version</code>，然后用普通臂和调整臂比较后续任务质量与成本。</li>
+</ul>
+<p>“零显式反馈”指运行时不依赖用户给 Memory 打分、点赞或专门纠错。系统使用正常业务对话、真实工具 call/result、数据库或文件状态及业务不变量。离线标准答案只负责评测，不参与当次记忆处理。</p>
+<p>当前最重要的结果是：在两个新业务来源的本地 Qwen3-4B 实验中，普通臂 strict exact 为 <strong>2/4</strong>，调整臂为 <strong>4/4</strong>；两臂业务事实均为 <strong>4/4</strong>，严重回归均为 <strong>0</strong>。调整臂全生命周期 token 从 <strong>13,995</strong> 降至 <strong>13,578</strong>，下降 <strong>2.98%</strong>。新增混合主张处理在 14 个新模板上动作和内容均为 <strong>14/14</strong>，在线增加 <strong>0 次模型调用</strong>。</p>
+<h2>2. 从 baseline 到当前版本，具体优化了什么</h2>
+<p>下表是本报告的核心。每一行都对应一个实际缺口、一处实现和一组可核对结果。</p>
 <table>
 <thead>
 <tr>
-<th>维度</th>
-<th>核心问题</th>
-<th>指标</th>
+<th>最初问题</th>
+<th>本次优化</th>
+<th>落到 TDAI Memory 的实现</th>
+<th>量化结果</th>
+<th>上游依据或本项目分析</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>判断可靠性</td>
-<td>找到的问题是否真实存在</td>
-<td>feedback precision/recall、validity、unknown</td>
+<td>看到失败后按关键词或相似度处罚记忆，无法判断失败是否真的由该记忆造成</td>
+<td>将“是否检索、是否进入 prompt、是否执行、结果是否正确”拆开记录</td>
+<td><code>recall-shadow-adapter.ts</code>、<code>tool-execution.ts</code>、<code>execution-feedback.ts</code></td>
+<td>23/23 工具调用可与 service audit 对应；可判定的 17/17 一致，6 条保留 unknown</td>
+<td>商业 Agent 普遍区分记忆、上下文和工具执行。本项目采用“先证明暴露，再讨论归因”的因果顺序</td>
 </tr>
 <tr>
-<td>生命周期安全</td>
-<td>有害行为是否退出 active 集合，有用事实是否保留</td>
-<td>false activation、false invalidation、useful retention</td>
+<td>历史成功回执或未绑定结果可能被当前任务误用</td>
+<td>所有执行反馈绑定当前 <code>taskRunId</code>，局部工具成功与完整任务终态分开</td>
+<td><code>tool-execution.ts</code>、<code>execution-feedback.ts</code>、<code>openclaw-recall-turn-bridge.ts</code></td>
+<td>真实 trace 离线投影中 objective outcome 8/8 可判</td>
+<td>OpenAI/Anthropic 的公开 Agent 设计强调工具结果和运行上下文；不绑定当前任务就不生成 Memory credit</td>
 </tr>
 <tr>
-<td>后续任务质量</td>
-<td>处理后任务是否改善或保持</td>
-<td>strict exact、semantic facts、severe regression</td>
+<td>一次性工单格式被弱模型抽成长期 instruction</td>
+<td>写入前检查说话人、来源支持和 session/ticket/day 等作用范围</td>
+<td><code>evidence-scoped-admission.ts</code>、<code>l1-extractor.ts</code></td>
+<td>Qwen3-4B strict exact <strong>2/4→4/4</strong>；semantic facts <strong>4/4→4/4</strong>；严重回归 0</td>
+<td>Claude Memory、ChatGPT Projects、Vertex AI Memory Bank 都公开强调作用域或用户边界；保存价值和行为效力应分开</td>
 </tr>
 <tr>
-<td>AI Infra 成本</td>
-<td>获取反馈和处理记忆需要多少资源</td>
-<td>模型调用、tokens、延迟、升级率</td>
+<td>一个候选同时包含长期事实和本次回复格式，整条保留会污染，整条删除会丢事实</td>
+<td>从用户原文投影可独立成立的事实句；不能安全拆分时 quarantine，L0 继续保留</td>
+<td>mixed-claim projection</td>
+<td>模板动作 <strong>14/14</strong>、内容 <strong>14/14</strong>，格式残留 <strong>10→0</strong>；真实 Qwen 重放格式 <strong>1→0</strong>、事实 <strong>3/3</strong></td>
+<td>AWS AgentCore、LangGraph、Hindsight 等区分事实、经历和行为规则；复制原句可减少规则层改写事实</td>
+</tr>
+<tr>
+<td>只审核 extractor 原始候选，dedup 后内容和类型仍可能变化</td>
+<td>writer 副作用前审核 post-dedup 最终草稿和完整证据窗口</td>
+<td><code>final-draft-admission.ts</code>、<code>l1-extractor.ts</code></td>
+<td>v4：disposition <strong>27/48→48/48</strong>，validity <strong>18/48→46/48</strong>，错误激活 <strong>15/24→0</strong>，有用保留 <strong>24/24</strong></td>
+<td>本项目复核发现“审核前正确”不能推出“最终写入正确”，验收对象必须是最终草稿</td>
+</tr>
+<tr>
+<td>隔离只作用自动召回，主动 Memory Search 仍可读到同一记录</td>
+<td>两条读取路径共用 <code>(recordId, version)</code> 精确排除集合</td>
+<td><code>auto-recall.ts</code>、<code>memory-search.ts</code></td>
+<td>Wave 通过 <strong>0/2→2/2</strong>，泄漏 <strong>2/2→0</strong></td>
+<td>实链路暴露的旁路问题；干预单位若不是稳定记录身份，就无法解释两臂差异</td>
+</tr>
+<tr>
+<td>只看完整字符串会把格式错误和业务事实错误混在一起</td>
+<td>strict exact、semantic facts、业务动作和副作用分别评分</td>
+<td>objective validators 与评测脚本</td>
+<td>原生弱模型 raw exact 两臂均 2/4，但语义事实均 4/4；限定条件下 host normalization 达到 4/4，0 新模型调用</td>
+<td>分开评分可避免因为输出协议问题处罚正确事实</td>
+</tr>
+<tr>
+<td>每条记忆都同步调用强模型审核，成本和延迟高</td>
+<td>确定项走零模型规则；证据不足返回 unknown/review；复杂更新 deferred</td>
+<td><code>tiered-memory-admission.ts</code>、<code>final-draft-admission.ts</code></td>
+<td>混合主张处理 0 模型调用、保存运行 16.8 ms；端到端生命周期 token <strong>-2.98%</strong></td>
+<td>Google、AWS、Mem0 提供后台或异步更新；同步快路径只做能举证的事，昂贵模型留给疑难项</td>
 </tr>
 </tbody>
 </table>
-<h2>2. Anchor 的设计</h2>
-<h3>2.1 三个设计原则</h3>
-<p><strong>来源可回查。</strong> L0 原始消息保留完整顺序；L1 候选携带 <code>source_message_ids</code>。系统需要说明每个长期主张来自哪条用户消息。</p>
-<p><strong>保存价值与行为效力分开。</strong> 临时事件可以留在来源层供搜索，长期 active instruction 需要更强的范围证据。隔离行为不等于删除历史。</p>
-<p><strong>当前任务证据优先。</strong> 召回、prompt 暴露、工具执行和最终输出分别记录。只有属于当前 <code>taskRunId</code> 的客观终态，才具备进入 Memory 归因研究的资格。</p>
-<h3>2.2 写入链路</h3>
-<pre><code class="language-text">业务对话
-  │
-  ├─ L0：保存有序原始消息和 message ID
-  │
-  └─ Qwen L1 extractor
-       │
-       ├─ evidence-scoped admission
-       │    检查说话人、来源支持、语言和临时/长期范围
-       │
-       ├─ MemoryCore dedup
-       │
-       └─ final-draft admission
-            ├─ retain      写入 active L1
-            ├─ project     从原文复制独立事实句
-            ├─ quarantine  保留 L0，加入 review queue
-            └─ deferred    暂缓复杂 update / merge
-</code></pre>
-<p>dedup 后的二次审核很关键。候选最初合格，并不保证被去重或合并后的最终文字、类型和动作仍受原始证据支持。</p>
-<h3>2.3 读取、反馈与局部干预</h3>
-<pre><code class="language-text">auto-recall / tdai_memory_search
-  → 记录 recordId、version、rank、score、预算和截断
-  → host 确认内容进入真实 prompt，标记 exposed
-  → 工具 call/result 绑定当前 taskRunId
-  → objective validators 产生 success / failure / unknown
-  → 定位 retrieval / exposure / execution / downstream
-  → 精确屏蔽目标 recordId + version
-  → 相同配置执行 unadjusted / adjusted 两臂
-</code></pre>
-<p>自动召回和显式 Memory Search 共用精确排除集合，避免同一记录从旁路重新进入上下文。上一任务成功、工具名出现或模型声称“已完成”都不能替代当前任务回执。</p>
-<h3>2.4 混合主张投影</h3>
-<p>Anchor 针对高频、证据清楚的范围错误采用确定性处理：</p>
-<ol>
-<li>根据 <code>source_message_ids</code> 取回原始用户消息；</li>
-<li>找到“仅本次、当前工单、今天”等局部范围及回复行为；</li>
-<li>原文业务事实可以独立成句时，直接复制事实句作为 episodic；</li>
-<li>事实与临时规则无法安全分句时，候选进入 quarantine；</li>
-<li>“API 输出格式已改为 JSON”这类业务事实保持原样；</li>
-<li>跨句推断、冲突消解和复杂更新留给异步 reviewer。</li>
-</ol>
-<p>投影使用原文，降低规则系统自行改写事实的风险。在线路径不调用模型；保守 quarantine 可能损失一部分召回，后续需要测量 review queue 的补回能力。</p>
-<h2>3. 实现范围</h2>
-<p>Anchor 复用 MemoryCore 现有 L0/L1、dedup、检索和宿主适配器。主要实现位于：</p>
+<p>优化方向不是换一个更复杂的分类器，而是把含糊的“失败后处罚记忆”改成可复核链路：<strong>来源支持什么 → 在什么范围生效 → 本次任务是否真正使用 → 客观结果是什么 → 只处理证据指向的记录</strong>。</p>
+<h2>3. baseline 只说明起点</h2>
+<p>最初的 LongMemEval 词法方案在 360 条 evaluation 数据上，feedback precision 为 <strong>43.33%</strong>，recall 为 <strong>25.49%</strong>，出现 <strong>34 次错误失效</strong>和 <strong>34 次 active miss</strong>。虽然 token proxy 下降 8.9%，但它会错误处理本来正确的记忆，因此没有作为默认方案继续使用。</p>
+<p>这组数据只说明单靠词面匹配不能承担自动记忆处罚。它和端到端任务、混合主张组件测试分母不同，不拼成统一总分。</p>
+<h2>4. 实际工作量与交付构成</h2>
 <table>
 <thead>
 <tr>
-<th>模块</th>
-<th>作用</th>
+<th>工作包</th>
+<th>完成内容</th>
+<th>代码或证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>反馈信号链</td>
+<td>召回身份、prompt 暴露、工具 call/result、任务终态、故障阶段定位</td>
+<td><code>recall-shadow-adapter.ts</code>、<code>tool-execution.ts</code>、<code>execution-feedback.ts</code>、turn bridge</td>
+</tr>
+<tr>
+<td>写入安全链</td>
+<td>来源/说话人/范围审核、混合事实投影、post-dedup 最终草稿复核、review queue</td>
+<td><code>evidence-scoped-admission.ts</code>、<code>final-draft-admission.ts</code>、<code>l1-extractor.ts</code></td>
+</tr>
+<tr>
+<td>读取干预链</td>
+<td>自动召回与主动搜索统一按记录版本处理，修复旁路泄漏</td>
+<td><code>auto-recall.ts</code>、<code>memory-search.ts</code></td>
+</tr>
+<tr>
+<td>弱模型适配</td>
+<td>Qwen3-4B 真实抽取、混合主张零模型处理、事实与格式分别评分</td>
+<td>两个新来源、14 条模板、历史真实候选重放</td>
+</tr>
+<tr>
+<td>实验与复核</td>
+<td>LongMemEval baseline、PAST/TDAI 链路、Wave 两臂、跨来源 r2、v4 筛查</td>
+<td>机器 JSON、固定脚本、详细实验报告</td>
+</tr>
+<tr>
+<td>工程交付</td>
+<td>干净上游 fork、公开实现提交、测试、插件构建、实现/结果分目录</td>
+<td>18 个测试文件，173/173 通过；插件构建通过</td>
+</tr>
+</tbody>
+</table>
+<p>本次修改覆盖 Memory 写入、读取、宿主暴露、工具执行和离线评测五个环节。生产 Memory 的写入、删除和降权操作仍为 0。</p>
+<h2>5. 方案如何接入 TDAI Memory</h2>
+<p>本次没有另起一套 Memory 服务，而是接入 MemoryCore 已有的 L0、L1、dedup、自动召回、主动搜索和宿主适配器。</p>
+<h3>5.1 写入侧</h3>
+<pre><code class="language-text">正常业务对话
+  → L0 保存有序原始消息和 message ID
+  → Qwen L1 extractor 生成候选和 source_message_ids
+  → evidence-scoped admission 检查来源、说话人和范围
+  → MemoryCore 原有 dedup
+  → final-draft admission 审核真正准备写入的草稿
+       retain      写入 active L1
+       project     从原文保留独立事实
+       quarantine  保留 L0，暂不激活长期行为
+       deferred    复杂 update / merge 留给后续
+</code></pre>
+<p>二次审核放在 dedup 之后，因为最终落库的文字、类型和动作可能已和 extractor 的最初输出不同。</p>
+<h3>5.2 读取、反馈与处理侧</h3>
+<pre><code class="language-text">auto-recall / tdai_memory_search
+  → 记录 recordId、version、rank、score、预算和截断
+  → host 确认记忆是否进入真实 prompt
+  → 工具 call/result 绑定当前 taskRunId
+  → validator 判断 success / failure / unknown
+  → 定位 retrieval / exposure / execution / downstream
+  → 对精确 recordId + version 做局部处理
+  → 同配置运行普通臂 / 调整臂
+</code></pre>
+<p>上一任务成功、工具名出现在文本中、模型声称“已完成”，都不能替代当前任务回执。证据不完整时保留 <code>unknown</code>。</p>
+<h2>6. 与上周方案的关系</h2>
+<p>上周 PIVOT-Memory 是完整研究蓝图，本次选择其中能在 TDAI/Hermes 现有链路落地、能留下真实 trace、能用本地弱模型验证的部分。</p>
+<table>
+<thead>
+<tr>
+<th>上周方案能力</th>
+<th>本次实现</th>
+<th>当前状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provenance Contract</td>
+<td>L0 原文、有序消息、<code>source_message_ids</code>、最终草稿证据审核</td>
+<td>初版完成；完整 lineage 待后续</td>
+</tr>
+<tr>
+<td>retrieval / injection / exposure</td>
+<td>记录 <code>recordId/version/rank/score</code>，host 确认进入 prompt 后标记 exposed</td>
+<td>初版完成</td>
+</tr>
+<tr>
+<td>主动 validity 证据</td>
+<td>检查来源支持、说话人、作用范围、撤回和语言</td>
+<td>确定性部分完成；开放语义进入 review</td>
+</tr>
+<tr>
+<td>Full / Mask / Replace</td>
+<td>收缩为普通/调整两臂，按精确 ID 处理</td>
+<td>已用于小样本验收</td>
+</tr>
+<tr>
+<td>独立 validator</td>
+<td>exact、事实字段、工具回读、业务约束和副作用分开</td>
+<td>初版完成</td>
+</tr>
+<tr>
+<td>生命周期动作</td>
+<td>retain、事实投影、quarantine、deferred、读取屏蔽</td>
+<td>replace 与生产自动写回尚未完成</td>
+</tr>
+<tr>
+<td>选择性预测</td>
+<td>证据不足返回 <code>unknown</code></td>
+<td>初版完成</td>
+</tr>
+<tr>
+<td>L0/L1/L2/L3</td>
+<td>当前主链使用 L0+L1；已有 L2 scene 能力不强制启用</td>
+<td>根据后续瓶颈决定</td>
+</tr>
+</tbody>
+</table>
+<h2>7. 实现代码</h2>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>解决的具体问题</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>evidence-scoped-admission.ts</code></td>
-<td>来源、说话人和作用范围检查；混合主张投影</td>
+<td>来源与作用范围检查；混合事实/行为投影</td>
 </tr>
 <tr>
 <td><code>final-draft-admission.ts</code></td>
-<td>审核 post-dedup 的最终写入草稿与完整证据窗口</td>
+<td>审核 dedup 后真正准备落库的草稿</td>
 </tr>
 <tr>
 <td><code>l1-extractor.ts</code></td>
-<td>将两层 admission 接入抽取、dedup 与写入</td>
+<td>将两层 admission 接入现有抽取、dedup 和写入</td>
 </tr>
 <tr>
 <td><code>recall-shadow-adapter.ts</code></td>
-<td>记录精确召回身份、预算和 prompt 暴露证据</td>
+<td>保存精确召回身份、预算和 prompt 暴露证据</td>
 </tr>
 <tr>
-<td><code>auto-recall.ts</code> / <code>memory-search.ts</code></td>
-<td>在两条 L1 读取路径统一应用精确干预</td>
+<td><code>auto-recall.ts</code></td>
+<td>自动召回应用精确排除并记录 shadow evidence</td>
+</tr>
+<tr>
+<td><code>memory-search.ts</code></td>
+<td>主动搜索使用同一排除集合，堵住读取旁路</td>
 </tr>
 <tr>
 <td><code>tool-execution.ts</code></td>
-<td>将真实工具结果变成 task-bound observation</td>
+<td>从真实 call/result 生成 task-bound observation</td>
 </tr>
 <tr>
 <td><code>execution-feedback.ts</code></td>
-<td>聚合 objective outcome 并定位首个证据断点</td>
+<td>聚合客观终态并定位首个证据断点</td>
+</tr>
+<tr>
+<td><code>tiered-memory-admission.ts</code></td>
+<td>区分来源、可检索事实和 active 行为规则</td>
 </tr>
 <tr>
 <td><code>openclaw-recall-turn-bridge.ts</code></td>
-<td>将召回、模型输入和任务结束事件绑定到同一 turn</td>
+<td>将召回、模型输入和任务结束绑定到同一 turn</td>
 </tr>
 </tbody>
 </table>
-<p>全部新策略采用 opt-in 配置。关闭时继续执行原始 MemoryCore 路径。实验期间没有写入、删除或降权任何 production Memory。</p>
-<h2>4. 实验方法</h2>
-<h3>4.1 数据分层</h3>
+<p>新策略采用 opt-in 配置；关闭时继续执行原始 MemoryCore 路径。</p>
+<h2>8. 数据与指标</h2>
 <table>
 <thead>
 <tr>
-<th>数据</th>
+<th>数据或实验</th>
 <th style="text-align:right">规模</th>
-<th>目的</th>
-<th>结论边界</th>
+<th>用来回答什么</th>
+<th>证据边界</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>LongMemEval feedback-lifecycle</td>
 <td style="text-align:right">500 条；140 calibration、360 evaluation</td>
-<td>检查词法反馈 baseline 的错误失效与漏检</td>
-<td>离线生命周期实验，不评分端到端回答</td>
+<td>词法反馈会误伤多少正确记忆</td>
+<td>离线 baseline，不评端到端回答</td>
 </tr>
 <tr>
 <td>TDAI/PAST EP02</td>
-<td style="text-align:right">1 个业务来源、4 个后续 case、两臂</td>
-<td>接通 Qwen 抽取、TDAI 召回、工具 observation</td>
-<td>系统链路开发验证</td>
+<td style="text-align:right">1 个来源、4 个后续 case、26 次模型调用</td>
+<td>接通 Qwen 抽取、TDAI 召回和 observation</td>
+<td>真实系统链路的小样本开发实验</td>
 </tr>
 <tr>
 <td>Wave Cedar</td>
 <td style="text-align:right">2 类目标 × 两臂 × 2 blocks</td>
-<td>检查精确隔离、事实保留、主动搜索旁路</td>
+<td>精确隔离、事实保留、主动搜索旁路</td>
 <td>合成业务目标小样本</td>
 </tr>
 <tr>
 <td>Vendor Boreal + Aurora Window</td>
 <td style="text-align:right">2 个新来源；4 次抽取、12 次目标调用</td>
-<td>中英文新来源的端到端验收</td>
+<td>中英文来源上的端到端结果</td>
 <td>固定本地模型和种子</td>
 </tr>
 <tr>
 <td>mixed fact/behavior</td>
 <td style="text-align:right">14 个新模板</td>
-<td>安全拆分、不可拆分和格式误报</td>
+<td>可拆分、不可拆分和格式误报</td>
 <td>手工反例组件集</td>
 </tr>
 <tr>
 <td>r1 保存候选重放</td>
 <td style="text-align:right">2 个真实 Qwen 候选</td>
-<td>检查新版对已发生错误的处理</td>
+<td>新代码能否处理已发生错误</td>
 <td>只读重放，0 新模型调用</td>
 </tr>
 <tr>
 <td>v4 最终草稿筛查</td>
 <td style="text-align:right">48 条、8 个语义组</td>
-<td>disposition、validity、错误激活与保留</td>
-<td>同窗口开发集</td>
+<td>最终写入、内容支持、错误激活</td>
+<td>同窗口开发集，不算严格盲测</td>
 </tr>
 </tbody>
 </table>
-<h3>4.2 两臂控制</h3>
-<p>两臂使用相同模型、source 对话、工具能力和目标任务。普通臂保留原始抽取结果；调整臂启用 evidence-scoped admission 与精确读取干预。目标任务按 AB/BA 顺序运行，减少顺序偏差。规则在目标评分前固定，离线成绩不回流到当次处理。</p>
-<h3>4.3 指标口径</h3>
-<ul>
-<li><strong>strict exact</strong>：完整输出协议精确匹配，包括前缀、顺序和格式。</li>
-<li><strong>semantic facts</strong>：只核对日期、ID、状态和范围等业务事实。</li>
-<li><strong>false activation</strong>：临时或无来源支持的行为进入 active L1。</li>
-<li><strong>useful retention</strong>：有来源支持的业务事实继续可用。</li>
-<li><strong>severe regression</strong>：错误写入、意外修改等高风险副作用。</li>
-<li><strong>lifecycle tokens</strong>：来源抽取与后续任务的 token 总和。</li>
-</ul>
-<p>strict exact 和 semantic facts 分开，可以区分“弱模型漏写固定前缀”与“业务事实本身错误”。</p>
-<h2>5. 结果</h2>
-<h3>5.1 Baseline 暴露出高误伤风险</h3>
-<p>LongMemEval 上，最初词法方案的 feedback precision 为 43.33%，recall 为 25.49%；它产生 34 次错误失效和 34 次 active miss。虽然 token proxy 下降 8.9%，但错误处理正确记忆会影响未来任务，因此该路径没有作为默认策略启用。</p>
-<div class="figure">
-  <div class="figure-title">图 1　从词法处罚到来源锚定</div>
-  <div class="bar-row"><span>词法反馈精度</span><i style="width:43.33%"></i><b>43.33%</b></div>
-  <div class="bar-row good"><span>r2 调整臂 exact</span><i style="width:100%"></i><b>4/4</b></div>
-  <div class="figure-note">两项指标来自不同实验，用于展示问题与改进方向，不构成同一排行榜。</div>
-</div>
-<h3>5.2 本地弱模型端到端结果</h3>
-<p>模型为 <code>Qwen3-4B-Instruct-2507-bf16</code>。Vendor Boreal 为英文来源，Aurora Window 为中文来源；每个来源的目标任务按两种顺序重复。</p>
+<p>主要指标包括 feedback precision/recall、false invalidation、active miss、strict exact、semantic facts、false activation、useful retention、severe regression 和 lifecycle tokens。strict exact 与 semantic facts 分开，避免把格式问题误判成业务事实错误。</p>
+<h2>9. 初步测试结果</h2>
+<h3>9.1 优化链路汇总</h3>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th style="text-align:right">优化前</th>
+<th style="text-align:right">优化后</th>
+<th>工程结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自然 observation</td>
+<td style="text-align:right">工具结果未形成可靠任务反馈</td>
+<td style="text-align:right">23/23 与 service audit 对应；可判定 17/17 一致，6 unknown</td>
+<td>正常任务可产生可靠的局部信号</td>
+</tr>
+<tr>
+<td>task-bound feedback</td>
+<td style="text-align:right">历史或未绑定回执可能混入</td>
+<td style="text-align:right">objective outcome 8/8 可判</td>
+<td>先解决任务身份，再研究 Memory 归因</td>
+</tr>
+<tr>
+<td>主动搜索旁路</td>
+<td style="text-align:right">通过 0/2，泄漏 2/2</td>
+<td style="text-align:right">通过 2/2，泄漏 0</td>
+<td>干预要覆盖全部 L1 读取入口</td>
+</tr>
+<tr>
+<td>跨来源弱模型</td>
+<td style="text-align:right">strict 2/4</td>
+<td style="text-align:right">strict 4/4</td>
+<td>范围审核消除了两个旧格式干扰</td>
+</tr>
+<tr>
+<td>业务事实</td>
+<td style="text-align:right">semantic 4/4</td>
+<td style="text-align:right">semantic 4/4</td>
+<td>提升格式正确性时没有破坏事实</td>
+</tr>
+<tr>
+<td>生命周期成本</td>
+<td style="text-align:right">13,995 tokens</td>
+<td style="text-align:right">13,578 tokens</td>
+<td>减少 417，下降 2.98%</td>
+</tr>
+<tr>
+<td>混合主张</td>
+<td style="text-align:right">10 条临时格式残留</td>
+<td style="text-align:right">0；动作 14/14、内容 14/14</td>
+<td>原文投影覆盖窄而清楚的混合错误</td>
+</tr>
+<tr>
+<td>真实候选重放</td>
+<td style="text-align:right">格式残留 1</td>
+<td style="text-align:right">0；事实 3/3</td>
+<td>覆盖了一条已发生的 Qwen 错误</td>
+</tr>
+<tr>
+<td>最终草稿筛查</td>
+<td style="text-align:right">27/48 disposition；18/48 validity；15/24 错误激活</td>
+<td style="text-align:right">48/48；46/48；0/24；有用保留 24/24</td>
+<td>最终草稿+完整证据优于旧词法 gate，仍需独立验证</td>
+</tr>
+</tbody>
+</table>
+<h3>9.2 Qwen3-4B 端到端两臂</h3>
+<p>模型为 <code>Qwen3-4B-Instruct-2507-bf16</code>。英文 Vendor Boreal 和中文 Aurora Window 各按 AB/BA 顺序运行。</p>
 <table>
 <thead>
 <tr>
@@ -328,133 +477,83 @@ hr { border: 0; border-top: .3mm solid #d6dce5; margin: 8mm 0; }
 <td style="text-align:right">-417（-2.98%）</td>
 </tr>
 <tr>
-<td>调整后活跃记忆无旧格式</td>
+<td>active memory 无旧格式</td>
 <td style="text-align:right">—</td>
 <td style="text-align:right">2/2 来源</td>
 <td style="text-align:right">通过</td>
 </tr>
 </tbody>
 </table>
-<p>普通臂的两次 Aurora 任务沿用了历史 <code>WINDOW|...</code>，没有执行当前要求的 <code>MAINT|...</code>。调整臂两次输出正确。四次回答的日期和起止时间都正确，差异集中在旧行为格式对当前输出的干扰。</p>
-<p>该 exact 提升来自 instruction 范围审核。r2 新抽取的 episodic 较干净，新加入的混合主张投影没有在 r2 触发。两项能力的证据在下节分别报告。</p>
-<h3>5.3 混合主张处理</h3>
-<table>
-<thead>
-<tr>
-<th>检查</th>
-<th style="text-align:right">原路径</th>
-<th style="text-align:right">Anchor</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>14 个模板动作判断</td>
-<td style="text-align:right">—</td>
-<td style="text-align:right">14/14</td>
-</tr>
-<tr>
-<td>14 个模板最终内容</td>
-<td style="text-align:right">—</td>
-<td style="text-align:right">14/14</td>
-</tr>
-<tr>
-<td>临时格式活跃残留</td>
-<td style="text-align:right">10</td>
-<td style="text-align:right">0</td>
-</tr>
-<tr>
-<td>project / quarantine / unchanged</td>
-<td style="text-align:right">—</td>
-<td style="text-align:right">8 / 2 / 4</td>
-</tr>
-<tr>
-<td>模型调用 / token</td>
-<td style="text-align:right">—</td>
-<td style="text-align:right">0 / 0</td>
-</tr>
-<tr>
-<td>历史真实候选格式残留</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">0</td>
-</tr>
-<tr>
-<td>历史真实候选事实保留</td>
-<td style="text-align:right">3/3</td>
-<td style="text-align:right">3/3</td>
-</tr>
-</tbody>
-</table>
-<p>14 条结果覆盖中英文、混合语言、可拆分、不可拆分和格式误报。历史重放直接读取 r1 保存的 Qwen 候选及其引用来源，没有重新生成候选。</p>
-<h3>5.4 最终草稿开发筛查</h3>
-<p>v4 包含 48 条新合成候选，24 条应保留、24 条应隔离。旧词法 gate 的 disposition 为 27/48，validity 为 18/48，错误激活 15/24。当前本地路径达到 disposition 48/48、validity 46/48、错误激活 0/24、有用保留 24/24，在线模型调用为 0。</p>
-<p>该数据与规则在同一开发窗口迭代，结果属于开发筛查。它说明最终草稿证据合同覆盖了旧 gate 的明显缺口，独立泛化仍需新来源验证。</p>
-<h2>6. 结果分析</h2>
-<h3>6.1 已确认的收益</h3>
-<ol>
-<li><strong>范围错误可以在写入侧被阻断。</strong> Aurora 的两次输出差异表明，一次性格式进入 active instruction 会真实干扰后续行动。</li>
-<li><strong>正确事实可以与临时行为分开。</strong> semantic facts 维持 4/4，r1 重放保留 3/3 事实。</li>
-<li><strong>读取干预需要覆盖全部入口。</strong> Wave 首轮发现显式搜索旁路；统一排除后通过 2/2，泄漏降为 0。</li>
-<li><strong>低成本规则适合处理窄而确定的错误。</strong> 混合主张投影增加 0 次模型调用，减少了后续上下文。</li>
-</ol>
-<h3>6.2 尚未得到的结论</h3>
-<p>端到端来源只有两个，每臂四个目标结果；固定温度和种子产生的是一致性证据，独立样本数量有限。当前实验没有覆盖长期冲突、多来源更新、TTL、用户撤回组合及生产级权限。结果也没有建立 Anchor 与 Codex、Claude Code 的同题排行榜。</p>
-<h3>6.3 成本判断</h3>
-<p>调整臂目标 token 下降 3.87%，全生命周期下降 2.98%。省量来自移除无关行为上下文，没有额外同步模型税。Google、AWS、Mem0 等体系常将抽取、合并或反思放在后台模型任务中，能力上限更高，也会增加推理开销。Anchor 当前策略是同步路径处理确定项，复杂项进入异步队列；后续应报告升级率、GPU seconds per success 和 review queue 处理成本。</p>
-<h2>7. 与上游系统的设计对照</h2>
-<p>公开资料没有披露 Anthropic 或 OpenAI 的内部候选接纳与效用归因算法，因此本节比较公开机制和工程约束。</p>
-<table>
-<thead>
-<tr>
-<th>公开设计方向</th>
-<th>代表系统</th>
-<th>Anchor 的落实</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>项目/会话作用域与用户控制</td>
-<td>Claude Memory、ChatGPT Memory/Projects</td>
-<td>临时/长期范围检查；精确记录隔离；生产写回默认关闭</td>
-</tr>
-<tr>
-<td>后台抽取、主题与 TTL</td>
-<td>Google Vertex AI Memory Bank</td>
-<td>同步确定性 gate；复杂语义预留异步 reviewer；TTL 待实现</td>
-</tr>
-<tr>
-<td>偏好、事实、摘要、经历分层</td>
-<td>AWS AgentCore Memory、LangGraph</td>
-<td>L0 来源、episodic L1、active instruction 分层处理</td>
-</tr>
-<tr>
-<td>episode、时间有效性与历史</td>
-<td>Zep/Graphiti、Hindsight</td>
-<td>来源可回查与 review queue；版本 lineage 和 freshness 待补</td>
-</tr>
-<tr>
-<td>scope、异步写入与历史 API</td>
-<td>Mem0</td>
-<td>task-bound 信号、opt-in admission；持久 update/history 待补</td>
-</tr>
-<tr>
-<td>常驻核心与按需历史</td>
-<td>Letta/MemGPT</td>
-<td>仅 active 行为常驻，大体量来源按需读取</td>
-</tr>
-</tbody>
-</table>
-<p>Anchor 的价值在于把这些公开原则落到 TDAI Memory 的真实写入、召回、主动搜索和 Agent 执行链，并用本地弱模型量化质量与成本。上游公开机制提供设计背书，本地实验负责验证实际收益。</p>
-<h2>8. 开源交付与复现</h2>
-<p>代码以 TencentDB Agent Memory 的公开仓库为上游，沿用 MIT 许可证与原始版权声明。</p>
+<p>普通臂的两次 Aurora 任务沿用了历史 <code>WINDOW|...</code>，调整臂两次执行了当前 <code>MAINT|...</code>。日期和时间均正确。exact 提升来自 instruction 范围审核；混合主张投影没有在这组 r2 样本中触发，它由 14 条组件测试和 r1 真实候选重放单独支撑，两组收益没有混报。</p>
+<h3>9.3 工程验证</h3>
+<p>从腾讯上游 <code>v2.0.0-beta.1</code> 基线重建的干净公开分支完成以下检查：</p>
 <ul>
-<li>项目主页：<a href="https://github.com/newmancai/TencentDB-Agent-Memory/tree/feat/anchor-memory">https://github.com/newmancai/TencentDB-Agent-Memory/tree/feat/anchor-memory</a></li>
-<li>实现基准提交：<a href="https://github.com/newmancai/TencentDB-Agent-Memory/commit/69486006e02800ad1a686399b4c0a6cfbf9acb70">https://github.com/newmancai/TencentDB-Agent-Memory/commit/69486006e02800ad1a686399b4c0a6cfbf9acb70</a></li>
-<li>Anchor 文档：<code>MemoryCore/research/anchor/</code></li>
-<li>核心代码：<code>MemoryCore/src/core/self-supervision/</code></li>
-<li>机器结果：<code>MemoryCore/research/anchor/results/</code></li>
-<li>固定实验脚本：<code>MemoryCore/research/anchor/scripts/</code></li>
+<li>Vitest：18 个测试文件，<strong>173/173 通过</strong>；</li>
+<li>插件构建：通过，生成 6 个文件，约 1.22 MB；</li>
+<li>mixed-claim benchmark：动作 <strong>14/14</strong>、内容 <strong>14/14</strong>、处理后格式残留 <strong>0</strong>、模型调用 <strong>0</strong>。</li>
 </ul>
-<p>在 MemoryCore 根目录运行：</p>
+<h2>10. 上游背书与采用边界</h2>
+<p>商业产品没有公开完整的候选接纳、冲突消解和效用归因算法，因此这里不编造“Anchor 对 Codex/Claude 的胜率”。能核对的是公开机制，能证明的是本地实现结果。</p>
+<table>
+<thead>
+<tr>
+<th>公开系统</th>
+<th>可核对的设计方向</th>
+<th>本次采用</th>
+<th>尚未完成或不能宣称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Memory / Claude Code</td>
+<td>项目范围、会话历史、用户控制、按需加载</td>
+<td>临时/长期范围检查，来源保留，active 行为单独控制</td>
+<td>Anthropic 未公开内部 admission 算法，不能声称实现等价</td>
+</tr>
+<tr>
+<td>ChatGPT Memory / Projects</td>
+<td>saved memory、chat history、项目边界与用户管理</td>
+<td>记忆作用域、可追溯来源、默认不做生产自动写回</td>
+<td>OpenAI 未公开内部效用归因，不能直接做同题分数比较</td>
+</tr>
+<tr>
+<td>Google Vertex AI Memory Bank</td>
+<td>后台生成记忆、scope、TTL</td>
+<td>同步确定性检查，复杂项预留异步 review</td>
+<td>当前未完成生产级 TTL</td>
+</tr>
+<tr>
+<td>AWS AgentCore Memory</td>
+<td>preference、semantic、summary、episodic 策略</td>
+<td>事实、经历和行为规则分开处理</td>
+<td>未完成通用 procedural update</td>
+</tr>
+<tr>
+<td>Mem0 / Hindsight / Zep</td>
+<td>异步更新、历史、来源关联、时间有效性</td>
+<td>review queue、来源证据、版本级精确处理</td>
+<td>完整 lineage 和跨来源冲突待实现</td>
+</tr>
+<tr>
+<td>Letta / MemGPT</td>
+<td>常驻核心记忆与按需历史</td>
+<td>active 行为保持短小，大体量来源按需读取</td>
+<td>未建立长期容量压测</td>
+</tr>
+</tbody>
+</table>
+<p>公开资料为架构方向提供依据，不能替代本地实验。当前真正验证的是：这些原则能接入 TDAI Memory 的真实写入和读取链路，并在本地 Qwen3-4B 上得到小样本质量与成本结果。</p>
+<h2>11. 本项目的技术判断</h2>
+<ol>
+<li><strong>来源支持、适用范围、任务效用是三件事。</strong> 一句话来自用户，不代表它应永久生效；一次任务失败，也不代表召回的每条记忆都有错。三个判断分别留证据。</li>
+<li><strong>记忆写入的损失不对称。</strong> 少写一条模糊记忆通常还能从 L0 回查；把错误行为写成长期 active instruction 会持续影响多个任务。确定性不足时，保留来源并暂缓激活更稳妥。</li>
+<li><strong>同步路径按最坏延迟设计。</strong> 每次写入都调用强模型会成为所有请求的固定税。确定性规则处理高频窄问题，复杂项异步升级，更符合 AI Infra 的成本结构。</li>
+</ol>
+<h2>12. 当前不足和下一步</h2>
+<p>当前是开发初版。端到端来源只有两个，每臂四个目标结果；模型和种子固定，说明一致性，不代表统计泛化。v4 的 48 条数据在同一开发窗口迭代，只能作为组件筛查。复杂撤回、多来源更新、TTL、版本替换与回滚、review queue 成本仍未完成。</p>
+<p>下一轮增加至少 8 个真实抽取来源，覆盖撤回、事实更新、多 source、引用顺序和 TTL，并更换模型、种子和模板。继续报告完整任务成功、业务事实、错误激活、有用保留、unknown、tokens、延迟及 GPU seconds per success。通过后再讨论 production shadow，不直接开放自动写回。</p>
+<h2>13. 复现入口</h2>
+<p>在 <code>MemoryCore/</code> 根目录运行：</p>
 <pre><code class="language-bash">npm install
 npx vitest run
 npm run build:plugin
@@ -463,10 +562,7 @@ node --import tsx \
   research/anchor/scripts/run_mixed_claim_projection_benchmark.ts \
   /tmp/anchor-mixed-claim-result.json
 </code></pre>
-<p>干净 fork 验证结果为 18 个测试文件、173 个测试全部通过；插件构建生成 6 个文件，约 1.22 MB。端到端脚本需要 PAST/Hermes 任务环境和本地 OpenAI-compatible 模型服务，仓库同时保存运行计划和已评分 JSON，便于无模型复核。</p>
-<h2>9. 下一阶段</h2>
-<p>下一轮优先增加至少 8 个真实抽取来源，覆盖撤回、事实更新、多 source、引用顺序和 TTL；同时更换模型、温度和种子。评测继续固定报告 strict exact、semantic facts、错误激活、事实保留、严重回归、unknown、tokens 和延迟。</p>
-<p>工程侧需要补齐三项能力：持久版本替换与回滚；review queue 的异步处理和成本核算；user/project/session namespace 在存储与召回层的完整贯通。达到新来源验收后，再讨论 production shadow 部署和有限自动写回。</p>
+<p>代码位于 <code>MemoryCore/src/core/self-supervision/</code>，机器结果位于 <code>MemoryCore/research/anchor/results/</code>，固定脚本位于 <code>MemoryCore/research/anchor/scripts/</code>。端到端实验还需要 PAST/Hermes 环境和本地 OpenAI-compatible 模型服务；保存的运行计划和 JSON 可在不启动模型时复核。</p>
 <h2>参考资料</h2>
 <ol>
 <li>Anthropic, <a href="https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context">Claude memory and chat search</a>.</li>
@@ -481,7 +577,7 @@ node --import tsx \
 <li>Letta, <a href="https://github.com/letta-ai/skills/blob/main/letta/letta-api-client/memory-architecture.md">Memory architecture</a>.</li>
 </ol>
 <hr />
-<h3>附录：结论使用边界</h3>
-<p>本报告中的 LongMemEval、候选筛查、组件反例和端到端任务具有不同分母与用途。各项数字按原实验独立解释，没有拼接成统一总分。v2/v3 早期候选中存在诊断元数据泄漏，因此没有作为严格盲测证据；v4 仍属于同窗口开发集。完整运行记录和历史失败保存在研究归档，正文只呈现影响架构判断和结果解释的证据。</p>
+<h3>结果使用边界</h3>
+<p>LongMemEval、候选筛查、组件反例和端到端任务用途不同，各项数字按各自分母解释。v2/v3 早期候选存在诊断元数据泄漏，没有作为严格盲测证据；v4 仍属于同窗口开发集。本报告没有把不同实验拼成统一总分，也没有声称达到商业系统的生产泛化水平。</p>
 </main>
 </body></html>

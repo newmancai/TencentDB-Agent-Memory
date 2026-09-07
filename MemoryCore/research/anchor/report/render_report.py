@@ -1,4 +1,4 @@
-"""Render the Anchor professional report to self-contained HTML and PDF."""
+"""Render the internal TDAI Memory assignment report to HTML and PDF."""
 
 from pathlib import Path
 import html
@@ -22,24 +22,14 @@ CSS = r"""
 @page {
   size: A4;
   margin: 18mm 17mm 18mm 17mm;
-  @top-left { content: "ANCHOR · TECHNICAL REPORT"; font: 7.5pt AnchorSans; color: #7c8798; letter-spacing: .08em; }
+  @top-left { content: "TDAI MEMORY · 内部技术作业"; font: 7.5pt AnchorSans; color: #626a75; }
   @top-right { content: "2026-09-07"; font: 7.5pt AnchorSans; color: #7c8798; }
   @bottom-center { content: counter(page); font: 8pt AnchorSans; color: #7c8798; }
 }
-@page:first { margin: 0; @top-left { content: none; } @top-right { content: none; } @bottom-center { content: none; } }
 * { box-sizing: border-box; }
 html { color: #18202b; background: white; }
 body { margin: 0; font-family: AnchorSans, "DejaVu Sans", sans-serif; font-size: 9.15pt; line-height: 1.67; }
 a { color: #2d63c8; text-decoration: none; overflow-wrap: anywhere; }
-.cover { width: 210mm; height: 297mm; padding: 30mm 24mm 24mm; color: #f6f8fb; background: #111722; page-break-after: always; position: relative; }
-.cover:before { content: ""; position: absolute; width: 98mm; height: 98mm; right: -25mm; top: -28mm; border: 1.2mm solid #759cff; border-radius: 50%; opacity: .45; }
-.cover .eyebrow { color: #91abeb; letter-spacing: .17em; font-size: 9pt; font-weight: 700; text-transform: uppercase; }
-.cover h1 { margin: 50mm 0 0; color: white; font-family: AnchorSans; font-size: 40pt; line-height: 1; letter-spacing: -.03em; border: 0; }
-.cover .tagline { margin-top: 7mm; font-size: 17pt; color: #d8e1f5; }
-.cover .subtitle { margin-top: 28mm; width: 125mm; font-family: AnchorSerif, serif; font-size: 15pt; line-height: 1.55; color: #f4f6fa; }
-.cover .meta { position: absolute; left: 24mm; bottom: 25mm; right: 24mm; border-top: .3mm solid #526178; padding-top: 6mm; display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; color: #aebbd0; font-size: 8.5pt; }
-.cover .meta a { color: #b9cdfd; }
-.cover .mark { color: #759cff; }
 main { max-width: 176mm; margin: 0 auto; }
 h1 { font-family: AnchorSerif, serif; font-size: 21pt; line-height: 1.25; color: #111722; border-bottom: .4mm solid #d6dce5; padding-bottom: 3mm; margin: 0 0 7mm; }
 h2 { font-family: AnchorSerif, serif; font-size: 15pt; line-height: 1.3; margin: 9mm 0 3.5mm; color: #172b54; break-after: avoid; }
@@ -79,18 +69,8 @@ def main() -> None:
     body = render_markdown(SOURCE.read_text(encoding="utf-8"))
     body = re.sub(r"<h([123])>(.*?)</h\1>", lambda m: f'<h{m.group(1)}>{m.group(2)}</h{m.group(1)}>', body)
     document = f"""<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><title>Anchor 技术报告</title><style>{CSS}</style></head>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>TDAI Memory 零显式反馈优化</title><style>{CSS}</style></head>
 <body>
-<section class="cover">
-  <div class="eyebrow">TencentDB Agent Memory · MemoryCore</div>
-  <h1>Anchor<span class="mark">.</span></h1>
-  <div class="tagline">Reliable Memory for Agents</div>
-  <div class="subtitle">面向 Agent 的可信长期记忆<br>零显式反馈闭环实现与初步评测</div>
-  <div class="meta">
-    <div>技术报告 · 开发初版<br>2026-09-07</div>
-    <div>Open source<br><a href="{html.escape(PROJECT_URL)}">feat/anchor-memory</a><br><a href="{html.escape(COMMIT_URL)}">implementation 6948600</a></div>
-  </div>
-</section>
 <main class="report-body">{body}</main>
 </body></html>"""
     HTML_OUTPUT.write_text(document, encoding="utf-8")
