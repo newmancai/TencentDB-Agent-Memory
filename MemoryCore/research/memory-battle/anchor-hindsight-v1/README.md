@@ -60,6 +60,27 @@ source mapping gaps, operation timings and before/after service counters. All
 operations must finish before quality scoring. The runtime input is the same raw,
 timestamped `runtime.json` from the semantic adapter; no gold file is read here.
 
+## Same-host B diagnostic scoring
+
+The per-case `.b-candidates.json` files contain native derived facts retrieved
+using the new observation before retaining it. Concatenate their JSON arrays for
+the unchanged `../anchor-semantic-v1/infer.py` and `nli.py` runners, keeping the
+same prompts, model settings and candidate count. This is a host-judge diagnostic,
+not a feedback classifier implemented by Hindsight itself.
+
+`evaluate_b.py runtime.json gold.json DEVELOPMENT_DIRECTORY predictions.jsonl
+report.json --split development` scores those host outputs offline. Unlike the
+raw-source evaluator, it follows `sourceDocumentIds` and reports source overlap,
+no overlap and unknown provenance separately. A derived assertion sharing a
+labeled source is not thereby proven to be the stale assertion. Do not compare
+this coarser metric directly with raw-record exact localization as if identical.
+Missing native cases remain in the full runtime split denominator; an unrelated
+later reflect error does not erase an already completed B recall and judgment.
+Report full native lifecycle status/cost separately from host-judge cost.
+
+Run its focused checks with `python -m unittest discover -s
+research/memory-battle/anchor-hindsight-v1 -p test_evaluate_b.py`.
+
 Stop only this experiment's service processes and recorded container when finished:
 
 ```bash
