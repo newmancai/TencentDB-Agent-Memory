@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "stale_target_opportunities": 638,
+    "stale_targets_resolved": 340,
+    "events": 716,
+    "events_with_feedback": 103,
+    "noncommit_events": 167,
+    "noncommit_feedback": 0,
+    "base_checked": 36377,
+    "base_stale": 1086,
+    "naive_checked": 36377,
+    "naive_stale": 785,
+    "E_checked": 36377,
+    "E_stale": 298,
+    "naive_accepted": 375,
+    "naive_false": 242,
+    "accepted": 340,
+    "correct": 340,
+    "false_invalidation": 0,
+    "unverified": 0,
+    "tasks_with_feedback": 70,
+    "tasks_with_false_feedback": 0,
+    "tasks_with_unverified_feedback": 0,
+    "tasks": 100
+  },
+  "verified_fraction": 1.0,
+  "precision_on_labeled": 1.0,
+  "opportunity_coverage": 0.5329153605015674,
+  "B_ms": {
+    "total": 61.19747378397733,
+    "per_task_mean": 0.6119747378397733
+  },
+  "iid_assumption_zero_error_task_risk_upper_95": 0.041893344066888605,
+  "note": "State consistency is a component measure, not agent task success. Opportunities are repeated stale record exposures per event, not independent samples."
+}
