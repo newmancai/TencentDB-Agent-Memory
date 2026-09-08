@@ -59,6 +59,25 @@ def dump(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, default=str) + '\n')
 
 
+async def drain_consolidation(engine, bank, ctx):
+    """Drain native round-limited work, stopping on failure or lack of progress."""
+    stats = await engine.get_bank_stats(bank, request_context=ctx, force_refresh=True)
+    rounds = []
+    while stats.get('pending_consolidation', 0):
+        if stats.get('failed_consolidation', 0):
+            raise RuntimeError('native consolidation has failed facts')
+        pending = stats['pending_consolidation']
+        result = await engine.run_consolidation(bank, request_context=ctx)
+        stats = await engine.get_bank_stats(bank, request_context=ctx, force_refresh=True)
+        rounds.append(dict(result=result, pending_before=pending,
+                           pending_after=stats.get('pending_consolidation', 0)))
+        if stats.get('pending_consolidation', 0) >= pending:
+            raise RuntimeError('native consolidation made no progress')
+    if stats.get('failed_consolidation', 0):
+        raise RuntimeError('native consolidation has failed facts')
+    return rounds, stats
+
+
 async def run(args):
     settings = configure(args.generation_profile)
     from hindsight_api.engine.memory_engine import MemoryEngine
@@ -86,7 +105,7 @@ async def run(args):
     if args.limit:
         cases = cases[:args.limit]  # Prefix for compatibility only; not a new score subset.
     args.output.mkdir(parents=True, exist_ok=True)
-    if args.resume_interrupted:
+    if args.resume_interrupted or args.resume_history_consolidation:
         old_settings=json.loads((args.output/'configuration.json').read_text())
         for key in ('LLM_MODEL','LLM_TEMPERATURE','RETAIN_EXTRACTION_MODE','ENABLE_OBSERVATIONS'):
             if old_settings[key]!=settings[key]:raise ValueError('cannot resume bank under changed model/policy')
@@ -106,6 +125,9 @@ async def run(args):
     if bool(effective.get('enable_thinking',False)) != expected_thinking:
         raise ValueError('shared endpoint generation profile mismatch')
     await engine.initialize()
+    initialization_path = args.output / 'initialization.json'
+    if initialization_path.exists():
+        initialization_path.rename(args.output / f'initialization-attempt-{time.time_ns()}.json')
     dump(args.output / 'initialization.json', {'before': initial, 'after': counters()})
     try:
         for case in cases:
@@ -113,9 +135,18 @@ async def run(args):
             previous=None
             if path.exists():
                 previous=json.loads(path.read_text())
-                if not args.resume_interrupted or previous['status']!='interrupted':continue
-                if previous['phases']:raise ValueError('only history-retain interruption is supported; avoid future observation leakage')
-                archive=path.with_suffix('.interrupted-attempt.json')
+                if args.resume_history_consolidation:
+                    if previous['status'] != 'error' or previous.get('error') != 'RuntimeError: native consolidation incomplete; not a semantic failure':
+                        raise ValueError('history consolidation recovery requires the recorded incomplete-round error')
+                    if [p['phase'] for p in previous['phases']] != ['history'] or 'b_recall' in previous:
+                        raise ValueError('history-only recovery cannot reuse a bank exposed to the update')
+                    if previous['phases'][0]['bank_stats'].get('failed_consolidation', 0):
+                        raise ValueError('failed facts require separate diagnosis')
+                    archive=path.with_suffix('.history-consolidation-attempt.json')
+                else:
+                    if not args.resume_interrupted or previous['status']!='interrupted':continue
+                    if previous['phases']:raise ValueError('only history-retain interruption is supported; avoid future observation leakage')
+                    archive=path.with_suffix('.interrupted-attempt.json')
                 with archive.open('x') as f:json.dump(previous,f,ensure_ascii=False,indent=2)
             bank = previous['bank_id'] if previous else 'anchor-semantic-' + uuid.uuid4().hex
             row = dict(id=case['id'], split=case['split'], bank_id=bank,
@@ -127,8 +158,7 @@ async def run(args):
                     phase_start = time.perf_counter()
                     ids, usage = await engine.retain_batch_async(bank_id=bank,
                         contents=[document(source) for source in sources], request_context=ctx, return_usage=True)
-                    consolidation = await engine.run_consolidation(bank, request_context=ctx)
-                    stats = await engine.get_bank_stats(bank, request_context=ctx, force_refresh=True)
+                    consolidation, stats = await drain_consolidation(engine, bank, ctx)
                     row['phases'].append(dict(phase=phase, native_ids=ids,
                         usage=usage.to_dict() if hasattr(usage, 'to_dict') else str(usage),
                         consolidation=consolidation, bank_stats=stats,
@@ -191,4 +221,5 @@ if __name__ == '__main__':
     parser.add_argument('--limit', type=int)
     parser.add_argument('--generation-profile', choices=['greedy','thinking-v5'], default='greedy')
     parser.add_argument('--resume-interrupted', action='store_true')
+    parser.add_argument('--resume-history-consolidation', action='store_true')
     asyncio.run(run(parser.parse_args()))

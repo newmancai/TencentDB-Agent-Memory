@@ -53,7 +53,11 @@ After it succeeds, omit `--limit 1` to continue the unchanged full development
 split. Existing completed cases are skipped. An error stops further spending and
 must be diagnosed; it is not a semantic score. `--resume-interrupted` only supports
 interruption during initial history retention with unchanged model settings; later
-phase reuse would risk exposing future evidence. Preserve interrupted-attempt costs.
+phase reuse would risk exposing future evidence. `--resume-history-consolidation`
+handles only the recorded history-only incomplete-round error, before any update
+or B recall. Preserve interrupted-attempt costs. Native consolidation has a default
+100-fact round limit; the runner drains successive rounds while pending decreases,
+and stops on failed facts or no progress. Initialization attempts are also preserved.
 
 Output includes native retention, both consolidation phases, recall, reflect,
 source mapping gaps, operation timings and before/after service counters. All
