@@ -1,0 +1,72 @@
+# Native Hindsight comparison runner
+
+This runs the installed official Hindsight engine, with concise retention and
+observations enabled. It is a configured local-model comparison, not a vendor
+leaderboard result. Read [PROTOCOL.md](PROTOCOL.md) before interpreting results.
+The first development case is still running; no complete quality comparison is
+claimed by this delivery.
+
+## Dependencies
+
+Use Python 3.11 with `hindsight-api-slim==0.9.2` and `pg0-embedded==0.15.1`.
+The observed Python dependency inventory is in
+`../competitors/hindsight/requirements-lock.txt`; it records the tested environment,
+not a requirement to install every optional provider. The sibling `adapter.py`
+normalizes native record IDs and source provenance without inventing versions.
+
+Use separate model environments described in `../anchor-semantic-v1/README.md`:
+Qwen3.5-9B uses transformers 5.3.0; the embedding service uses sentence-transformers
+5.1.2 / transformers 4.57.6. Model and raw dataset files are not bundled.
+
+## Run
+
+Commands below run from MemoryCore. Replace model, runtime, output and Python paths.
+The runner uses loopback ports 18735 (LLM), 18736 (embedding) and 65438 (PostgreSQL).
+Do not overlap other inference experiments: cost counters cover the shared services.
+
+```bash
+python research/memory-battle/anchor-semantic-v1/model_server.py --model /path/to/Qwen3.5-9B --receipts /path/to/output/service.jsonl
+python research/memory-battle/servers/qwen3-embedding-v0.1/server.py --model /path/to/Qwen3-Embedding-0.6B --port 18736 --device cuda:2 --batch-size 16 --max-sequence-length 8192
+```
+
+Run the services in separate terminals. The Qwen service uses GPU0/1; the embedding
+service accepts a configurable device. These commands must use their corresponding
+Python environments, not the Hindsight environment by accident.
+
+On the tested Linux host, pg0 requires newer GLIBC than the host provides. The
+optional helper starts it in an already cached Ubuntu22 image, without a GPU:
+
+```bash
+python research/memory-battle/anchor-hindsight-v1/start_database.py --manifest /path/to/output/database.json
+python research/memory-battle/anchor-hindsight-v1/run.py /path/to/runtime.json /path/to/output/development --split development --limit 1
+```
+
+Use the Hindsight Python environment for these commands. The helper locates its
+installed pg0 binary, or accepts `--pg0-binary`; `--image` overrides the cached
+image. It never pulls an image automatically. The default container name is
+`anchor-hindsight-runtime-20260908`. It creates a new temporary data directory,
+binds PostgreSQL only to loopback, and records the exact container in the manifest.
+The local database credentials are disposable `hindsight/hindsight`, not production.
+
+The prefix run is a compatibility check, not a reportable comparison subset.
+After it succeeds, omit `--limit 1` to continue the unchanged full development
+split. Existing completed cases are skipped. An error stops further spending and
+must be diagnosed; it is not a semantic score. `--resume-interrupted` only supports
+interruption during initial history retention with unchanged model settings; later
+phase reuse would risk exposing future evidence. Preserve interrupted-attempt costs.
+
+Output includes native retention, both consolidation phases, recall, reflect,
+source mapping gaps, operation timings and before/after service counters. All
+operations must finish before quality scoring. The runtime input is the same raw,
+timestamped `runtime.json` from the semantic adapter; no gold file is read here.
+
+Stop only this experiment's service processes and recorded container when finished:
+
+```bash
+docker stop anchor-hindsight-runtime-20260908
+```
+
+For internal data, replace the preparation adapter with authorized chronological
+raw sources and stable source IDs. Preserve visibility boundaries and keep labels
+outside this runner. The current one-bank-per-case evaluation and local loopback
+services are not a production multi-tenant deployment.
