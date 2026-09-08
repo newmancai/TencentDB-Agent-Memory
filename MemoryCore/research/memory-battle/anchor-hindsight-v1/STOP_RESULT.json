@@ -1,0 +1,109 @@
+{
+  "status": "STOPPED_INCOMPLETE_NATIVE_REFLECT",
+  "reportable_full_comparison": false,
+  "cases_attempted": 1,
+  "reason": "Qwen3.5 emits XML function/parameter tool envelope; local translator accepts JSON envelope only. Stopped after repeat HTTP400, per user no further expansion. Not native method quality failure.",
+  "cost_includes": "All actual service receipts attributable to native attempt, initialization, interrupted attempts, retries and generation completed after client cancellation. Separate from B experiments.",
+  "receipt_slices_zero_based": {
+    "semantic-v3/model-service.jsonl": [
+      32,
+      40
+    ],
+    "semantic-v5/model-service.jsonl": [
+      68,
+      350
+    ]
+  },
+  "calls": 290,
+  "input_tokens": 1586081,
+  "output_tokens": 82179,
+  "generation_seconds": 4528.316860886407,
+  "tool_request_calls": 8,
+  "generation_settings_counts": {
+    "{}": 8,
+    "{\"enable_thinking\": false, \"presence_penalty\": 0, \"temperature\": 1.0, \"top_k\": 0, \"top_p\": 1}": 11,
+    "{\"enable_thinking\": false, \"presence_penalty\": 0, \"temperature\": 0.0, \"top_k\": 0, \"top_p\": 1}": 271
+  },
+  "attempts": [
+    {
+      "file": "3358e7d0-bbd0-4413-9da6-6b5d51973a86.interrupted-attempt.json",
+      "status": "interrupted",
+      "seconds": 95.38549050095025,
+      "error": null
+    },
+    {
+      "file": "3358e7d0-bbd0-4413-9da6-6b5d51973a86.history-consolidation-attempt.json",
+      "status": "error",
+      "seconds": 3627.327982530929,
+      "error": "RuntimeError: native consolidation incomplete; not a semantic failure"
+    },
+    {
+      "file": "3358e7d0-bbd0-4413-9da6-6b5d51973a86.json",
+      "status": "interrupted",
+      "seconds": 906.3735536859604,
+      "error": "CancelledError"
+    }
+  ],
+  "attempt_wall_seconds": 4629.08702671784,
+  "completed_phases": [
+    {
+      "phase": "history",
+      "bank_stats": {
+        "bank_id": "anchor-semantic-6b768ab6e3474e4c8baae9f2395ccf05",
+        "node_counts": {
+          "experience": 3,
+          "observation": 271,
+          "world": 304
+        },
+        "link_counts": {
+          "caused_by": 7,
+          "temporal": 5595,
+          "semantic": 816,
+          "entity": 227
+        },
+        "link_counts_by_fact_type": {},
+        "link_breakdown": [],
+        "operations": {
+          "completed": 2
+        },
+        "total_documents": 192,
+        "last_consolidated_at": "2026-09-08T06:38:24.837881+00:00",
+        "last_memory_write_at": "2026-09-08T06:38:24.820031+00:00",
+        "pending_consolidation": 0,
+        "failed_consolidation": 0,
+        "total_observations": 271
+      }
+    },
+    {
+      "phase": "update",
+      "bank_stats": {
+        "bank_id": "anchor-semantic-6b768ab6e3474e4c8baae9f2395ccf05",
+        "node_counts": {
+          "experience": 3,
+          "observation": 274,
+          "world": 307
+        },
+        "link_counts": {
+          "caused_by": 7,
+          "temporal": 5649,
+          "semantic": 819,
+          "entity": 227
+        },
+        "link_counts_by_fact_type": {},
+        "link_breakdown": [],
+        "operations": {
+          "completed": 2
+        },
+        "total_documents": 193,
+        "last_consolidated_at": "2026-09-08T06:39:13.753473+00:00",
+        "last_memory_write_at": "2026-09-08T06:39:13.735912+00:00",
+        "pending_consolidation": 0,
+        "failed_consolidation": 0,
+        "total_observations": 274
+      }
+    }
+  ],
+  "b_source_mapping_issues": 0,
+  "recall_source_mapping_issues": 0,
+  "native_reflect_complete": false
+}

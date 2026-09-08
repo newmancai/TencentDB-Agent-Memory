@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "arm": "assertion_nli",
+      "total": 16,
+      "threshold": 0.0,
+      "accepted": 5,
+      "localized": 4,
+      "errors": 0,
+      "input_tokens": 23791,
+      "output_tokens": 3286,
+      "seconds": 156.68488414341118
+    },
+    {
+      "arm": "direct",
+      "total": 16,
+      "threshold": null,
+      "accepted": 0,
+      "localized": 0,
+      "errors": 0,
+      "input_tokens": 19032,
+      "output_tokens": 2565,
+      "seconds": 122.2554589251522
+    },
+    {
+      "arm": "nli",
+      "total": 16,
+      "threshold": null,
+      "accepted": 0,
+      "localized": 0,
+      "errors": 0,
+      "input_tokens": 20446,
+      "output_tokens": 0,
+      "seconds": 2.2698582427110523
+    }
+  ],
+  "permits_semantic_invalidation": false
+}

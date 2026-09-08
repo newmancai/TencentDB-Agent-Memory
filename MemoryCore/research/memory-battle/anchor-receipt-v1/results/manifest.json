@@ -1,0 +1,14 @@
+{
+  "revision": "5644b1838d96bc4483da29642d058ecaa6f80f7f",
+  "counts": {
+    "events": 2842,
+    "original_result_mismatch": 0,
+    "tasks": 300
+  },
+  "splits": {
+    "customer_support": "development",
+    "travel": "calibration",
+    "shopping_assistant": "external_domain"
+  },
+  "protocol": "Fixed public action replay, not a new agent E2E run or official leaderboard result. New tool responses are from executable upstream code; original mismatches are disclosed."
+}

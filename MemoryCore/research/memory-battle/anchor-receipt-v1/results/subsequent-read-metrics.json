@@ -1,0 +1,53 @@
+{
+  "splits": {
+    "development": {
+      "read_calls": 187,
+      "first_seen_fields": 4867,
+      "base_fields_correct": 1111,
+      "base_read_correct": 2,
+      "naive_fields_correct": 1213,
+      "naive_read_correct": 8,
+      "E_fields_correct": 1223,
+      "E_read_correct": 10,
+      "repeat_read_calls": 29,
+      "repeat_fields": 1271,
+      "E_improved_vs_base": 8,
+      "E_regressed_vs_base": 0,
+      "E_improved_vs_naive": 2,
+      "E_regressed_vs_naive": 0
+    },
+    "calibration": {
+      "read_calls": 255,
+      "first_seen_fields": 3513,
+      "base_fields_correct": 1307,
+      "base_read_correct": 7,
+      "naive_fields_correct": 1441,
+      "naive_read_correct": 10,
+      "E_fields_correct": 1472,
+      "E_read_correct": 16,
+      "repeat_read_calls": 66,
+      "repeat_fields": 1578,
+      "E_improved_vs_base": 9,
+      "E_regressed_vs_base": 0,
+      "E_improved_vs_naive": 6,
+      "E_regressed_vs_naive": 0
+    },
+    "external_domain": {
+      "read_calls": 110,
+      "first_seen_fields": 913,
+      "base_fields_correct": 351,
+      "base_read_correct": 8,
+      "naive_fields_correct": 406,
+      "naive_read_correct": 23,
+      "E_fields_correct": 406,
+      "E_read_correct": 23,
+      "repeat_read_calls": 30,
+      "repeat_fields": 416,
+      "E_improved_vs_base": 15,
+      "E_regressed_vs_base": 0,
+      "E_improved_vs_naive": 0,
+      "E_regressed_vs_naive": 0
+    }
+  },
+  "limit": "Real public read queries and executable returns; evaluates previously remembered fields before new evidence. Not a new autonomous agent run, and first-seen fields are excluded explicitly."
+}

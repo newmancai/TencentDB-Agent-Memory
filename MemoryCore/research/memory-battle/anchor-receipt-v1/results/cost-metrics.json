@@ -1,0 +1,78 @@
+{
+  "splits": {
+    "development": {
+      "B_per_task_ms": {
+        "count": 100,
+        "total": 61.19747378397733,
+        "p50": 0.518601038493216,
+        "p95": 1.045142998918891
+      },
+      "B_ms_per_verified_correct_feedback": 0.1799925699528745,
+      "verified_correct_feedback": 340,
+      "unverified_feedback": 0
+    },
+    "calibration": {
+      "B_per_task_ms": {
+        "count": 100,
+        "total": 53.008670336566865,
+        "p50": 0.5007736617699265,
+        "p95": 0.912716262973845
+      },
+      "B_ms_per_verified_correct_feedback": 0.15016620491945287,
+      "verified_correct_feedback": 353,
+      "unverified_feedback": 47
+    },
+    "external_domain": {
+      "B_per_task_ms": {
+        "count": 100,
+        "total": 22.138139931485057,
+        "p50": 0.1856680028140545,
+        "p95": 0.5089330952614546
+      },
+      "B_ms_per_verified_correct_feedback": 0.16278044067268424,
+      "verified_correct_feedback": 136,
+      "unverified_feedback": 0
+    }
+  },
+  "native": {
+    "tasks": 100,
+    "verification_per_task_ms": {
+      "count": 100,
+      "total": 5420.940521999996,
+      "p50": 53.59502799999973,
+      "p95": 90.10745999999926
+    },
+    "storage_bytes": {
+      "base_sqlite": {
+        "count": 100,
+        "total": 33746944,
+        "p50": 339968,
+        "p95": 348160
+      },
+      "evolved_sqlite": {
+        "count": 100,
+        "total": 33841152,
+        "p50": 339968,
+        "p95": 364544
+      },
+      "head_json": {
+        "count": 100,
+        "total": 78705,
+        "p50": 849,
+        "p95": 1440
+      },
+      "total_artifacts": {
+        "count": 100,
+        "total": 69334407,
+        "p50": 698056,
+        "p95": 747665
+      }
+    }
+  },
+  "limitations": [
+    "Nearest-rank p50/p95. B CPU time excludes oracle, native I/O and downstream model calls.",
+    "Native duration includes construction, reopen, read checks and injected faults; it is verification cost, not online request latency.",
+    "Storage is actual on-disk artifacts of the separate base/evolved experiment; no claim of production deployment overhead.",
+    "No causal task-failure attribution measured; receipt consistency only. Unknown oracle fields remain unknown."
+  ]
+}
