@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-09-08T06:44:53.752476+00:00",
+  "runner_41602_exit": 130,
+  "model_62868_exit": 130,
+  "embedding_27951_exit": 130,
+  "container": "anchor-hindsight-runtime-20260908",
+  "container_stop_exit": 0,
+  "container_inventory_after": [],
+  "nvidia_compute_processes_after": [],
+  "production_memory_operations": 0,
+  "note": "Only owned services stopped; raw files and temporary database directory retained."
+}

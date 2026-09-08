@@ -3,8 +3,13 @@
 This runs the installed official Hindsight engine, with concise retention and
 observations enabled. It is a configured local-model comparison, not a vendor
 leaderboard result. Read [PROTOCOL.md](PROTOCOL.md) before interpreting results.
-The first development case is still running; no complete quality comparison is
-claimed by this delivery.
+The first development case was stopped after repeat tool-envelope compatibility
+errors. History/update consolidation and recall completed, native reflect did not.
+See `STOP_RESULT.json`; no complete quality comparison is claimed. The current
+Qwen3.5 XML function/parameter envelope is unsupported by the local JSON-only
+translator. Fix that backend contract before attempting another native reflect run.
+The user authorized stopping this route after the current negative results; no
+remaining development cases were started.
 
 ## Dependencies
 

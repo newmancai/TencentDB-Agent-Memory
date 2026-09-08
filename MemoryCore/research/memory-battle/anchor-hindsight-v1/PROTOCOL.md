@@ -52,6 +52,10 @@ separately identifiable between history counters and `b_diagnostic_counters_afte
 Do not compare native fact IDs directly to raw-source gold: use recorded provenance
 offline and report gaps. No derived immutable version is invented.
 
-Current state: runner syntax and installed API/configuration examined; no native
-semantic retain/reflect result yet. The STALE target labels remain non-exhaustive
+Final state: one compatibility case retained and consolidated both history and update,
+then recalled. Native reflect was stopped on repeated local XML/JSON tool-envelope
+incompatibility; it is incomplete, not a native semantic score. The runtime also
+shows native reflect requests using temperature 1 despite the configured retain
+temperature 0; no blanket greedy-generation parity claim is valid. Cost and stop
+evidence are in STOP_RESULT.json. No full split comparison was run. The STALE target labels remain non-exhaustive
 and positive-only: target agreement cannot estimate commercial false invalidation.
