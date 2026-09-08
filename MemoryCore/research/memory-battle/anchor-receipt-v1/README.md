@@ -6,7 +6,8 @@ record identities, preserves superseded history, and tests subsequent reads. It 
 sidecar; it does not enable a production policy or establish general natural-language confidence.
 
 See [protocol](PROTOCOL.md) and [results](RESULTS_AND_CHECKPOINT.md) for the comparison,
-unknown labels, held-out-domain limitations and incomplete semantic challenge.
+unknown labels and held-out-domain limitations. The completed semantic challenge is reported
+separately in `../anchor-semantic-v1/RESULTS.md`; it does not authorize semantic invalidation.
 
 ## Reproduce
 
@@ -27,6 +28,7 @@ python research/memory-battle/anchor-receipt-v1/evaluate.py /path/to/receipt-out
 python research/memory-battle/anchor-receipt-v1/evaluate.py /path/to/receipt-output --split calibration
 python research/memory-battle/anchor-receipt-v1/evaluate.py /path/to/receipt-output --split external_domain
 python research/memory-battle/anchor-receipt-v1/evaluate_reads.py /path/to/receipt-output
+node --import tsx research/memory-battle/anchor-receipt-v1/native-temporal.ts /path/to/receipt-output/temporal-native-input.jsonl /path/to/receipt-output/temporal-native-results.json
 node --import tsx research/memory-battle/anchor-receipt-v1/native.ts /path/to/receipt-output/external_domain-feedback.jsonl /path/to/receipt-output/external-native-fallback.jsonl
 python -m unittest discover -s research/memory-battle/anchor-receipt-v1 -p 'test_*.py'
 npx vitest run --config research/memory-battle/anchor-receipt-v1/vitest.config.ts
@@ -40,6 +42,10 @@ and storage bytes; it does not estimate production latency from replay timing.
 The replay manifest exposes any difference from recorded upstream tool responses. Runtime and
 oracle JSONL are separate: only the scorer reads full state snapshots. Native JSONL contains
 actual temporary database paths, persistence checks, changed-field reads and fallback checks.
+`native-temporal.ts` scores actual native retrieval before inserting each next event.
+It uses field-addressed queries selected from offline known-field probes; expected values
+are never sent to search. This isolates lifecycle plus retrieval from question parsing.
+The Python ledger scores and native temporal scores are distinct results.
 No API key or model is required for this receipt experiment. It is not the official STATE-Bench
 leaderboard harness or a new agent rollout.
 

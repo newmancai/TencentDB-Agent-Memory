@@ -1,0 +1,50 @@
+{
+  "summaries": {
+    "development": {
+      "tasks": 100,
+      "reads": 29,
+      "fields": 1271,
+      "base": 2,
+      "naive": 8,
+      "E": 10,
+      "regressions": 0,
+      "improvements": 8,
+      "fallbacks": 0,
+      "historicalLeaks": 0,
+      "searchCalls": 3813,
+      "searchP50Ms": 0.9104780000016035,
+      "searchP95Ms": 1.5361479999992298
+    },
+    "calibration": {
+      "tasks": 100,
+      "reads": 66,
+      "fields": 1578,
+      "base": 7,
+      "naive": 10,
+      "E": 16,
+      "regressions": 0,
+      "improvements": 9,
+      "fallbacks": 0,
+      "historicalLeaks": 0,
+      "searchCalls": 4734,
+      "searchP50Ms": 0.8757800000021234,
+      "searchP95Ms": 1.6523809999998775
+    },
+    "external_domain": {
+      "tasks": 100,
+      "reads": 30,
+      "fields": 416,
+      "base": 8,
+      "naive": 23,
+      "E": 23,
+      "regressions": 0,
+      "improvements": 15,
+      "fallbacks": 0,
+      "historicalLeaks": 0,
+      "searchCalls": 1248,
+      "searchP50Ms": 0.673038999993878,
+      "searchP95Ms": 1.2523770000043442
+    }
+  },
+  "limit": "Field-addressed native replay; known fields selected offline, values hidden from retrieval. Not new autonomous Agent E2E. All 300 original tasks, unchanged splits and policy."
+}
