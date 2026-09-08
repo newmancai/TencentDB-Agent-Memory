@@ -1,0 +1,147 @@
+{
+  "arms": {
+    "direct": {
+      "threshold": null,
+      "search": [
+        {
+          "threshold": 0.0,
+          "accepted": 16,
+          "localized": 4,
+          "eligible": false
+        },
+        {
+          "threshold": 0.5,
+          "accepted": 16,
+          "localized": 4,
+          "eligible": false
+        },
+        {
+          "threshold": 0.7,
+          "accepted": 16,
+          "localized": 4,
+          "eligible": false
+        },
+        {
+          "threshold": 0.8,
+          "accepted": 16,
+          "localized": 4,
+          "eligible": false
+        },
+        {
+          "threshold": 0.9,
+          "accepted": 16,
+          "localized": 4,
+          "eligible": false
+        },
+        {
+          "threshold": 0.95,
+          "accepted": 16,
+          "localized": 4,
+          "eligible": false
+        },
+        {
+          "threshold": 1.0,
+          "accepted": 0,
+          "localized": 0,
+          "eligible": false
+        }
+      ]
+    },
+    "nli": {
+      "threshold": null,
+      "search": [
+        {
+          "threshold": 0.0,
+          "accepted": 2,
+          "localized": 2,
+          "eligible": false
+        },
+        {
+          "threshold": 0.5,
+          "accepted": 2,
+          "localized": 2,
+          "eligible": false
+        },
+        {
+          "threshold": 0.7,
+          "accepted": 2,
+          "localized": 2,
+          "eligible": false
+        },
+        {
+          "threshold": 0.8,
+          "accepted": 2,
+          "localized": 2,
+          "eligible": false
+        },
+        {
+          "threshold": 0.9,
+          "accepted": 1,
+          "localized": 1,
+          "eligible": false
+        },
+        {
+          "threshold": 0.95,
+          "accepted": 1,
+          "localized": 1,
+          "eligible": false
+        },
+        {
+          "threshold": 1.0,
+          "accepted": 0,
+          "localized": 0,
+          "eligible": false
+        }
+      ]
+    },
+    "assertion_nli": {
+      "threshold": 0.0,
+      "search": [
+        {
+          "threshold": 0.0,
+          "accepted": 5,
+          "localized": 5,
+          "eligible": true
+        },
+        {
+          "threshold": 0.5,
+          "accepted": 5,
+          "localized": 5,
+          "eligible": true
+        },
+        {
+          "threshold": 0.7,
+          "accepted": 5,
+          "localized": 5,
+          "eligible": true
+        },
+        {
+          "threshold": 0.8,
+          "accepted": 5,
+          "localized": 5,
+          "eligible": true
+        },
+        {
+          "threshold": 0.9,
+          "accepted": 5,
+          "localized": 5,
+          "eligible": true
+        },
+        {
+          "threshold": 0.95,
+          "accepted": 5,
+          "localized": 5,
+          "eligible": true
+        },
+        {
+          "threshold": 1.0,
+          "accepted": 0,
+          "localized": 0,
+          "eligible": false
+        }
+      ]
+    }
+  },
+  "permits_semantic_invalidation": false,
+  "meaning": "Calibrates public target-localization agreement only; model scores and dataset labels do not establish commercial validity."
+}
