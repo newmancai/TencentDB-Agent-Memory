@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "selected": "direct",
+  "feedback_count": 64,
+  "criterion": "classification_correct",
+  "tie": "direct",
+  "capacity": 1
+}
