@@ -1,0 +1,14 @@
+{
+  "new_candidate_audit": {
+    "new_candidates_outside_top20": 2,
+    "new_reference_hits_outside_top20": 0,
+    "fallbacks": 0
+  },
+  "returned_words": {
+    "dense": 28558,
+    "rerank20": 29023,
+    "rerank25": 28812,
+    "updated": 29178,
+    "centroid": 29507
+  }
+}

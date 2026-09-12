@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[当前reranker反馈](topic3-b-reranker-feedback-v1/RESULTS.md)：100开发题Q-only，dense/rerank20/rerank25/update/centroid all66/71/72/70/65；update对rerank20/25为0胜1/2负。当前候选反馈能改善dense但不胜普通重排，top20外仅2新候选0参考，关闭本适配配置不调100题。2500对279859token157批forward10.331s，更新4.307s；无跨轮学习/E。独立审查无泄漏，但研究脚本off/缺失回执/最终非有限保护未完整，不宣称运行时fallback验收。
+
 [共享查询残差学习](topic3-b-query-feedback-v1/RESULTS.md)：8054embedding全成功；feedback Q/QA all436/572(734)，支持学习目标信息。validation704 base/mean/learned/shuffle all418/416/418/413，learn对base10胜10负，无净收益。关闭alpha1配置不调704题；后见信息不等决策前可预测。253357token/252批forward8.838s+load13.018，fit0.349s，自有模型50169和学习63483退出，无E。
 
 [共享查询反馈候选](topic3-b-query-feedback-v1/README.md)：新联网ReFIT/REPLUG/CONQRR，非复现；核对本地Qwen embedding last-token1024维。已实际准备5/5来源734反馈/704验证、5882docs、8054编码项，验证A未入输入。先冻结embedding基线看feedback Q+A增量，再决定预定残差岭映射/平均平移/错配控制；当前未编码/拟合，不称效果，不扩E。
