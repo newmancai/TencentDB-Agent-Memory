@@ -1,0 +1,11 @@
+{
+  "covered_pairs": 29,
+  "positive_correct": 29,
+  "negative_correct": 24,
+  "both_correct": 24,
+  "rank_win": 29,
+  "unknown_pairs": 1,
+  "forwards": 58,
+  "tokens": 118821,
+  "seconds": 17.91404056851752
+}
