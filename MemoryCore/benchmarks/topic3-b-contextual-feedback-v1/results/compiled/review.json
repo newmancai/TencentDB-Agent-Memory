@@ -1,0 +1,35 @@
+[
+  {
+    "id": "b2f17518ddd41beab6ec6740",
+    "judgment_source": "assistant semantic review, not official gold",
+    "correction_implemented": "yes",
+    "target_content": "full",
+    "semantic_notes": [
+      "核心纠正已落实：明确当前年终摘要应结合精确数据与叙事，末尾明确not an optional addition；没有再凭空依受众推定叙事可选。s6:t3/t5、s8:t3/t5直接支持。",
+      "especially in formal reports可对应s7伦理提案及早期报告，不必单凭此短语判整体失败；本段对当前摘要的明确结论没有被它撤销。",
+      "discovery journey在s8:t3有原文依据；未编造新的发现事实。"
+    ],
+    "new_material_overreach": "no",
+    "citation_contract": "fail",
+    "citation_notes": "仅给s6、s8会话号，没有具体message IDs；语义可追溯不等于满足消息级引用合同。可支持位置为s6:t3、s6:t5、s8:t3、s8:t5。",
+    "ready_as_faithful_correct_demonstration": false,
+    "readiness_reason": "目标语义完整，但作为要求消息级证据的忠实示范仍未满足引用合同；不能原样标成全面通过。"
+  },
+  {
+    "id": "5c399dd70556b311c35d0413",
+    "judgment_source": "assistant semantic review, not official gold",
+    "correction_implemented": "mostly",
+    "target_content": "full",
+    "semantic_notes": [
+      "核心纠正已落实：everyday cooking language、taste-driven messaging、without technical farming language覆盖日常烹饪用语、味道与排除技术农业术语；s4:t3、s7:t3支持，具体感官例子来自s4:t1。",
+      "no audience or traffic data provided表述过宽：当前题及s4/s7已明确downtown farmers market customers这一受众。仅没有更细受众统计或流量数据，不能说受众本身未给。",
+      "buffers...not directly applicable to booth design把缺乏当前适用证据说成确定不适用；s8证明该要求属于Chef订单种植计划，足以不将它强加到展位，但不足否定所有潜在适用性。",
+      "上述两处不改变核心内容full，也不等于整段错误；不能因核心修复就忽略新添的未知范围误述。"
+    ],
+    "new_material_overreach": "yes",
+    "citation_contract": "fail",
+    "citation_notes": "没有任何具体message IDs；仅提market signs和recipe cards，不能充当消息级引用。",
+    "ready_as_faithful_correct_demonstration": false,
+    "readiness_reason": "核心目标完整，但尚有受众未知范围误述和不适用性的过强判断，同时缺消息级引用；不宜原样作为完全正确示范。"
+  }
+]

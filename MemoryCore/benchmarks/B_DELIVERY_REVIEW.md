@@ -1,5 +1,8 @@
 # Topic3 B 研究交付审阅入口
 
+[CUPID纠正示范编译](topic3-b-contextual-feedback-v1/COMPILATION_RESULTS.md)：旧2开发例实际2调用6266输入241输出7.892s，核心修复2full，但具体消息引用0/2、完整可接纳0/2，第二例新增受众/不适用范围误述。独立教师选连续原句并附用户ID，宿主构造容量2 reviewed_fragment_not_complete_gold状态；第二片段烹饪限定仍不完整。结构通过非语义真值，篡改片段拒绝不写。无新任务对照/学习收益；关闭自动接纳完整修复配置，保留局部示范路线，勿旧12追分/扩E。session46002 exit0，goal active。
+
+
 [CUPID纠正示例四臂实跑](topic3-b-contextual-feedback-v1/LEARNING_RESULTS.md)：2旧开发受控纠正示例、新4persona/12题，48调用235461输入6220输出198.742s。feedback对frozen3胜4负5平、对unlabelled4胜5负3平（助手语义意见）；full0/1/2不等总体成功，root4题排序一致3/4与2/4。feedback输入103354对普通30094、无纠正100186，100词超限12/12；均无硬截断/失败。研究旁路ICL状态非权重训练/原生fallback。关闭当前旧草稿+纠正配置收益主张，未关闭B；下一核验正确局部示范能否替代缺陷画像，勿旧12追prompt/变体，不扩E。模型session62457 exit0，goal active。
 
 
