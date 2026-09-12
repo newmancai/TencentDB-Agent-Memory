@@ -1,0 +1,187 @@
+{
+  "status": "independent_assistant_silver_not_official_grader",
+  "scope": "20 query首轮answer相对question/公开训练gold/evidence的盲语义审查；不判反馈label",
+  "inputs": {
+    "events": "/home/edarace/Tencent-Memory-2/.local-evidence/topic3-b-memorybench/adapted/learning-events.jsonl",
+    "gold": "/home/edarace/Tencent-Memory-2/.local-evidence/topic3-b-memorybench/adapted/offline-gold.jsonl",
+    "projection": "仅打印id/query_id、history[0]问题/上下文与history[1]首答、gold.golden_answer/evidence；反馈字段及后续事件未展示，gold.category未使用"
+  },
+  "judgment_definitions": {
+    "supported": "回答在所问对象/范围和断言强度下支持预期答案，允许同义表达",
+    "unsupported": "明确错对象、错时间、漏答、错误答案类型或与预期证据冲突；不据此判检索/生成根因",
+    "uncertain": "近似日期容忍度、图片指代或gold推断强度使确定语义结论不足"
+  },
+  "counts": {
+    "unsupported": 11,
+    "uncertain": 4,
+    "supported": 5
+  },
+  "limitations": [
+    "助手银标非官方grader；没有模型运行、外网核验、图片读取或gold改动。",
+    "公开gold仅用于离线审查，未暴露给runtime；所列evidence有时只是邻句或图片指代，需保留证据粒度限制。",
+    "多选gold字典不是答案集合；三个选项题分别按问题对象与证据判断。",
+    "日期57/35不是自动放行，保留uncertain；日期28/8是报告日与事件日混淆。"
+  ],
+  "rows": [
+    {
+      "id": "Locomo-0:28:r1",
+      "query_id": "Locomo-0:28",
+      "judgment": "unsupported",
+      "rationale": "答15 July是对话日期；证据为该日前的Last Friday，不应把报告日当事件日。",
+      "issue": "date_event_vs_report",
+      "answer": "15 July, 2023"
+    },
+    {
+      "id": "Locomo-0:6:r1",
+      "query_id": "Locomo-0:6",
+      "judgment": "unsupported",
+      "rationale": "虽最终包含June 2023，却把July17前two weekends错误算成June25，又称early June；解释自相矛盾且混淆已发生露营与问题所问计划。非纯字符串差异。",
+      "issue": "date_wrong_reasoning_despite_month_overlap",
+      "answer": "The conversation on 17 July, 2023, mentions that Melanie had a quiet weekend after camping with her family two weekends ago. Since the conversation took place on 17 July, the camping trip would have been around 25 June. Therefore, Melanie's camping trip was approximately in early June 2023."
+    },
+    {
+      "id": "Locomo-0:70:r1",
+      "query_id": "Locomo-0:70",
+      "judgment": "unsupported",
+      "rationale": "gold要求transgender poetry reading及conference，答漏poetry reading，并加入泛LGBTQ pride活动，未充分回答transgender-specific。",
+      "issue": "omission_and_scope",
+      "answer": "LGBTQ pride event, LGBTQ conference, and the pride parade."
+    },
+    {
+      "id": "Locomo-0:62:r1",
+      "query_id": "Locomo-0:62",
+      "judgment": "unsupported",
+      "rationale": "gold证据明确Melanie于对话前一天带孩子去公园，预期27 August；答无法确定未提供所问日期。其检索上下文可能缺相应证据，不能据此归责生成器。",
+      "issue": "abstention_vs_available_offline_gold",
+      "answer": "The context does not mention Melanie going to the park. Therefore, it is not possible to determine the date of the conversation when Melanie went to the park."
+    },
+    {
+      "id": "Locomo-0:57:r1",
+      "query_id": "Locomo-0:57",
+      "judgment": "uncertain",
+      "rationale": "gold为Aug25前一周，Aug17落在常用上一日历周范围；但首轮可见Aug17对话说Recently，不能精确推出当日。近似日期容忍度与跨记录描述不充分明确，不把字符串不等直接判错。",
+      "issue": "approximate_date_boundary",
+      "answer": "17 August 2023"
+    },
+    {
+      "id": "Locomo-0:35:r1",
+      "query_id": "Locomo-0:35",
+      "judgment": "uncertain",
+      "rationale": "July17前two weekends是周末范围，July3为两周前的周一，不能严格推出；问题允许approximate date，是否容许周末邻近一天未定义。非显然语义等价，也不宜仅字符串惩罚。",
+      "issue": "approximate_weekend_boundary",
+      "answer": "July 3rd"
+    },
+    {
+      "id": "Locomo-0:26:r1",
+      "query_id": "Locomo-0:26",
+      "judgment": "uncertain",
+      "rationale": "gold为2022，July12 2023证据确有This book I read last year，但纯文本没有Nothing is Impossible书名，图片/书身份桥接未直接提供给首轮文本。拒答与公开gold不匹配，却可能是文本可见性限制；未访问图片，保留不确定。",
+      "issue": "multimodal_reference_visibility",
+      "answer": "The context does not mention Melanie reading the book \"Nothing is Impossible.\" Therefore, it is not possible to determine the date Melanie read the book based on the provided information."
+    },
+    {
+      "id": "Locomo-0:173:r1",
+      "query_id": "Locomo-0:173",
+      "judgment": "unsupported",
+      "rationale": "选择a将LGBTQ中心启发绘画的证据套到sculpture；原文I painted this，只支持painting。gold字典是两选项而非两正确答案，不能按选项文本命中即奖励。",
+      "issue": "multiple_choice_object_swap",
+      "answer": "(a) visiting an LGBTQ center and wanting to capture unity and strength"
+    },
+    {
+      "id": "Locomo-0:139:r1",
+      "query_id": "Locomo-0:139",
+      "judgment": "supported",
+      "rationale": "回答与gold同义；首轮上下文明示transgender poetry reading和shared their stories through poetry。gold所列D17:18仅是提问，但相邻可见回答补足证据。",
+      "issue": "semantic_equivalence",
+      "answer": "A transgender poetry reading where transgender people shared their stories through poetry."
+    },
+    {
+      "id": "Locomo-0:22:r1",
+      "query_id": "Locomo-0:22",
+      "judgment": "supported",
+      "rationale": "问题询问likely，回答Yes且保留likely，符合gold的基于经典儿童书收藏的概率性推断；未声称特定书已获直接核实。",
+      "issue": "probabilistic_answer_matches",
+      "answer": "Yes, Caroline likely has Dr. Seuss books on her bookshelf."
+    },
+    {
+      "id": "Locomo-0:151:r1",
+      "query_id": "Locomo-0:151",
+      "judgment": "unsupported",
+      "rationale": "答camping trip，与gold的nature walk/hike活动不同；列举证据的we just did it需邻文指代，不能将其他露营经历替入。",
+      "issue": "wrong_activity",
+      "answer": "Camping trip with her family."
+    },
+    {
+      "id": "Locomo-0:108:r1",
+      "query_id": "Locomo-0:108",
+      "judgment": "supported",
+      "rationale": "headspace与mental health在此同义，且首轮原文直接写great for my headspace；是明确语义匹配，不应被gold词形差异惩罚。",
+      "issue": "semantic_equivalence_exact_source_phrase",
+      "answer": "Melanie says running has been great for her headspace."
+    },
+    {
+      "id": "Locomo-0:8:r1",
+      "query_id": "Locomo-0:8",
+      "judgment": "unsupported",
+      "rationale": "June9是对话日期；原文学校活动last week，答On 9 June误把报告日期当事件日期。",
+      "issue": "date_event_vs_report",
+      "answer": "On 9 June, 2023, Caroline gave a speech at a school."
+    },
+    {
+      "id": "Locomo-0:7:r1",
+      "query_id": "Locomo-0:7",
+      "judgment": "supported",
+      "rationale": "答Single与gold一致，证据含as a single parent及breakup。",
+      "issue": "direct_match",
+      "answer": "Single"
+    },
+    {
+      "id": "Locomo-0:23:r1",
+      "query_id": "Locomo-0:23",
+      "judgment": "unsupported",
+      "rationale": "答Becoming Nicole，gold及证据为Nothing is Impossible和Charlotte's Web；后一本有明确Melanie阅读原文，答案未覆盖且书名错误。",
+      "issue": "wrong_book",
+      "answer": "\"Becoming Nicole\""
+    },
+    {
+      "id": "Locomo-0:55:r1",
+      "query_id": "Locomo-0:55",
+      "judgment": "unsupported",
+      "rationale": "答LGBTQ themes不是gold Sunsets，图片描述分别呈现两人的sunset画作；未显示Melanie同绘LGBTQ主题。应另记图片证据可见性，不把题目目标改为泛主题。",
+      "issue": "wrong_common_subject_multimodal",
+      "answer": "LGBTQ themes"
+    },
+    {
+      "id": "Locomo-0:59:r1",
+      "query_id": "Locomo-0:59",
+      "judgment": "uncertain",
+      "rationale": "答No与gold somewhat不同，但替教堂创作及遭宗教保守人士冒犯均不能可靠确定个人宗教程度；缺明确自述，gold本身推断强，不能把不同推断当确定错误。",
+      "issue": "gold_inference_strength",
+      "answer": "No, Caroline would not be considered religious."
+    },
+    {
+      "id": "Locomo-0:154:r1",
+      "query_id": "Locomo-0:154",
+      "judgment": "unsupported",
+      "rationale": "LGBTQ机构证据说话人Caroline，问题却是Melanie考虑的机构；未有同机构身份桥接。选择b混淆人物，gold字典只保存两个选项并非两个正确答案。",
+      "issue": "multiple_choice_subject_swap",
+      "answer": "(b) LGBTQ+ individuals."
+    },
+    {
+      "id": "Locomo-0:196:r1",
+      "query_id": "Locomo-0:196",
+      "judgment": "supported",
+      "rationale": "问题问Caroline及其children，相关Grand Canyon证据说话人是Melanie；选Not mentioned符合人物区别，不能因gold映射另含happy and thankful就扣错。",
+      "issue": "multiple_choice_subject_swap_correct_abstention",
+      "answer": "(a) Not mentioned in the conversation"
+    },
+    {
+      "id": "Locomo-0:50:r1",
+      "query_id": "Locomo-0:50",
+      "judgment": "unsupported",
+      "rationale": "LGBTQ activist描述活动身份，并非所问政治leaning Liberal的直接同义答案；身份有证据不等于回答了政治倾向，亦不将身份到政见视为确定推断。",
+      "issue": "answer_type_mismatch",
+      "answer": "LGBTQ activist"
+    }
+  ]
+}
