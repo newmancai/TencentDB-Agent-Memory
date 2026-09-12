@@ -1,0 +1,23 @@
+[
+  {
+    "a": 1,
+    "b": 2,
+    "common_prefix_turns": 0,
+    "exact_shared_user_strings": 0,
+    "shared_hidden_topic_ids": 1
+  },
+  {
+    "a": 1,
+    "b": 3,
+    "common_prefix_turns": 0,
+    "exact_shared_user_strings": 0,
+    "shared_hidden_topic_ids": 0
+  },
+  {
+    "a": 2,
+    "b": 3,
+    "common_prefix_turns": 0,
+    "exact_shared_user_strings": 0,
+    "shared_hidden_topic_ids": 0
+  }
+]

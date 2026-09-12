@@ -1,0 +1,259 @@
+[
+  {
+    "source": "dialog_1:5",
+    "earlier_history_omitted": false,
+    "prediction": {
+      "format": {
+        "mode": "csv"
+      },
+      "countableItems": {
+        "num": 9
+      },
+      "reader_age": {
+        "reader_age": "child"
+      },
+      "startwith": {
+        "mode": "keyword",
+        "value": "inclusive"
+      },
+      "endwith": {
+        "mode": "quotation",
+        "value": "."
+      },
+      "length": {
+        "mode": "sentence",
+        "relation": "less_than",
+        "number": 20
+      },
+      "forbidden": [
+        "fast-paced environment",
+        "ADHD",
+        "research",
+        "exposed",
+        "pupils"
+      ],
+      "punctuation": {
+        "mode": "must_include",
+        "value": ","
+      },
+      "existence": {
+        "literal phrase": "Rainbow Cafe",
+        "required count": 1
+      },
+      "case": {
+        "mode": "all_lower"
+      },
+      "emotion": {
+        "emotion": "warm"
+      },
+      "style": {
+        "style": "friendly and welcoming"
+      }
+    },
+    "verified_target": {
+      "startwith": {
+        "mode": "keyword",
+        "value": "inclusive"
+      }
+    }
+  },
+  {
+    "source": "dialog_1:10",
+    "earlier_history_omitted": true,
+    "prediction": {
+      "format": {
+        "mode": "html",
+        "nested": true
+      },
+      "countableItems": {
+        "num": 9
+      },
+      "startwith": {
+        "mode": "emoji",
+        "value": "😴"
+      },
+      "endwith": {
+        "mode": "keyword",
+        "value": "welcoming"
+      },
+      "length": {
+        "mode": "characters",
+        "relation": "more_than",
+        "number": 1800
+      },
+      "forbidden": [
+        "attention deficit hyperactivity disorder",
+        "academic performance",
+        "mental health"
+      ],
+      "punctuation": {
+        "mode": "must_not_include",
+        "value": ","
+      },
+      "existence": {
+        "literal phrase": 9
+      },
+      "case": {
+        "mode": "all_lower"
+      },
+      "emotion": {
+        "emotion": "warm"
+      },
+      "style": "accessible_and_inclusive"
+    },
+    "verified_target": {
+      "format": {
+        "mode": "html"
+      },
+      "countableItems": {
+        "num": 9
+      },
+      "reader_age": {
+        "reader_age": "child"
+      },
+      "forbidden": [
+        "attention deficit hyperactivity disorder",
+        "academic performance",
+        "mental health"
+      ]
+    }
+  },
+  {
+    "source": "dialog_1:15",
+    "earlier_history_omitted": true,
+    "prediction": {
+      "format": {
+        "mode": "html",
+        "nested": true
+      },
+      "countableItems": {
+        "num": 9
+      },
+      "reader_age": "child",
+      "startwith": {
+        "mode": "emoji",
+        "value": "🤣"
+      },
+      "endwith": {
+        "mode": "quotation",
+        "value": ")"
+      },
+      "length": {
+        "mode": "characters",
+        "relation": "more_than",
+        "number": 700
+      },
+      "forbidden": [
+        "attention deficit hyperactivity disorder",
+        "academic performance",
+        "mental health"
+      ],
+      "punctuation": {
+        "mode": "must_include",
+        "value": "."
+      },
+      "existence": {
+        "literal phrase": 9
+      },
+      "case": {
+        "mode": "all_lower"
+      },
+      "emotion": {
+        "emotion": "playful"
+      },
+      "style": "light-hearted, accessible, conversational"
+    },
+    "verified_target": {
+      "format": {
+        "mode": "html"
+      },
+      "length": {
+        "mode": "characters",
+        "relation": "more_than",
+        "number": 700
+      }
+    }
+  },
+  {
+    "source": "dialog_1:20",
+    "earlier_history_omitted": true,
+    "prediction": {
+      "format": {
+        "mode": "csv",
+        "quoting": "proper"
+      },
+      "countableItems": {
+        "num": 9
+      },
+      "reader_age": "child",
+      "startwith": {
+        "mode": "emoji",
+        "value": "🤣"
+      },
+      "endwith": {
+        "mode": "emoji",
+        "value": "😚"
+      },
+      "length": {
+        "mode": "paragraph",
+        "relation": "more_than",
+        "number": 5
+      },
+      "forbidden": [
+        "attention deficit hyperactivity disorder",
+        "academic performance",
+        "mental health"
+      ],
+      "punctuation": {
+        "mode": "must_not_include",
+        "value": ","
+      },
+      "existence": {
+        "cognitive development": 2,
+        "school environment": 3,
+        "risk factors": 5
+      },
+      "case": {
+        "mode": "all_lower"
+      },
+      "emotion": {
+        "emotion": "warm"
+      },
+      "style": "accessible_and_inclusive"
+    },
+    "verified_target": {
+      "format": {
+        "mode": "html"
+      },
+      "countableItems": {
+        "num": 9
+      },
+      "reader_age": {
+        "reader_age": "child"
+      },
+      "forbidden": [
+        "attention deficit hyperactivity disorder",
+        "academic performance",
+        "mental health"
+      ],
+      "startwith": {
+        "mode": "emoji",
+        "value": "🤣"
+      },
+      "length": {
+        "mode": "word",
+        "relation": "exactly",
+        "number": 800
+      },
+      "existence": {
+        "cognitive development": 2,
+        "school environment": 3,
+        "risk factors": 5
+      },
+      "endwith": {
+        "mode": "emoji",
+        "value": "😚"
+      }
+    }
+  }
+]
