@@ -1,0 +1,95 @@
+{
+  "arms": {
+    "fit/direct": {
+      "n": 10,
+      "exact": 3,
+      "same_topic": 7,
+      "unknown": 0,
+      "inputTokens": 16468,
+      "outputTokens": 28,
+      "elapsedMs": 3519.8475243523717,
+      "by_dialog": {
+        "dialog_1": {
+          "n": 10,
+          "exact": 3
+        }
+      }
+    },
+    "eval/direct": {
+      "n": 20,
+      "exact": 5,
+      "same_topic": 10,
+      "unknown": 0,
+      "inputTokens": 29086,
+      "outputTokens": 55,
+      "elapsedMs": 5388.038476230577,
+      "by_dialog": {
+        "dialog_4": {
+          "n": 10,
+          "exact": 1
+        },
+        "dialog_5": {
+          "n": 10,
+          "exact": 4
+        }
+      }
+    },
+    "eval/unlabelled": {
+      "n": 20,
+      "exact": 2,
+      "same_topic": 9,
+      "unknown": 0,
+      "inputTokens": 113406,
+      "outputTokens": 57,
+      "elapsedMs": 18600.16228328459,
+      "by_dialog": {
+        "dialog_4": {
+          "n": 10,
+          "exact": 0
+        },
+        "dialog_5": {
+          "n": 10,
+          "exact": 2
+        }
+      }
+    },
+    "eval/feedback": {
+      "n": 20,
+      "exact": 1,
+      "same_topic": 8,
+      "unknown": 0,
+      "inputTokens": 113886,
+      "outputTokens": 56,
+      "elapsedMs": 18638.135947287083,
+      "by_dialog": {
+        "dialog_4": {
+          "n": 10,
+          "exact": 0
+        },
+        "dialog_5": {
+          "n": 10,
+          "exact": 1
+        }
+      }
+    }
+  },
+  "paired": {
+    "feedback_vs_direct": {
+      "win": 0,
+      "loss": 4,
+      "tie": 16
+    },
+    "feedback_vs_unlabelled": {
+      "win": 0,
+      "loss": 1,
+      "tie": 19
+    }
+  },
+  "warning": "same_topic is diagnostic only: current-turn baseline always passes it",
+  "cheap_baselines": {
+    "always_first_exact": 7,
+    "always_current_exact": 2,
+    "always_current_same_topic": 20,
+    "n": 20
+  }
+}

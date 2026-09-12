@@ -1,0 +1,18 @@
+{
+  "dataset": "KikiNLP/EvolIF",
+  "revision": "47115ae2af4830948f3f15697221a1acca6078a7",
+  "files": [
+    {
+      "file": "dialog_1.jsonl",
+      "turns": 50
+    },
+    {
+      "file": "dialog_4.jsonl",
+      "turns": 50
+    },
+    {
+      "file": "dialog_5.jsonl",
+      "turns": 50
+    }
+  ]
+}
