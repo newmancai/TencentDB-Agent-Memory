@@ -15,7 +15,7 @@ export interface AnswerFeedbackResult {
 /** Match the research terminal-line contract; never recover IDs from reasoning text. */
 export function parseAnswerFeedback(text: string, outputLimited = false): readonly string[] | null {
   if (outputLimited) return null;
-  const line = text.trim().split(/\r?\n/).at(-1) ?? '';
+  const line = text.trim().split(/\r\n|[\n\r\v\f\x1c-\x1e\x85\u2028\u2029]/).at(-1) ?? '';
   const match = /^(?:\*\*)?ACTIONABLE:(?:\*\*)?\s*(\[.*\]|unknown)$/.exec(line);
   if (!match || match[1] === 'unknown') return null;
   try {
@@ -45,6 +45,10 @@ export async function selectAnswerFeedback<T extends AnswerFeedbackObservation>(
   if (!p.enabled) return { feedback: p.baselineFeedback, useBaseline: true,
     status: 'off', elapsedMs: performance.now() - start };
   const timeoutMs = p.timeoutMs ?? 30_000;
+  if (!p.observation || typeof p.observation !== 'object'
+      || typeof p.observation.answerId !== 'string' || !p.observation.answerId.trim()) {
+    return fallback('invalid_observation');
+  }
   const candidates = p.observation.candidates;
   if (!Number.isFinite(timeoutMs) || timeoutMs <= 0 || timeoutMs > 30_000
       || !Array.isArray(candidates) || candidates.length > 256
@@ -64,7 +68,10 @@ export async function selectAnswerFeedback<T extends AnswerFeedbackObservation>(
         timer = setTimeout(() => { resolve(timeout); controller.abort(); }, timeoutMs);
       }),
     ]);
-    if (selected === timeout) return fallback('timeout');
+    if (selected === timeout || performance.now() - start >= timeoutMs) {
+      controller.abort();
+      return fallback('timeout');
+    }
     if (!Array.isArray(selected) || selected.length > eligible.size
         || selected.some(id => typeof id !== 'string' || !eligible.has(id))
         || new Set(selected).size !== selected.length) return fallback('invalid_selection');

@@ -8,6 +8,8 @@
 
 ## 本轮实际证据
 
+后续独立审查修复空观察返回、同步结果超过deadline拒绝、CR/Unicode行分隔、重放ID唯一/覆盖。17测试与类型检查通过；新增dialog9全部40回执的native重放、275L0写读及off/failure/搜索不变通过。同步阻塞仍无法被JavaScript计时器强行中断，但其超期结果不接受；不是worker硬实时隔离。
+
 - 新合同和原lifecycle两文件共13测试通过：off、合法子集/空集、unknown/非法集合、加载损坏、超时及迟到结果、终末读取；新模块独立TypeScript类型检查通过。
 - `native-replay.ts`对compact开发10检查点写入275实际L0用户消息，使用VectorStore逐条读回构造history，再经旁路重放10个已保存模型输出；成功/失败集合与Python一致。
 - 每点off与强制读取失败回原baseline（本演示宿主原无反馈，故baseline=[]）；前后L0行与FTS搜索结果相同。不生成额外模型调用，不改E历史。

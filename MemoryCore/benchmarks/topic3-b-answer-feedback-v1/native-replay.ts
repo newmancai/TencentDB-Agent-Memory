@@ -8,6 +8,9 @@ import { parseAnswerFeedback, selectAnswerFeedback } from '../../src/core/memory
 const [input, predictionFile, output] = process.argv.slice(2);
 const tasks = JSON.parse(await readFile(join(input, 'tasks.json'), 'utf8'));
 const predictions = (await readFile(join(input, predictionFile), 'utf8')).trim().split('\n').map(line => JSON.parse(line));
+assert.equal(new Set(tasks.map((t: any) => t.id)).size, tasks.length);
+assert.equal(new Set(predictions.map(p => p.id)).size, predictions.length);
+assert.deepEqual(predictions.map(p => p.id).sort(), tasks.map((t: any) => t.id).sort());
 await mkdir(output);
 const receipts = [];
 for (const task of tasks) {

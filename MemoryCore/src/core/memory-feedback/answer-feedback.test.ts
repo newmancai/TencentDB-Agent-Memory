@@ -9,6 +9,26 @@ const baseline = ['host-original'];
 afterEach(() => vi.useRealTimers());
 
 describe('temporary answer feedback', () => {
+  it.each([null, undefined, { answerId: '', candidates: [] }])('rejects malformed observations %j', async value => {
+    const selector = vi.fn();
+    const result = await selectAnswerFeedback({ enabled: true,
+      observation: value as unknown as typeof observation, baselineFeedback: baseline, selector });
+    expect(result.reason).toBe('invalid_observation');
+    expect(result.feedback).toBe(baseline);
+    expect(selector).not.toHaveBeenCalled();
+  });
+
+  it('rejects a synchronous result after the deadline even before its timer runs', async () => {
+    const clock = vi.spyOn(performance, 'now');
+    clock.mockReturnValue(0);
+    try {
+      const result = await selectAnswerFeedback({ enabled: true, observation,
+        baselineFeedback: baseline, timeoutMs: 10,
+        selector: async () => { clock.mockReturnValue(20); return ['failed']; } });
+      expect(result.reason).toBe('timeout');
+      expect(result.feedback).toBe(baseline);
+    } finally { clock.mockRestore(); }
+  });
   it('off preserves the baseline without invoking the selector or state loader', async () => {
     const selector = vi.fn();
     const result = await selectAnswerFeedback({ enabled: false, observation,
@@ -58,6 +78,8 @@ describe('temporary answer feedback', () => {
   it('reads only the terminal list and rejects capped or malformed output', () => {
     expect(parseAnswerFeedback('explanation\nACTIONABLE: ["failed"]')).toEqual(['failed']);
     expect(parseAnswerFeedback('ACTIONABLE: []')).toEqual([]);
+    expect(parseAnswerFeedback('explanation\rACTIONABLE: []')).toEqual([]);
+    expect(parseAnswerFeedback('explanation\u2028ACTIONABLE: []')).toEqual([]);
     expect(parseAnswerFeedback('ACTIONABLE: ["failed"]', true)).toBeNull();
     expect(parseAnswerFeedback('ACTIONABLE: ["failed"]\ntrailing')).toBeNull();
     expect(parseAnswerFeedback('ACTIONABLE: [{"id":"failed"}]')).toBeNull();

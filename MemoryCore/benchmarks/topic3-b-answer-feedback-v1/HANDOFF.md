@@ -2,6 +2,10 @@
 
 ## 最新覆盖：开发两版结束，新评估流水线运行
 
+最新：eval9四臂及score完成，各1/10集合exact；structured TP10/FP71对prose8/53，不能称净收益。native重放40回执/275L0一致。17测试及类型检查通过，修4审查问题，见NATIVE_CODE_REVIEW.md。当前pipeline42815已转eval10生成，最近19/50，勿重启。
+
+pairwise_route_review正仅对已结束eval9做MECHANISM_REVIEW，禁止读eval10/改本配置；下一轮取审查，等两对话结束再aggregate及最终判断。
+
 最新：eval9生成50/50完成，18cap，406027输入/15993输出/500.09s；checker完成，四臂反馈最近4/10检查点。仍同pipeline42815，之后自动eval10，不重启。
 
 新增answer-feedback.ts临时选择入口及native-replay.ts已实现；13测试、新模块类型检查、插件构建通过，10compact开发模型回执与Python一致，原生每次275L0写回/原搜索不变。先跑最小候选再补完整候选负载复跑，两份本地证据保留；repo收录最终full-candidates回执。NATIVE_INTEGRATION.md明确oracle与重放边界，不宣称模型原生重新推理或E收益。pairwise_route_review正做NATIVE_CODE_REVIEW，下一轮取审查。
