@@ -2,6 +2,10 @@
 
 ## 最新覆盖：开发两版结束，新评估流水线运行
 
+最新：eval9生成50/50完成，18cap，406027输入/15993输出/500.09s；checker完成，四臂反馈最近4/10检查点。仍同pipeline42815，之后自动eval10，不重启。
+
+新增answer-feedback.ts临时选择入口及native-replay.ts已实现；13测试、新模块类型检查、插件构建通过，10compact开发模型回执与Python一致，原生每次275L0写回/原搜索不变。先跑最小候选再补完整候选负载复跑，两份本地证据保留；repo收录最终full-candidates回执。NATIVE_INTEGRATION.md明确oracle与重放边界，不宣称模型原生重新推理或E收益。pairwise_route_review正做NATIVE_CODE_REVIEW，下一轮取审查。
+
 本轮最后核查eval9生成21/50；同session42815正常活跃。aggregate.py已实现并用临时合同数据检查；等两对话score都结束后执行，不对缺结果提前汇总。pairwise_route_review正独立审查MemoryCore最小B反馈旁路接入，尚未修改运行时，后续取PORTABILITY_REVIEW.md。不因等待另启GPU模型。
 
 旧92464与compact82827均exit0。reasoned开发0/10、9cap；compact0/10、3非法、无cap，TP13/FP79/FN5，28.13s。回执与状态分别保留，见RESULTS.md。只取消解释的开发修正记录在PROTOCOL；正式接口compact不再改。
