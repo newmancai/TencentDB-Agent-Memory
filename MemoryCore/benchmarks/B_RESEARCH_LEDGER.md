@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[共享查询残差学习](topic3-b-query-feedback-v1/RESULTS.md)：8054embedding全成功；feedback Q/QA all436/572(734)，支持学习目标信息。validation704 base/mean/learned/shuffle all418/416/418/413，learn对base10胜10负，无净收益。关闭alpha1配置不调704题；后见信息不等决策前可预测。253357token/252批forward8.838s+load13.018，fit0.349s，自有模型50169和学习63483退出，无E。
+
 [共享查询反馈候选](topic3-b-query-feedback-v1/README.md)：新联网ReFIT/REPLUG/CONQRR，非复现；核对本地Qwen embedding last-token1024维。已实际准备5/5来源734反馈/704验证、5882docs、8054编码项，验证A未入输入。先冻结embedding基线看feedback Q+A增量，再决定预定残差岭映射/平均平移/错配控制；当前未编码/拟合，不称效果，不扩E。
 
 [反馈关联迁移](topic3-b-hindsight-evidence-v1/TRANSFER_RESULTS.md)：610反馈/821后续，同问组隔离、受控批次非自然流。base393all、三旁路各364；反馈别名对base18胜47负，对直接缓存3胜3负。绑定参考命中181→388/610但基线428失败仅47能由当前绑定池oracle补齐（gold先前池94），47回归丢51参考。关闭top1+RRF配置，非全部B上限；下一须迁移到未绑定证据或判适用性，勿调旧权。4504CPU查询、5内存fallback通过，80844退出，无模型/E。
