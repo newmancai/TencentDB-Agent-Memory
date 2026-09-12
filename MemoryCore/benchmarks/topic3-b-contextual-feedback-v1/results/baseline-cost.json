@@ -1,0 +1,19 @@
+{
+  "mode": "development_ordinary_baseline",
+  "examples": 6,
+  "load_seconds": 2.2103997350204736,
+  "input_tokens": 67832,
+  "output_tokens": 3827,
+  "generation_ms": 112673.4929268714,
+  "errors": [
+    {
+      "id": "cf9bccf940830e1b46b5585b",
+      "error": "output_limit"
+    },
+    {
+      "id": "b86d183e67193d0da3ef8a10",
+      "error": "output_limit"
+    }
+  ],
+  "scope": "No quality grading or feedback learning; six development examples only. No truncation/retry."
+}

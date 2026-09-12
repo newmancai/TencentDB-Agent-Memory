@@ -1,0 +1,47 @@
+{
+  "checks": [
+    {
+      "id": "cf9bccf940830e1b46b5585b",
+      "error": "output_limit",
+      "unique_citations": 19,
+      "missing_ids": [],
+      "assistant_citations": 3
+    },
+    {
+      "id": "b86d183e67193d0da3ef8a10",
+      "error": "output_limit",
+      "unique_citations": 23,
+      "missing_ids": [],
+      "assistant_citations": 17
+    },
+    {
+      "id": "db69edb1fcdc395195edc070",
+      "error": null,
+      "unique_citations": 0,
+      "missing_ids": [],
+      "assistant_citations": 0
+    },
+    {
+      "id": "8151189fd6201a45030cc36c",
+      "error": null,
+      "unique_citations": 12,
+      "missing_ids": [],
+      "assistant_citations": 5
+    },
+    {
+      "id": "0c1367a83692ce6a457817c7",
+      "error": null,
+      "unique_citations": 0,
+      "missing_ids": [],
+      "assistant_citations": 0
+    },
+    {
+      "id": "333e68be5a55f20315b32297",
+      "error": null,
+      "unique_citations": 16,
+      "missing_ids": [],
+      "assistant_citations": 9
+    }
+  ],
+  "scope": "ID existence/role only, not semantic correctness; assistant citations are not automatically errors."
+}
