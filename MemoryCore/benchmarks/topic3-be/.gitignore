@@ -1,0 +1,5 @@
+data/
+output/
+*.json
+*.jsonl
+__pycache__/
