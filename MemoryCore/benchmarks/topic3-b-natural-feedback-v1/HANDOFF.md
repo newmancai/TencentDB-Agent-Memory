@@ -1,5 +1,11 @@
 # 恢复入口
 
+## 最新：原话三路打分完成，均值信号配置关闭
+
+RAW_SIGNAL_RESULTS.md和results/raw-signal为入口。226/73开发，98负/128非负，0未知/截断；真实差分/无关差分AUC0.45392/0.45440，同信息语义0.82820。678forward157785处理token34.10s，84446/9554均exit0，不重启。独立token位置审查和逐token均值/ID核验通过。
+
+仅关闭整段平均差分作为负反馈识别器，不否定逐token自蒸馏或自然反馈。下一不能再换均值、挑片段、反向分数或扩WildChat追分；必须先明确可验证的反馈用途/局部对象监督。语义粗粒度排序有信息但仅开发，保留为强参照，不称新学习收益。无需重复四例/Persona来源审计，E不扩，goal active。
+
 ## 最新：PersonaMem合同已核验，真实原话诊断已准备
 
 `PERSONA_FEEDBACK_CONTRACT.md`/`results/persona-contract.json`：v1全部20persona历史已暴露；v2实际5000题/200persona，无实际动作/概率/针对本系统回答的后续反馈字段，不能直接迁移自然SDPO。可做新受控实验但须有直接reward强基线，不能用gold生成句子后绕模型包装额外信息。本轮无模型。

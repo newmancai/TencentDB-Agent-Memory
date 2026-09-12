@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+原话[三路均值信号实验](topic3-b-natural-feedback-v1/RAW_SIGNAL_RESULTS.md)完成：LMSYS226/73，0未知/截断，真实/控制差分AUC0.45392/0.45440，同信息语义0.82820；678forward157785处理token34.10s。关闭整段均值负反馈识别配置，不否定SDPO逐token训练；不换聚合/反向追分。开发语义排名非高置信或新学习，下一需可验证的具体反馈用途/局部对象监督，E不扩。
+
 后续[PersonaMem合同](topic3-b-natural-feedback-v1/PERSONA_FEEDBACK_CONTRACT.md)核验完成：v1所有20persona有历史暴露；v2有5000题/200persona但无对应本系统回答的自然反馈/动作概率，不能直接接SDPO。受控对错可新产生，但直接reward必须作强基线。
 
 已准备[原话信号诊断](topic3-b-natural-feedback-v1/RAW_SIGNAL_PROTOCOL.md)：真实LMSYS226/73三条局部正文，与缓存语义同信息；跨会话一对一长度匹配控制226/0同会话，不给标签、不用WildChat。下一核对官方模板/token合同后只检验原话差分比无关上下文及普通后见是否有额外信息，不先搭E/消费闭环。尚无新模型或学习结果。
