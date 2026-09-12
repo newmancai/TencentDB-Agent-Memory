@@ -1,0 +1,110 @@
+{
+  "training": {
+    "unique_questions": 96,
+    "covered": 96,
+    "all_endpoints": 100,
+    "deltas": {
+      "-1": 8,
+      "0": 81,
+      "1": 7
+    },
+    "selected_static_arm": "original",
+    "fit_seconds": 0.0021942630410194397
+  },
+  "validation": {
+    "unique_questions": 90,
+    "covered": 90,
+    "all_endpoints": 94,
+    "router_choices": {
+      "original": 75,
+      "joint": 15
+    }
+  },
+  "metrics": {
+    "original": {
+      "fp": 6,
+      "tp": 41,
+      "tn": 39,
+      "fn": 4,
+      "correct": 80,
+      "total": 90
+    },
+    "joint": {
+      "fp": 8,
+      "tp": 40,
+      "tn": 37,
+      "fn": 5,
+      "correct": 77,
+      "total": 90
+    },
+    "static": {
+      "fp": 6,
+      "tp": 41,
+      "tn": 39,
+      "fn": 4,
+      "correct": 80,
+      "total": 90
+    },
+    "router": {
+      "fp": 6,
+      "tp": 40,
+      "tn": 39,
+      "fn": 5,
+      "correct": 79,
+      "total": 90
+    },
+    "cheap": {
+      "tn": 32,
+      "tp": 37,
+      "fp": 13,
+      "fn": 8,
+      "correct": 69,
+      "total": 90
+    }
+  },
+  "cost": {
+    "original": {
+      "selected_forwards": 90,
+      "tokens": 174349,
+      "recorded_seconds": 26.064781000372022
+    },
+    "joint": {
+      "selected_forwards": 90,
+      "tokens": 177126,
+      "recorded_seconds": 27.174361605662853
+    },
+    "static": {
+      "selected_forwards": 90,
+      "tokens": 174349,
+      "recorded_seconds": 26.064781000372022
+    },
+    "router": {
+      "selected_forwards": 90,
+      "tokens": 174816,
+      "recorded_seconds": 26.26020951126702
+    },
+    "feedback_collection": {
+      "actual_forwards": 192,
+      "tokens": 378330,
+      "seconds": 57.829495053272694
+    },
+    "validation_full_information": {
+      "actual_forwards": 180,
+      "tokens": 351475,
+      "seconds": 53.239142606034875
+    }
+  },
+  "paired_vs_static": {
+    "win": 0,
+    "loss": 1,
+    "tie": 89
+  },
+  "actual_full_run": {
+    "forwards": 372,
+    "tokens": 729805,
+    "seconds": 111.06863765930757,
+    "errors": {
+      "shared_evidence_limit": 16
+    }
+  }
+}

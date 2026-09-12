@@ -9,11 +9,11 @@ from pathlib import Path
 
 def read(p):return [json.loads(x) for x in p.read_text().splitlines()]
 
-def prepare(source,previous,recent,model,out):
+def prepare(source,previous,recent,model,out,extra_used=(),per_group=3,seed="paired-grounding-v1"):
     from transformers import AutoTokenizer
     spec=importlib.util.spec_from_file_location('semantic_probe',Path(__file__).with_name('semantic_probe.py'));module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     tok=AutoTokenizer.from_pretrained(model,local_files_only=True)
-    used={r['pair'] for r in read(previous/'labels.jsonl')}|{r['id'] for r in read(recent/'labels.jsonl')}
+    used={r['pair'] for r in read(previous/'labels.jsonl')}|{r['id'] for r in read(recent/'labels.jsonl')}|set(extra_used)
     tasks=[];labels=[];allowed=[];edges=[];excluded=[];counts=Counter()
     for c in json.loads(source.read_text()):
         sessions={n:v for n,v in c['conversation'].items() if n.startswith('session_') and isinstance(v,list)};ids={m['dia_id'] for s in sessions.values() for m in s};pool=[]
@@ -32,7 +32,7 @@ def prepare(source,previous,recent,model,out):
                 if ident in used or not matches:reason='previous_probe_endpoint'
             if reason:excluded.append({'id':ident,'reason':reason});continue
             pi,p=matches[0];pool.append((ident,pi,p,n))
-        for ident,pi,p,n in sorted(pool,key=lambda x:hashlib.sha256(('paired-grounding-v1:'+x[0]).encode()).hexdigest())[:3]:
+        for ident,pi,p,n in sorted(pool,key=lambda x:hashlib.sha256((seed+':'+x[0]).encode()).hexdigest())[:per_group]:
             names=[name for name,s in sessions.items() if any(m['dia_id'] in n['evidence'] for m in s)]
             evidence='Evidence:\n'+'\n'.join(json.dumps({'timestamp':c['conversation'].get(name+'_date_time'),**m},ensure_ascii=False) for name in sorted(names,key=lambda name:int(name.split('_')[1])) for m in sessions[name])
             items=[(p,True,pi),(n,False,int(ident.rsplit(':',1)[1]))]
