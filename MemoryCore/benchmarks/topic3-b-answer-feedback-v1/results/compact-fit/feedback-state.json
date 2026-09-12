@@ -1,0 +1,227 @@
+[
+  {
+    "observation": {
+      "id": "dialog_1:5",
+      "history": [
+        {
+          "turn": 1,
+          "user": "Write for a research that will determine whether pupils who have been exposed to a fast-paced environment are more likely to develop ADHD, and, um, the response absolutely HAS to be valid CSV with consistent columns and fully proper quoting. Please?"
+        },
+        {
+          "turn": 2,
+          "user": "Could you also make sure there are exactly four bullet points in the answer, each one clearly marked with something like * or -? (Just want to keep things tidy, and hopefully not make the formatting a nightmare!)"
+        },
+        {
+          "turn": 3,
+          "user": "Hey, could we tweak that part? Instead of 4 bullet points, let's make it 9—still with those * or - separating each one. Just want to make sure we're catching all the details!"
+        },
+        {
+          "turn": 4,
+          "user": "Hmm, also—could you reshape this so it speaks directly to kids? I want to make sure it really lands for younger readers."
+        },
+        {
+          "turn": 5,
+          "user": "Write a file for a queer-owned business called \"The Rainbow Cafe.\" Oh, and um—please start the response with the keyword 'inclusive,' if that's okay? (I just want to make sure it feels like it's setting a welcoming tone right from the beginning!)"
+        }
+      ],
+      "answer": "\"Business_Name\",\"Location\",\"Mission_Statement\",\"Core_Values\",\"Services\",\"Target_Audience\",\"Inclusive_Practices\",\"Hours\",\"Contact_Info\"\n\"The Rainbow Cafe\",\"Downtown Arts District, Portland, OR\",\"A warm, welcoming space where everyone feels seen, heard, and celebrated—no matter their gender identity, sexual orientation, or background.\",\"Inclusive, Community-Driven, Safe, Authentic, Respectful\",\"Coffee & pastries, vegan & gluten-free options, LGBTQ+ themed brunch, weekly queer storytelling nights, inclusive birthday parties, and community events\",\"All people—especially LGBTQ+ youth, allies, and those seeking a safe, affirming space\",\"Gender-neutral restrooms, pride flags displayed in all areas, staff trained in LGBTQ+ cultural competency, inclusive menu with gender-neutral pronouns on menus, free parking for Pride events, and a 'You Are Welcome Here' pledge board\",\"Monday–Sunday: 7:00 AM – 7:00 PM\",\"info@therainbowcafe.org | (503) 555-QUEER\"",
+      "answer_error": null,
+      "candidates": [
+        {
+          "id": "R1",
+          "family": "format",
+          "args": {
+            "mode": "csv"
+          },
+          "first_observed_turn": 1,
+          "checker_pass": true,
+          "checker_error": null
+        },
+        {
+          "id": "R2",
+          "family": "countableItems",
+          "args": {
+            "num": 4
+          },
+          "first_observed_turn": 2,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R3",
+          "family": "countableItems",
+          "args": {
+            "num": 9
+          },
+          "first_observed_turn": 3,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R4",
+          "family": "startwith",
+          "args": {
+            "mode": "keyword",
+            "value": "inclusive"
+          },
+          "first_observed_turn": 5,
+          "checker_pass": false,
+          "checker_error": null
+        }
+      ]
+    },
+    "verified_actionability": {
+      "R2": false,
+      "R3": false,
+      "R4": true
+    },
+    "selection_error": "set_mismatch"
+  },
+  {
+    "observation": {
+      "id": "dialog_1:10",
+      "history": [
+        {
+          "turn": 1,
+          "user": "Write for a research that will determine whether pupils who have been exposed to a fast-paced environment are more likely to develop ADHD, and, um, the response absolutely HAS to be valid CSV with consistent columns and fully proper quoting. Please?"
+        },
+        {
+          "turn": 2,
+          "user": "Could you also make sure there are exactly four bullet points in the answer, each one clearly marked with something like * or -? (Just want to keep things tidy, and hopefully not make the formatting a nightmare!)"
+        },
+        {
+          "turn": 3,
+          "user": "Hey, could we tweak that part? Instead of 4 bullet points, let's make it 9—still with those * or - separating each one. Just want to make sure we're catching all the details!"
+        },
+        {
+          "turn": 4,
+          "user": "Hmm, also—could you reshape this so it speaks directly to kids? I want to make sure it really lands for younger readers."
+        },
+        {
+          "turn": 5,
+          "user": "Write a file for a queer-owned business called \"The Rainbow Cafe.\" Oh, and um—please start the response with the keyword 'inclusive,' if that's okay? (I just want to make sure it feels like it's setting a welcoming tone right from the beginning!)"
+        },
+        {
+          "turn": 6,
+          "user": "Hmm, could we tweak that a bit? Rather than kicking things off with 'inclusive', can we try beginning with the emoji '😴' instead? Just curious how that would feel."
+        },
+        {
+          "turn": 7,
+          "user": "Um, could we make sure the response is proper HTML with all the tags nested correctly? Just want to get that bit of structure in there too—thanks for humoring me!"
+        },
+        {
+          "turn": 8,
+          "user": "Could you also, uh, make sure that your response stretches past the 1800-word mark? I just feel like that extra space might help cover everything more thoroughly—or at least leave enough room for some nuance, you know?"
+        },
+        {
+          "turn": 9,
+          "user": "Circling back to ADHD—could we tweak that detail? Instead of asking for valid CSV with consistent columns and proper quoting, let's have the response be syntactically valid HTML with all the right nesting. Hope that makes sense!"
+        },
+        {
+          "turn": 10,
+          "user": "Oh, and another thing—let's please avoid using 'attention deficit hyperactivity disorder', 'academic performance', or 'mental health' in your response. Not totally sure why, but it just feels right for what I'm going for."
+        }
+      ],
+      "answer": "```html\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse; font-family: Arial, sans-serif; width: 100%; margin: 20px 0; background-color: #f9f9fb;\">\n  <thead>\n    <tr style=\"background-color: #d4a0ff; color: #1a1a3a; font-weight: bold;\">\n      <th>Study_Type</th>\n      <th>Research_Question</th>\n      <th>Hypothesis</th>\n      <th>Methodology</th>\n      <th>Findings</th>\n      <th>Conclusion</th>\n      <th>Data_Source</th>\n      <th>Validity_Status</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr style=\"background-color: #fff; border-bottom: 1px solid #e0d0ff;\">\n      <td>Observational</td>\n      <td>Do children who grow up in fast-paced environments—like busy schools or crowded classrooms—develop it more often?</td>\n      <td>Children in fast-paced environments (e.g., tight schedules, constant movement, loud routines) are more likely to show signs of it than those in slower, more relaxed settings.</td>\n      <td>A longitudinal study of 1,200 students across urban and rural schools in the U.S. tracked daily routines, classroom energy levels, activity flow, and student behavior over five years. Signs of it were observed through teacher and parent reports, consistent patterns in movement, focus shifts, and response to change. Data were collected using structured observation forms, daily check-ins, and school-based logs. Researchers controlled for factors like family background, early experiences, and individual differences in how children respond to routine.</td>\n      <td>No clear pattern emerged linking fast-paced settings to signs of it. Some children in busy classrooms showed brief moments of restlessness or difficulty staying still, but these were not consistent or strong enough to suggest a direct connection. When researchers looked at how children responded to change, how they settled into routines, and how they handled quiet time, the differences faded. The patterns seen were normal for children adjusting to new environments, not signs of a deeper pattern.</td>\n      <td>Being in a busy or moving classroom doesn’t mean a child will show signs of it. Kids respond to their world in different ways—some need more time",
+      "answer_error": "output_limit",
+      "candidates": [
+        {
+          "id": "R1",
+          "family": "format",
+          "args": {
+            "mode": "csv"
+          },
+          "first_observed_turn": 1,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R2",
+          "family": "countableItems",
+          "args": {
+            "num": 4
+          },
+          "first_observed_turn": 2,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R3",
+          "family": "countableItems",
+          "args": {
+            "num": 9
+          },
+          "first_observed_turn": 3,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R4",
+          "family": "startwith",
+          "args": {
+            "mode": "keyword",
+            "value": "inclusive"
+          },
+          "first_observed_turn": 5,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R5",
+          "family": "startwith",
+          "args": {
+            "mode": "emoji",
+            "value": "😴"
+          },
+          "first_observed_turn": 6,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R6",
+          "family": "format",
+          "args": {
+            "mode": "html"
+          },
+          "first_observed_turn": 7,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R7",
+          "family": "length",
+          "args": {
+            "mode": "word",
+            "relation": "more_than",
+            "number": 1800
+          },
+          "first_observed_turn": 8,
+          "checker_pass": false,
+          "checker_error": null
+        },
+        {
+          "id": "R8",
+          "family": "forbidden",
+          "args": [
+            "attention deficit hyperactivity disorder",
+            "academic performance",
+            "mental health"
+          ],
+          "first_observed_turn": 10,
+          "checker_pass": true,
+          "checker_error": null
+        }
+      ]
+    },
+    "verified_actionability": {
+      "R1": false,
+      "R2": false,
+      "R3": true,
+      "R4": false,
+      "R5": false,
+      "R6": true,
+      "R7": false
+    },
+    "selection_error": "unknown_or_invalid"
+  }
+]

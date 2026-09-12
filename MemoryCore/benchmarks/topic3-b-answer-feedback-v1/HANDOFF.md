@@ -1,5 +1,13 @@
 # 正在生成共同回答，尚无B学习结果
 
+## 最新覆盖：开发两版结束，新评估流水线运行
+
+旧92464与compact82827均exit0。reasoned开发0/10、9cap；compact0/10、3非法、无cap，TP13/FP79/FN5，28.13s。回执与状态分别保留，见RESULTS.md。只取消解释的开发修正记录在PROTOCOL；正式接口compact不再改。
+
+当前唯一自有流水线session **42815**：dialog9 generate→checker→eval_compact四臂→score，然后dialog10同序执行。刚开始eval9/generate.log，模型按阶段正常退出再下一个，不另启GPU任务。先轮询该handle及证据eval9/eval10日志；不要重复启动、不要因长等待认为挂起。eval采用compact-fit/feedback-state.json两例，不用旧reasoned状态。流水线若非零退出须读对应阶段日志，不能凭summary缺失重跑。
+
+开发共70调用已留证，评估未完成；goal active，无E/production/PR推送。
+
 ## 最新覆盖：共同回答完成，B fit运行中
 
 50/50结束，26cap，生成session92598 exit0，不再轮询或重启旧模型。checker已完成203对、154失败（18active/136inactive），外层unknown0；未截断5检查点3/72，截断5点15/64。见RESULTS.md与results/。

@@ -62,7 +62,7 @@ def examples_for(state, mode):
     return result
 
 
-def run(root, model_path, state_path=None):
+def run(root, model_path, state_path=None, compact=False):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
     tasks = json.loads((root/'tasks.json').read_text())
@@ -71,6 +71,11 @@ def run(root, model_path, state_path=None):
     fit = state_path is None
     labels = json.loads((root/'labels.json').read_text()) if fit else None
     state = [] if fit else json.loads(state_path.read_text())
+    system_prompt = PROMPT
+    if compact:
+        system_prompt = PROMPT.replace(
+            'Briefly reason about applicability, then end with ACTIONABLE: followed by a JSON list of candidate IDs. ',
+            'Output only ACTIONABLE: followed by a JSON list of candidate IDs. Do not output explanations. ')
     tok = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
     model = AutoModelForCausalLM.from_pretrained(model_path, local_files_only=True,
         torch_dtype=torch.bfloat16, attn_implementation='sdpa').to('cuda:0').eval()
@@ -82,7 +87,7 @@ def run(root, model_path, state_path=None):
             for arm in arms:
                 examples = [] if arm == 'direct' else examples_for(state, arm)
                 content = {'development_examples': examples, 'current_observation': task}
-                prompt = tok.apply_chat_template([{'role':'system','content':PROMPT},
+                prompt = tok.apply_chat_template([{'role':'system','content':system_prompt},
                     {'role':'user','content':json.dumps(content, ensure_ascii=False)}],
                     tokenize=False, add_generation_prompt=True)
                 enc = tok(prompt, return_tensors='pt').to('cuda:0')
@@ -105,7 +110,8 @@ def run(root, model_path, state_path=None):
                     if rec['prediction'] is None:
                         rec['error'] = 'output_limit' if rec['outputTokens'] >= 512 else 'unknown_or_invalid'
                 predictions[arm] = rec
-            output.write(json.dumps({'id':task['id'], 'arms':predictions}, ensure_ascii=False)+'\n')
+            output.write(json.dumps({'id':task['id'], 'prompt_variant':'compact' if compact else 'reasoned',
+                                     'arms':predictions}, ensure_ascii=False)+'\n')
             output.flush()
             if fit and len(state) < 2:
                 correct = sorted(k for k,v in labels[task['id']].items() if v['actionable_violation'])
@@ -185,4 +191,5 @@ if __name__ == '__main__':
     if sys.argv[1] == 'score':
         score(Path(sys.argv[2]), sys.argv[3])
     else:
-        run(Path(sys.argv[2]), sys.argv[3], Path(sys.argv[4]) if len(sys.argv)>4 else None)
+        run(Path(sys.argv[2]), sys.argv[3], Path(sys.argv[4]) if len(sys.argv)>4 else None,
+            compact=sys.argv[1].endswith('_compact'))
