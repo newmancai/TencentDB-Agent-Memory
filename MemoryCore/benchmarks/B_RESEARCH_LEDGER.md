@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[普通语义强基线](topic3-b-grounding-v1/SEMANTIC_RESULTS.md)完成：linked200题语义相对detector58胜12负、BA36.33→73%；sessions共同174题语义41/49覆盖、precision52.56%，detector0/49不足覆盖，不做“detector报错才核验”级联。新增548forward809146token87.887s，旧200缓存成本分开。组件改善非自优化/高置信；下一独立证据审核拆packet不足与误归责，不直接学习脏标签、不扩E。
+
 [问题关系位置探针](topic3-b-grounding-v1/QUESTION_RESULTS.md)200复用LoCoMoQA、400forward77781token7.666s；空白跨界修正v1.1后均200覆盖，ordinary/bound不足TP5/2、FP均56，4胜7负。停止输入位置配置，下一先补普通语义核验强基线与共同证据充分性；不把QA全会话标签直接当引用包gold。四例审读可见主体/亲属关系错配与引用包缺年份，不能把全部低分归模型。无学习/E。
 
 [对话监督上游复盘](topic3-b-grounding-v1/DIALOGUE_SUPERVISION_REVIEW.md)：LoCoMo1986题/1982非空evidence，2815引用2806精确；446对抗题的evidence不能当adversarial_answer支持。DialFact仅0–10条历史、FaithDial均约9发言且后继被编辑，都不替代长对话。下一检验问题关系保留的局部主张核验，不强求不存在的span标签、不继续概率头。当前仅合同审计，未跑新模型。
