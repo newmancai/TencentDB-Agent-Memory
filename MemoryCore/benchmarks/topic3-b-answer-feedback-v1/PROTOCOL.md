@@ -32,6 +32,8 @@ feedback.py仅消费通用tasks/labels接口，不读取EvolIF schema。开发di
 
 主指标完整告警集合exact、TP/FP/FN、unknown和成本，截断回答分层。B输出截断或集合非法为unknown，所有漏报计FN；不能以少告警即更高置信。两评估对话仅组件迁移证据。当前有效候选+同checker为oracle上界；全部失败均报告为弱下界。反馈学习只改变上限2例的状态，不执行E动作。prose/structured共同使用有效性选择+同checker强基线，若无增益不在这20点更改模板追分。
 
+独立代码审查后、B推理前修正评分：当前有效规则若checker不可观察，该题不能记完整exact；可观察子集exact另报，oracle也扣除此类题。区分input_limit/output_limit/unknown_or_invalid。反馈实例记录选中时的原错误类型（仅审计，不额外送入任一臂）。不同反馈长度若造成输入超限，差值包含表示成本/可执行率，不能全算语义理解。源码内部吞异常仍按固定实现判定，不称无噪声真值。见CODE_REVIEW.md。
+
 `python trajectory.py prepare SOURCE OUTPUT`后，以有torch/transformers环境执行`python trajectory.py generate OUTPUT LOCAL_MODEL`。prepare输出只含可见用户消息；标签留在公开原始文件供离线评估，不复制到生成输入。所有模型调用、输出截断、实际token与生成耗时逐轮留存。生成结束不等于B实验通过。
 
 评估prepare追加dialog数字。完成checker后，`python feedback.py fit RUN MODEL`生成开发预测及feedback-state；评估`python feedback.py eval RUN MODEL FIT/feedback-state.json`不加载当前labels。`python feedback.py score RUN fit-predictions.jsonl`（或eval-predictions.jsonl）离线评分。

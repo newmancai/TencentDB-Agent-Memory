@@ -110,7 +110,9 @@ def run(root, model_path, state_path=None):
             if fit and len(state) < 2:
                 correct = sorted(k for k,v in labels[task['id']].items() if v['actionable_violation'])
                 if predictions['direct']['prediction'] != correct:
-                    state.append(feedback_example(task, labels[task['id']]))
+                    example = feedback_example(task, labels[task['id']])
+                    example['selection_error'] = predictions['direct']['error'] or 'set_mismatch'
+                    state.append(example)
             print(json.dumps({'done':i+1,'total':len(tasks)}), flush=True)
     if fit:
         (root/'feedback-state.json').write_text(json.dumps(state, ensure_ascii=False, indent=2)+'\n')
@@ -124,12 +126,18 @@ def score(root, filename):
     result = {}
     for record in records:
         gold = {k for k,v in labels[record['id']].items() if v['actionable_violation']}
+        complete = not any(v['currently_applicable'] and not v['checker_observable']
+                           for v in labels[record['id']].values())
         for arm, rec in record['arms'].items():
             stats = result.setdefault(arm, Counter())
             stats['n'] += 1
             pred = rec['prediction']
             stats['unknown'] += pred is None
-            stats['exact'] += pred is not None and set(pred) == gold
+            stats['active_checker_unknown_tasks'] += not complete
+            stats['observable_subset_exact'] += pred is not None and set(pred) == gold
+            stats['exact'] += complete and pred is not None and set(pred) == gold
+            if rec['error']:
+                stats[rec['error']] += 1
             # Unknown counts every unreported true violation as missed.
             selected = set(pred or [])
             stats['tp'] += len(selected & gold)
@@ -137,18 +145,23 @@ def score(root, filename):
             stats['fn'] += len(gold - selected)
             if tasks[record['id']]['answer_error'] == 'output_limit':
                 stats['answer_capped_n'] += 1
-                stats['answer_capped_exact'] += pred is not None and set(pred) == gold
+                stats['answer_capped_exact'] += complete and pred is not None and set(pred) == gold
             for k in ['inputTokens','outputTokens','elapsedMs']:
                 stats[k] += rec[k]
     rendered = {'arms': {k:dict(v) for k,v in result.items()}}
     all_failures = Counter()
     for task_id, task in tasks.items():
         gold = {k for k,v in labels[task_id].items() if v['actionable_violation']}
+        complete = not any(v['currently_applicable'] and not v['checker_observable']
+                           for v in labels[task_id].values())
         selected = {c['id'] for c in task['candidates'] if c['checker_pass'] is False}
-        all_failures.update(n=1, exact=int(selected==gold), tp=len(selected&gold),
+        all_failures.update(n=1, exact=int(complete and selected==gold), tp=len(selected&gold),
                             fp=len(selected-gold), fn=len(gold-selected))
     rendered['all_failures'] = dict(all_failures)
-    rendered['oracle_current_plus_checker'] = {'n':len(tasks), 'exact':len(tasks),
+    incomplete = sum(any(v['currently_applicable'] and not v['checker_observable']
+                        for v in labels[k].values()) for k in tasks)
+    rendered['oracle_current_plus_checker'] = {'n':len(tasks), 'exact':len(tasks)-incomplete,
+        'active_checker_unknown_tasks':incomplete,
         'note':'Definition upper bound, not independent validation or deployable B.'}
     rendered['paired'] = {}
     for baseline in ['prose', 'unlabelled', 'direct']:
@@ -157,8 +170,10 @@ def score(root, filename):
             if 'structured' not in record['arms'] or baseline not in record['arms']:
                 continue
             gold = sorted(k for k,v in labels[record['id']].items() if v['actionable_violation'])
-            a = record['arms'][baseline]['prediction'] == gold
-            b = record['arms']['structured']['prediction'] == gold
+            complete = not any(v['currently_applicable'] and not v['checker_observable']
+                               for v in labels[record['id']].values())
+            a = complete and record['arms'][baseline]['prediction'] == gold
+            b = complete and record['arms']['structured']['prediction'] == gold
             counts['win' if b and not a else 'loss' if a and not b else 'tie'] += 1
         if counts:
             rendered['paired']['structured_vs_'+baseline] = dict(counts)
