@@ -1,0 +1,227 @@
+{
+  "status": "assistant review amendment; not official gold or grader",
+  "reason": "Review packets contain full reference histories, but actual histories visible to each anonymous arm are not guaranteed identical. Lack-of-history statements cannot be judged false merely from the review reference.",
+  "preserved_original": "blind-1.json left unchanged",
+  "amendments": [
+    {
+      "id": "a4ad44aa2a74987d4b951a2e",
+      "arm": "A",
+      "withdrawn_claim": "声称没有任何既往安全伦理上下文，与s4:t3/t5/t7、s5:t3/t5/t7直接冲突。",
+      "replacement": "该输出没有保留目标偏好内容，因此target_content仍为absent。各臂实际可见输入未披露；审查包的完整reference历史不能证明该臂见过历史。因此撤回“无历史断言与包内历史直接冲突”的事实/归属错误判断，不据此额外扣分。",
+      "target_content_before": "absent",
+      "target_content_after": "absent",
+      "coverage_changed": false,
+      "quality_tiers_before": [
+        [
+          "C",
+          "D"
+        ],
+        [
+          "B"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "quality_tiers_after": [
+        [
+          "C",
+          "D"
+        ],
+        [
+          "B"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "quality_tiers_changed": false,
+      "ranking_reason": "其他三臂至少保留部分相关目标内容；本臂缺失目标内容，单据此仍排在其他三臂之后，无需附加历史矛盾处罚。"
+    },
+    {
+      "id": "81bb9b507d1f7d570d3a8cca",
+      "arm": "D",
+      "withdrawn_claim": "否认体育历史与s1:t1/t3、s3:t3/t9/t11直接冲突。",
+      "replacement": "该输出没有保留目标偏好内容，因此target_content仍为absent。各臂实际可见输入未披露；审查包的完整reference历史不能证明该臂见过历史。因此撤回“无历史断言与包内历史直接冲突”的事实/归属错误判断，不据此额外扣分。",
+      "target_content_before": "absent",
+      "target_content_after": "absent",
+      "coverage_changed": false,
+      "quality_tiers_before": [
+        [
+          "C",
+          "A"
+        ],
+        [
+          "B"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "quality_tiers_after": [
+        [
+          "C",
+          "A"
+        ],
+        [
+          "B"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "quality_tiers_changed": false,
+      "ranking_reason": "其他三臂至少保留部分相关目标内容；本臂缺失目标内容，单据此仍排在其他三臂之后，无需附加历史矛盾处罚。"
+    },
+    {
+      "id": "0b374d6c26956b171ee960bd",
+      "arm": "A",
+      "withdrawn_claim": "否认既往体育和学习目标历史，与s4:t3/t5/t7/t9及s8:t3/t5直接冲突。",
+      "replacement": "该输出没有保留目标偏好内容，因此target_content仍为absent。各臂实际可见输入未披露；审查包的完整reference历史不能证明该臂见过历史。因此撤回“无历史断言与包内历史直接冲突”的事实/归属错误判断，不据此额外扣分。",
+      "target_content_before": "absent",
+      "target_content_after": "absent",
+      "coverage_changed": false,
+      "quality_tiers_before": [
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "D"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "quality_tiers_after": [
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "D"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "quality_tiers_changed": false,
+      "ranking_reason": "其他三臂至少保留部分相关目标内容；本臂缺失目标内容，单据此仍排在其他三臂之后，无需附加历史矛盾处罚。"
+    },
+    {
+      "id": "889b30439d7bbe52a97429fc",
+      "arm": "D",
+      "withdrawn_claim": "无历史断言与s1和s3明确竞技偏好直接冲突。",
+      "replacement": "该输出没有保留目标偏好内容，因此target_content仍为absent。各臂实际可见输入未披露；审查包的完整reference历史不能证明该臂见过历史。因此撤回“无历史断言与包内历史直接冲突”的事实/归属错误判断，不据此额外扣分。",
+      "target_content_before": "absent",
+      "target_content_after": "absent",
+      "coverage_changed": false,
+      "quality_tiers_before": [
+        [
+          "A"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "quality_tiers_after": [
+        [
+          "A"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "quality_tiers_changed": false,
+      "ranking_reason": "其他三臂至少保留部分相关目标内容；本臂缺失目标内容，单据此仍排在其他三臂之后，无需附加历史矛盾处罚。"
+    },
+    {
+      "id": "29b1de5b660fe91e6f34c755",
+      "arm": "B",
+      "withdrawn_claim": "否认安全伦理历史，与s4至s8多个用户反馈直接冲突。",
+      "replacement": "该输出没有保留目标偏好内容，因此target_content仍为absent。各臂实际可见输入未披露；审查包的完整reference历史不能证明该臂见过历史。因此撤回“无历史断言与包内历史直接冲突”的事实/归属错误判断，不据此额外扣分。",
+      "target_content_before": "absent",
+      "target_content_after": "absent",
+      "coverage_changed": false,
+      "quality_tiers_before": [
+        [
+          "A",
+          "C",
+          "D"
+        ],
+        [
+          "B"
+        ]
+      ],
+      "quality_tiers_after": [
+        [
+          "A",
+          "C",
+          "D"
+        ],
+        [
+          "B"
+        ]
+      ],
+      "quality_tiers_changed": false,
+      "ranking_reason": "其他三臂至少保留部分相关目标内容；本臂缺失目标内容，单据此仍排在其他三臂之后，无需附加历史矛盾处罚。"
+    },
+    {
+      "id": "2cf0398c893f648c327f9ddb",
+      "arm": "D",
+      "withdrawn_claim": "无历史断言与s5:t3/t5/t7及s6:t3/t5/t7直接矛盾。",
+      "replacement": "该输出没有保留目标偏好内容，因此target_content仍为absent。各臂实际可见输入未披露；审查包的完整reference历史不能证明该臂见过历史。因此撤回“无历史断言与包内历史直接冲突”的事实/归属错误判断，不据此额外扣分。",
+      "target_content_before": "absent",
+      "target_content_after": "absent",
+      "coverage_changed": false,
+      "quality_tiers_before": [
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "A"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "quality_tiers_after": [
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "A"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "quality_tiers_changed": false,
+      "ranking_reason": "其他三臂至少保留部分相关目标内容；本臂缺失目标内容，单据此仍排在其他三臂之后，无需附加历史矛盾处罚。"
+    }
+  ],
+  "summary": {
+    "withdrawn_history_contradiction_claims": 6,
+    "coverage_changes": 0,
+    "quality_tiers_changes": 0
+  },
+  "scope": "Only retracts unsupported contradiction/attribution penalties attached to the six no-history outputs. All other semantic scales and assessments remain as originally recorded."
+}

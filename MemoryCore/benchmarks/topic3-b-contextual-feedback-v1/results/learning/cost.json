@@ -1,0 +1,31 @@
+{
+  "protocol": "cupid-feedback-learning-v1",
+  "examples": 12,
+  "load_seconds": 2.449660958023742,
+  "arms": {
+    "request": {
+      "input_tokens": 1827,
+      "output_tokens": 1008,
+      "generation_ms": 26510.853741550818,
+      "errors": 0
+    },
+    "frozen": {
+      "input_tokens": 30094,
+      "output_tokens": 1459,
+      "generation_ms": 41694.79329325259,
+      "errors": 0
+    },
+    "unlabelled": {
+      "input_tokens": 100186,
+      "output_tokens": 1782,
+      "generation_ms": 62973.145372699946,
+      "errors": 0
+    },
+    "feedback": {
+      "input_tokens": 103354,
+      "output_tokens": 1971,
+      "generation_ms": 67563.18525946699,
+      "errors": 0
+    }
+  }
+}

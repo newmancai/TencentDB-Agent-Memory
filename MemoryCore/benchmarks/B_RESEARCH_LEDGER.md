@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID纠正示例四臂实跑](topic3-b-contextual-feedback-v1/LEARNING_RESULTS.md)：2旧开发受控纠正示例、新4persona/12题，48调用235461输入6220输出198.742s。feedback对frozen3胜4负5平、对unlabelled4胜5负3平（助手语义意见）；full0/1/2不等总体成功，root4题排序一致3/4与2/4。feedback输入103354对普通30094、无纠正100186，100词超限12/12；均无硬截断/失败。研究旁路ICL状态非权重训练/原生fallback。关闭当前旧草稿+纠正配置收益主张，未关闭B；下一核验正确局部示范能否替代缺陷画像，勿旧12追prompt/变体，不扩E。模型session62457 exit0，goal active。
+
 [CUPID适用标签边界审计](topic3-b-contextual-feedback-v1/SCOPE_AUDIT.md)：排除12旧persona后新2开发persona/16会话盲审。同factor4均部分可迁移，不同factor12中4支持/5不支持/3未决；supported仅至少一条，不是整段。root预选4用途/迁移均4/4一致，非官方gold。其中3跨用途支持是当前请求已明示的实例要求，不能计新增信息。源码同factor允许前后偏好变化，关闭factor相等即反馈适用标签的训练捷径。下步固定候选处理具体要求/范围/强度，保留请求单独、冻结、无标签、受控纠正更新参照；未实现学习，不扩E。脚本重建三文件一致，无模型/生产，goal active。
 
 [CUPID固定历史视图对照](topic3-b-contextual-feedback-v1/VIEW_RESULTS.md)：排除此前10 persona后新2开发persona/6题、12调用；用户原话相对完整历史输入63053→16866（-73.25%）、生成33.993→21.154s（-37.77%）。匿名助手审查3胜1负2平，但12输出均partial；root两题四输出3/4覆盖一致、2/2偏好一致，保留严格排他要求争议。100词指令超限5/6→1/6，硬token截断均0。固定表示非反馈学习，非等暴露信息；不升默认。不再单靠过滤角色，下一检验当前请求下反馈适用范围与强度，勿本6题追prompt或扩E。模型退出，goal active。

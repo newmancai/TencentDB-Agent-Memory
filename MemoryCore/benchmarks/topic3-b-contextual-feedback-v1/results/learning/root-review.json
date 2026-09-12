@@ -1,0 +1,53 @@
+{
+  "source": "root assistant, not official grader; four IDs preselected before independent review; target-content audit with matching-session user evidence, not exhaustive all-source attribution audit",
+  "rows": [
+    {
+      "id": "a4ad44aa2a74987d4b951a2e",
+      "coverage": {
+        "request": "absent",
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial"
+      },
+      "feedback_vs_frozen": "loss",
+      "feedback_vs_unlabelled": "loss",
+      "note": "s4:t3/s5:t3明确要求既往获批案例，feedback遗漏；其余两历史臂保留。三臂对specific sections均不够明确。"
+    },
+    {
+      "id": "81bb9b507d1f7d570d3a8cca",
+      "coverage": {
+        "request": "absent",
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial"
+      },
+      "feedback_vs_frozen": "tie",
+      "feedback_vs_unlabelled": "win",
+      "note": "feedback与frozen有serious/achievement/personal best/team success；unlabelled淡化serious tone。各臂均未明确winning，不能直接full。"
+    },
+    {
+      "id": "984796e36e273d1487512c65",
+      "coverage": {
+        "request": "absent",
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial"
+      },
+      "feedback_vs_frozen": "tie",
+      "feedback_vs_unlabelled": "tie",
+      "note": "三历史臂都提speculation但重心依旧verification/primary sources；s1:t3允许不立即验证，s7:t3欢迎灵活探索，未被完整保留。"
+    },
+    {
+      "id": "0d97ade0687d8766d606a16e",
+      "coverage": {
+        "request": "partial",
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial"
+      },
+      "feedback_vs_frozen": "tie",
+      "feedback_vs_unlabelled": "tie",
+      "note": "s5:t5/s6:t3新出版风格要求少学术干扰，三历史臂仍强调严谨引文；有情感叙事但minimal citations未落实。request只从当前素材推个人文献/主题，不能算历史增益。"
+    }
+  ]
+}
