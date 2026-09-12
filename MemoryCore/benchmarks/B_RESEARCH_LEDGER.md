@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+新[grounding监督对象](topic3-b-grounding-v1/README.md)已实读并适配RAGTruth：17790回答/2965source，14289span精确定位；官方good过滤后17617，173排除不补负例；train/test source与规范化精确内容无交集。保留implicit_true1928、due_to_null1642。可检验回答对给定source的无据/冲突，不是世界事实/记忆根因，也不是长对话；编程新代码不能仅因未出现在记忆而被判错。下一核验专门detector的训练来源并建冻结强基线，随后才比较有界反馈学习。尚无模型结果，不扩E。
+
 原话[三路均值信号实验](topic3-b-natural-feedback-v1/RAW_SIGNAL_RESULTS.md)完成：LMSYS226/73，0未知/截断，真实/控制差分AUC0.45392/0.45440，同信息语义0.82820；678forward157785处理token34.10s。关闭整段均值负反馈识别配置，不否定SDPO逐token训练；不换聚合/反向追分。开发语义排名非高置信或新学习，下一需可验证的具体反馈用途/局部对象监督，E不扩。
 
 后续[PersonaMem合同](topic3-b-natural-feedback-v1/PERSONA_FEEDBACK_CONTRACT.md)核验完成：v1所有20persona有历史暴露；v2有5000题/200persona但无对应本系统回答的自然反馈/动作概率，不能直接接SDPO。受控对错可新产生，但直接reward必须作强基线。

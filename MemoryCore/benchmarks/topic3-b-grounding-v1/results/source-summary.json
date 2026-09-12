@@ -1,0 +1,40 @@
+{
+  "source_revision": "c103204b9ce28d6bbad859304bf30de72b8ed8fe",
+  "source_records": 2965,
+  "answer_records": 17790,
+  "task_counts": {
+    "Summary": 943,
+    "Data2txt": 1033,
+    "QA": 989
+  },
+  "split_quality": {
+    "train/good": 14942,
+    "test/good": 2675,
+    "train/truncated": 28,
+    "train/incorrect_refusal": 120,
+    "test/incorrect_refusal": 24,
+    "test/truncated": 1
+  },
+  "all_span_types": {
+    "Evident Conflict": 5324,
+    "Evident Baseless Info": 6237,
+    "Subtle Baseless Info": 2527,
+    "Subtle Conflict": 201
+  },
+  "all_span_flags": {
+    "implicit_true:False": 12361,
+    "due_to_null:False": 12647,
+    "implicit_true:True": 1928,
+    "due_to_null:True": 1642
+  },
+  "all_spans_exact": 14289,
+  "eligible_answers": 17617,
+  "excluded_answers": 173,
+  "eligible_source_groups": {
+    "train": 2515,
+    "test": 450
+  },
+  "source_id_overlap": 0,
+  "normalized_exact_source_content_overlap": 0,
+  "scope": "Standalone RAG source-grounding supervision, not long-dialogue memory attribution or downstream improvement."
+}
