@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[MemoryArena 上游合同审计](topic3-b-memoryarena-audit-v1/RESULTS.md)：官方固定版本五配置701序列4850子任务已下载，仅schema无题目阅读。独立旅行审查+3探针确认前缀满分、数学反馈字段层级错位；现成hint/judge不能直接作高置信记忆归责真值。关闭此假设而非数据源；下一聚焦可靠观察支持的局部断言及其后续决策用途，校正C检索漂移。无模型/Agent/E，非质量评测。
+
 [当前reranker反馈](topic3-b-reranker-feedback-v1/RESULTS.md)：100开发题Q-only，dense/rerank20/rerank25/update/centroid all66/71/72/70/65；update对rerank20/25为0胜1/2负。当前候选反馈能改善dense但不胜普通重排，top20外仅2新候选0参考，关闭本适配配置不调100题。2500对279859token157批forward10.331s，更新4.307s；无跨轮学习/E。独立审查无泄漏，但研究脚本off/缺失回执/最终非有限保护未完整，不宣称运行时fallback验收。
 
 [共享查询残差学习](topic3-b-query-feedback-v1/RESULTS.md)：8054embedding全成功；feedback Q/QA all436/572(734)，支持学习目标信息。validation704 base/mean/learned/shuffle all418/416/418/413，learn对base10胜10负，无净收益。关闭alpha1配置不调704题；后见信息不等决策前可预测。253357token/252批forward8.838s+load13.018，fit0.349s，自有模型50169和学习63483退出，无E。
