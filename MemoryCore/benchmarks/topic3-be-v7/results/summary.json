@@ -1,0 +1,264 @@
+{
+  "scope": "known-target development; controlled assistant-silver examples",
+  "source_overlap_ids": [],
+  "duplicate_pair_ids": [],
+  "reviews": {
+    "source-review": {
+      "arms": {
+        "none": {
+          "n": 54,
+          "agreement": 31,
+          "error_tasks": 0,
+          "unknown_pairs": 20,
+          "changed_pairs": 20,
+          "matched_changed_pairs": 9,
+          "pred_changed_pairs": 11,
+          "silver_changed_targets": 20,
+          "matched_changed_targets": 8,
+          "pred_changed_targets": 11,
+          "alarms_in_silver_same_pairs": 1,
+          "unknown_targets": 45,
+          "unique_no_overlap_n": 54,
+          "unique_no_overlap_agreement": 31,
+          "not_run": 6,
+          "confusion": {
+            "unknown->unknown": 3,
+            "changed->changed": 9,
+            "changed->unknown": 7,
+            "unknown->changed": 1,
+            "changed->same": 4,
+            "same->changed": 1,
+            "same->unknown": 10,
+            "same->same": 19
+          }
+        },
+        "unlabeled": {
+          "n": 54,
+          "agreement": 36,
+          "error_tasks": 0,
+          "unknown_pairs": 5,
+          "changed_pairs": 20,
+          "matched_changed_pairs": 14,
+          "pred_changed_pairs": 24,
+          "silver_changed_targets": 20,
+          "matched_changed_targets": 12,
+          "pred_changed_targets": 33,
+          "alarms_in_silver_same_pairs": 8,
+          "unknown_targets": 14,
+          "unique_no_overlap_n": 54,
+          "unique_no_overlap_agreement": 36,
+          "not_run": 6,
+          "confusion": {
+            "unknown->changed": 4,
+            "changed->changed": 14,
+            "changed->unknown": 3,
+            "same->changed": 6,
+            "changed->same": 3,
+            "same->same": 22,
+            "same->unknown": 2
+          }
+        },
+        "labeled": {
+          "n": 54,
+          "agreement": 29,
+          "error_tasks": 0,
+          "unknown_pairs": 3,
+          "changed_pairs": 20,
+          "matched_changed_pairs": 20,
+          "pred_changed_pairs": 42,
+          "silver_changed_targets": 20,
+          "matched_changed_targets": 19,
+          "pred_changed_targets": 89,
+          "alarms_in_silver_same_pairs": 28,
+          "unknown_targets": 12,
+          "unique_no_overlap_n": 54,
+          "unique_no_overlap_agreement": 29,
+          "not_run": 6,
+          "confusion": {
+            "unknown->changed": 4,
+            "changed->changed": 20,
+            "same->changed": 18,
+            "same->same": 9,
+            "same->unknown": 3
+          }
+        }
+      },
+      "labeled_vs": {
+        "none": {
+          "losses": 13,
+          "unique_no_overlap_losses": 13,
+          "ties": 30,
+          "unique_no_overlap_ties": 30,
+          "wins": 11,
+          "unique_no_overlap_wins": 11,
+          "target_label_transitions": {
+            "unknown->changed": 37,
+            "same->changed": 41,
+            "same->same": 43,
+            "changed->changed": 11,
+            "unknown->unknown": 8,
+            "same->unknown": 4
+          }
+        },
+        "unlabeled": {
+          "ties": 35,
+          "unique_no_overlap_ties": 35,
+          "wins": 6,
+          "unique_no_overlap_wins": 6,
+          "losses": 13,
+          "unique_no_overlap_losses": 13,
+          "target_label_transitions": {
+            "changed->changed": 32,
+            "same->changed": 47,
+            "same->same": 43,
+            "same->unknown": 7,
+            "unknown->changed": 10,
+            "unknown->unknown": 4,
+            "changed->unknown": 1
+          }
+        }
+      }
+    },
+    "source-review-second": {
+      "arms": {
+        "none": {
+          "n": 54,
+          "agreement": 33,
+          "error_tasks": 0,
+          "unknown_pairs": 20,
+          "changed_pairs": 17,
+          "matched_changed_pairs": 9,
+          "pred_changed_pairs": 11,
+          "silver_changed_targets": 17,
+          "matched_changed_targets": 8,
+          "pred_changed_targets": 11,
+          "alarms_in_silver_same_pairs": 1,
+          "unknown_targets": 45,
+          "unique_no_overlap_n": 54,
+          "unique_no_overlap_agreement": 33,
+          "not_run": 6,
+          "confusion": {
+            "unknown->unknown": 5,
+            "changed->changed": 9,
+            "changed->unknown": 5,
+            "changed->same": 3,
+            "unknown->changed": 1,
+            "same->changed": 1,
+            "same->unknown": 10,
+            "unknown->same": 1,
+            "same->same": 19
+          }
+        },
+        "unlabeled": {
+          "n": 54,
+          "agreement": 35,
+          "error_tasks": 0,
+          "unknown_pairs": 5,
+          "changed_pairs": 17,
+          "matched_changed_pairs": 13,
+          "pred_changed_pairs": 24,
+          "silver_changed_targets": 17,
+          "matched_changed_targets": 11,
+          "pred_changed_targets": 33,
+          "alarms_in_silver_same_pairs": 8,
+          "unknown_targets": 14,
+          "unique_no_overlap_n": 54,
+          "unique_no_overlap_agreement": 35,
+          "not_run": 6,
+          "confusion": {
+            "unknown->changed": 5,
+            "changed->changed": 13,
+            "changed->unknown": 3,
+            "same->changed": 6,
+            "unknown->same": 2,
+            "same->same": 22,
+            "changed->same": 1,
+            "same->unknown": 2
+          }
+        },
+        "labeled": {
+          "n": 54,
+          "agreement": 26,
+          "error_tasks": 0,
+          "unknown_pairs": 3,
+          "changed_pairs": 17,
+          "matched_changed_pairs": 17,
+          "pred_changed_pairs": 42,
+          "silver_changed_targets": 17,
+          "matched_changed_targets": 16,
+          "pred_changed_targets": 89,
+          "alarms_in_silver_same_pairs": 28,
+          "unknown_targets": 12,
+          "unique_no_overlap_n": 54,
+          "unique_no_overlap_agreement": 26,
+          "not_run": 6,
+          "confusion": {
+            "unknown->changed": 7,
+            "changed->changed": 17,
+            "same->changed": 18,
+            "same->same": 9,
+            "same->unknown": 3
+          }
+        }
+      },
+      "labeled_vs": {
+        "none": {
+          "losses": 15,
+          "unique_no_overlap_losses": 15,
+          "ties": 31,
+          "unique_no_overlap_ties": 31,
+          "wins": 8,
+          "unique_no_overlap_wins": 8,
+          "target_label_transitions": {
+            "unknown->changed": 37,
+            "same->changed": 41,
+            "same->same": 43,
+            "changed->changed": 11,
+            "unknown->unknown": 8,
+            "same->unknown": 4
+          }
+        },
+        "unlabeled": {
+          "ties": 37,
+          "unique_no_overlap_ties": 37,
+          "wins": 4,
+          "unique_no_overlap_wins": 4,
+          "losses": 13,
+          "unique_no_overlap_losses": 13,
+          "target_label_transitions": {
+            "changed->changed": 32,
+            "same->changed": 47,
+            "same->same": 43,
+            "same->unknown": 7,
+            "unknown->changed": 10,
+            "unknown->unknown": 4,
+            "changed->unknown": 1
+          }
+        }
+      }
+    }
+  },
+  "costs": {
+    "none": {
+      "calls": 144,
+      "errors": 0,
+      "inputTokens": 68720,
+      "outputTokens": 288,
+      "elapsedMs": 17836.79531281814
+    },
+    "unlabeled": {
+      "calls": 144,
+      "errors": 0,
+      "inputTokens": 203936,
+      "outputTokens": 288,
+      "elapsedMs": 37874.73125359975
+    },
+    "labeled": {
+      "calls": 144,
+      "errors": 0,
+      "inputTokens": 207392,
+      "outputTokens": 288,
+      "elapsedMs": 38392.39239972085
+    }
+  }
+}
