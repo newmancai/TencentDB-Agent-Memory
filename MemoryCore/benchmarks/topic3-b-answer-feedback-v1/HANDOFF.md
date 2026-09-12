@@ -1,5 +1,13 @@
 # 正在生成共同回答，尚无B学习结果
 
+## 最新覆盖：共同回答完成，B fit运行中
+
+50/50结束，26cap，生成session92598 exit0，不再轮询或重启旧模型。checker已完成203对、154失败（18active/136inactive），外层unknown0；未截断5检查点3/72，截断5点15/64。见RESULTS.md与results/。
+
+现在仅B开发fit session **92464** 正在运行，证据fit.log；先轮询同handle。完成后`feedback.py score RUN fit-predictions.jsonl`，查看feedback-state两例的selection_error与完整度。此时再决定按已冻结方案继续eval9/10共同轨迹，不改prompt追开发分。评估尚未运行。CODE_REVIEW已处理未知完整exact及error分项；scope实例合并等主张边界已记录。
+
+下方是过程记录，活跃handle以上节为准。
+
 2026-09-13。入口PROTOCOL.md。trajectory.py已启动全部50轮开发复用dialog_1，实际user/assistant交替，无隐藏规则进入生成。最后核查完成37轮；输出cap已出现，保留不重跑。
 
 确切活跃session **92598**，自有模型PID **2642277**，shell2642194；证据目录工作区`.local-evidence/topic3-b-answer-feedback-v1/`，模型日志model.log。下一轮先轮询此session/核查PID与日志，不重复启动。其他人的GPU进程2042761不动。
