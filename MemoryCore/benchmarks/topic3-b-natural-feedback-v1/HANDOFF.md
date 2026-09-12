@@ -1,5 +1,11 @@
 # 恢复入口
 
+## 最新：PersonaMem合同已核验，真实原话诊断已准备
+
+`PERSONA_FEEDBACK_CONTRACT.md`/`results/persona-contract.json`：v1全部20persona历史已暴露；v2实际5000题/200persona，无实际动作/概率/针对本系统回答的后续反馈字段，不能直接迁移自然SDPO。可做新受控实验但须有直接reward强基线，不能用gold生成句子后绕模型包装额外信息。本轮无模型。
+
+下一按`RAW_SIGNAL_PROTOCOL.md`做原话信号能力诊断。`prepare_raw_signal.py`已实际生成`.local-evidence/topic3-b-natural-feedback-v1/raw-signal/tasks.jsonl`，LMSYS226/73，只有最后用户请求+实际历史回答+后续，与缓存语义同三条正文；无标签/WildChat。控制为不同会话一对一长度匹配，226独特donor、0同会话；不是反事实真反馈。先核对官方SDPO模板与teacher-forcing边界，固定token上限，再三路forward和排序比较；尚未实现打分或新学习，无进程待等。不把此开发组件代替长对话主验收，E不扩。
+
 ## 最新：开发盲审及上层路线审核已完成
 
 `IDENTIFIABILITY_AUDIT.md`/`results/identifiability-audit.json`为本轮结果：按既定规则4事件/3会话，独立agent局部盲审再看全历史，主判断均未改变；3与作者标签一致，1为重述/纠正遗漏定义歧义。不是四例噪声率，更不是全历史模型干预结果。选择/输入重建一致。下方四例下一步已执行，不重复审查或按其补词。

@@ -6,6 +6,10 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+后续[PersonaMem合同](topic3-b-natural-feedback-v1/PERSONA_FEEDBACK_CONTRACT.md)核验完成：v1所有20persona有历史暴露；v2有5000题/200persona但无对应本系统回答的自然反馈/动作概率，不能直接接SDPO。受控对错可新产生，但直接reward必须作强基线。
+
+已准备[原话信号诊断](topic3-b-natural-feedback-v1/RAW_SIGNAL_PROTOCOL.md)：真实LMSYS226/73三条局部正文，与缓存语义同信息；跨会话一对一长度匹配控制226/0同会话，不给标签、不用WildChat。下一核对官方模板/token合同后只检验原话差分比无关上下文及普通后见是否有额外信息，不先搭E/消费闭环。尚无新模型或学习结果。
+
 开发4例/3会话[独立盲审](topic3-b-natural-feedback-v1/IDENTIFIABILITY_AUDIT.md)完成：局部→完整历史4个主判断均不变，3与作者标签一致，1重述/纠正遗漏歧义；不据四例改gold/追prompt，不启动全历史批次。关闭当前六分类+校准配置主线，非所有自然反馈路径上限。
 
 联网[SDPO适用审查](topic3-b-natural-feedback-v1/SDPO_REVIEW.md)提出原始后续观察的分布对照候选，但原token训练公式不自动等于记忆动作学习。缺口转为可识别的实际记忆动作—回答—对应反馈，而非更大分类器。下一核验公开长对话适配/历史暴露能否支持有界消费实验，同信息普通ICL/单路后见/差分/打乱对照，尚未运行。不能以自造偏好smoke替代主评测，E不扩。
