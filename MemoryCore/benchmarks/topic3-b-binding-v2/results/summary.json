@@ -1,0 +1,51 @@
+{
+  "arms": {
+    "direct": {
+      "n": 20,
+      "exact": 4,
+      "unknown": 0,
+      "inputTokens": 31253,
+      "outputTokens": 57,
+      "elapsedMs": 6552.421521395445,
+      "by_dialog": {
+        "dialog_7": {
+          "n": 10,
+          "exact": 2
+        },
+        "dialog_8": {
+          "n": 10,
+          "exact": 2
+        }
+      }
+    },
+    "trace": {
+      "n": 20,
+      "exact": 9,
+      "unknown": 5,
+      "inputTokens": 31973,
+      "outputTokens": 7195,
+      "elapsedMs": 196958.86554499157,
+      "output_limit": 5,
+      "by_dialog": {
+        "dialog_7": {
+          "n": 10,
+          "exact": 5
+        },
+        "dialog_8": {
+          "n": 10,
+          "exact": 4
+        }
+      }
+    }
+  },
+  "paired": {
+    "win": 5,
+    "loss": 0,
+    "tie": 15
+  },
+  "cheap_baselines": {
+    "first": 5,
+    "current": 3,
+    "n": 20
+  }
+}

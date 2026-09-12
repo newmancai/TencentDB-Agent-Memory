@@ -1,0 +1,68 @@
+[
+  {
+    "a": 1,
+    "b": 7,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 1,
+    "b": 8,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 2,
+    "b": 7,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 2,
+    "b": 8,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 3,
+    "b": 7,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 3,
+    "b": 8,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 4,
+    "b": 7,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 4,
+    "b": 8,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 5,
+    "b": 7,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 5,
+    "b": 8,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 7,
+    "b": 8,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  }
+]
