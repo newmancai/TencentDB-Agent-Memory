@@ -1,0 +1,24 @@
+{
+  "corpus_id": "Locomo-0",
+  "baseline": "bm25_dialog",
+  "memory_messages": 419,
+  "sessions": 19,
+  "queries": {
+    "train": 20,
+    "test": 5
+  },
+  "learning_answer_events": 52,
+  "feedback_status": {
+    "observed_controlled": 36,
+    "not_observed": 16
+  },
+  "actions": {
+    "like": 4,
+    "dislike": 32
+  },
+  "evidence_references": 30,
+  "evidence_exact_source_match": 30,
+  "shared_train_test_corpus": true,
+  "feedback_origin": "controlled benchmark feedback",
+  "original_log_collection_cost": null
+}
