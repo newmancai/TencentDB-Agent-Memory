@@ -1,0 +1,89 @@
+{
+  "authority": "assistant judgment; not official gold",
+  "input_scope": "Only review/blind.jsonl observations and anonymous A/B outputs. No key, labels, summary, predictions, outside sources or full history read.",
+  "sampling_scope": "Four fixed hash-sampled cases; not a population estimate. Preference evaluates evidence reasoning, not prose style.",
+  "judgments": [
+    {
+      "id": "conv-43:194",
+      "preference": "A_better",
+      "dia_ids": [
+        "D7:6",
+        "D7:7"
+      ],
+      "A": {
+        "citation_support": "partial",
+        "misattribution": "Explanation detects the Tim-to-John attribution mismatch, but initially claims direct support and emits supported despite ending insufficient.",
+        "rationale": "D7:6确实是Tim的文学动机。A末尾识别这不能证明John的相同动机，优于B；但relation=supported与解释结尾冲突，而且声称没有John想参加会议的证据不准确：D7:7说愿意一起去，只是没有给这个动机。"
+      },
+      "B": {
+        "citation_support": "not_supporting_target",
+        "misattribution": "yes",
+        "rationale": "B正确复述Tim的D7:6，却直接用它支持关于John的动机，未建立主体归属。"
+      },
+      "rationale": "A在归属解释上更好，但两侧最终supported标签均不能由包内证据推出；该偏好不代表A已输出可直接消费的正确反馈。"
+    },
+    {
+      "id": "conv-47:90",
+      "preference": "tie",
+      "dia_ids": [
+        "D10:4",
+        "D10:10"
+      ],
+      "A": {
+        "citation_support": "supported",
+        "misattribution": "no",
+        "rationale": "John的D10:10直接说明主要目标是为附近狗收容所筹款；D10:4提供该慈善比赛上下文。"
+      },
+      "B": {
+        "citation_support": "supported",
+        "misattribution": "no",
+        "rationale": "与A完全相同的解释和引用，D10:10支持结论。"
+      },
+      "rationale": "两者同样正确，无实质质量差异。"
+    },
+    {
+      "id": "conv-42:16",
+      "preference": "tie",
+      "dia_ids": [
+        "D7:1",
+        "D7:3"
+      ],
+      "A": {
+        "citation_support": "supported_via_provided_caption",
+        "misattribution": "no",
+        "rationale": "D7:1在4月15日说上周染发，D7:3的文字承接展示，所给caption明确purple hair。日期和人物连接成立；image shows只能理解为依赖caption，不能视为实际看图核验。"
+      },
+      "B": {
+        "citation_support": "supported_via_provided_caption",
+        "misattribution": "no",
+        "rationale": "使用同样D7:1与D7:3，证据链与A相同；同样把caption表达成image shows，有相同的观察强度限制。"
+      },
+      "rationale": "在提供caption为可见证据的合同下，两者支持相同结论。没有一侧实际读取图像的证据，不据措辞差异评优。"
+    },
+    {
+      "id": "conv-43:13",
+      "preference": "unable_to_evaluate",
+      "dia_ids": [
+        "D3:30",
+        "D3:32"
+      ],
+      "A": {
+        "citation_support": "no_output",
+        "misattribution": "not_assessable",
+        "rationale": "A为空，无解释或引用可审。"
+      },
+      "B": {
+        "citation_support": "no_output",
+        "misattribution": "not_assessable",
+        "rationale": "B为空，无解释或引用可审。"
+      },
+      "rationale": "给定D3:30支持Tim读奇幻书以逃离现实/获得自由，D3:32承接，但两侧无输出，不能以潜在正确答案推定某臂成功，也不能当解释质量tie。"
+    }
+  ],
+  "counts": {
+    "A_better": 1,
+    "B_better": 0,
+    "tie": 2,
+    "unable_to_evaluate": 1
+  }
+}

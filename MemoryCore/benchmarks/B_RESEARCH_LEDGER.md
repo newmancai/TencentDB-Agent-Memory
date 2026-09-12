@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[归属反馈生成](topic3-b-grounding-v1/ATTRIBUTION_RESULTS.md)：排旧200后24新QA，两臂各15可评、共同14全平，10至少一侧unknown；36生成75876输入4078输出token116.658s。匿名4审归属解释1优2平1不可评，但优例relation与解释矛盾，不能直接消费。不改parser/提上限追分，下一若继续需明确证据绑定与独立核验，非加prompt提醒。无学习/E。
+
 [告警含义审核](topic3-b-grounding-v1/FEEDBACK_AUDIT.md)固定4代理误报+4正确告警，独立给定证据盲审1支持7不足0冲突；root前4一致，引用全解析。模型5个冲突均未获此小样本独立确认，不推广总体；不改gold/旧指标。下一证据归属反馈，区分另一主体/事件的不支持与世界事实为假，不直接拿source-only类别学记忆失效。无新模型/E。
 
 [普通语义强基线](topic3-b-grounding-v1/SEMANTIC_RESULTS.md)完成：linked200题语义相对detector58胜12负、BA36.33→73%；sessions共同174题语义41/49覆盖、precision52.56%，detector0/49不足覆盖，不做“detector报错才核验”级联。新增548forward809146token87.887s，旧200缓存成本分开。组件改善非自优化/高置信；下一独立证据审核拆packet不足与误归责，不直接学习脏标签、不扩E。

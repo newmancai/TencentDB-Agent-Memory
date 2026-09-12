@@ -1,0 +1,57 @@
+{
+  "arms": {
+    "direct": {
+      "total": 24,
+      "covered": 15,
+      "tp": 1,
+      "fp": 1,
+      "fn": 3,
+      "tn": 10,
+      "balanced_accuracy": 0.5795454545454546,
+      "relations": {
+        "supported": 13,
+        "insufficient": 1,
+        "conflict": 1
+      },
+      "errors": {
+        "input_limit": 6,
+        "invalid_output": 2,
+        "output_limit": 1
+      },
+      "outputs_with_citations": 15,
+      "generations": 18,
+      "input_tokens": 37677,
+      "output_tokens": 2114,
+      "seconds": 60.301379818469286
+    },
+    "attribution": {
+      "total": 24,
+      "covered": 15,
+      "tp": 1,
+      "fp": 1,
+      "fn": 3,
+      "tn": 10,
+      "balanced_accuracy": 0.5795454545454546,
+      "relations": {
+        "supported": 13,
+        "insufficient": 1,
+        "conflict": 1
+      },
+      "errors": {
+        "input_limit": 6,
+        "invalid_output": 3
+      },
+      "outputs_with_citations": 15,
+      "generations": 18,
+      "input_tokens": 38199,
+      "output_tokens": 1964,
+      "seconds": 56.35641675093211
+    }
+  },
+  "paired": {
+    "win": 0,
+    "loss": 0,
+    "tie": 14,
+    "unknown": 10
+  }
+}
