@@ -4,6 +4,10 @@
 
 ## 最新补充研究
 
+- [CUPID局部反馈与独立审查](topic3-b-contextual-feedback-v1/LOCAL_BASELINE_RESULTS.md)：公开长交互适配，16例真实推断及审查分歧；不是高置信gold或学习增益。
+- [原话强基线](topic3-b-contextual-feedback-v1/RAW_BASELINE_RESULTS.md)：原话719/摘要1432 token，不宣称等质量成本优势。
+- [原生原话记录](topic3-b-contextual-feedback-v1/NATIVE_RAW.md)：16事件82条L0消息真实写读，明确现有checker-failure接口不能直接代表自然反馈。
+
 - [共享查询残差学习](topic3-b-query-feedback-v1/RESULTS.md)：704验证题对基线10胜10负，无净收益。
 - [当前重排反馈](topic3-b-reranker-feedback-v1/RESULTS.md)：100开发题更新未超过普通重排，不能算跨轮B学习。
 - [MemoryArena反馈合同审计](topic3-b-memoryarena-audit-v1/RESULTS.md)：五配置701序列，六个源码探针；识别监督揭示、评分与回执合同问题，未运行新的Agent质量评测。用于避免把宿主反馈或检索收益误归于B。

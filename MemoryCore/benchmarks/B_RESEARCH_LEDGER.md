@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID原话native接入](topic3-b-contextual-feedback-v1/NATIVE_RAW.md)：16事件82条L0真实写读text/role/session一致，宿主恢复reply record IDs；无基座src更改，无语义/新adaptive fallback验收。首次harness误读cursor user_id已修为session合同并留失败库。现有B接口只checker失败，不伪装自然反馈为false。
+
 [CUPID原话强基线](topic3-b-contextual-feedback-v1/RAW_BASELINE_RESULTS.md)：旧16例raw719token、摘要1432，16/16raw更短；request+raw2298、parent+raw5313、full12768。新agent仅原话类型与旧full-prefix审查16/16一致、15内容方向明确1部分；对象类型10明确6部分，不与旧目标指标混报。关闭逐条强制摘要配置，非所有无需语境；下一证明适用边界所需上下文再学选择性解释。无生成/GPU/学习，非等预算质量增益。
 
 [CUPID局部基线与双审](topic3-b-contextual-feedback-v1/LOCAL_BASELINE_RESULTS.md)：16事件独立标注support6/mixed6/change4、目标14yes2partial；四例双审类型/可辨识性4/4。16模型全完成15758输入1448输出40.336s。独立内容6全10部分，主观越界6；四共同内容4/4但越界1/4一致，不把该二元意见当高置信监督。下一原话保留强基线，区分明确反馈与需上下文解释，勿schema追分或扩E。
