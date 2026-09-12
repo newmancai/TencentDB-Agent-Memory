@@ -52,6 +52,38 @@ def main():
     result['probes'].append({'source': 'run_math.py', 'line': predicate.lineno,
                              'memory_flag_true_branch_taken': enabled,
                              'client_keys': sorted(envelope), 'passed': True})
+    # Execute upstream prompt construction with synthetic completed/current tasks.
+    from typing import Dict, List
+    namespace = {'Dict': Dict, 'List': List}
+    root = args.source / 'env/env_systems/web_shopping_env/runtime/runner'
+    for filename, name in [('summary_build.py', 'format_feedback'),
+                           ('task_files.py', 'build_instruction_for_step')]:
+        node = next(n for n in ast.parse((root / filename).read_text()).body
+                    if isinstance(n, ast.FunctionDef) and n.name == name)
+        exec(compile(ast.Module(body=[node], type_ignores=[]), filename, 'exec'), namespace)
+    feedback = namespace['format_feedback'](1, 'BOUGHT', 10.0, 'HIDDEN_TARGET', 'bought item', 'target item')
+    prompt = namespace['build_instruction_for_step']('', [
+        {'step': 1, 'header': 'Product 1', 'body': 'old requirement'},
+        {'step': 2, 'header': 'Product 2', 'body': 'current requirement'}], 2, {1: feedback}, True)
+    assert 'HIDDEN_TARGET' in prompt
+    result['probes'].append({'source': 'shopping split-history prompt',
+                             'synthetic_prior_target_visible': True, 'passed': True})
+    # Extract the actual client parser block, using the service URL contract.
+    client = ast.parse((args.source / 'env/env_systems/web_shopping_env/webshop_plus_client.py').read_text())
+    block = next(n for n in ast.walk(client) if isinstance(n, ast.If)
+                 and ast.unparse(n.test) == "'/done/' in url")
+    namespace = {'url': 'http://local/done/SESSION/PRODUCT/{}', 'asin': None, 'print': lambda *a: None}
+    exec(compile(ast.Module(body=[block], type_ignores=[]), 'upstream_purchase_parser', 'exec'), namespace)
+    assert namespace['asin'] == 'SESSION'
+    result['probes'].append({'source': 'webshop_plus_client.py', 'line': block.lineno,
+                             'expected_product': 'PRODUCT', 'parsed_product': namespace['asin'], 'passed': True})
+    source = ast.parse((args.source / 'env/env_systems/browsecomp_plus_env.py').read_text())
+    final = next(n for n in ast.walk(source) if isinstance(n, ast.FunctionDef) and n.name == 'run_final_query')
+    flag_reads = sum(isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load)
+                     and n.id == 'store_eval_in_memory' for n in ast.walk(final))
+    assert flag_reads == 0
+    result['probes'].append({'source': 'browsecomp_plus_env.py:run_final_query',
+                             'store_eval_in_memory_reads': flag_reads, 'passed': True})
     args.output.write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result, indent=2))
 

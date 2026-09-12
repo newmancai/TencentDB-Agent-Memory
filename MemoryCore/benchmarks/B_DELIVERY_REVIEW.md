@@ -2,6 +2,12 @@
 
 本PR提供可开关的B旁路接口、公开数据适配、可复现研究和失败路线知识库。**没有证明可观且稳定的B反馈学习收益，不建议作为商用默认策略。** E保留为旧实验辅助，不作为B成功的替代指标。原持续研究目标仍未完成。
 
+## 最新补充研究
+
+- [共享查询残差学习](topic3-b-query-feedback-v1/RESULTS.md)：704验证题对基线10胜10负，无净收益。
+- [当前重排反馈](topic3-b-reranker-feedback-v1/RESULTS.md)：100开发题更新未超过普通重排，不能算跨轮B学习。
+- [MemoryArena反馈合同审计](topic3-b-memoryarena-audit-v1/RESULTS.md)：五配置701序列，六个源码探针；识别监督揭示、评分与回执合同问题，未运行新的Agent质量评测。用于避免把宿主反馈或检索收益误归于B。
+
 ## 建议先审这四处
 
 1. [B运行时接口及使用说明](../src/core/memory-feedback/README.md)：`selectAnswerFeedback`临时选择反馈；关闭、读失败、非法选择及超时返回宿主已有baseline，无记忆写入句柄。

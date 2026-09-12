@@ -94,6 +94,23 @@
         "reward"
       ],
       "passed": true
+    },
+    {
+      "source": "shopping split-history prompt",
+      "synthetic_prior_target_visible": true,
+      "passed": true
+    },
+    {
+      "source": "webshop_plus_client.py",
+      "line": 1076,
+      "expected_product": "PRODUCT",
+      "parsed_product": "SESSION",
+      "passed": true
+    },
+    {
+      "source": "browsecomp_plus_env.py:run_final_query",
+      "store_eval_in_memory_reads": 0,
+      "passed": true
     }
   ]
 }
