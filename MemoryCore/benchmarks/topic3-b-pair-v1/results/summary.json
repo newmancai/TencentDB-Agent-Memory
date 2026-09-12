@@ -1,0 +1,503 @@
+{
+  "scope": "MNLI capability reference, not DECODE-trained model or memory-fault gold",
+  "policies": {
+    "speaker_context": {
+      "version": 1,
+      "threshold": 0.55,
+      "feedback_count": 64,
+      "arm": "speaker_context"
+    },
+    "pairs": {
+      "version": 1,
+      "threshold": 0.7,
+      "feedback_count": 64,
+      "arm": "pairs"
+    }
+  },
+  "splits": {
+    "fit": {
+      "arms": {
+        "speaker_context": {
+          "fixed": {
+            "n": 64,
+            "threshold": 0.5,
+            "positive": 28,
+            "correct": 53,
+            "tp": 21,
+            "fp": 4,
+            "fn": 7,
+            "tn": 32,
+            "unknown": 0,
+            "precision": 0.84,
+            "recall": 0.75,
+            "balanced_accuracy": 0.8194444444444444,
+            "buckets": {
+              "6+": {
+                "n": 9,
+                "negative": 4,
+                "false_positive": 0,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 31,
+                "negative": 17,
+                "false_positive": 4,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 24,
+                "negative": 15,
+                "false_positive": 0,
+                "unknown": 0
+              }
+            }
+          },
+          "learned": {
+            "n": 64,
+            "threshold": 0.55,
+            "positive": 28,
+            "correct": 54,
+            "tp": 21,
+            "fp": 3,
+            "fn": 7,
+            "tn": 33,
+            "unknown": 0,
+            "precision": 0.875,
+            "recall": 0.75,
+            "balanced_accuracy": 0.8333333333333333,
+            "buckets": {
+              "6+": {
+                "n": 9,
+                "negative": 4,
+                "false_positive": 0,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 31,
+                "negative": 17,
+                "false_positive": 3,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 24,
+                "negative": 15,
+                "false_positive": 0,
+                "unknown": 0
+              }
+            }
+          },
+          "cost": {
+            "inputTokens": 4756,
+            "paddedTokens": 4756,
+            "requestedTokens": 4756,
+            "forwardBatches": 64,
+            "elapsedMs": 929.3100200593472,
+            "overLimit": 0,
+            "inputPairs": 64,
+            "time_scope": "forward_only_excludes_tokenization_and_padding"
+          }
+        },
+        "pairs": {
+          "fixed": {
+            "n": 64,
+            "threshold": 0.5,
+            "positive": 28,
+            "correct": 50,
+            "tp": 26,
+            "fp": 12,
+            "fn": 2,
+            "tn": 24,
+            "unknown": 0,
+            "precision": 0.6842105263157895,
+            "recall": 0.9285714285714286,
+            "balanced_accuracy": 0.7976190476190477,
+            "buckets": {
+              "6+": {
+                "n": 9,
+                "negative": 4,
+                "false_positive": 1,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 31,
+                "negative": 17,
+                "false_positive": 10,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 24,
+                "negative": 15,
+                "false_positive": 1,
+                "unknown": 0
+              }
+            }
+          },
+          "learned": {
+            "n": 64,
+            "threshold": 0.7,
+            "positive": 28,
+            "correct": 53,
+            "tp": 24,
+            "fp": 7,
+            "fn": 4,
+            "tn": 29,
+            "unknown": 0,
+            "precision": 0.7741935483870968,
+            "recall": 0.8571428571428571,
+            "balanced_accuracy": 0.8313492063492063,
+            "buckets": {
+              "6+": {
+                "n": 9,
+                "negative": 4,
+                "false_positive": 0,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 31,
+                "negative": 17,
+                "false_positive": 7,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 24,
+                "negative": 15,
+                "false_positive": 0,
+                "unknown": 0
+              }
+            }
+          },
+          "cost": {
+            "inputTokens": 7482,
+            "paddedTokens": 8774,
+            "requestedTokens": 7482,
+            "forwardBatches": 64,
+            "elapsedMs": 780.4738678969443,
+            "overLimit": 0,
+            "inputPairs": 214,
+            "time_scope": "forward_only_excludes_tokenization_and_padding"
+          }
+        }
+      },
+      "learned_pair_vs_context": {
+        "wins": 3,
+        "losses": 4,
+        "ties": 57
+      },
+      "common_complete_diagnostic": {
+        "speaker_context": {
+          "n": 64,
+          "threshold": 0.55,
+          "positive": 28,
+          "correct": 54,
+          "tp": 21,
+          "fp": 3,
+          "fn": 7,
+          "tn": 33,
+          "unknown": 0,
+          "precision": 0.875,
+          "recall": 0.75,
+          "balanced_accuracy": 0.8333333333333333,
+          "buckets": {
+            "6+": {
+              "n": 9,
+              "negative": 4,
+              "false_positive": 0,
+              "unknown": 0
+            },
+            "3-5": {
+              "n": 31,
+              "negative": 17,
+              "false_positive": 3,
+              "unknown": 0
+            },
+            "0-2": {
+              "n": 24,
+              "negative": 15,
+              "false_positive": 0,
+              "unknown": 0
+            }
+          }
+        },
+        "pairs": {
+          "n": 64,
+          "threshold": 0.7,
+          "positive": 28,
+          "correct": 53,
+          "tp": 24,
+          "fp": 7,
+          "fn": 4,
+          "tn": 29,
+          "unknown": 0,
+          "precision": 0.7741935483870968,
+          "recall": 0.8571428571428571,
+          "balanced_accuracy": 0.8313492063492063,
+          "buckets": {
+            "6+": {
+              "n": 9,
+              "negative": 4,
+              "false_positive": 0,
+              "unknown": 0
+            },
+            "3-5": {
+              "n": 31,
+              "negative": 17,
+              "false_positive": 7,
+              "unknown": 0
+            },
+            "0-2": {
+              "n": 24,
+              "negative": 15,
+              "false_positive": 0,
+              "unknown": 0
+            }
+          }
+        }
+      }
+    },
+    "eval": {
+      "arms": {
+        "speaker_context": {
+          "fixed": {
+            "n": 128,
+            "threshold": 0.5,
+            "positive": 61,
+            "correct": 76,
+            "tp": 31,
+            "fp": 8,
+            "fn": 30,
+            "tn": 45,
+            "unknown": 14,
+            "precision": 0.7948717948717948,
+            "recall": 0.5081967213114754,
+            "balanced_accuracy": 0.5899192561781258,
+            "buckets": {
+              "6+": {
+                "n": 21,
+                "negative": 4,
+                "false_positive": 1,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 52,
+                "negative": 21,
+                "false_positive": 1,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 55,
+                "negative": 42,
+                "false_positive": 6,
+                "unknown": 14
+              }
+            }
+          },
+          "learned": {
+            "n": 128,
+            "threshold": 0.55,
+            "positive": 61,
+            "correct": 74,
+            "tp": 29,
+            "fp": 8,
+            "fn": 32,
+            "tn": 45,
+            "unknown": 14,
+            "precision": 0.7837837837837838,
+            "recall": 0.47540983606557374,
+            "balanced_accuracy": 0.573525813555175,
+            "buckets": {
+              "6+": {
+                "n": 21,
+                "negative": 4,
+                "false_positive": 1,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 52,
+                "negative": 21,
+                "false_positive": 1,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 55,
+                "negative": 42,
+                "false_positive": 6,
+                "unknown": 14
+              }
+            }
+          },
+          "cost": {
+            "inputTokens": 10555,
+            "paddedTokens": 10555,
+            "requestedTokens": 10555,
+            "forwardBatches": 114,
+            "elapsedMs": 1172.7227247320116,
+            "overLimit": 0,
+            "inputPairs": 114,
+            "time_scope": "forward_only_excludes_tokenization_and_padding"
+          }
+        },
+        "pairs": {
+          "fixed": {
+            "n": 128,
+            "threshold": 0.5,
+            "positive": 61,
+            "correct": 83,
+            "tp": 47,
+            "fp": 17,
+            "fn": 14,
+            "tn": 36,
+            "unknown": 14,
+            "precision": 0.734375,
+            "recall": 0.7704918032786885,
+            "balanced_accuracy": 0.6539026180572547,
+            "buckets": {
+              "6+": {
+                "n": 21,
+                "negative": 4,
+                "false_positive": 3,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 52,
+                "negative": 21,
+                "false_positive": 6,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 55,
+                "negative": 42,
+                "false_positive": 8,
+                "unknown": 14
+              }
+            }
+          },
+          "learned": {
+            "n": 128,
+            "threshold": 0.7,
+            "positive": 61,
+            "correct": 81,
+            "tp": 38,
+            "fp": 10,
+            "fn": 23,
+            "tn": 43,
+            "unknown": 14,
+            "precision": 0.7916666666666666,
+            "recall": 0.6229508196721312,
+            "balanced_accuracy": 0.6323709322241253,
+            "buckets": {
+              "6+": {
+                "n": 21,
+                "negative": 4,
+                "false_positive": 2,
+                "unknown": 0
+              },
+              "3-5": {
+                "n": 52,
+                "negative": 21,
+                "false_positive": 2,
+                "unknown": 0
+              },
+              "0-2": {
+                "n": 55,
+                "negative": 42,
+                "false_positive": 6,
+                "unknown": 14
+              }
+            }
+          },
+          "cost": {
+            "inputTokens": 17221,
+            "paddedTokens": 18735,
+            "requestedTokens": 17221,
+            "forwardBatches": 114,
+            "elapsedMs": 1397.1166124101728,
+            "overLimit": 0,
+            "inputPairs": 407,
+            "time_scope": "forward_only_excludes_tokenization_and_padding"
+          }
+        }
+      },
+      "learned_pair_vs_context": {
+        "wins": 13,
+        "losses": 6,
+        "ties": 109
+      },
+      "common_complete_diagnostic": {
+        "speaker_context": {
+          "n": 114,
+          "threshold": 0.55,
+          "positive": 61,
+          "correct": 74,
+          "tp": 29,
+          "fp": 8,
+          "fn": 32,
+          "tn": 45,
+          "unknown": 0,
+          "precision": 0.7837837837837838,
+          "recall": 0.47540983606557374,
+          "balanced_accuracy": 0.6622332199195793,
+          "buckets": {
+            "6+": {
+              "n": 21,
+              "negative": 4,
+              "false_positive": 1,
+              "unknown": 0
+            },
+            "3-5": {
+              "n": 52,
+              "negative": 21,
+              "false_positive": 1,
+              "unknown": 0
+            },
+            "0-2": {
+              "n": 41,
+              "negative": 28,
+              "false_positive": 6,
+              "unknown": 0
+            }
+          }
+        },
+        "pairs": {
+          "n": 114,
+          "threshold": 0.7,
+          "positive": 61,
+          "correct": 81,
+          "tp": 38,
+          "fp": 10,
+          "fn": 23,
+          "tn": 43,
+          "unknown": 0,
+          "precision": 0.7916666666666666,
+          "recall": 0.6229508196721312,
+          "balanced_accuracy": 0.7171357871945562,
+          "buckets": {
+            "6+": {
+              "n": 21,
+              "negative": 4,
+              "false_positive": 2,
+              "unknown": 0
+            },
+            "3-5": {
+              "n": 52,
+              "negative": 21,
+              "false_positive": 2,
+              "unknown": 0
+            },
+            "0-2": {
+              "n": 41,
+              "negative": 28,
+              "false_positive": 6,
+              "unknown": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "fit_evidence": {
+    "gold_items": 36,
+    "candidate_gold_items": 34,
+    "learned_fired_gold_items": 29,
+    "note": "Unmarked candidate pairs are not assumed to be semantically negative; eval lacks evidence gold."
+  }
+}
