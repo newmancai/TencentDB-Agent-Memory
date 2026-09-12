@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID固定历史视图对照](topic3-b-contextual-feedback-v1/VIEW_RESULTS.md)：排除此前10 persona后新2开发persona/6题、12调用；用户原话相对完整历史输入63053→16866（-73.25%）、生成33.993→21.154s（-37.77%）。匿名助手审查3胜1负2平，但12输出均partial；root两题四输出3/4覆盖一致、2/2偏好一致，保留严格排他要求争议。100词指令超限5/6→1/6，硬token截断均0。固定表示非反馈学习，非等暴露信息；不升默认。不再单靠过滤角色，下一检验当前请求下反馈适用范围与强度，勿本6题追prompt或扩E。模型退出，goal active。
+
 [CUPID配对适用性合同](topic3-b-contextual-feedback-v1/PAIR_PROTOCOL.md)：252persona/504对实际均同请求、6共同session+2替换且共同顺序保持。contrastive252参考不变；changing251变1不变，不能按type强造变化。新增factor分别0/2与2/2匹配当前。发布历史结构不可仅按repo构造分支猜；无新模型/学习，后续同时测必要变化与不必要变化，pair元信息不入推断。
 
 [CUPID原话native接入](topic3-b-contextual-feedback-v1/NATIVE_RAW.md)：16事件82条L0真实写读text/role/session一致，宿主恢复reply record IDs；无基座src更改，无语义/新adaptive fallback验收。首次harness误读cursor user_id已修为session合同并留失败库。现有B接口只checker失败，不伪装自然反馈为false。
