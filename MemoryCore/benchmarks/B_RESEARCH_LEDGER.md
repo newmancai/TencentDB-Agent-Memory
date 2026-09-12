@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID局部反馈事件](topic3-b-contextual-feedback-v1/LOCAL_FEEDBACK_PROTOCOL.md)：开发1512独立session提取4301回复事件，新8开发persona/16例前缀准备，无未来/gold。官方Raw固定4ba457实际仅persona/context/sessions，无逐轮隐藏评价；回复邻接不能当认可所有内容，关闭现成逐轮gold假设。尚无模型/新语义标注；下一独立核验选定16例可辨识断言，再普通同信息基线，不扩E。
+
 [CUPID普通基线](topic3-b-contextual-feedback-v1/BASELINE_RESULTS.md)：预选2开发persona/6例全历史，4完成2输出768截断；67832输入3827输出，生成112.673s，模型2927413退出。两例诊断显示内容部分可读，但用户请求误引助手回复、场景要求扩成画像；changing gold未列旧要求不等正文已撤销。无matcher/总体质量分/B学习；下一聚焦可独立验证的局部反馈归属，不加格式或E，验证侧未用。
 
 [CUPID内容/语境反馈候选](topic3-b-contextual-feedback-v1/README.md)：新官方来源756实例/252persona、每例8会话32–129消息；126/126 persona各378实例适配，3024独立session正文无跨split完全重复。模型输入只请求+正文，隐藏历史偏好单独labels；公开人工筛选模拟数据，非自然人日志。独立源码审查完成；尚无模型/评分/学习。下一先预选2开发persona/6例普通推断基线，不立即复制旧结构化prompt变体或扩E。
