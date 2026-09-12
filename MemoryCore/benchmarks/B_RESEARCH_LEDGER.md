@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[五特征反馈排序](topic3-b-grounding-v1/LEARNING_RESULTS.md)新300 train来源1775回答，150/150来源隔离。验证50%预算学习与mean均394/405，差区间[-1.13,+1.16]pp；字符覆盖多3.86pp但字符量多5.89%、字符precision下降。关闭当前配置收益主张，不补特征追分；保留具体span反馈监督，下一回到公开长对话断言—证据标签适配。官方test未跑。
+
 [冻结 grounding 开发基线](topic3-b-grounding-v1/RESULTS.md)已完成150 train来源/889回答，覆盖889；回答F1 97.92%、字符F1 92.85%，889 forward/705920 token/23.970s。上游已训练来源复用，不称新学习或泛化。官方测试未跑，先量冻结能力边界，不在饱和train追分。E不扩，自有模型已退出。
 
 新[grounding监督对象](topic3-b-grounding-v1/README.md)已实读并适配RAGTruth：17790回答/2965source，14289span精确定位；官方good过滤后17617，173排除不补负例；train/test source与规范化精确内容无交集。保留implicit_true1928、due_to_null1642。可检验回答对给定source的无据/冲突，不是世界事实/记忆根因，也不是长对话；编程新代码不能仅因未出现在记忆而被判错。下一核验专门detector的训练来源并建冻结强基线，随后才比较有界反馈学习。尚无模型结果，不扩E。
