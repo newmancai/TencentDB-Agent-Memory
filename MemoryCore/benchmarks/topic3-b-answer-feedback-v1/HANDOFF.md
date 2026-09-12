@@ -2,6 +2,8 @@
 
 ## 最新覆盖：开发两版结束，新评估流水线运行
 
+本轮最后核查eval9生成21/50；同session42815正常活跃。aggregate.py已实现并用临时合同数据检查；等两对话score都结束后执行，不对缺结果提前汇总。pairwise_route_review正独立审查MemoryCore最小B反馈旁路接入，尚未修改运行时，后续取PORTABILITY_REVIEW.md。不因等待另启GPU模型。
+
 旧92464与compact82827均exit0。reasoned开发0/10、9cap；compact0/10、3非法、无cap，TP13/FP79/FN5，28.13s。回执与状态分别保留，见RESULTS.md。只取消解释的开发修正记录在PROTOCOL；正式接口compact不再改。
 
 当前唯一自有流水线session **42815**：dialog9 generate→checker→eval_compact四臂→score，然后dialog10同序执行。刚开始eval9/generate.log，模型按阶段正常退出再下一个，不另启GPU任务。先轮询该handle及证据eval9/eval10日志；不要重复启动、不要因长等待认为挂起。eval采用compact-fit/feedback-state.json两例，不用旧reasoned状态。流水线若非零退出须读对应阶段日志，不能凭summary缺失重跑。

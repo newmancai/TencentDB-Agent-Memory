@@ -41,3 +41,5 @@ feedback.py仅消费通用tasks/labels接口，不读取EvolIF schema。开发di
 `python trajectory.py prepare SOURCE OUTPUT`后，以有torch/transformers环境执行`python trajectory.py generate OUTPUT LOCAL_MODEL`。prepare输出只含可见用户消息；标签留在公开原始文件供离线评估，不复制到生成输入。所有模型调用、输出截断、实际token与生成耗时逐轮留存。生成结束不等于B实验通过。
 
 评估prepare追加dialog数字。完成checker后，`python feedback.py fit RUN MODEL`生成开发预测及feedback-state；评估`python feedback.py eval RUN MODEL FIT/feedback-state.json`不加载当前labels。`python feedback.py score RUN fit-predictions.jsonl`（或eval-predictions.jsonl）离线评分。
+
+最终正式评估命令使用`eval_compact`和compact-fit反馈状态。两个评估及各自score完成后，`python aggregate.py DEVELOPMENT OUTPUT_JSON EVAL9 EVAL10`合并全部任务，保留逐对话指标、四臂实际成本、生成p50/p95与结构化对普通纠错的配对变化。模型总成本包含50开发回答、两版各10开发判断、100评估回答、80评估判断，预期250调用；中途失败/额外尝试须另行补报，不能凭预期数假定完成。候选增减诊断仅在两臂都可解析时统计，全部任务主指标仍保留unknown。临时小型合同检查已验证成本合并、完整覆盖、配对及分位数，不当作真实评估结果。
