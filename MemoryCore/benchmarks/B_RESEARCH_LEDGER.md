@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID参考→反馈可观察性复核](topic3-b-contextual-feedback-v1/REFERENCE_FEEDBACK_LIMITS.md)：四题六个过强参考限定条款级标记，不删题/改gold。原12 reviewed对unlabelled4胜4负4平保持；其余8仅诊断对unlabelled/feedback均2胜3负3平，故无收益不能全归咎参考问题。独立核算一致。reference覆盖缺项≠可见用户要求遗漏≠违令，不能直接训练partial为确定纠正；仍保留同题其他源文错误。下一能力诊断需新persona、输入隔离、区分可见要求/范围强度/参考覆盖，不声称独立助手同算力。未选模型/运行新推断，无GPU/E/生产，goal active。
+
 [CUPID审查片段四臂](topic3-b-contextual-feedback-v1/FRAGMENT_RESULTS.md)：新4开发persona/12题48调用，reviewed对frozen5胜4负3平、对unlabelled4胜4负4平、对feedback4胜3负5平，助手语义意见；full2/4/5/5不能单独算收益。330132输入7102输出234.420s，reviewed1硬截断保留，生成较旧纠正+7.72%。root3可判题三参照均一致，另1未决。停止当前两示例全历史画像ICL措辞迭代，未否定所有B；联网CICL与correct-example效用论文复核记录ICL_ROUTE_REVIEW。下步改变可测要求级行为或能力对照，不在12追分/扩E。session59924 exit0，goal active。
 
 [CUPID纠正示范编译](topic3-b-contextual-feedback-v1/COMPILATION_RESULTS.md)：旧2开发例实际2调用6266输入241输出7.892s，核心修复2full，但具体消息引用0/2、完整可接纳0/2，第二例新增受众/不适用范围误述。独立教师选连续原句并附用户ID，宿主构造容量2 reviewed_fragment_not_complete_gold状态；第二片段烹饪限定仍不完整。结构通过非语义真值，篡改片段拒绝不写。无新任务对照/学习收益；关闭自动接纳完整修复配置，保留局部示范路线，勿旧12追分/扩E。session46002 exit0，goal active。
