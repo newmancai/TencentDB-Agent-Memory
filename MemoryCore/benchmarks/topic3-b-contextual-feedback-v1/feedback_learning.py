@@ -49,6 +49,9 @@ def prepare(root, out):
 
 def context(state, arm):
     if arm in {'request','frozen'}:return []
+    if arm=='reviewed':
+        return [{'observation':e['observation'],'reviewed_requirement_fragment':e['reviewed_evidence']}
+                for e in state['reviewed_examples']]
     examples=[]
     for e in state['examples']:
         item={'observation':e['observation'],'prior_draft':e['draft']}
@@ -57,7 +60,7 @@ def context(state, arm):
     return examples
 
 
-def run(folder, model_path):
+def run(folder, model_path, *, reviewed=False):
     import torch
     from transformers import AutoTokenizer, AutoModelForCausalLM
     state=json.loads((folder/'state.json').read_text())
@@ -68,7 +71,10 @@ def run(folder, model_path):
     t=time.perf_counter()
     model=AutoModelForCausalLM.from_pretrained(model_path,local_files_only=True,torch_dtype=torch.bfloat16,attn_implementation='sdpa').to('cuda:0').eval()
     torch.cuda.synchronize(); load=time.perf_counter()-t
-    arms=['request','frozen','unlabelled','feedback']
+    arms=['frozen','unlabelled','feedback','reviewed'] if reviewed else ['request','frozen','unlabelled','feedback']
+    if reviewed:
+        assert len(state['reviewed_examples'])==2
+        assert {e['id'] for e in state['reviewed_examples']}=={e['id'] for e in state['examples']}
     costs={a:{'input_tokens':0,'output_tokens':0,'generation_ms':0,'errors':0} for a in arms}
     with output.open('x') as stream,(folder/'inputs.jsonl').open('x') as inputs:
         for i,row in enumerate(tasks):
@@ -98,7 +104,7 @@ def run(folder, model_path):
                 costs[arm]['errors']+=int(receipt['error'] is not None);result[arm]=receipt
                 print(row['id'],arm,n,receipt['output_tokens'],receipt['error'],flush=True)
             stream.write(json.dumps({'id':row['id'],'arms':result},ensure_ascii=False)+'\n');stream.flush()
-    (folder/'cost.json').write_text(json.dumps({'protocol':'cupid-feedback-learning-v1','examples':len(tasks),'load_seconds':load,'arms':costs},indent=2)+'\n')
+    (folder/'cost.json').write_text(json.dumps({'protocol':'cupid-reviewed-fragments-v1' if reviewed else 'cupid-feedback-learning-v1','examples':len(tasks),'load_seconds':load,'arms':costs},indent=2)+'\n')
 
 
 if __name__=='__main__':

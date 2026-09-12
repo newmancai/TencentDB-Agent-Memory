@@ -1,0 +1,230 @@
+[
+  {
+    "id": "1235e61189c74407b5d9cfd9",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "notes": "保留正式专业语言，但创新与现代相关性被旧传统画像压住。s6:t5明确赞许数字艺术符合现代受众，不能用它支持创新程度未知；s1/s2旧要求不能代替s6/s7新反馈。",
+        "output_status": null
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "提balance innovation with tradition和专业语气，但创新不是重点，缺当代受众相关性；storytelling/heritage prioritized来自其他报告或较早要求，未体现s6:t3/t5及s7:t3。",
+        "output_status": null
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "只有专业性较直接命中；以音乐历史术语、情绪和社区声音为主，没有创新或当代相关性。s4社区报告、s8投资者材料有出处，不自动成为当前董事会主要求。",
+        "output_status": null
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "专业语气与modern relevance明确保留，但未突出创新。heritage drives revenue来自s8投资者呈现要求，不宜升为已证因果或当前首要方向；忽略s6/s7创新反馈。",
+        "output_status": null
+      }
+    },
+    "quality_tiers": [
+      [
+        "D",
+        "B"
+      ],
+      [
+        "A",
+        "C"
+      ]
+    ],
+    "note": "当前同董事会新反馈s6:t3/t5、s7:t3直接支持创新、现代受众及专业表达。均只部分覆盖；不因参考未列传统而禁止传统内容，问题是它压过新主旨。"
+  },
+  {
+    "id": "37d27998519aa310c171f84d",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "notes": "科学精确及本地影响有提及，但以临床中立、无推测为主，没有突出潜在影响；混用s1/s2旧News Team A风格，未落实s3:t3、s5:t3后续风险/潜在影响重点。",
+        "output_status": null
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "保留科学精确；缺潜在影响重点，临床数据画像主导。三点结构来自s6应急部门任务，不能自动作为全部News Team A模板要求。",
+        "output_status": null
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "科学精确命中，但潜在影响被遗漏，明确让公众沟通次于临床中立；s3:t3、s5:t3已赞许风险与潜在影响，不能仍当不确定边缘要求。",
+        "output_status": null
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "有precise data和localized impacts，较接近两个方向；但列举地点不等于强调潜在后果，严格detached框架仍未体现s3/s5新重点。分开人类/仪器观察来自s7，不等于其都是解释性判断。",
+        "output_status": null
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "D"
+      ],
+      [
+        "B",
+        "C"
+      ]
+    ],
+    "note": "四臂均部分命中科学准确，A/D多保留影响相关内容。不能把科学准确理解为禁止一切有依据风险预测；本例潜在影响有直接用户支持。"
+  },
+  {
+    "id": "33cd8e932f9d086ea26a6168",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "notes": "音乐术语和正式语气有s1:t3/t5、s2:t3/t7支持；没有具体敬称要求或排除全部当代文化引用。社区声音/投资收益有其他场景来源，未证是本董事会必要元素。",
+        "output_status": null
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "古典传统、正式语言及避免现代随意术语较接近参考，但未有formal honorifics，避免jargon也不等于排除所有当代文化引用。only if serve narrative的视觉限制无明确依据。",
+        "output_status": null
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "明确classical music terminology及正式性；敬称和当代引用禁令缺失。保留建筑元素有s1:t1项目事实支持，不自动是表达方式；当前请求不是首次转到董事会。",
+        "output_status": null
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "正式尊重与交响术语有支持，缺敬称及当代文化引用排除。收益联系有s8支持，但不能将投资者呈现需要强加为所有董事会内容。",
+        "output_status": null
+      }
+    },
+    "quality_tiers": [
+      [
+        "B"
+      ],
+      [
+        "A",
+        "C",
+        "D"
+      ]
+    ],
+    "note": "参考的formal honorifics及avoid any contemporary cultural references比可见用户的尊重、正式、timeless、avoids modern distractions更明确且更强。按参考均partial，但不将这些缺失全称为明确违背用户；B保留传统和去现代随意表达较多。"
+  },
+  {
+    "id": "20b9fd1b2597b4f96c27368f",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "full",
+        "notes": "strict neutrality、临床精确与删除情绪/解释词完整保留核心；行动项分离有s7:t3/t5支持。local context次于准确性属概括，不能推广为其他工作坊不重视互动。",
+        "output_status": null
+      },
+      "B": {
+        "target_content": "full",
+        "notes": "严格中立、临床精确、排除解释词及情绪取向形成完整核心；行动与数据区分有s7支持。dominates across urgent contexts不可抹平不同用途，但未直接为情绪表达设例外。",
+        "output_status": null
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "明确中立临床与避免情绪，但末尾how much interpretive language及minimal speculation弱化前述排除要求；s2:t7、s3:t9已明确认可无解释/情绪。",
+        "output_status": null
+      },
+      "D": {
+        "target_content": "full",
+        "notes": "明确临床精确、避主观词和全部严格事实，核心完整；但s7:t3是要求紧急行动而非中立，s1:t3问置信度而非可测数据，s7:t3也非此段所称中立证据。不能将特定更新偏好外推为所有分析无解释，s1实际要求替代解释。",
+        "output_status": null
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "B"
+      ],
+      [
+        "D"
+      ],
+      [
+        "C"
+      ]
+    ],
+    "note": "核心中立和无情绪有直接源文支持，不要求逐字匹配reference。D覆盖完整但有实质引用命题错配；C主动重新打开解释程度不确定性，故partial。"
+  },
+  {
+    "id": "8d60876aa03d7d58833852b0",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "notes": "可见部分保留音乐历史术语、正式尊重；未给敬称或全部当代引用排除。社区引文来自s5、财务联系来自s8，不自动是当前必要要求。末尾output_limit仅按现有文字评，不猜后续。",
+        "output_status": "output_limit"
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "正式历史语气有据，但未明确古典音乐专门术语、敬称、当代引用禁令。情绪社区线索有其他场景来源，不是无来源，但抬高为当前核心依据不足。",
+        "output_status": null
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "明确classical music terminology及正式语气，较贴近参考；s3:t7是Heritage Architecture标准，不是董事会表达要求，不能将保护标准推为本次核心。其余s1/s2/s8引用各有对应内容。",
+        "output_status": null
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "正式性和音乐传统部分覆盖；没有敬称及当代文化排除。董事会情绪优先于纯技术财务的概括过宽，来自社区/爵士俱乐部/投资场景的要求需限定用途。",
+        "output_status": null
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "C"
+      ],
+      [
+        "B",
+        "D"
+      ]
+    ],
+    "note": "同本组另一古典场景：参考的敬称及全面禁当代引用强于可见用户明确要求，不把未命中这些全部当显式违令。A虽截断，已有目标内容不少，不能仅因长度状态降到最差。"
+  },
+  {
+    "id": "8b301f72d2c6c56175892c42",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "full",
+        "notes": "neutral、clinically precise、avoiding interpretive or emotional language完整覆盖，且明确限定News Team A；正确区分工作坊曾重视视觉与模板未知。s1:t3/t7、s2:t3/t9直接支持。",
+        "output_status": null
+      },
+      "B": {
+        "target_content": "full",
+        "notes": "核心严格中立、临床精确及不戏剧化完整；但consistent across all weather-related requests外推错误：s4/s8 News Team B强调破坏性、紧迫性。人类/仪器区别有s6:t3，不等于仪器都已验证。",
+        "output_status": null
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "中立和临床性有据，但minimal interpretive or emotional language将排除弱化为少量；把此偏好说成跨workshop一致，也忽略s3互动比喻需求及s4/s8 Team B重点。",
+        "output_status": null
+      },
+      "D": {
+        "target_content": "full",
+        "notes": "明确避免情绪、临床精确及only measurable/actionable核心完整；紧迫行动有s7支持。不能把该结论泛化为News Team B和工作坊都不需要感染力，但未像B明确声称所有天气任务一致。",
+        "output_status": null
+      }
+    },
+    "quality_tiers": [
+      [
+        "A"
+      ],
+      [
+        "D"
+      ],
+      [
+        "B"
+      ],
+      [
+        "C"
+      ]
+    ],
+    "note": "A对当前News Team A及其他场景的边界最清楚；D核心完整但范围较泛，B明确跨所有天气任务泛化。C除范围问题还弱化否定强度。"
+  }
+]

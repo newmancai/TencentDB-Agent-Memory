@@ -1,0 +1,348 @@
+{
+  "source": "two assistant semantic reviews, not official grader",
+  "coverage": {
+    "frozen": {
+      "partial": 10,
+      "full": 2
+    },
+    "unlabelled": {
+      "partial": 8,
+      "full": 4
+    },
+    "feedback": {
+      "partial": 7,
+      "full": 5
+    },
+    "reviewed": {
+      "partial": 7,
+      "full": 5
+    }
+  },
+  "reviewed_comparison": {
+    "frozen": {
+      "win": 5,
+      "tie": 3,
+      "loss": 4
+    },
+    "unlabelled": {
+      "tie": 4,
+      "win": 4,
+      "loss": 4
+    },
+    "feedback": {
+      "win": 4,
+      "loss": 3,
+      "tie": 5
+    }
+  },
+  "root_pair_agreement": {
+    "frozen": {
+      "decidable": 3,
+      "agree": 3
+    },
+    "unlabelled": {
+      "decidable": 3,
+      "agree": 3
+    },
+    "feedback": {
+      "decidable": 3,
+      "agree": 3
+    }
+  },
+  "decoded": [
+    {
+      "id": "1235e61189c74407b5d9cfd9",
+      "coverage": {
+        "frozen": "partial",
+        "reviewed": "partial",
+        "feedback": "partial",
+        "unlabelled": "partial"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled",
+          "reviewed"
+        ],
+        [
+          "frozen",
+          "feedback"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "win",
+        "unlabelled": "tie",
+        "feedback": "win"
+      }
+    },
+    {
+      "id": "37d27998519aa310c171f84d",
+      "coverage": {
+        "reviewed": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial",
+        "frozen": "partial"
+      },
+      "quality_tiers": [
+        [
+          "reviewed",
+          "frozen"
+        ],
+        [
+          "unlabelled",
+          "feedback"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "tie",
+        "unlabelled": "win",
+        "feedback": "win"
+      }
+    },
+    {
+      "id": "33cd8e932f9d086ea26a6168",
+      "coverage": {
+        "feedback": "partial",
+        "reviewed": "partial",
+        "frozen": "partial",
+        "unlabelled": "partial"
+      },
+      "quality_tiers": [
+        [
+          "reviewed"
+        ],
+        [
+          "feedback",
+          "frozen",
+          "unlabelled"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "win",
+        "unlabelled": "win",
+        "feedback": "win"
+      }
+    },
+    {
+      "id": "20b9fd1b2597b4f96c27368f",
+      "coverage": {
+        "feedback": "full",
+        "unlabelled": "full",
+        "frozen": "partial",
+        "reviewed": "full"
+      },
+      "quality_tiers": [
+        [
+          "feedback",
+          "unlabelled"
+        ],
+        [
+          "reviewed"
+        ],
+        [
+          "frozen"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "win",
+        "unlabelled": "loss",
+        "feedback": "loss"
+      }
+    },
+    {
+      "id": "8d60876aa03d7d58833852b0",
+      "coverage": {
+        "reviewed": "partial",
+        "feedback": "partial",
+        "frozen": "partial",
+        "unlabelled": "partial"
+      },
+      "quality_tiers": [
+        [
+          "reviewed",
+          "frozen"
+        ],
+        [
+          "feedback",
+          "unlabelled"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "tie",
+        "unlabelled": "win",
+        "feedback": "win"
+      }
+    },
+    {
+      "id": "8b301f72d2c6c56175892c42",
+      "coverage": {
+        "frozen": "full",
+        "reviewed": "full",
+        "unlabelled": "partial",
+        "feedback": "full"
+      },
+      "quality_tiers": [
+        [
+          "frozen"
+        ],
+        [
+          "feedback"
+        ],
+        [
+          "reviewed"
+        ],
+        [
+          "unlabelled"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "loss",
+        "unlabelled": "win",
+        "feedback": "loss"
+      }
+    },
+    {
+      "id": "a3f326f57861bd0ad5fdde98",
+      "coverage": {
+        "reviewed": "full",
+        "feedback": "full",
+        "frozen": "partial",
+        "unlabelled": "full"
+      },
+      "quality_tiers": [
+        [
+          "reviewed",
+          "feedback",
+          "unlabelled"
+        ],
+        [
+          "frozen"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "win",
+        "unlabelled": "tie",
+        "feedback": "tie"
+      }
+    },
+    {
+      "id": "6c24299f6b507d58e53ca08b",
+      "coverage": {
+        "feedback": "partial",
+        "unlabelled": "partial",
+        "reviewed": "partial",
+        "frozen": "partial"
+      },
+      "quality_tiers": [
+        [
+          "feedback",
+          "unlabelled",
+          "reviewed",
+          "frozen"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "tie",
+        "unlabelled": "tie",
+        "feedback": "tie"
+      }
+    },
+    {
+      "id": "b41b66bacc271eaabb6dae9c",
+      "coverage": {
+        "reviewed": "full",
+        "frozen": "partial",
+        "unlabelled": "full",
+        "feedback": "full"
+      },
+      "quality_tiers": [
+        [
+          "reviewed",
+          "unlabelled",
+          "feedback"
+        ],
+        [
+          "frozen"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "win",
+        "unlabelled": "tie",
+        "feedback": "tie"
+      }
+    },
+    {
+      "id": "68f173fa0fae68377c0d1666",
+      "coverage": {
+        "feedback": "partial",
+        "reviewed": "partial",
+        "unlabelled": "partial",
+        "frozen": "partial"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled",
+          "frozen"
+        ],
+        [
+          "feedback",
+          "reviewed"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "loss",
+        "unlabelled": "loss",
+        "feedback": "tie"
+      }
+    },
+    {
+      "id": "7979cd828318cc3aea5cc746",
+      "coverage": {
+        "unlabelled": "partial",
+        "reviewed": "partial",
+        "frozen": "partial",
+        "feedback": "partial"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled"
+        ],
+        [
+          "frozen"
+        ],
+        [
+          "reviewed",
+          "feedback"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "loss",
+        "unlabelled": "loss",
+        "feedback": "tie"
+      }
+    },
+    {
+      "id": "9ea51d20851d590aae8bcf4e",
+      "coverage": {
+        "unlabelled": "full",
+        "reviewed": "full",
+        "frozen": "full",
+        "feedback": "full"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled",
+          "frozen",
+          "feedback"
+        ],
+        [
+          "reviewed"
+        ]
+      ],
+      "reviewed_comparison": {
+        "frozen": "loss",
+        "unlabelled": "loss",
+        "feedback": "loss"
+      }
+    }
+  ]
+}

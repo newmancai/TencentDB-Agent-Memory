@@ -1,0 +1,111 @@
+{
+  "groups": {
+    "148+real_estate_developer": {
+      "frozen": {
+        "win": 2,
+        "tie": 1
+      },
+      "unlabelled": {
+        "tie": 1,
+        "win": 2
+      },
+      "feedback": {
+        "win": 3
+      }
+    },
+    "125+meteorologist": {
+      "frozen": {
+        "tie": 1,
+        "win": 1,
+        "loss": 1
+      },
+      "unlabelled": {
+        "win": 2,
+        "loss": 1
+      },
+      "feedback": {
+        "win": 1,
+        "loss": 2
+      }
+    },
+    "230+horticulturist": {
+      "frozen": {
+        "win": 1,
+        "loss": 2
+      },
+      "unlabelled": {
+        "tie": 1,
+        "loss": 2
+      },
+      "feedback": {
+        "tie": 2,
+        "loss": 1
+      }
+    },
+    "169+novelist": {
+      "frozen": {
+        "tie": 1,
+        "win": 1,
+        "loss": 1
+      },
+      "unlabelled": {
+        "tie": 2,
+        "loss": 1
+      },
+      "feedback": {
+        "tie": 3
+      }
+    }
+  },
+  "variants": {
+    "changing": {
+      "frozen": {
+        "win": 2,
+        "tie": 1,
+        "loss": 1
+      },
+      "unlabelled": {
+        "tie": 2,
+        "win": 1,
+        "loss": 1
+      },
+      "feedback": {
+        "win": 2,
+        "tie": 2
+      }
+    },
+    "contrastive": {
+      "frozen": {
+        "win": 2,
+        "loss": 2
+      },
+      "unlabelled": {
+        "win": 2,
+        "tie": 1,
+        "loss": 1
+      },
+      "feedback": {
+        "win": 1,
+        "loss": 1,
+        "tie": 2
+      }
+    },
+    "consistent": {
+      "frozen": {
+        "win": 1,
+        "tie": 2,
+        "loss": 1
+      },
+      "unlabelled": {
+        "loss": 2,
+        "win": 1,
+        "tie": 1
+      },
+      "feedback": {
+        "loss": 2,
+        "win": 1,
+        "tie": 1
+      }
+    }
+  }
+}
