@@ -1,0 +1,92 @@
+{
+  "arms": {
+    "direct": {
+      "n": 10,
+      "unknown": 1,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 0,
+      "exact": 0,
+      "tp": 9,
+      "fp": 134,
+      "fn": 0,
+      "answer_capped_n": 1,
+      "answer_capped_exact": 0,
+      "inputTokens": 26199,
+      "outputTokens": 740,
+      "elapsedMs": 23392.67013198696,
+      "unknown_or_invalid": 1
+    },
+    "unlabelled": {
+      "n": 10,
+      "unknown": 2,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 0,
+      "exact": 0,
+      "tp": 6,
+      "fp": 102,
+      "fn": 3,
+      "answer_capped_n": 1,
+      "answer_capped_exact": 0,
+      "inputTokens": 48359,
+      "outputTokens": 742,
+      "elapsedMs": 26716.673952061683,
+      "unknown_or_invalid": 2
+    },
+    "prose": {
+      "n": 10,
+      "unknown": 2,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 0,
+      "exact": 0,
+      "tp": 5,
+      "fp": 87,
+      "fn": 4,
+      "answer_capped_n": 1,
+      "answer_capped_exact": 0,
+      "inputTokens": 49929,
+      "outputTokens": 643,
+      "elapsedMs": 24319.11731697619,
+      "unknown_or_invalid": 2
+    },
+    "structured": {
+      "n": 10,
+      "unknown": 3,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 0,
+      "exact": 0,
+      "tp": 4,
+      "fp": 91,
+      "fn": 5,
+      "answer_capped_n": 1,
+      "answer_capped_exact": 0,
+      "inputTokens": 49049,
+      "outputTokens": 716,
+      "elapsedMs": 25861.756811849773,
+      "unknown_or_invalid": 3
+    }
+  },
+  "all_failures": {
+    "n": 10,
+    "exact": 0,
+    "tp": 9,
+    "fp": 148,
+    "fn": 0
+  },
+  "oracle_current_plus_checker": {
+    "n": 10,
+    "exact": 10,
+    "active_checker_unknown_tasks": 0,
+    "note": "Definition upper bound, not independent validation or deployable B."
+  },
+  "paired": {
+    "structured_vs_prose": {
+      "tie": 10
+    },
+    "structured_vs_unlabelled": {
+      "tie": 10
+    },
+    "structured_vs_direct": {
+      "tie": 10
+    }
+  }
+}
