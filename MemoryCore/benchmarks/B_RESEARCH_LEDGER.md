@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID内容/语境反馈候选](topic3-b-contextual-feedback-v1/README.md)：新官方来源756实例/252persona、每例8会话32–129消息；126/126 persona各378实例适配，3024独立session正文无跨split完全重复。模型输入只请求+正文，隐藏历史偏好单独labels；公开人工筛选模拟数据，非自然人日志。独立源码审查完成；尚无模型/评分/学习。下一先预选2开发persona/6例普通推断基线，不立即复制旧结构化prompt变体或扩E。
+
 [置信选择用途诊断](topic3-b-natural-feedback-v1/SELECTION_RESULTS.md)：旧WildChat205固定frozen判断，原始/温度/学习分数AURC .45151/.45020/.45237；保留52各错17/19/17，154错91/88/83。局部排序收益不等高置信选择，差值会话CI跨零。复用缓存无训练/模型/阈值选择；独立公式审查通过，不继续旧六类分数调参。
 
 MemoryArena剩余shopping/search审计已补齐：六源码探针，shopping分步历史会揭示先前gold且购买URL把session误作ASIN；search默认子步存预测，最终反馈flag未消费。未跑Agent、不修整套宿主，暂停作为即用B监督来源；未来需对齐回执并对精确ID关联强基线，不能把受控答案揭示当B发现。详见下方审计末节。
