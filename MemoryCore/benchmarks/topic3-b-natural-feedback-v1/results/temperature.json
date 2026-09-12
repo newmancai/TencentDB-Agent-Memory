@@ -1,0 +1,100 @@
+{
+  "temperature": 9.999951850078517,
+  "training_nll": 1.3561586504889174,
+  "fit_seconds": 0.002656096126884222,
+  "evaluations": 29,
+  "wildchat_temperature": {
+    "n": 205,
+    "accuracy": 0.3902439024390244,
+    "macro_f1": 0.3977470581380924,
+    "per_class": {
+      "NEG_1": {
+        "precision": 0.6304347826086957,
+        "recall": 0.4603174603174603,
+        "f1-score": 0.5321100917431193,
+        "support": 63.0
+      },
+      "NEG_2": {
+        "precision": 0.1791044776119403,
+        "recall": 0.41379310344827586,
+        "f1-score": 0.25,
+        "support": 29.0
+      },
+      "NEG_3": {
+        "precision": 0.3333333333333333,
+        "recall": 0.03125,
+        "f1-score": 0.05714285714285714,
+        "support": 32.0
+      },
+      "NEG_4": {
+        "precision": 0.5227272727272727,
+        "recall": 0.5476190476190477,
+        "f1-score": 0.5348837209302325,
+        "support": 42.0
+      },
+      "POS": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1-score": 0.6666666666666666,
+        "support": 2.0
+      },
+      "NEU": {
+        "precision": 0.3181818181818182,
+        "recall": 0.3783783783783784,
+        "f1-score": 0.345679012345679,
+        "support": 37.0
+      },
+      "accuracy": 0.3902439024390244,
+      "macro avg": {
+        "precision": 0.49729694741051,
+        "recall": 0.388559664960527,
+        "f1-score": 0.3977470581380924,
+        "support": 205.0
+      },
+      "weighted avg": {
+        "precision": 0.4453920026782121,
+        "recall": 0.3902439024390244,
+        "f1-score": 0.3862930745247862,
+        "support": 205.0
+      }
+    },
+    "negative": {
+      "tp": 136,
+      "fp": 24,
+      "fn": 30,
+      "tn": 15
+    },
+    "brier_sum_over_classes": 0.7883981571614043,
+    "confidence_bins": [
+      {
+        "lower": 0,
+        "upper": 0.4,
+        "n": 14,
+        "accuracy": 0.2857142857142857,
+        "mean_confidence": 0.3534348443807302
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.6,
+        "n": 67,
+        "accuracy": 0.23880597014925373,
+        "mean_confidence": 0.49649780160287654
+      },
+      {
+        "lower": 0.6,
+        "upper": 0.8,
+        "n": 108,
+        "accuracy": 0.42592592592592593,
+        "mean_confidence": 0.7057890880953098
+      },
+      {
+        "lower": 0.8,
+        "upper": 1,
+        "n": 16,
+        "accuracy": 0.875,
+        "mean_confidence": 0.8317913734407651
+      }
+    ]
+  },
+  "scope": "Post-semantic-aggregate strong calibration reference, fitted only on LMSYS; not an additional unseen evaluation. Argmax identical to frozen."
+}

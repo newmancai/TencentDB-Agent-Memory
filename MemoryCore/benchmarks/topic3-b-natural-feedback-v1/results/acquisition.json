@@ -1,0 +1,17 @@
+{
+  "calls": 431,
+  "errors": 0,
+  "input_tokens": 218360,
+  "output_tokens_generated": 0,
+  "forward_seconds": 36.69431017385796,
+  "forward_ms_p50_p95": [
+    70.92994102276862,
+    143.0353184696287
+  ],
+  "six_token_mass_min_median": [
+    3.7322051866794936e-06,
+    1.0
+  ],
+  "six_token_mass_below_half": 2,
+  "note": "GPU forward timing excludes loading/tokenization. All 431 forced-choice observations retained."
+}
