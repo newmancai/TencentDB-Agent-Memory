@@ -1,0 +1,7 @@
+{
+  "feedback_kind_agreement": 16,
+  "events": 16,
+  "raw_payload_smaller_than_summary": 16,
+  "raw_payload_reduction_vs_summary": 0.4979050279329609,
+  "scope": "Different independent assistants and information views. Behavior-type agreement only; target rubrics differ and are not compared. No downstream quality or learned-policy result."
+}
