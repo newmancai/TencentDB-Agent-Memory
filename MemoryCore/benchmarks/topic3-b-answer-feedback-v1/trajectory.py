@@ -5,8 +5,8 @@ import sys
 import time
 
 
-def prepare(source, out):
-    rows = [json.loads(line) for line in (source / 'dialog_1.jsonl').open()]
+def prepare(source, out, dialog=1):
+    rows = [json.loads(line) for line in (source / f'dialog_{dialog}.jsonl').open()]
     assert [r['turn'] for r in rows] == list(range(1, 51))
     tasks = [{'turn': r['turn'], 'user': r['user_query_verified']} for r in rows]
     assert all(isinstance(r['user'], str) and r['user'].strip() for r in tasks)
@@ -14,7 +14,8 @@ def prepare(source, out):
     (out / 'messages.json').write_text(json.dumps(tasks, ensure_ascii=False))
     (out / 'selection.json').write_text(json.dumps({'dataset': 'KikiNLP/EvolIF',
         'revision': '47115ae2af4830948f3f15697221a1acca6078a7',
-        'dialog': 1, 'split': 'development_reuse', 'turns': len(tasks)}, indent=2))
+        'dialog': dialog, 'split': 'development_reuse' if dialog == 1 else 'evaluation',
+        'turns': len(tasks)}, indent=2))
 
 
 def generate(root, model_path):
@@ -67,6 +68,6 @@ def generate(root, model_path):
 
 if __name__ == '__main__':
     if sys.argv[1] == 'prepare':
-        prepare(Path(sys.argv[2]), Path(sys.argv[3]))
+        prepare(Path(sys.argv[2]), Path(sys.argv[3]), int(sys.argv[4]) if len(sys.argv)>4 else 1)
     else:
         generate(Path(sys.argv[2]), sys.argv[3])

@@ -24,4 +24,14 @@
 
 ## 可复现
 
+### B对照冻结（开发B推理前）
+
+feedback.py仅消费通用tasks/labels接口，不读取EvolIF schema。开发dialog1固定10检查点跑direct；取最早2个完整集合错误（含unknown）的检查点形成有界反馈状态，不按错误类别挑例。每例包含完整可见用户历史、共同回答、历史候选及checker结果，标签只给各失败候选是否可当轮报告，不虚构支持原句。开发direct不消费本轮刚形成的示例，避免开发指标混入自教。
+
+评估预选固定版本下一两个未用文件dialog9/10，每个完整50轮共同回答，20检查点。四臂direct、相同无标签实例、普通纠错prose、候选绑定structured，均同模型/同原文/同回执/512输出与32768输入上限；轮换顺序。prose与structured严格传递相同候选级真值，格式不同，实例数/顺序相同，实际token单报。主比较structured对prose，其次带反馈对unlabelled；不把比direct多给信息的收益全归于格式。
+
+主指标完整告警集合exact、TP/FP/FN、unknown和成本，截断回答分层。B输出截断或集合非法为unknown，所有漏报计FN；不能以少告警即更高置信。两评估对话仅组件迁移证据。当前有效候选+同checker为oracle上界；全部失败均报告为弱下界。反馈学习只改变上限2例的状态，不执行E动作。prose/structured共同使用有效性选择+同checker强基线，若无增益不在这20点更改模板追分。
+
 `python trajectory.py prepare SOURCE OUTPUT`后，以有torch/transformers环境执行`python trajectory.py generate OUTPUT LOCAL_MODEL`。prepare输出只含可见用户消息；标签留在公开原始文件供离线评估，不复制到生成输入。所有模型调用、输出截断、实际token与生成耗时逐轮留存。生成结束不等于B实验通过。
+
+评估prepare追加dialog数字。完成checker后，`python feedback.py fit RUN MODEL`生成开发预测及feedback-state；评估`python feedback.py eval RUN MODEL FIT/feedback-state.json`不加载当前labels。`python feedback.py score RUN fit-predictions.jsonl`（或eval-predictions.jsonl）离线评分。

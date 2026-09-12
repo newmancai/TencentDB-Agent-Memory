@@ -38,7 +38,8 @@ def build(source, run, upstream):
                    for k, (m, c) in CLASSES.items()}
     finally:
         os.chdir(previous_cwd)
-    rows = [json.loads(l) for l in (source / 'dialog_1.jsonl').open()]
+    dialog = json.loads((run/'selection.json').read_text())['dialog']
+    rows = [json.loads(l) for l in (source / f'dialog_{dialog}.jsonl').open()]
     answers = {r['turn']: r for r in map(json.loads, (run / 'answers.jsonl').open())}
     assert set(answers) == set(range(1, 51)), 'Complete the common trajectory first'
     candidates = {}
@@ -80,7 +81,7 @@ def build(source, run, upstream):
                 'checker_observable': ok is not None}
             receipts.append({'turn': turn, 'candidate': candidate['id'], 'pass': ok,
                              'error': error, 'active': key in current})
-        tasks.append({'id': f'dialog_1:{turn}', 'history': history.copy(),
+        tasks.append({'id': f'dialog_{dialog}:{turn}', 'history': history.copy(),
             'answer': answer['text'], 'answer_error': answer['error'], 'candidates': public})
         gold[tasks[-1]['id']] = labels
     counts = Counter()
