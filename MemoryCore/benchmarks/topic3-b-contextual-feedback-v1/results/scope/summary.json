@@ -1,0 +1,20 @@
+{
+  "scope": "16 sessions from 2 new development personas, assistant audit not official accuracy",
+  "same_factor": {
+    "sessions": 4,
+    "supported": 4
+  },
+  "different_factor": {
+    "sessions": 12,
+    "supported": 4,
+    "unsupported": 5,
+    "unclear": 3
+  },
+  "root_overlap": {
+    "n": 4,
+    "purpose_agreement": 4,
+    "transfer_agreement": 4
+  },
+  "incremental_information_caveat": "Three different-purpose supported cases mention examples/case studies already explicitly required in current request; transfer support is not incremental information or memory utility. No exhaustive novelty annotation performed.",
+  "no_learning_or_generation": true
+}
