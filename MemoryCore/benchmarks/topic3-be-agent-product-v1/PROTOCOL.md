@@ -1,5 +1,11 @@
 # Sequential coding-agent B+E product protocol v1
 
+Current direction (2026-09-14): see [route handoff](../B_E_ROUTE_HANDOFF_2026-09-14.md).
+The user now prioritizes improvement over the existing system and suitable open-source
+baselines, not parity with complete Codex/Claude Code products. This document and its
+runner retain the historical four-arm contract; use a separately versioned protocol for
+future comparisons rather than relaxing these criteria to relabel old results.
+
 This protocol compares MemoryCore augmentation inside each coding product. It is
 not a raw model leaderboard.
 

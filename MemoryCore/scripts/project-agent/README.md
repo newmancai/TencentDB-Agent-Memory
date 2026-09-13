@@ -1,5 +1,7 @@
 # 项目记忆编码 CLI 原型
 
+最新目标、证据边界与接手顺序见 [路线交接](../../benchmarks/B_E_ROUTE_HANDOFF_2026-09-14.md)。
+
 这个入口把用户纠正、持久化项目记忆、Codex／Claude Code 执行和独立检查连成了可运行流程。
 当前仍是实验原型，尚未证明相对原生产品的稳定质量收益。包内已包含统一的 `memory-agent`
 入口，源码检出也可用 `node bin/memory-agent.mjs`；本轮只验证本地打包，没有发布新版 npm 包。
