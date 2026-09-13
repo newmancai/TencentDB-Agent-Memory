@@ -244,3 +244,9 @@ pytest 视为暴露，h11 也因后续禁网反向预检明确点名而不再复
 `web_search="disabled"`、隔离用户配置，runner 也会把任何 web-search event 当作整组失效；真实负向预检
 返回 `SEARCH_DISABLED` 且无联网事件。下一套 v4 只能复用未暴露的 packaging／Flask，再加两个全新项目，
 重新冻结后运行。
+
+v4 现已在任何正式矩阵调用前冻结，入口为
+[web-disabled held-out v4](topic3-be-route-v2/HELDOUT_V4_PROTOCOL.md)。它使用 packaging、Flask、tqdm、
+Uvicorn 四个家族和 12 个新浅克隆；base 均为兼容通过／目标失败，上游结果和另写的等价实现均通过两阶段
+行为检查，top-8 也在四项目召回第 12 条接受决策。manifest、checker 哈希与禁网／文件系统双隔离合同均已
+写入协议。尚未运行 24 次正式调用，不能报告 v4 质量或成本结果。
