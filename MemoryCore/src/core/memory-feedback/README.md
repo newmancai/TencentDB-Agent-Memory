@@ -84,7 +84,9 @@ const decision = await processFeedback({
 The reference implementation is single-writer and local. It caps source text at
 16,000 characters, auxiliary history at 128 entries by default, policy identities
 at 4,096 and observations per bin/outcome at 1,024. Read, validation, capacity and
-timeout failures require a baseline read. `unknown` never mutates memory.
+timeout failures require a baseline read. Lifecycle validation deduplicates and
+batches record IDs in backend-safe groups of 20 instead of issuing one query per
+record. `unknown` never mutates memory.
 
 ## Evaluation-only support
 

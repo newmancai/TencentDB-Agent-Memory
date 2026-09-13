@@ -1,7 +1,7 @@
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
-import type { IMemoryStore } from '../store/types.js';
+import type { IMemoryStore, L1RecordRow } from '../store/types.js';
 import { writeMemory } from '../record/l1-writer.js';
 import { executeMemorySearch, type MemorySearchResult } from '../tools/memory-search.js';
 
@@ -50,8 +50,33 @@ export interface Candidate {
 }
 interface Entry { candidate: Candidate; replacementId: string; content: string }
 interface Head { schema: 1; owner: string; entries: Entry[] }
+const RECORD_ID_BATCH_SIZE = 20;
 const hash = (s: string) => createHash('sha256').update(s).digest('hex');
 const unique = (s: string, q: string) => !!q && s.indexOf(q) >= 0 && s.indexOf(q) === s.lastIndexOf(q);
+
+async function readRecords(store: IMemoryStore, owner: string, ids: Iterable<string>) {
+  const requested = [...new Set(ids)];
+  const records = new Map<string, L1RecordRow>();
+  for (let offset = 0; offset < requested.length; offset += RECORD_ID_BATCH_SIZE) {
+    const rows = await store.queryL1Records({
+      recordIds: requested.slice(offset, offset + RECORD_ID_BATCH_SIZE),
+      userId: owner,
+    });
+    for (const row of rows) {
+      if (records.has(row.record_id)) throw Error('duplicate record readback');
+      records.set(row.record_id, row);
+    }
+  }
+  return records;
+}
+
+function checkSource(source: SourceRecord, records: Map<string, L1RecordRow>) {
+  const row = records.get(source.recordId);
+  if (!row || row.version !== source.version || row.content !== source.content) {
+    throw Error('stale or missing source');
+  }
+}
+
 export function validateCandidate(c: Candidate, owner: string) {
   if (!c || typeof c.id !== 'string' || !c.id || !c.target || !c.source || c.target.owner !== owner
     || c.source.owner !== owner || !Number.isInteger(c.target.version) || c.target.version < 1
@@ -96,20 +121,22 @@ export class FeedbackMemory {
     if (h?.schema !== 1 || h.owner !== this.owner || !Array.isArray(h.entries) || h.entries.length > this.capacity) throw Error('invalid lifecycle state');
     if (this.base.isDegraded() || this.auxiliary.isDegraded()) throw Error('store unavailable');
     const targets = new Set<string>();
+    const sources: SourceRecord[] = [];
     for (const e of h.entries) {
       validateCandidate(e.candidate, this.owner);
       const c = e.candidate;
       if (targets.has(c.target.recordId) || e.content !== replacementContent(c)
         || e.replacementId !== `be_${hash(JSON.stringify(c))}`) throw Error('corrupt lifecycle entry');
       targets.add(c.target.recordId);
-      await this.checkSource(c.target); await this.checkSource(c.source);
-      const rows = await this.auxiliary.queryL1Records({ recordIds: [e.replacementId], userId: this.owner });
-      if (rows.length !== 1 || rows[0].version !== 1 || rows[0].content !== e.content) throw Error('replacement readback failed');
+      sources.push(c.target, c.source);
     }
-  }
-  private async checkSource(s: SourceRecord) {
-    const rows = await this.base.queryL1Records({ recordIds: [s.recordId], userId: this.owner });
-    if (rows.length !== 1 || rows[0].version !== s.version || rows[0].content !== s.content) throw Error('stale or missing source');
+    const baseRecords = await readRecords(this.base, this.owner, sources.map(source => source.recordId));
+    const replacements = await readRecords(this.auxiliary, this.owner, h.entries.map(entry => entry.replacementId));
+    for (const source of sources) checkSource(source, baseRecords);
+    for (const entry of h.entries) {
+      const row = replacements.get(entry.replacementId);
+      if (!row || row.version !== 1 || row.content !== entry.content) throw Error('replacement readback failed');
+    }
   }
   async publish(c: Candidate, v: Verification) {
     const run = this.queue.then(async () => {
@@ -125,7 +152,8 @@ export class FeedbackMemory {
       }
       const history = await this.auxiliary.queryL1Records({ userId: this.owner });
       if (history.length >= this.capacity) throw Error('lifecycle history capacity');
-      await this.checkSource(c.target); await this.checkSource(c.source);
+      const sources = await readRecords(this.base, this.owner, [c.target.recordId, c.source.recordId]);
+      checkSource(c.target, sources); checkSource(c.source, sources);
       const content = replacementContent(c), replacementId = `be_${hash(JSON.stringify(c))}`;
       const record = await writeMemory({ baseDir: this.root, sessionKey: this.owner, sessionId: c.id,
         userId: this.owner, agentId: 'memory-feedback', vectorStore: this.auxiliary,

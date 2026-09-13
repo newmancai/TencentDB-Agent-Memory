@@ -1,4 +1,4 @@
-import { it, expect } from 'vitest';
+import { it, expect, vi } from 'vitest';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { VectorStore } from '../store/sqlite.js';
@@ -41,7 +41,12 @@ it('persists only the selected span and falls back to exact native base through 
         loadPolicy, policySignature: 'v1', timeoutMs: 5 })).useBaseline).toBe(true);
     }
     const reopened = new FeedbackMemory('u', join(root, 'sidecar'), base, aux, 1);
+    const baseReads = vi.spyOn(base, 'queryL1Records');
+    const auxiliaryReads = vi.spyOn(aux, 'queryL1Records');
     const updated = await reopened.search('Project port', { enabled: true });
+    expect(baseReads).toHaveBeenCalledTimes(1);
+    expect(auxiliaryReads).toHaveBeenCalledTimes(1);
+    baseReads.mockRestore(); auxiliaryReads.mockRestore();
     expect(updated.fallback).toBe(false); expect(updated.applied).toEqual(['c1']);
     expect(updated.result.results.find(r => r.id !== 'new')?.content).toBe(replacementContent(c));
     expect(replacementContent(c)).toContain('Keep the deployment region west.');
