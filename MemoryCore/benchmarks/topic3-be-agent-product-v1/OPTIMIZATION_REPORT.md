@@ -3,9 +3,11 @@
 ## Outcome
 
 This branch is the reviewable product slice extracted from the B+E research
-branch. Relative to `origin/feat/anchor-memory` at
-`0ddea892f1e362b4b937b2b38d23beb2a5ac4329`, it changes 19 paths with 1,802
-insertions and 20 deletions. The research branch remains intact at
+branch. Its initial extraction changed 19 paths with 1,802 insertions and 20
+deletions relative to `origin/feat/anchor-memory` at
+`0ddea892f1e362b4b937b2b38d23beb2a5ac4329`. Later commits add isolated public
+evaluation and structured contract evidence without expanding the runtime
+surface. The research branch remains intact at
 `8c2876d07f719b86445d3e1683490817d97e8e24`; it currently carries 707 added
 research/evidence paths relative to the same base. Thus the product review no
 longer asks maintainers to traverse the research archive.
@@ -82,12 +84,44 @@ comparison fail closed instead of silently producing ambiguous receipts. It now:
 Six runner tests cover paired backend scoring, rotation, manifest safety, missing
 backend handling and failure-to-pass behavior.
 
+### 5. Clustered public-result evaluator
+
+Commit `72a23c14cc4e1609c6ea7af52089b4707c4ba703` added a dataset-neutral
+receipt aggregator. It validates exact task/arm alignment, separates outcome
+from coverage and cost, clusters uncertainty by persona, and records both a
+10,000-sample bootstrap interval and exact sign test. The frozen CUPID artifact
+remains a negative diagnostic rather than being relabelled as product utility.
+
+### 6. Structured runtime fallback contract
+
+Commit `92a65f94ae1cc41893f101be900ab536c6b1a097` publishes four machine-readable
+runtime cases: disabled baseline, enabled selection, forced selector failure and
+over-k rejection. Every case logs mode, status, signal, selected `k`, auxiliary
+path, fallback reason, elapsed time and exact-baseline preservation.
+
+### 7. Programming-specific public validation
+
+The MemoryCode round adds one public-data adapter over the existing
+MemoryCore SQLite/FTS path and keeps model generation/scoring outside runtime.
+It audits all 360 dialogues/4,182 final-history queries, then runs a frozen
+24-dialogue/72-call comparison spanning every official history length. Results
+separate official-compatible score, target coverage, strict target accuracy,
+retrieval recall, stale-version selection, tokens and latency.
+
+The result is diagnostic rather than celebratory: raw top-8 retrieval saves
+76.80% of full-history input tokens but yields only 1 strict win and 23 ties,
+with no high-confidence gain. Full-release latest-source recall is 45.89%, and
+24.12% of update queries retrieve only stale target evidence. An oracle latest
+rule representation performs much better, locating the next improvement at
+source-bound extraction and version consolidation.
+
 ## Verification
 
 The final branch passed:
 
 - MemoryCore Vitest: 23 files, 201 tests;
-- product-runner unittest: 6 tests;
+- Python unittest: 12 tests across the product runner, public aggregator and
+  MemoryCode scorer;
 - Python bytecode compilation for runner and tests;
 - plugin build, including the dedicated memory-feedback entry;
 - self-package import of `runAnswerFeedbackAdapter`,
@@ -99,9 +133,13 @@ Machine-readable status is in
 
 ## Remaining product gate
 
-The next claim-changing step is the fixed held-out comparison defined in
-`PROTOCOL.md`: at least twelve unused tasks from four clusters, with both
-necessary updates and hard same-topic controls, run as clean/memory pairs inside
-Codex and Claude Code. Until those receipts exist, this branch establishes a
-small, portable and testable B+E boundary, but does not claim stable net utility,
-commercial readiness or parity with either coding product.
+The immediate method gate is a label-blind extractor that binds mandatory rules
+to source sessions and supersedes only a verified predecessor. It must be
+compared on the same MemoryCode IDs against both full history and raw FTS; the
+already-open full release is development evidence, not a fresh final holdout.
+
+The claim-changing product step remains the fixed repository-checker comparison
+defined in `PROTOCOL.md`, run as clean/memory pairs inside Codex and Claude Code.
+Until those receipts exist, this branch establishes a small, portable and
+testable B+E boundary but does not claim stable net utility, commercial readiness
+or parity with either coding product.

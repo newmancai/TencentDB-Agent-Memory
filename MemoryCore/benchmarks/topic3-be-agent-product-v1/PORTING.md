@@ -62,6 +62,32 @@ Dataset adapters may change; the aggregator and result schema should not. L1
 extraction, L0 retrieval and model generation timers must be captured separately
 when those paths actually run.
 
+### MemoryCode adapter boundary
+
+`memorycode_store.ts` is the concrete public reference adapter. It maps one raw
+dialogue session to one source-bound MemoryCore record and queries the existing
+SQLite/FTS implementation; it does not add another index or delete base rows.
+Only the dataset loader is MemoryCode-specific. The inference path consumes
+`record content`, `source session ID` and the current coding request. Public
+`type`, `topic`, `instructions` and regex fields remain scoring-only.
+
+An internal multi-round programming adapter therefore needs only:
+
+| Public field | Internal equivalent |
+|---|---|
+| dialogue ID | pseudonymized project/task cluster |
+| session index | immutable turn/session source ID plus timestamp |
+| session text | user/tool/assistant evidence allowed by retention policy |
+| evaluation query | later coding request |
+| public regex | authoritative checker result, never prompt content |
+
+Keep the fixed `k`, context-token cap and latest-session rule in configuration,
+not in the loader. If internal events are individual turns rather than sessions,
+change only the chunk adapter and record the changed evaluation granularity.
+The current public run deliberately does not pretend deterministic session
+chunking is L1 semantic extraction; an internal extractor needs its own
+precision/coverage/cost report before its outputs enter the retrieval arm.
+
 ## Rollback and fallback
 
 - Feature off: return the exact precomputed baseline; do not invoke the selector.

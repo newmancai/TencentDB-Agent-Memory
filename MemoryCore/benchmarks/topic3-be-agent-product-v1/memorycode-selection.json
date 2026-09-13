@@ -1,0 +1,517 @@
+{
+  "schema": 1,
+  "protocol": "topic3-be-memorycode-method-v1",
+  "dataset": {
+    "name": "CohereLabsCommunity/MemoryCode",
+    "source_commit": "1ab87e119b2f9a498de8075219e1c07f6041b394",
+    "hf_revision": "32d888b11c73c67be91414e571dfe98c5c20feac",
+    "hf_parquet_bytes": 11666648,
+    "hf_parquet_sha256": "1edb12380ea3410c888fffa795f6ddd3251e4e634b84a7142c8386e7c2869733",
+    "license": "Apache-2.0",
+    "dialogue_count": 360,
+    "dialogue_tree_sha256": "b7f410c70cd806834c3944acf7b2213a68ca3572b077987a6d47e8d454fef1c2",
+    "topics_sha256": "e824600c4b49b5755f6e620127b96a17ebcba329b58a6cc4f151c2a96f5eb7a0"
+  },
+  "audit": {
+    "sessions": 8400,
+    "session_counts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      15,
+      20,
+      30,
+      40,
+      50,
+      100
+    ],
+    "session_lengths": {
+      "long": 2784,
+      "medium": 2761,
+      "short": 2855
+    },
+    "event_types": {
+      "filler-add": 2931,
+      "filler-instruction-add": 1530,
+      "filler-instruction-update": 1605,
+      "filler-update": 1523,
+      "instruction-add": 4426,
+      "instruction-update": 2913
+    },
+    "evaluations": {
+      "session": 7339,
+      "final_history": 4182
+    },
+    "objects": {
+      "attribute": 857,
+      "class": 272,
+      "class decorator": 209,
+      "comment": 127,
+      "function": 944,
+      "function annotation": 121,
+      "function argument": 940,
+      "function assert": 132,
+      "function decorator": 371,
+      "function docstring": 122,
+      "function try": 132,
+      "import": 352,
+      "method": 922,
+      "method annotation": 138,
+      "method assert": 132,
+      "method decorator": 321,
+      "method docstring": 130,
+      "method try": 132,
+      "variable": 985
+    }
+  },
+  "selection": {
+    "unit": "dialogue",
+    "method": "two independent dialogues per official session-count stratum; domain-separated SHA-256 ordering; one final-history query per dialogue; one add and one update where updates exist",
+    "seed": "topic3-be-memorycode-method-v1",
+    "task_count": 24,
+    "cluster_count": 24,
+    "tasks": [
+      {
+        "id": "memorycode-018",
+        "dialogue_id": 18,
+        "session_count": 1,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "function that checks if a string is a valid palindrome",
+        "targets": [
+          {
+            "instruction_id": 12,
+            "update_id": 4,
+            "occurrence": 1,
+            "source_session_id": 0,
+            "object_type": "variable",
+            "regex": ".*_m$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-029",
+        "dialogue_id": 29,
+        "session_count": 1,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "function that implements product array except self",
+        "targets": [
+          {
+            "instruction_id": 29,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 0,
+            "object_type": "import",
+            "regex": [
+              "gzip",
+              true
+            ]
+          }
+        ]
+      },
+      {
+        "id": "memorycode-055",
+        "dialogue_id": 55,
+        "session_count": 2,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "function that given an array of integer citations, computes the h-index",
+        "targets": [
+          {
+            "instruction_id": 6,
+            "update_id": 1,
+            "occurrence": 1,
+            "source_session_id": 0,
+            "object_type": "function",
+            "regex": "^b_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-034",
+        "dialogue_id": 34,
+        "session_count": 2,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "Perceptron class with train and predict methods",
+        "targets": [
+          {
+            "instruction_id": 4,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 1,
+            "object_type": "attribute",
+            "regex": ".*chx.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-062",
+        "dialogue_id": 62,
+        "session_count": 3,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "function that implements merge sort",
+        "targets": [
+          {
+            "instruction_id": 11,
+            "update_id": 7,
+            "occurrence": 1,
+            "source_session_id": 2,
+            "object_type": "function",
+            "regex": ".*_gn$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-079",
+        "dialogue_id": 79,
+        "session_count": 3,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "Linked list class",
+        "targets": [
+          {
+            "instruction_id": 14,
+            "update_id": 1,
+            "occurrence": 2,
+            "source_session_id": 1,
+            "object_type": "attribute",
+            "regex": ".*_r$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-094",
+        "dialogue_id": 94,
+        "session_count": 4,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "function that returns the kth largest element in an array",
+        "targets": [
+          {
+            "instruction_id": 16,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 2,
+            "object_type": "function annotation",
+            "regex": true
+          }
+        ]
+      },
+      {
+        "id": "memorycode-113",
+        "dialogue_id": 113,
+        "session_count": 4,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "Inventory class with add stock and remove stock methods",
+        "targets": [
+          {
+            "instruction_id": 8,
+            "update_id": 6,
+            "occurrence": 2,
+            "source_session_id": 3,
+            "object_type": "method",
+            "regex": "^md_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-137",
+        "dialogue_id": 137,
+        "session_count": 5,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "Nearest neighbors model class with train and predict methods",
+        "targets": [
+          {
+            "instruction_id": 20,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 3,
+            "object_type": "method assert",
+            "regex": true
+          }
+        ]
+      },
+      {
+        "id": "memorycode-150",
+        "dialogue_id": 150,
+        "session_count": 5,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that determines if an array is a valid sudoku",
+        "targets": [
+          {
+            "instruction_id": 7,
+            "update_id": 6,
+            "occurrence": 2,
+            "source_session_id": 2,
+            "object_type": "variable",
+            "regex": "^vr_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-154",
+        "dialogue_id": 154,
+        "session_count": 10,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "function that deletes a node in a binary search tree",
+        "targets": [
+          {
+            "instruction_id": 27,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 5,
+            "object_type": "import",
+            "regex": [
+              "mailbox",
+              true
+            ]
+          }
+        ]
+      },
+      {
+        "id": "memorycode-179",
+        "dialogue_id": 179,
+        "session_count": 10,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "Graph class with a method that computes the shortest path from one node to another",
+        "targets": [
+          {
+            "instruction_id": 13,
+            "update_id": 3,
+            "occurrence": 5,
+            "source_session_id": 5,
+            "object_type": "method",
+            "regex": ".*_p$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-195",
+        "dialogue_id": 195,
+        "session_count": 15,
+        "history_class": "short",
+        "target_status": "add",
+        "eval_query": "function that computes the average of the diagonal element of a matrix",
+        "targets": [
+          {
+            "instruction_id": 21,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 6,
+            "object_type": "function assert",
+            "regex": true
+          }
+        ]
+      },
+      {
+        "id": "memorycode-197",
+        "dialogue_id": 197,
+        "session_count": 15,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "Linked list class",
+        "targets": [
+          {
+            "instruction_id": 14,
+            "update_id": 3,
+            "occurrence": 6,
+            "source_session_id": 12,
+            "object_type": "attribute",
+            "regex": ".*_t$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-212",
+        "dialogue_id": 212,
+        "session_count": 20,
+        "history_class": "long",
+        "target_status": "add",
+        "eval_query": "Heap class with insert and heapify methods",
+        "targets": [
+          {
+            "instruction_id": 3,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 18,
+            "object_type": "method",
+            "regex": ".*chx.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-219",
+        "dialogue_id": 219,
+        "session_count": 20,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "Inventory class with add stock and remove stock methods",
+        "targets": [
+          {
+            "instruction_id": 8,
+            "update_id": 1,
+            "occurrence": 5,
+            "source_session_id": 15,
+            "object_type": "method",
+            "regex": "^n_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-243",
+        "dialogue_id": 243,
+        "session_count": 30,
+        "history_class": "long",
+        "target_status": "add",
+        "eval_query": "Principal component analysis class",
+        "targets": [
+          {
+            "instruction_id": 50,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 23,
+            "object_type": "class",
+            "regex": ".*\\d$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-249",
+        "dialogue_id": 249,
+        "session_count": 30,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that implements merge sort",
+        "targets": [
+          {
+            "instruction_id": 11,
+            "update_id": 7,
+            "occurrence": 3,
+            "source_session_id": 27,
+            "object_type": "function",
+            "regex": ".*_gn$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-272",
+        "dialogue_id": 272,
+        "session_count": 40,
+        "history_class": "long",
+        "target_status": "add",
+        "eval_query": "Directed Graph class with a method that checks the presence of cycles",
+        "targets": [
+          {
+            "instruction_id": 47,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 13,
+            "object_type": "method",
+            "regex": ".*\\d$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-278",
+        "dialogue_id": 278,
+        "session_count": 40,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that checks if a string is a valid palindrome",
+        "targets": [
+          {
+            "instruction_id": 12,
+            "update_id": 1,
+            "occurrence": 8,
+            "source_session_id": 29,
+            "object_type": "variable",
+            "regex": ".*_y$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-328",
+        "dialogue_id": 328,
+        "session_count": 50,
+        "history_class": "long",
+        "target_status": "add",
+        "eval_query": "Perceptron class with train and predict methods",
+        "targets": [
+          {
+            "instruction_id": 4,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 14,
+            "object_type": "attribute",
+            "regex": ".*chx.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-321",
+        "dialogue_id": 321,
+        "session_count": 50,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "PyTorch model class that performs binary image classification",
+        "targets": [
+          {
+            "instruction_id": 0,
+            "update_id": 0,
+            "occurrence": 2,
+            "source_session_id": 38,
+            "object_type": "class",
+            "regex": "\\b[A-Z][A-Z0-9_]*\\b"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-360",
+        "dialogue_id": 360,
+        "session_count": 100,
+        "history_class": "long",
+        "target_status": "add",
+        "eval_query": "function that computes the mean using an online algorithm",
+        "targets": [
+          {
+            "instruction_id": 46,
+            "update_id": 0,
+            "occurrence": 1,
+            "source_session_id": 92,
+            "object_type": "variable",
+            "regex": ".*\\d$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-359",
+        "dialogue_id": 359,
+        "session_count": 100,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "Linked list class",
+        "targets": [
+          {
+            "instruction_id": 14,
+            "update_id": 7,
+            "occurrence": 2,
+            "source_session_id": 91,
+            "object_type": "attribute",
+            "regex": ".*_xt$"
+          }
+        ]
+      }
+    ]
+  }
+}

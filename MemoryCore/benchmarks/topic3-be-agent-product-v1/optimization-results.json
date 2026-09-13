@@ -4,10 +4,11 @@
   "base": "0ddea892f1e362b4b937b2b38d23beb2a5ac4329",
   "pass": true,
   "product_efficacy_pass": null,
+  "public_method_high_confidence_gain": false,
   "scope": {
-    "changed_paths": 19,
-    "insertions": 1802,
-    "deletions": 20,
+    "initial_product_slice_changed_paths": 19,
+    "initial_product_slice_insertions": 1802,
+    "initial_product_slice_deletions": 20,
     "feedback_runtime_source_lines": 651,
     "gateway_modified": false,
     "research_branch_preserved": true
@@ -57,15 +58,62 @@
         "execution_failure_can_pass": false,
         "actual_codex_or_claude_arms_run": false
       }
+    },
+    {
+      "round": 5,
+      "commit": "72a23c14cc4e1609c6ea7af52089b4707c4ba703",
+      "name": "clustered_public_evaluator",
+      "status": "pass",
+      "evidence": {
+        "cupid_tasks": 12,
+        "independent_personas": 4,
+        "bootstrap_resamples": 10000,
+        "historic_feedback_gain": false
+      }
+    },
+    {
+      "round": 6,
+      "commit": "92a65f94ae1cc41893f101be900ab536c6b1a097",
+      "name": "structured_runtime_fallback_contract",
+      "status": "pass",
+      "evidence": {
+        "cases": 4,
+        "feature_off": true,
+        "forced_failure_exact_fallback": true,
+        "over_k_exact_fallback": true
+      }
+    },
+    {
+      "round": 7,
+      "commit": null,
+      "name": "memorycode_public_programming_validation",
+      "status": "pass_with_negative_quality_gate",
+      "evidence": {
+        "public_dialogues": 360,
+        "full_retrieval_queries": 4182,
+        "model_tasks": 24,
+        "model_calls": 72,
+        "latest_source_recall": 0.45887135341941654,
+        "memorycore_strict_score": 0.16666666666666666,
+        "full_history_strict_score": 0.125,
+        "paired_wins_losses_ties": [1, 0, 23],
+        "bootstrap_95ci": [0.0, 0.125],
+        "exact_sign_p": 1.0,
+        "input_ratio": 0.23204967476419583,
+        "high_confidence_gain": false
+      }
     }
   ],
   "verification": {
     "vitest": { "status": "pass", "files": 23, "tests": 201 },
-    "python_unittest": { "status": "pass", "tests": 6 },
+    "python_unittest": { "status": "pass", "tests": 12 },
     "python_compile": { "status": "pass" },
+    "memorycode_official_scorer_parity": { "status": "pass", "pairs": 849, "differences": 0 },
+    "memorycode_full_retrieval": { "status": "pass", "queries": 4182 },
+    "memorycode_model_comparison": { "status": "pass", "calls": 72 },
     "plugin_build": { "status": "pass" },
     "public_import": { "status": "pass" },
     "diff_check": { "status": "pass" }
   },
-  "claim_boundary": "Engineering validation only; held-out Codex and Claude Code product utility remains unmeasured."
+  "claim_boundary": "Engineering and public method validation only; raw retrieval has no high-confidence quality gain, and held-out Codex/Claude Code product utility remains unmeasured."
 }

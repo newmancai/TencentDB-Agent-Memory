@@ -27,17 +27,40 @@ and more diagnostic, but have weaker external validity.
 
 | Source | What it measures | Use here | Important limitation |
 |---|---|---|---|
-| [CUPID](https://github.com/kixlab/CUPID) ([COLM 2025 paper](https://openreview.net/forum?id=JMxRn7orEk)) | Context-dependent preferences inferred from multi-turn feedback; 756 human-curated simulated histories | Primary public B method validation | Preference/checklist labels are not memory-cause labels or programming outcomes |
+| [MemoryCode](https://github.com/Cohere-Labs-Community/MemoryCode) ([paper](https://arxiv.org/abs/2502.13791)) | Mandatory coding-instruction additions and updates over 1–100 noisy mentor sessions, scored by Python AST/regex | Primary public programming-memory method validation | Synthetic Python style tasks, not repository execution or natural user feedback |
+| [CUPID](https://github.com/kixlab/CUPID) ([COLM 2025 paper](https://openreview.net/forum?id=JMxRn7orEk)) | Context-dependent preferences inferred from multi-turn feedback; 756 human-curated simulated histories | Secondary feedback-scope diagnostic | Preference/checklist labels are not memory-cause labels or programming outcomes |
 | [LoCoMo](https://github.com/snap-research/locomo) ([ACL 2024 paper](https://aclanthology.org/2024.acl-long.747/)) | QA, event summarization and long-range temporal/causal understanding over ten very long conversations | L0 retrieval and answer regression | Factual QA does not show that feedback changed a memory policy |
 | [LongMemEval](https://github.com/xiaowu0162/LongMemEval) ([ICLR 2025 paper](https://openreview.net/forum?id=pZiyCaVuti)) | Extraction, multi-session reasoning, temporal reasoning, knowledge update and abstention over 500 questions | E update/abstention component regression | End-to-end QA can improve through reader/context changes without B learning |
 | [MemoryAgentBench](https://github.com/HUST-AI-HYZ/MemoryAgentBench) | Incremental accurate retrieval, test-time learning, long-range understanding and conflict resolution | Later adapter for learning/conflict breadth | Still simulated and not a substitute for repository checkers |
 
-CUPID is the closest existing public source for contextual feedback. LoCoMo and
-LongMemEval should broaden regression coverage only after the B comparison is
-well-defined; adding their QA totals to CUPID preference scores would create an
-uninterpretable aggregate.
+MemoryCode is the closest public source for the target programming interaction:
+it changes the rules that later code must obey and contains both long history
+and irrelevant interference. CUPID remains useful for deciding when a
+correction applies. LoCoMo and LongMemEval remain retrieval/update breadth
+regressions. Their scores must never be added into one synthetic B total.
 
-## Current public experiment
+## New primary public experiment
+
+The frozen protocol, source hashes, exact subset, prompts and metric definitions
+are in `MEMORYCODE_PROTOCOL.md`; results are in `MEMORYCODE_RESULTS.md`. Two
+levels are deliberately separated:
+
+- all 360 dialogues and 4,182 final-history queries exercise the open-source
+  MemoryCore SQLite/FTS path without model calls;
+- a hash-selected 24-dialogue subset covers every official history-length
+  stratum and runs a 72-call fixed-model comparison of full history, label-blind
+  MemoryCore top-8 injection and a privileged latest-rule ceiling.
+
+Full-release retrieval finds only 45.89% of latest target sessions; 821 update
+queries have 61.39% stale-source collision and 24.12% stale-only selection. The
+model comparison reduces input to 23.20% of full history but yields only 1 win,
+0 losses and 23 ties on strict target accuracy. Its bootstrap lower bound is
+zero and sign-test `p=1.0`, so high-confidence gain fails. The oracle reaches
+54.17% strict accuracy, including 50% on updates, while both non-oracle arms
+score zero on update tasks. The next method must therefore improve extraction
+and version consolidation, not tune `k` on the opened result.
+
+## Historical CUPID diagnostic
 
 `public_eval.py` is dataset-neutral: it consumes a manifest plus normalized JSONL
 receipts. The committed fixture is a compact projection of the frozen CUPID run;
@@ -118,48 +141,29 @@ python benchmarks/topic3-be-agent-product-v1/public_eval.py
 python -m unittest discover -s benchmarks/topic3-be-agent-product-v1 -p 'test_*.py'
 ```
 
-## Should the dataset be enlarged?
+## Expansion policy
 
-Yes for the next viable method, no for the current feedback arm. Scaling a
-negative, 3.4x-input method would only estimate its failure more precisely.
+The dataset has now been enlarged where extra volume is cheap and diagnostic:
+retrieval covers the full 360-dialogue/4,182-query release. Model inference is
+kept at 24 independent dialogues until a source-bound extractor can clear the
+current zero-on-updates failure. Spending thousands of calls on the unchanged
+raw FTS method would estimate a known failure more precisely without improving
+the product.
 
-A two-sided exact sign-test design needs about 90 non-zero independent clusters
-for 80% power when the true cluster win probability is 0.65 (49 at 0.70, 30 at
-0.75). CUPID has 126 validation personas, but the current run produced only one
-non-zero persona out of four. The immediate priority is therefore to reduce ties
-and stable-preference regressions before spending the validation split.
-
-### Staged expansion
-
-1. **Development iteration:** 24 unused development personas / 72 tasks. Compare
-   frozen history, direct bounded raw feedback and a selective scoped gate under
-   an identical injection-token cap. Keep request-only and shuffled feedback as
-   diagnostics on a smaller slice.
-2. **Development gate:** a separate 32-persona development subset selected by
-   `SHA256('topic3-be-cupid-dev-gate-v1:' + persona)`. Proceed only if enabled
-   wins exceed losses, consistent cases have no net loss, error rate is zero and
-   input cost is at most 1.25x the direct-raw baseline.
-3. **One-shot confirmation:** if the gate passes, run all 126 validation personas
-   once. Bootstrap and decisions stay at persona level. Do not tune after opening
-   this result.
-4. **Breadth regression:** add LongMemEval knowledge-update/abstention and LoCoMo
-   retrieval/temporal slices with their own metrics. Never merge these scores
-   into the CUPID B-utility number.
-5. **Product evidence:** execute `PROTOCOL.md` on held-out programming projects,
-   repeat stochastic agents, and cluster by project. This is the claim-changing
-   experiment.
-
-The next method should be a bounded gate that selects `omit/include/verify/ask`
-from raw, source-bound evidence. It must beat direct raw feedback, not merely
-no-memory or a weak summary baseline.
+The next fixed comparison must rerun full-history and raw-FTS baselines on the
+same selected IDs, preserve every gold regex, and add one bounded extracted-rule
+arm. Development may use the now-open MemoryCode release, but confirmation must
+use either a pre-registered public extension or the held-out repository checker
+protocol. LoCoMo/LongMemEval stay separate regression suites; CUPID stays a
+scope diagnostic.
 
 ## Delivery status against the requested rubric
 
 | Deliverable | Artifact | Status |
 |---|---|---|
-| Research and design | this document, `OPTIMIZATION_REPORT.md` | pass |
-| Public long-dialogue runner and baseline result | `public_eval.py`, manifest, fixture, `public-eval-results.json` | pass; gain fails |
-| Implementation and comparison | `memory-feedback` subpath plus enabled/frozen CUPID comparison | engineering pass; utility negative |
+| Research and design | this document, `MEMORYCODE_PROTOCOL.md`, `OPTIMIZATION_REPORT.md` | pass |
+| Public long-dialogue runner and baseline result | MemoryCode prepare/packet/model/score runners and structured results | pass; high-confidence gain fails |
+| Implementation and comparison | native MemoryCore FTS adapter, full-history baseline and oracle ceiling | method complete; current raw retrieval not accepted |
 | Off switch and forced fallback | `runtime_contract_harness.ts`, `runtime-contract-results.json`, unit tests | pass |
 | Portable PR and internal notes | draft PR #3, `PORTING.md` | pass for review; not production-enabled |
 
