@@ -237,8 +237,10 @@ runner 现已加入外层 `bwrap` 文件系统隔离：隐藏整个研究仓与 
 主研究仓和兄弟 arm 不可见、当前 Git clone 可用。下一矩阵必须再换四个新项目，强制经过该隔离层，并在
 接纳结果前扫描原始事件中的禁用路径；此前看似有利的 urllib3/Starlette 数字不进入产品结论。
 
-第三套留出已在任何正式模型调用前冻结，入口为
-[filesystem-isolated held-out v3](topic3-be-route-v2/HELDOUT_V3_PROTOCOL.md)。新项目为 pytest、packaging、
-Flask、h11；12 个 clone 的 base/remote/future revision 状态、base 失败、上游结果、等价实现以及 top-8
-关键原话召回均已预检。Black 因当前环境无法可靠运行其解析依赖而在冻结前淘汰。v3 主矩阵尚未运行时，
-不得报告留出成绩。
+第三套留出冻结后在第一个 pytest 调用中发现另一条逃逸路径：文件系统隔离有效，但 Codex 使用了服务端
+`web_search`，搜索了该 MonkeyPatch 问题的公开实现。runner 在首条回执写入前停止，v3 全部不计成绩；
+pytest 视为暴露，h11 也因后续禁网反向预检明确点名而不再复用，packaging 与 Flask 尚未接受模型调用。
+详见 [v3 失效复盘](topic3-be-route-v2/HELDOUT_V3_INVALID_REVIEW.md)。适配器现显式设置
+`web_search="disabled"`、隔离用户配置，runner 也会把任何 web-search event 当作整组失效；真实负向预检
+返回 `SEARCH_DISABLED` 且无联网事件。下一套 v4 只能复用未暴露的 packaging／Flask，再加两个全新项目，
+重新冻结后运行。

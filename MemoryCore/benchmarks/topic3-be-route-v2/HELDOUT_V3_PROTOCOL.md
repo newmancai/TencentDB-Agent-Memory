@@ -1,7 +1,10 @@
-# Filesystem-isolated held-out v3 protocol
+# Filesystem-isolated held-out v3 protocol (invalidated)
 
-Date: 2026-09-14. Frozen before any v3 matrix model call. The two earlier held-out attempts remain
-excluded: v1 used a source-spelling checker and v2 allowed cross-arm filesystem reads.
+Date: 2026-09-14. This was frozen before any v3 matrix model call, then invalidated during the first
+call because Codex used its native web-search tool. No receipt was written and no v3 result is
+admissible. See [the v3 invalidation review](HELDOUT_V3_INVALID_REVIEW.md). The two earlier held-out
+attempts also remain excluded: v1 used a source-spelling checker and v2 allowed cross-arm filesystem
+reads.
 
 ## Frozen inputs and isolation
 
@@ -13,7 +16,7 @@ excluded: v1 used a source-spelling checker and v2 allowed cross-arm filesystem 
 - Arms: `no_history`, lossless `raw_full`, and exact raw BM25 `raw_top8`; rotating order, two
   sequential tasks per project.
 
-Every model call must use the route runner's outer `bwrap` view. The whole research checkout,
+Every model call was intended to use the route runner's outer `bwrap` view. The whole research checkout,
 benchmark code, results, and sibling clones are hidden; only the current independent clone is
 writable and visible. Each receipt must say `filesystem_isolated=true`. Raw events are scanned after
 every call for the main checkout, output directory, or another workspace; any hit invalidates and
@@ -57,7 +60,12 @@ miss, visibility violation, or severe regression blocks adoption. If quality tie
 uncached input, output, reasoning output, context bytes, and wall time. `no_history` is secondary and
 tests whether project history changes completion, correctness, or work.
 
-Report the complete 24-call matrix, including timeouts and missing usage. A clean no-loss efficiency
+This decision rule was never reached. The first pytest call used model-side web search and was
+stopped before a receipt; packaging and Flask were not exposed, while h11 was later consumed by a
+negative search-disable preflight. Report no partial v3 score.
+
+Had isolation held, the complete 24-call matrix would have been required, including timeouts and
+missing usage. A clean no-loss efficiency
 result permits a pilot only; it does not set a product default. Promotion still requires a fresh
 replication or a second backend under the same filesystem isolation. A quality loss closes this
 raw-top-8 candidate without post-held-out tuning.

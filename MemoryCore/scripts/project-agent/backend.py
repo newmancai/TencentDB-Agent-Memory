@@ -103,7 +103,7 @@ def isolated_filesystem_command(command: list[str], workspace: Path, hidden_root
     # files from model-issued shell commands.
     codex_home = Path.home() / '.codex'
     result += ['--tmpfs', str(codex_home)]
-    for name in ('auth.json', 'config.toml'):
+    for name in ('auth.json',):
         source = codex_home / name
         if source.is_file():
             result += ['--ro-bind', str(source), str(source)]
@@ -115,6 +115,7 @@ def command_for(arm: str, workspace: Path, prompt: str, manifest: dict) -> list[
     if backend == "codex":
         command = ["codex", "exec", "--sandbox", "workspace-write", "-C", str(workspace),
                    "--ephemeral", "--ignore-user-config", "--ignore-rules", "--json",
+                   "-c", 'web_search="disabled"',
                    "-c", "project_doc_max_bytes=0", "-c", "memories.use_memories=false",
                    "-c", "memories.generate_memories=false", "-c", "features.memories=false",
                    "-c", f'model_reasoning_effort="{manifest.get("codex_effort", "medium")}"']

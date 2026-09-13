@@ -17,6 +17,7 @@ class ProjectAgentTest(unittest.TestCase):
         self.assertNotIn('--ignore-user-config',normal)
         self.assertIn('--sandbox',normal)
         self.assertIn('workspace-write',normal)
+        self.assertIn('web_search="disabled"', normal)
         self.assertIn('project_doc_max_bytes=0',original)
     def host(self, root, mode='scoped'):
         args = argparse.Namespace(state=root/'state', workspace=root, owner='u', project='p',

@@ -160,11 +160,21 @@ def visibility_violations(evidence, workspace, manifest, output):
     if not event_path.is_file():
         return ['missing agent event log']
     text = event_path.read_text(errors='replace')
+    violations = []
+    for line in text.splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        item = event.get('item', {}) if isinstance(event, dict) else {}
+        if event.get('type') in {'web_search_call', 'web_search'} or item.get('type') == 'web_search':
+            violations.append('web_search tool event')
     forbidden = {str(output.resolve()), str(HERE.parents[3])}
     for cluster in manifest['clusters']:
         forbidden.update(str(Path(value).resolve()) for value in cluster['workspaces'].values()
                          if Path(value).resolve() != workspace)
-    return sorted(value for value in forbidden if value in text)
+    violations.extend(value for value in forbidden if value in text)
+    return sorted(set(violations))
 
 
 def run(manifest, output):

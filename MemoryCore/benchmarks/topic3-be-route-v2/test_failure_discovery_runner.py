@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
-from failure_discovery_runner import ARMS, run
+from failure_discovery_runner import ARMS, run, visibility_violations
 
 
 class FakeHost:
@@ -36,6 +36,18 @@ class FakeHost:
 
 
 class FailureDiscoveryRunnerTest(unittest.TestCase):
+    def test_web_search_event_is_a_visibility_violation(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory); workspace = root / 'workspace'; output = root / 'output'
+            evidence = root / 'evidence'; agent = evidence / 'agent'; agent.mkdir(parents=True)
+            workspace.mkdir(); output.mkdir()
+            (agent / 'stdout.jsonl').write_text(json.dumps({
+                'type': 'item.completed', 'item': {'type': 'web_search'},
+            }) + '\n')
+            manifest = {'clusters': [{'workspaces': {'no_history': str(workspace)}}]}
+            self.assertIn('web_search tool event',
+                          visibility_violations(evidence, workspace, manifest, output))
+
     def test_three_lossless_baselines_are_separate_and_sequential(self):
         with TemporaryDirectory() as directory:
             root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')
