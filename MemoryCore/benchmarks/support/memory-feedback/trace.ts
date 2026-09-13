@@ -1,3 +1,4 @@
+/** Benchmark-only causal ledger; not part of the MemoryCore runtime API. */
 import { assertScopePredicate, type FeedbackScope } from './scope.js';
 
 export type MemoryAction = 'omit' | 'include' | 'verify' | 'ask';

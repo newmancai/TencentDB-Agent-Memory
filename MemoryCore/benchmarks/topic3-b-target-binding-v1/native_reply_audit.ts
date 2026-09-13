@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 
-import { bindFeedbackTarget } from '../../src/core/memory-feedback/target.js';
+import { bindFeedbackTarget } from '../support/memory-feedback/index.js';
 
 const [input, output] = process.argv.slice(2);
 assert(input && output, 'usage: tsx native_reply_audit.ts NATIVE_RAW_SUMMARY OUTPUT_JSON');

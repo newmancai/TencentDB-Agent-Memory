@@ -4,7 +4,43 @@ import { createHash, randomUUID } from 'node:crypto';
 import type { IMemoryStore } from '../store/types.js';
 import { writeMemory } from '../record/l1-writer.js';
 import { executeMemorySearch, type MemorySearchResult } from '../tools/memory-search.js';
-import type { Verification } from './policy.js';
+
+export type Relation = 'changed' | 'same' | 'unknown';
+
+export interface Verification {
+  candidateId: string;
+  relation: Relation;
+  evidenceId: string;
+}
+
+export interface PolicyState {
+  schema: 1;
+  signature: string;
+  bins: { changed: number; same: number }[];
+  seen: string[];
+}
+
+async function withTimeout<T>(
+  work: (signal: AbortSignal) => Promise<T>,
+  timeoutMs: number,
+  message: string,
+): Promise<T> {
+  const controller = new AbortController();
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      Promise.resolve().then(() => work(controller.signal)),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => {
+          controller.abort();
+          reject(Error(message));
+        }, timeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 export interface SourceRecord {
   recordId: string; version: number; owner: string; sourceId: string; order: number; content: string;
@@ -34,17 +70,15 @@ export function replacementContent(c: Candidate) {
 }
 /** A timed-out reviewer cannot mutate memory: it receives evidence and an abort signal only. */
 export async function verifyBounded(c: Candidate, verifier: (c: Candidate, signal: AbortSignal) => Promise<Verification>, timeoutMs = 30000) {
-  const controller = new AbortController(); let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     validateCandidate(c, c.target.owner);
-    const result = await Promise.race([verifier(structuredClone(c), controller.signal), new Promise<never>((_, reject) => {
-      timer = setTimeout(() => { controller.abort(); reject(Error('verification timeout')); }, timeoutMs);
-    })]);
+    const result = await withTimeout(
+      signal => verifier(structuredClone(c), signal), timeoutMs, 'verification timeout',
+    );
     if (result?.candidateId !== c.id || result.evidenceId !== c.source.sourceId
       || !['changed', 'same', 'unknown'].includes(result.relation)) throw Error('invalid verification');
     return { result, error: null };
   } catch (e) { return { result: null, error: String(e) }; }
-  finally { if (timer) clearTimeout(timer); }
 }
 
 /** Optional single-writer sidecar. Base indexing, ranking and originals remain native. */
@@ -114,12 +148,11 @@ export class FeedbackMemory {
     const done = (result: MemorySearchResult, fallback: boolean, reason: string, applied: string[] = []) =>
       ({ result, fallback, reason, applied, elapsedMs: performance.now() - started });
     if (!options.enabled) return done(baseline, false, 'off');
-    let timer: ReturnType<typeof setTimeout> | undefined;
     try {
-      const head = await Promise.race([(async () => {
+      const head = await withTimeout(async () => {
         const h = await (options.load ? options.load() : this.load()) as Head;
         await this.check(h); return h;
-      })(), new Promise<never>((_, reject) => { timer = setTimeout(() => reject(Error('lifecycle read timeout')), options.timeoutMs ?? 1000); })]);
+      }, options.timeoutMs ?? 1000, 'lifecycle read timeout');
       const applied: string[] = [];
       const results = baseline.results.map(r => {
         const e = head.entries.find(e => e.candidate.target.recordId === r.id);
@@ -129,6 +162,108 @@ export class FeedbackMemory {
       });
       return done({ ...baseline, results }, false, 'auxiliary', applied);
     } catch (e) { return done(baseline, true, String(e)); }
-    finally { if (timer) clearTimeout(timer); }
+  }
+}
+
+/** Feedback predicts verification utility, not the truth of a remembered claim. */
+export class FeedbackPolicy {
+  private state: PolicyState;
+
+  constructor(readonly signature: string, snapshot?: unknown) {
+    if (!signature) throw Error('signature required');
+    this.state = {
+      schema: 1,
+      signature,
+      bins: Array.from({ length: 4 }, () => ({ changed: 0, same: 0 })),
+      seen: [],
+    };
+    if (snapshot === undefined) return;
+    const state = snapshot as PolicyState;
+    const invalidBins = !Array.isArray(state?.bins) || state.bins.length !== 4
+      || state.bins.some(bin => !bin
+        || [bin.changed, bin.same].some(count => !Number.isInteger(count) || count < 0 || count > 1024));
+    const invalidSeen = !Array.isArray(state?.seen) || state.seen.length > 4096
+      || state.seen.some(id => typeof id !== 'string') || new Set(state.seen).size !== state.seen.length;
+    if (state?.schema !== 1 || state.signature !== signature || invalidBins || invalidSeen) {
+      throw Error('invalid feedback policy');
+    }
+    this.state = structuredClone(state);
+  }
+
+  private bin(score: number) {
+    if (!Number.isFinite(score) || score < 0 || score > 1) throw Error('invalid proposal score');
+    return Math.min(3, Math.floor(score * 4));
+  }
+
+  decide(score: number) {
+    const bin = this.bin(score);
+    const counts = this.state.bins[bin];
+    const observations = counts.changed + counts.same;
+    return {
+      verify: observations < 3 || 4 * counts.changed >= observations,
+      bin,
+      observations,
+      eChangedRate: observations ? counts.changed / observations : null,
+    };
+  }
+
+  observe(candidateId: string, evidenceId: string, score: number, result: Verification) {
+    const bin = this.bin(score);
+    if (result.candidateId !== candidateId || result.evidenceId !== evidenceId
+      || !['changed', 'same', 'unknown'].includes(result.relation)) throw Error('feedback identity mismatch');
+    if (result.relation === 'unknown' || this.state.seen.includes(candidateId)) return;
+    const counts = this.state.bins[bin];
+    if (this.state.seen.length >= 4096 || counts[result.relation] >= 1024) return;
+    counts[result.relation]++;
+    this.state.seen.push(candidateId);
+  }
+
+  snapshot(): PolicyState {
+    return structuredClone(this.state);
+  }
+}
+
+/** Host entry point: useBaseline is mandatory for the subsequent read on failure/off. */
+export async function processFeedback(p: {
+  enabled: boolean;
+  candidate: Candidate;
+  memory: FeedbackMemory;
+  verifier: (candidate: Candidate, signal: AbortSignal) => Promise<Verification>;
+  score: () => Promise<number>;
+  policy?: FeedbackPolicy;
+  learn?: boolean;
+  timeoutMs?: number;
+  loadPolicy?: () => Promise<unknown>;
+  policySignature?: string;
+}) {
+  const started = performance.now();
+  const done = (status: string, useBaseline: boolean, detail?: unknown) => ({
+    status, useBaseline, detail, elapsedMs: performance.now() - started,
+  });
+  if (!p.enabled) return done('off', true);
+  const timeoutMs = p.timeoutMs ?? 30000;
+  try {
+    let policy = p.policy;
+    if (p.loadPolicy) {
+      const snapshot = await withTimeout(() => p.loadPolicy!(), timeoutMs, 'policy read timeout');
+      policy = new FeedbackPolicy(p.policySignature ?? '', snapshot);
+    }
+    const score = await withTimeout(() => p.score(), timeoutMs, 'score timeout');
+    if (!Number.isFinite(score) || score < 0 || score > 1) throw Error('invalid score');
+    const decision = policy?.decide(score) ?? { verify: true };
+    if (!p.learn && !decision.verify) return done('skipped', false, decision);
+    const verified = await verifyBounded(p.candidate, p.verifier, timeoutMs);
+    if (!verified.result) return done('fallback', true, verified.error);
+    const status = await p.memory.publish(p.candidate, verified.result);
+    if (p.learn && policy) {
+      policy.observe(p.candidate.id, p.candidate.source.sourceId, score, verified.result);
+    }
+    return done(status, false, {
+      decision,
+      verification: verified.result,
+      policy: policy?.snapshot(),
+    });
+  } catch (error) {
+    return done('fallback', true, String(error));
   }
 }

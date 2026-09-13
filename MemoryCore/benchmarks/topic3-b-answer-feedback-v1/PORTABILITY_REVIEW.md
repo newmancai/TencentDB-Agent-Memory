@@ -1,6 +1,6 @@
 # 当前回答反馈集合：最小MemoryCore可移植接入审查
 
-2026-09-13。未读取正在运行的评估输出，未改提示、模型或代码。依据已读的 `src/core/memory-feedback/{index,process,policy,lifecycle}.ts` 与answer-feedback-v1任务接口。
+2026-09-13。未读取正在运行的评估输出，未改提示、模型或代码。依据当时的MemoryCore反馈生命周期与answer-feedback-v1任务接口；当前实现已收敛至`src/core/memory-feedback/{index,lifecycle,answer-feedback}.ts`。
 
 **最小旁路应与`processFeedback`并列，放在共同回答和checker回执已经得到之后、宿主消费反馈之前。** 新B产生的是该回答可报告的反馈集合，既不调用`FeedbackMemory.publish`，也不改变`memory.search`结果。它不是`changed`的一种别名；旧的E历史替换链保持原合同。
 

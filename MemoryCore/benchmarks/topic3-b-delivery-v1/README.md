@@ -67,6 +67,7 @@ python benchmarks/topic3-b-delivery-v1/delivery_eval.py
 npx tsx benchmarks/topic3-b-delivery-v1/runtime_contract_harness.ts \
   benchmarks/topic3-b-delivery-v1/results/runtime-contract.json
 npx vitest run src/core/memory-feedback/*.test.ts \
+  __tests__/memory-feedback-replay/*.test.ts \
   src/core/self-supervision/openclaw-recall-turn-bridge.test.ts
 ```
 

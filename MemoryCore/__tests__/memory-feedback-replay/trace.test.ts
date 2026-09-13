@@ -5,7 +5,7 @@ import {
   recordOutcome,
   selectMemoryAction,
   validateFeedbackReplay,
-} from './trace.js';
+} from '../../benchmarks/support/memory-feedback/trace.js';
 
 const decision = () => selectMemoryAction({
   id: 'decision-1',

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { matchMemoryScope } from './scope.js';
+import { matchMemoryScope } from '../../benchmarks/support/memory-feedback/scope.js';
 
 describe('exact memory scope baseline', () => {
   const scope = { project: 'atlas', environment: 'staging', write: true } as const;

@@ -1,3 +1,4 @@
+/** Target-binding baseline used by feedback experiments. */
 import type { DecisionTrace, FeedbackTargetType } from './trace.js';
 
 export type TargetableDecision = Pick<DecisionTrace,

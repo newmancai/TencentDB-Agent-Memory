@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import {
   assertRecallShadowObservation,
   type RecallShadowObservation,
-} from '../self-supervision/recall-shadow-adapter.js';
+} from '../../../src/core/self-supervision/recall-shadow-adapter.js';
 import {
   selectMemoryAction,
   type DecisionTrace,

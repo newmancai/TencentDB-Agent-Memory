@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { compileFeedbackAssertionCandidate } from './candidate.js';
-import { observeFeedback } from './trace.js';
+import { compileFeedbackAssertionCandidate } from '../../benchmarks/support/memory-feedback/candidate.js';
+import { observeFeedback } from '../../benchmarks/support/memory-feedback/trace.js';
 
 function claim(overrides = {}) {
   return observeFeedback({

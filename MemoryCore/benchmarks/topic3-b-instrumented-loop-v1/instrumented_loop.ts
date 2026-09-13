@@ -12,7 +12,7 @@ import {
   observeFeedback,
   recordOutcome,
   selectMemoryAction,
-} from '../../src/core/memory-feedback/index.js';
+} from '../support/memory-feedback/index.js';
 
 const MODEL = 'gpt-5.6-sol';
 const REASONING = 'medium';

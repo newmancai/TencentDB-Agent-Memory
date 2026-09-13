@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { bindFeedbackTarget } from './target.js';
+import { bindFeedbackTarget } from '../../benchmarks/support/memory-feedback/target.js';
 
 const decision = {
   candidateMemoryIds: ['memory-1'],

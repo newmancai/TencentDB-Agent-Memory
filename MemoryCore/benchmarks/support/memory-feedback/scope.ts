@@ -1,3 +1,4 @@
+/** Deterministic scope baseline used by feedback experiments. */
 export type ScopeScalar = null | boolean | number | string;
 export type ScopePredicate = Readonly<Record<string, ScopeScalar>>;
 export type FeedbackScope = string | ScopePredicate;

@@ -25,67 +25,6 @@ export type {
 export { TdaiCore } from "./tdai-core.js";
 export type { TdaiCoreOptions } from "./tdai-core.js";
 
-// Optional bounded B+E sidecar; importing it does not enable lifecycle changes.
-export {
-  FeedbackMemory,
-  FeedbackPolicy,
-  JsonlFeedbackTraceStore,
-  assertScopePredicate,
-  bindFeedbackTarget,
-  compileFeedbackAssertionCandidate,
-  decisionTraceFromRecallObservation,
-  matchMemoryScope,
-  observeFeedback,
-  processFeedback,
-  recordMemoryAssertion,
-  recordOutcome,
-  runAnswerFeedbackAdapter,
-  selectMemoryAction,
-  validateFeedbackReplay,
-  verifyBounded,
-} from './memory-feedback/index.js';
-export type {
-  AssertionStatus,
-  AnswerFeedbackAdapterResult,
-  AnswerFeedbackDecisionLog,
-  Candidate,
-  DecisionTrace,
-  DecisionTraceInput,
-  FeedbackAuthority,
-  FeedbackAssertionCandidateInput,
-  FeedbackAssertionProposal,
-  FeedbackClaim,
-  FeedbackClaimInput,
-  FeedbackLearningSample,
-  FeedbackObservationType,
-  FeedbackOutcome,
-  FeedbackOutcomeInput,
-  FeedbackReplayIssue,
-  FeedbackReplayRecord,
-  FeedbackReplayResult,
-  FeedbackTargetType,
-  FeedbackTargetBinding,
-  FeedbackTargetEvidence,
-  FeedbackTargetReference,
-  FeedbackTraceStore,
-  FeedbackScope,
-  JsonValue,
-  MemoryAction,
-  MemoryAssertion,
-  MemoryAssertionInput,
-  OutcomeResult,
-  PolicyState,
-  PromptMemorySpan,
-  RecallDecisionTraceInput,
-  ScopeMatchResult,
-  ScopePredicate,
-  ScopeScalar,
-  SourceRecord,
-  TraceCost,
-  TargetableDecision,
-  Verification,
-} from './memory-feedback/index.js';
-
 // Instance config provider (VDB per-instance pool + COS global).
 // LocalConfigSource lives inline in instance-config-provider.ts; other
 // deployments may provide their own IConfigSource implementation.

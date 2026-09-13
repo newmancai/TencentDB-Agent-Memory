@@ -3,9 +3,14 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { VectorStore } from '../store/sqlite.js';
 import { writeMemory } from '../record/l1-writer.js';
-import { FeedbackMemory, verifyBounded, replacementContent, type Candidate } from './lifecycle.js';
-import { FeedbackPolicy } from './policy.js';
-import { processFeedback } from './process.js';
+import {
+  FeedbackMemory,
+  FeedbackPolicy,
+  processFeedback,
+  replacementContent,
+  verifyBounded,
+  type Candidate,
+} from './lifecycle.js';
 
 it('persists only the selected span and falls back to exact native base through failure/restart', async () => {
   const root = await mkdtemp('/tmp/topic3-test-');

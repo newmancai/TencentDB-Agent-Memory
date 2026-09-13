@@ -29,6 +29,14 @@
 
 本PR提供可开关的B旁路接口、公开数据适配、可复现研究和失败路线知识库。**没有证明可观且稳定的B反馈学习收益，不建议作为商用默认策略。** E保留为旧实验辅助，不作为B成功的替代指标。原持续研究目标仍未完成。
 
+## 代码收敛状态
+
+2026-09-13按产品代码与研究证据分层重构：MemoryCore生产侧只保留回答反馈、依赖候选和E生命周期三个显式旁路；因果trace/replay、scope、target与candidate编译迁至`benchmarks/support/memory-feedback`。`core/index.ts`恢复上游原样，不再向稳定Core API扩散实验类型。运行时实现从13文件收敛为4文件，生产实现约620行；历史实验脚本和结果继续作为可复现证据保留，不混作产品运行时代码。
+
+结构依据是[Codex仓库的Core与API面约束](https://github.com/openai/codex/blob/main/AGENTS.md)和[TencentDB Agent Memory的独立MemoryCore/轻量Adapter边界](https://github.com/TencentCloud/TencentDB-Agent-Memory)。Anthropic公开的Claude Code仓库主要提供插件、示例、安装与问题跟踪材料，因此本次不把它表述成Claude Code核心源码级重构依据。
+
+本次重构不改变策略结论或默认开关。57项相关测试、独立TypeScript检查、插件构建及SQLite host trace重放均通过。
+
 ## 最新补充研究
 
 - [B+E编码产品就绪度](B_E_PRODUCT_READINESS_2026-09-13.md)：初版研究交付满足，稳定B+E质量收益与Codex/Claude Code产品对标未满足。新增四臂顺序编码任务runner，主指标为各产品内部MemoryCore相对clean增量；尚未运行，不报产品成绩。
@@ -45,7 +53,7 @@
 
 ## 建议先审这四处
 
-1. [B运行时接口及使用说明](../src/core/memory-feedback/README.md)：`selectAnswerFeedback`临时选择反馈；关闭、读失败、非法选择及超时返回宿主已有baseline，无记忆写入句柄。
+1. [B运行时接口及使用说明](../src/core/memory-feedback/README.md)：`selectAnswerFeedback`临时选择反馈；关闭、读失败、非法选择及超时返回宿主已有baseline，无记忆写入句柄。研究用trace/replay不属于生产公共API。
 2. [原生集成边界](topic3-b-answer-feedback-v1/NATIVE_INTEGRATION.md)：真实L0写读与保存模型回执重放；不是在读回文本上重新运行模型，更不是oracle候选的自主发现。
 3. [自然反馈对照](topic3-b-natural-feedback-v1/RESULTS.md)：真实用户行为标签、受控线性头学习、廉价TF-IDF与冻结语义/温度强参照。
 4. [路线知识库](B_RESEARCH_LEDGER.md)：实验假设、失败机制、停止范围、重启条件。其他benchmark目录保留为研究证据，不要求按时间逐一阅读。
@@ -89,12 +97,13 @@
 
 ## 验证与复跑
 
-运行时最近一次变更已通过17项B/生命周期合同测试、B模块独立类型检查与插件构建；原生开发10及评估80保存回执与Python一致。旧176库测试/108回退等属于旧B+E提交，保留其范围，不把历史数量当最新全库复测。本次同步增加研究脚本与结果，未修改src运行时；不重复运行未变化的运行时测试并冒称新验证。新增脚本的真实实验、语义审核和局部合同证据见各报告。
+当前重构已通过10个文件57项相关测试、B入口独立类型检查、插件构建及SQLite host trace重放。原生开发10及评估80保存回执与Python一致；旧176库测试/108回退等属于旧B+E提交，保留其范围，不把历史数量当最新全库复测。新增脚本的真实实验、语义审核和局部合同证据见各报告。
 
 ```bash
 # 在MemoryCore目录执行运行时关键合同
-./node_modules/.bin/vitest run src/core/memory-feedback/answer-feedback.test.ts src/core/memory-feedback/lifecycle.test.ts
-./node_modules/.bin/tsc --noEmit --ignoreConfig --target es2022 --module nodenext --skipLibCheck src/core/memory-feedback/answer-feedback.ts
+./node_modules/.bin/vitest run src/core/memory-feedback/*.test.ts __tests__/memory-feedback-replay/*.test.ts src/core/self-supervision/openclaw-recall-turn-bridge.test.ts
+./node_modules/.bin/tsc --noEmit --target es2022 --module nodenext --moduleResolution nodenext --strict --skipLibCheck --types node src/core/memory-feedback/answer-feedback.ts src/core/memory-feedback/dependency-candidate-adapter.ts
+npm run build:plugin
 ```
 
 公开数据、固定版本、依赖和各Runner命令在对应README/PROTOCOL/RESULTS中。自然反馈原始文件通过[适配入口](topic3-b-feedback-audit/README.md)下载；仓库保留ID级预测、聚合分数及部分模型回执，完整下载语料、模型权重和运行数据库留本地。GPU计时不含加载等部分已逐项注明；没有production Memory操作。

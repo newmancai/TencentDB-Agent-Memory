@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
-import { validateFeedbackReplay } from '../../src/core/memory-feedback/trace.js';
+import { validateFeedbackReplay } from '../support/memory-feedback/index.js';
 
 const [input, output] = process.argv.slice(2);
 if (!input) throw Error('usage: tsx replay_trace.ts INPUT_JSONL [OUTPUT_JSON]');

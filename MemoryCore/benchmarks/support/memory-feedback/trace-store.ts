@@ -1,3 +1,4 @@
+/** Benchmark-only JSONL replay store. */
 import { appendFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 

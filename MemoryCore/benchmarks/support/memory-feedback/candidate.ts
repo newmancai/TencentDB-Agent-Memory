@@ -1,3 +1,4 @@
+/** Candidate compiler used by feedback experiments. */
 import type { FeedbackClaim, MemoryAssertion } from './trace.js';
 
 export type FeedbackAssertionProposal =

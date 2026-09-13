@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { runAnswerFeedbackAdapter } from './answer-feedback-adapter.js';
+import { runAnswerFeedbackAdapter } from './answer-feedback.js';
 
 const observation = { answerId: 'answer-1', candidates: [
   { id: 'failed-1', checkerPass: false },

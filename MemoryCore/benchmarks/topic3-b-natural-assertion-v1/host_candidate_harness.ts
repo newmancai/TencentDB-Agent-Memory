@@ -10,7 +10,7 @@ import {
   recordOutcome,
   selectMemoryAction,
   type FeedbackAssertionProposal,
-} from '../../src/core/memory-feedback/index.js';
+} from '../support/memory-feedback/index.js';
 
 const [runDirectory, outputDirectory] = process.argv.slice(2);
 assert(runDirectory && outputDirectory,

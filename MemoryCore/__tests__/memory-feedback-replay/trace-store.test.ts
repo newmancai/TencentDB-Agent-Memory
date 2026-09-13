@@ -3,8 +3,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-import { JsonlFeedbackTraceStore } from './trace-store.js';
-import { recordOutcome, selectMemoryAction } from './trace.js';
+import { JsonlFeedbackTraceStore } from '../../benchmarks/support/memory-feedback/trace-store.js';
+import { recordOutcome, selectMemoryAction } from '../../benchmarks/support/memory-feedback/trace.js';
 
 const decision = () => selectMemoryAction({
   id: 'decision-store-1', contextId: 'context-1', taskId: 'task-1',

@@ -18,7 +18,7 @@ import {
   observeFeedback,
   recordMemoryAssertion,
   recordOutcome,
-} from '../../src/core/memory-feedback/index.js';
+} from '../support/memory-feedback/index.js';
 
 const [output] = process.argv.slice(2);
 assert(output, 'usage: tsx host_trace_harness.ts OUTPUT_DIRECTORY');

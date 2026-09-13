@@ -18,16 +18,16 @@ FTS召回、OpenClaw recall bridge字节级prompt暴露、反馈、assertion和c
 
 ## 交付
 
-- `src/core/memory-feedback/trace.ts`
+- `benchmarks/support/memory-feedback/trace.ts`
   - 四个 versioned record schema；
   - `selectMemoryAction`、`observeFeedback`、`recordMemoryAssertion`、
     `recordOutcome` 四个无 I/O 构造/校验入口；
   - `validateFeedbackReplay` 跨记录校验和 learner-ready 样本导出。
-- `src/core/memory-feedback/trace.test.ts`
+- `__tests__/memory-feedback-replay/trace.test.ts`
   - 完整闭环、缺字段、未知绑定、候选越界、双时态倒置、前向因果引用、
     null reward 和重复 ID 测试。
-- `src/core/memory-feedback/{index.ts,README.md}` 与 `src/core/index.ts`
-  - 追加导出和使用边界；没有启用运行时 hook。
+- `benchmarks/support/memory-feedback/index.ts`
+  - 仅供评测脚本导出；没有进入 MemoryCore 公共 API 或运行时 hook。
 - `trace-store.ts`、`recall-trace-adapter.ts` 与 `host_trace_harness.ts`
   - 本地append-only ledger；把现有recall shadow observation映射成带真实候选、
     include/omit、propensity、prompt span和output ID的decision；一条本地host路径复放。
@@ -66,8 +66,7 @@ propensity。因此不能事后把这16项包装成反事实学习样本；补�
 在 `MemoryCore` 目录执行：
 
 ```text
-npx vitest run src/core/memory-feedback/*.test.ts \
-  src/core/self-supervision/openclaw-recall-turn-bridge.test.ts
+npx vitest run __tests__/memory-feedback-replay/*.test.ts
 Test Files  5 passed (5)
 Tests       31 passed (31)
 

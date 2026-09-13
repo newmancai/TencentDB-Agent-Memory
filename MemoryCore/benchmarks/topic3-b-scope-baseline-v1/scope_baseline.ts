@@ -11,7 +11,7 @@ import {
   selectMemoryAction,
   type ScopeMatchResult,
   type ScopePredicate,
-} from '../../src/core/memory-feedback/index.js';
+} from '../support/memory-feedback/index.js';
 
 const [output] = process.argv.slice(2);
 assert(output, 'usage: tsx scope_baseline.ts OUTPUT_DIRECTORY');

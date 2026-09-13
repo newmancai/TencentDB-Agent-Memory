@@ -82,69 +82,63 @@ export function selectDependencyCandidates(p: {
   const k = p.maxSelectedK ?? 8;
   const candidateLimit = p.maxCandidateCount ?? 64;
   const pathLimit = p.maxPathCount ?? 16;
-  const uniqueCandidates = new Set(p.candidateMemoryIds);
+  const finish = (
+    status: DependencyCandidateStatus,
+    reason: DependencyCandidateDecisionLog['fallbackReason'],
+    paths: readonly DependencyCandidatePath[] = [],
+    nominatedMemoryIds: readonly string[] = [],
+  ): DependencyCandidateResult => ({
+    nominatedMemoryIds,
+    status,
+    reason,
+    decisionLog: {
+      schema: 1,
+      feature: 'dependency_candidate_expansion',
+      mode: p.enabled ? 'enabled' : 'baseline',
+      status,
+      policyVersion: p.policyVersion,
+      signalType: 'later_observation',
+      k,
+      candidateCount: p.candidateMemoryIds.length,
+      pathCount: status === 'selected' ? paths.length : 0,
+      selectedCount: nominatedMemoryIds.length,
+      necessaryCount: status === 'selected'
+        ? paths.filter(path => path.relation === 'necessary').length : 0,
+      possibleCount: status === 'selected'
+        ? paths.filter(path => path.relation === 'possible').length : 0,
+      auxiliaryPathUsed: p.enabled,
+      fallback: status === 'fallback',
+      fallbackReason: reason,
+      memoryMutationAllowed: false,
+      elapsedMs: performance.now() - started,
+    },
+  });
+
+  if (!p.enabled) return finish('off', null);
+
+  const candidates = new Set(p.candidateMemoryIds);
   const validConfig = Number.isInteger(k) && k >= 1 && k <= 32
     && Number.isInteger(candidateLimit) && candidateLimit >= 1 && candidateLimit <= 256
     && Number.isInteger(pathLimit) && pathLimit >= 1 && pathLimit <= 64
     && typeof p.policyVersion === 'string' && !!p.policyVersion.trim()
     && typeof p.laterObservation === 'string' && !!p.laterObservation.trim()
-    && p.candidateMemoryIds.length === uniqueCandidates.size
+    && p.candidateMemoryIds.length === candidates.size
     && p.candidateMemoryIds.length <= candidateLimit
     && p.candidateMemoryIds.every(id => typeof id === 'string' && !!id.trim());
+  if (!validConfig) return finish('fallback', 'invalid_config');
 
-  let status: DependencyCandidateStatus = 'selected';
-  let reason: DependencyCandidateDecisionLog['fallbackReason'] = null;
-  let paths: readonly DependencyCandidatePath[] = [];
-  let nominatedMemoryIds: string[] = [];
-
-  if (!p.enabled) {
-    status = 'off';
-  } else if (!validConfig) {
-    status = 'fallback';
-    reason = 'invalid_config';
-  } else {
-    const proposal = parseProposal(p.proposal);
-    if (!proposal || proposal.paths.length > pathLimit) {
-      status = 'fallback';
-      reason = 'invalid_proposal';
-    } else {
-      paths = proposal.paths;
-      const active = paths.filter(path => path.relation !== 'none');
-      const activeIsBounded = active.every(path => uniqueCandidates.has(path.candidateMemoryId)
-        && !!path.affectedOldBasis.trim()
-        && !!path.evidenceQuote
-        && p.laterObservation.includes(path.evidenceQuote));
-      nominatedMemoryIds = [...new Set(active.map(path => path.candidateMemoryId))];
-      if (!activeIsBounded || nominatedMemoryIds.length > k) {
-        status = 'fallback';
-        reason = 'invalid_selection';
-        nominatedMemoryIds = [];
-      }
-    }
+  const proposal = parseProposal(p.proposal);
+  if (!proposal || proposal.paths.length > pathLimit) {
+    return finish('fallback', 'invalid_proposal');
   }
-
-  const necessaryCount = status === 'selected'
-    ? paths.filter(path => path.relation === 'necessary').length : 0;
-  const possibleCount = status === 'selected'
-    ? paths.filter(path => path.relation === 'possible').length : 0;
-  const decisionLog: DependencyCandidateDecisionLog = {
-    schema: 1,
-    feature: 'dependency_candidate_expansion',
-    mode: p.enabled ? 'enabled' : 'baseline',
-    status,
-    policyVersion: p.policyVersion,
-    signalType: 'later_observation',
-    k,
-    candidateCount: p.candidateMemoryIds.length,
-    pathCount: status === 'selected' ? paths.length : 0,
-    selectedCount: nominatedMemoryIds.length,
-    necessaryCount,
-    possibleCount,
-    auxiliaryPathUsed: p.enabled,
-    fallback: status === 'fallback',
-    fallbackReason: reason,
-    memoryMutationAllowed: false,
-    elapsedMs: performance.now() - started,
-  };
-  return { nominatedMemoryIds, status, reason, decisionLog };
+  const active = proposal.paths.filter(path => path.relation !== 'none');
+  const selected = [...new Set(active.map(path => path.candidateMemoryId))];
+  const validSelection = selected.length <= k && active.every(path =>
+    candidates.has(path.candidateMemoryId)
+    && !!path.affectedOldBasis.trim()
+    && !!path.evidenceQuote
+    && p.laterObservation.includes(path.evidenceQuote));
+  return validSelection
+    ? finish('selected', null, proposal.paths, selected)
+    : finish('fallback', 'invalid_selection');
 }

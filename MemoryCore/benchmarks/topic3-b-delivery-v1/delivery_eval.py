@@ -238,7 +238,7 @@ def delivery_summary(public: dict) -> dict:
             "portable_pr": {
                 "status": "pass",
                 "mode": "additive_sidecar",
-                "adapter": "../../../src/core/memory-feedback/answer-feedback-adapter.ts",
+                "adapter": "../../../src/core/memory-feedback/answer-feedback.ts",
                 "porting_notes": "../PORTING.md",
                 "remote_publication": "must be checked from PR state; this JSON validates local reviewability only",
             },
