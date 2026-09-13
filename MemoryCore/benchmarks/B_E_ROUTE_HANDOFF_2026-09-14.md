@@ -287,3 +287,12 @@ importlib_metadata 中 no-history 把缺失源转成空 Message 而行为失败�
 详见 [v7 失效复盘](topic3-be-route-v2/HELDOUT_V7_INVALID_REVIEW.md)。现在隔离运行设置
 `PYTHONDONTWRITEBYTECODE=1`，runner 也会把任何非声明路径标成 checker 失败和严重范围回归。zipp 没有
 收到模型调用，仍可用于下一新协议；hpack、PrettyTable、importlib_metadata 均不可重包装。
+
+v8 在模型调用前完成四家族、两阶段的 base／上游／独立等价实现预检，并首次开启声明输出路径强制。
+首个 hyperframe no-history 调用完成后只修改声明的 `src/hyperframe/frame.py`，但共享 `git_output` 对整个
+porcelain 输出使用 `.strip()`，删除第一行的前导状态空格；路径解析因此把 `src/...` 误成 `rc/...`，机械
+记录为越界严重回归。按冻结协议整组立即停止，正在进行的 raw-full 由操作者取消，其余 14 格未调用。
+详见 [v8 失效复盘](topic3-be-route-v2/HELDOUT_V8_INVALID_REVIEW.md)。该轮没有 memory/no-history 配对
+结论；no-history 只修标识符、漏掉值掩码仅是单臂机制观察。共享解析现保留前导状态位，并新增真实 Git
+回归测试；21 项 project-agent、16 项 agent-product、5 项 route-runner 测试通过。下一 v9 只能复用未调用
+的 jmespath、pluggy、zipp，另补一个全新家族；已调用的 hyperframe 不得重跑或包装成 v8 成绩。

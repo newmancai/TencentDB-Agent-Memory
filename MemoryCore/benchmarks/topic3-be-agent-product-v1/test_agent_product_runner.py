@@ -2,9 +2,11 @@ import unittest
 
 import json
 from pathlib import Path
+import subprocess
 from tempfile import TemporaryDirectory
 
-from agent_product_runner import command_for, parse_usage, read_manifest, run_command, summarize, task_arms, terminal_error
+from agent_product_runner import (command_for, parse_usage, read_manifest, run_command, summarize,
+                                  task_arms, terminal_error, workspace_state)
 
 
 class ProductRunnerTest(unittest.TestCase):
@@ -81,6 +83,20 @@ class ProductRunnerTest(unittest.TestCase):
         result = run_command(["definitely-not-a-real-agent-command"], Path("/tmp"), 1)
         self.assertEqual(result["status"], "launch_error")
         self.assertIsNone(result["returncode"])
+
+    def test_workspace_state_preserves_leading_porcelain_status_column(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "src"
+            source.mkdir()
+            target = source / "value.py"
+            target.write_text("old\n")
+            for command in (["git", "init", "-q"], ["git", "add", "."],
+                            ["git", "-c", "user.name=T", "-c", "user.email=t@example.invalid",
+                             "commit", "-qm", "base"]):
+                subprocess.run(command, cwd=root, check=True, capture_output=True)
+            target.write_text("new\n")
+            self.assertEqual(workspace_state(root)["changes"], [" M src/value.py"])
 
     def test_execution_failure_cannot_pass_the_protocol(self):
         rows = []

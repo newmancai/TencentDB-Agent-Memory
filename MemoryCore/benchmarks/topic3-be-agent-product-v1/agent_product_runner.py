@@ -32,7 +32,10 @@ def git_output(workspace: Path, *args: str) -> str:
     )
     if result.returncode != 0:
         raise ValueError(f"git {' '.join(args)} failed in {workspace}: {result.stderr.strip()}")
-    return result.stdout.strip()
+    # Porcelain v1 uses a leading space as part of the two-column status.  Removing
+    # all leading whitespace turns `` M path`` into ``M path`` and corrupts paths
+    # consumed by output-scope enforcement.
+    return result.stdout.rstrip("\r\n")
 
 
 def workspace_state(workspace: Path, *, include_untracked: bool = False) -> dict:
