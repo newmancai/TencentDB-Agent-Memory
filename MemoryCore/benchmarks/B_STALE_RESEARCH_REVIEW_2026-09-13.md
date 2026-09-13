@@ -101,6 +101,14 @@ a decision log including mode, signal, `k`, counts, fallback and latency. Its
 type and log both make the non-mutation boundary explicit. It is not wired into
 Gateway.
 
+The follow-up [candidate-universe test](topic3-b-stale-universe-v1/RESULTS.md)
+used 200 further rows and fixed session-level BM25. Runtime-visible new-session
+user text retrieved the annotated old session at top-8 in 96% overall and 94%
+of T2 rows, passing its gate. The normalized `M_new` query reached only 61% and
+53% respectively. Ordinary lexical retrieval is therefore adequate for a
+bounded next experiment only when raw session wording is retained; summary-only
+candidate discovery is not supported.
+
 ## Confidence and next falsifiable test
 
 This improves the research direction, not the final B verdict. Eight positive
@@ -112,7 +120,7 @@ false positive already shows that failure mode.
 The next meaningful test is end-to-end and should use a new held-out source or a
 substantially larger untouched STALE split:
 
-- obtain a bounded candidate universe through ordinary MemoryCore retrieval;
+- obtain a bounded top-8 candidate universe from raw new-session user text;
 - compare ordinary retrieval with retrieval plus candidate-only dependency
   nominations under the same answer model and information;
 - include hard same-topic negatives, not only cross-attribute negatives;

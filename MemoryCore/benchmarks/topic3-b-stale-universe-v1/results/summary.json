@@ -1,0 +1,20 @@
+{
+  "protocol": "topic3-b-stale-universe-v1",
+  "rows": 200,
+  "rankings": 400,
+  "retriever": { "name": "fixed_bm25", "k1": 1.2, "b": 0.75, "document": "user text per prior session" },
+  "metrics": {
+    "observed_session": {
+      "all": { "rows": 200, "recall": { "at_1": 0.675, "at_5": 0.905, "at_8": 0.96, "at_16": 0.98, "at_32": 1.0 }, "median_rank": 1.0, "zero_target_overlap": 0, "latency_ms": { "p50": 4.951630951836705, "p95": 5.82184576196596, "sum": 987.590370234102 } },
+      "T1": { "rows": 100, "recall": { "at_1": 0.79, "at_5": 0.92, "at_8": 0.98, "at_16": 0.99, "at_32": 1.0 }, "median_rank": 1.0, "zero_target_overlap": 0, "latency_ms": { "p50": 4.905765526928008, "p95": 5.724134505726397, "sum": 488.1514785811305 } },
+      "T2": { "rows": 100, "recall": { "at_1": 0.56, "at_5": 0.89, "at_8": 0.94, "at_16": 0.97, "at_32": 1.0 }, "median_rank": 1.0, "zero_target_overlap": 0, "latency_ms": { "p50": 4.995449562557042, "p95": 5.861815612297505, "sum": 499.4388916529715 } }
+    },
+    "normalized_m_new": {
+      "all": { "rows": 200, "recall": { "at_1": 0.23, "at_5": 0.495, "at_8": 0.61, "at_16": 0.795, "at_32": 0.985 }, "median_rank": 6.0, "zero_target_overlap": 12, "latency_ms": { "p50": 3.9043534779921174, "p95": 4.5229388400912285, "sum": 779.3008221779019 } },
+      "T1": { "rows": 100, "recall": { "at_1": 0.31, "at_5": 0.6, "at_8": 0.69, "at_16": 0.82, "at_32": 1.0 }, "median_rank": 4.0, "zero_target_overlap": 6, "latency_ms": { "p50": 3.8882530061528087, "p95": 4.460802488029003, "sum": 388.87073402293026 } },
+      "T2": { "rows": 100, "recall": { "at_1": 0.15, "at_5": 0.39, "at_8": 0.53, "at_16": 0.77, "at_32": 0.97 }, "median_rank": 8.0, "zero_target_overlap": 6, "latency_ms": { "p50": 3.9100529393181205, "p95": 4.528116760775447, "sum": 390.4300881549716 } }
+    }
+  },
+  "pass": true,
+  "scope": "Candidate-universe retrieval only; no LLM, answer probes, memory mutation, or production traffic."
+}
