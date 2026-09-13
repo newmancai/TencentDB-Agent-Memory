@@ -8,8 +8,10 @@ from __future__ import annotations
 import argparse
 import fcntl
 import json
+import math
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import time
@@ -35,6 +37,49 @@ SCHEMA = {
         },
     }}},
 }
+
+TOKEN = re.compile(r"[\u3400-\u9fff]|[a-z0-9_]+")
+
+
+def lexical_observations(observations, query, limit, budget):
+    """Select lossless raw user observations with a small, deterministic BM25 baseline."""
+    if not isinstance(limit, int) or isinstance(limit, bool) or limit < 1 or limit > 64:
+        raise ValueError('retrieval limit must be between 1 and 64')
+    if not isinstance(budget, int) or isinstance(budget, bool) or budget < 1 or budget > 64000:
+        raise ValueError('invalid context budget')
+    documents = [item for item in observations if item.get('role') == 'user']
+    query_terms = TOKEN.findall(query.lower())
+    if not documents or not query_terms:
+        return [], len(documents)
+    tokenized = [TOKEN.findall(item['text'].lower()) for item in documents]
+    average = sum(map(len, tokenized)) / len(tokenized) or 1
+    document_frequency = {term: sum(term in set(tokens) for tokens in tokenized)
+                          for term in set(query_terms)}
+    ranked = []
+    for item, terms in zip(documents, tokenized):
+        counts = {term: terms.count(term) for term in set(query_terms)}
+        score = 0.0
+        for term in query_terms:
+            frequency = counts.get(term, 0)
+            if not frequency:
+                continue
+            inverse = math.log(1 + (len(documents) - document_frequency[term] + .5)
+                               / (document_frequency[term] + .5))
+            score += inverse * frequency * 2.2 / (frequency + 1.2 * (.25 + .75 * len(terms) / average))
+        ranked.append((score, item['order'], item))
+    # A recency tie-break keeps explicit updates ahead of stale wording. Zero-score
+    # rows are still an ordinary recent-history fallback, not inferred constraints.
+    ranked.sort(key=lambda value: (value[0], value[1]), reverse=True)
+    selected = []
+    for _, _, item in ranked:
+        if len(selected) >= limit:
+            break
+        candidate = json.dumps(item, ensure_ascii=False)
+        existing = '\n'.join(json.dumps(row, ensure_ascii=False) for row in selected)
+        if len(('\n'.join(filter(None, [existing, candidate]))).encode()) <= budget:
+            selected.append(item)
+    selected.sort(key=lambda item: item['order'])
+    return selected, len(documents) - len(selected)
 
 
 def final_text(backend: str, stdout: str) -> str:
@@ -211,7 +256,7 @@ class Host:
         return {'observation': observation,
                 'accepted': self.store('ingest', observation=observation, proposals=[]), 'calls': []}
 
-    def context(self, mode, paths, action, budget):
+    def context(self, mode, paths, action, budget, query=''):
         if mode == 'off':
             return {'text': '', 'mode': 'off', 'revision': None}
         snapshot = self.store('snapshot')
@@ -220,6 +265,13 @@ class Host:
         raw = '\n'.join(json.dumps(o, ensure_ascii=False) for o in observations if o['role'] == 'user')
         if mode == 'raw':
             return {'text': raw, 'mode': 'raw', 'revision': snapshot['revision']}
+        if mode == 'raw_topk':
+            selected, omitted = lexical_observations(observations,
+                ' '.join([query, action, *paths]), getattr(self.args, 'retrieval_k', 8), budget)
+            return {'text': '\n'.join(json.dumps(o, ensure_ascii=False) for o in selected),
+                    'mode': 'raw_topk', 'revision': snapshot['revision'],
+                    'selected_orders': [o['order'] for o in selected], 'omitted': omitted,
+                    'retrieval': 'bm25_raw_user_observations'}
         if not snapshot['constraints']:
             return {'text': raw, 'mode': 'raw', 'revision': snapshot['revision'],
                     'selection_reason': 'no_compiled_constraints'}
@@ -254,7 +306,8 @@ class Host:
                   owner=self.args.owner, project=self.args.project, text=text, check=command))
         memory_error, order = None, None
         try:
-            context = self.context(self.args.mode, self.args.paths, self.args.action, self.args.max_bytes)
+            context = self.context(self.args.mode, self.args.paths, self.args.action,
+                                   self.args.max_bytes, query=text)
         except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
             memory_error = str(exc)
             context = {'text': '', 'mode': 'off_fallback', 'revision': None}
@@ -364,12 +417,17 @@ def main():
     recheck = sub.add_parser('check-run', help='rerun only the checker on current files after a completed coding stage')
     recheck.add_argument('run_id')
     recheck.add_argument('--check', help='optional replacement checker command as JSON argv')
-    for item in (run, sub.add_parser('context', help='preview exact context before invoking an agent')):
-        item.add_argument('--mode', choices=['scoped', 'raw', 'off'], default='scoped')
+    context_parser = sub.add_parser('context', help='preview exact context before invoking an agent')
+    for item in (run, context_parser):
+        item.add_argument('--mode', choices=['scoped', 'raw', 'raw_topk', 'off'], default='scoped')
         item.add_argument('--paths', nargs='+', default=['.'],
                           help='task paths; default includes all project scopes without guessing')
         item.add_argument('--action', choices=['read', 'edit', 'test', 'build', 'install'], default='edit')
         item.add_argument('--max-bytes', type=int, default=12000)
+        item.add_argument('--retrieval-k', type=int, default=8,
+                          help='raw_topk BM25 result count; exact observations remain unmodified')
+    # Context preview has no current coding request, so accept an explicit retrieval query.
+    context_parser.add_argument('--query', default='')
     sub.add_parser('history', help='inspect raw observations, versions, constraints and retractions')
     retract = sub.add_parser('retract', help='explicitly withdraw one active constraint without resurrecting an old one')
     retract.add_argument('constraint_id'); retract.add_argument('text')
@@ -380,7 +438,7 @@ def main():
         if args.command == 'history':
             result = host.store('snapshot')
         elif args.command == 'context':
-            result = host.context(args.mode, args.paths, args.action, args.max_bytes)
+            result = host.context(args.mode, args.paths, args.action, args.max_bytes, query=args.query)
         elif args.command == 'retract':
             snapshot = host.store('snapshot')
             order = snapshot['observations'][-1]['order'] + 1 if snapshot['observations'] else 1

@@ -77,8 +77,10 @@ workspace、owner、project 必须与原运行一致。每次补跑保留独立�
 此入口只支持本版以后产生这些记录的运行。`--check` 的 JSON 和参数类型在编码前校验；可执行程序
 是否存在、依赖是否齐全仍由实际运行检查决定。
 
-三种模式用于真实对照：`--mode scoped` 使用有作用范围的视图；`--mode raw` 直接读取相同原话；
-`--mode off` 完全绕过本工具的记忆读写。预算不足时 scoped 返回完整原话而不悄悄截断规则，
+四种模式用于真实对照：`--mode scoped` 使用有作用范围的视图；`--mode raw` 直接读取全部相同原话；
+`--mode raw_topk` 用当前任务、动作和路径做确定性 BM25 top-k，只返回未改写的原话；
+`--mode off` 完全绕过本工具的记忆读写。`raw_topk` 是普通检索实验基线，不是已证明优于默认原话的
+产品策略；可用 `--retrieval-k` 调整仅供显式实验。预算不足时 scoped 返回完整原话而不悄悄截断规则，
 因此 fallback 可能超过目标字节预算；读取失败时编码任务退回当前请求，回执记录原因。
 如果读取成功而后续写入失败（包括容量耗尽），继续使用已读取的上下文；`memory_error`、
 `task_persisted` 和 `receipt_persisted` 明确标记持久化状态。未写入的任务仍保存在本次运行目录，
@@ -115,3 +117,8 @@ python benchmarks/topic3-be-agent-product-v1/recovery_smoke.py --output /path/to
 
 这会预置人工规则和 128 条原生 SQLite 观察，调用一次真实 Codex，然后主动取消检查、补跑检查。
 属于故障恢复验证，不是模型学习或质量对比实验。
+
+最新路线的三臂真实失败发现协议、runner 与首轮负结果见
+[route v2 protocol](../../benchmarks/topic3-be-route-v2/PROTOCOL.md) 和
+[development results](../../benchmarks/topic3-be-route-v2/DEVELOPMENT_RESULTS.md)。首轮两个真实 issue
+在无历史、完整原话和 BM25 top-8 下均通过，因而没有区分度；不能据此宣称 B 质量收益。

@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import Mock, patch
 import sys
 
-from project_agent import Host, final_text, retain_project_instructions, command_for
+from project_agent import Host, final_text, lexical_observations, retain_project_instructions, command_for
 
 
 class ProjectAgentTest(unittest.TestCase):
@@ -75,6 +75,33 @@ class ProjectAgentTest(unittest.TestCase):
             context=host.context('scoped',['.'],'edit',12000)
             self.assertEqual(context['mode'],'raw')
             self.assertEqual(json.loads(context['text']),source)
+
+    def test_raw_topk_is_lossless_lexical_retrieval_with_recent_tie_break(self):
+        observations = [
+            {'id':'old','order':1,'role':'user','text':'The cache backend in src/cache.py is memory.'},
+            {'id':'noise','order':2,'role':'user','text':'Keep the documentation examples short.'},
+            {'id':'new','order':3,'role':'user','text':'Correction: the cache backend is redis now.'},
+            {'id':'tool','order':4,'role':'tool','text':'cache backend checker failed'},
+        ]
+        selected, omitted = lexical_observations(observations,'edit src/cache.py cache backend',2,12000)
+        self.assertEqual([item['id'] for item in selected],['old','new'])
+        self.assertEqual(omitted,1)
+        with TemporaryDirectory() as directory:
+            host=self.host(Path(directory),'raw_topk');host.args.retrieval_k=2
+            host.store=Mock(return_value={'observations':observations,'constraints':[],'revision':4})
+            context=host.context('raw_topk',['src/cache.py'],'edit',12000,query='Change cache backend')
+            self.assertEqual([json.loads(line)['id'] for line in context['text'].splitlines()],['old','new'])
+            self.assertEqual(context['selected_orders'],[1,3])
+            self.assertEqual(context['retrieval'],'bm25_raw_user_observations')
+
+    def test_raw_topk_tokenizes_chinese_queries(self):
+        observations = [
+            {'id':'noise','order':1,'role':'user','text':'文档示例保持简短。'},
+            {'id':'retry','order':2,'role':'user','text':'纠正：客户端重试次数改为零。'},
+        ]
+        selected, omitted = lexical_observations(observations,'修改客户端重试逻辑',1,12000)
+        self.assertEqual([item['id'] for item in selected],['retry'])
+        self.assertEqual(omitted,1)
 
     def test_partial_compilation_does_not_drop_other_user_requirements(self):
         with TemporaryDirectory() as directory:

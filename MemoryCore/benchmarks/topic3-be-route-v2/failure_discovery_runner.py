@@ -1,0 +1,204 @@
+"""Compare no history, full raw history, and raw BM25 in persistent repository sequences."""
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+import fcntl
+import json
+import math
+from pathlib import Path
+import re
+import sys
+import time
+
+HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parents[2] / 'scripts/project-agent'))
+sys.path.insert(0, str(HERE.parents[1] / 'topic3-be-agent-product-v1'))
+from agent_product_runner import atomic_write, workspace_state
+from project_agent import Host
+
+ARMS = ('no_history', 'raw_full', 'raw_top8')
+MODES = {'no_history': 'off', 'raw_full': 'raw', 'raw_top8': 'raw_topk'}
+TASK_ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$')
+
+
+def quantile(values, q):
+    if not values:
+        return None
+    values = sorted(values); position = (len(values) - 1) * q
+    low, high = int(position), math.ceil(position)
+    return values[low] if low == high else values[low] + (values[high] - values[low]) * (position - low)
+
+
+def validate(manifest):
+    if manifest.get('schema') != 1 or manifest.get('evaluation_mode') not in {'development', 'heldout'}:
+        raise ValueError('expected schema=1 and development or heldout evaluation_mode')
+    if not isinstance(manifest.get('clusters'), list) or not manifest['clusters']:
+        raise ValueError('clusters must be nonempty')
+    clusters, tasks, workspaces = set(), set(), set()
+    for cluster in manifest['clusters']:
+        if not TASK_ID.fullmatch(cluster.get('id', '')) or cluster['id'] in clusters:
+            raise ValueError('invalid or duplicate cluster id')
+        clusters.add(cluster['id'])
+        source = cluster.get('source')
+        if (not isinstance(source, dict) or source.get('kind') not in {'github_issue', 'github_pr', 'repository_failure'}
+                or not isinstance(source.get('url'), str) or not source['url'].startswith('https://')):
+            raise ValueError('each cluster needs a reviewable real source')
+        if set(cluster.get('workspaces', {})) != set(ARMS):
+            raise ValueError('each cluster needs three independent workspaces')
+        revisions = set()
+        for arm in ARMS:
+            path = Path(cluster['workspaces'][arm]).resolve()
+            if path in workspaces or not (path / '.agent-benchmark-worktree').is_file():
+                raise ValueError('unmarked or shared workspace')
+            workspaces.add(path)
+            state = workspace_state(path, include_untracked=True)
+            if state['changes']:
+                raise ValueError('sequence must start from a clean marked workspace')
+            revisions.add(state['base_commit'])
+        if revisions != {cluster.get('base_commit')}:
+            raise ValueError('all arms must use the declared base commit')
+        if not isinstance(cluster.get('steps'), list) or len(cluster['steps']) < 2:
+            raise ValueError('a sequence needs at least two steps')
+        kinds = set()
+        for step in cluster['steps']:
+            if not TASK_ID.fullmatch(step.get('id', '')) or step['id'] in tasks:
+                raise ValueError('invalid or duplicate task id')
+            tasks.add(step['id']); kinds.add(step.get('kind'))
+            if (step.get('kind') not in {'necessary_update', 'same_topic_control'}
+                    or not isinstance(step.get('prompt'), str) or not step['prompt'].strip()
+                    or not isinstance(step.get('paths'), list) or not step['paths']
+                    or not isinstance(step.get('checker'), list) or not step['checker']
+                    or not all(isinstance(value, str) and value for value in step['checker'])
+                    or not all(isinstance(value, str) and value.strip() for value in step.get('history', []))):
+                raise ValueError('invalid step')
+        if kinds != {'necessary_update', 'same_topic_control'}:
+            raise ValueError('each cluster needs an update and a same-topic control')
+    return manifest
+
+
+def numeric_usage(rows):
+    totals = Counter(); missing = 0
+    for row in rows:
+        usage = row.get('usage')
+        if not usage:
+            missing += 1; continue
+        for key, value in usage.items():
+            if isinstance(value, (int, float)) and not isinstance(value, bool):
+                totals[key] += value
+    return dict(totals) or None, missing
+
+
+def summarize(rows, manifest):
+    by_key = {(row['task_id'], row['arm']): row for row in rows}
+    task_ids = [step['id'] for cluster in manifest['clusters'] for step in cluster['steps']]
+    arms = {}
+    for arm in ARMS:
+        selected = [row for row in rows if row['arm'] == arm]
+        usage, missing = numeric_usage(selected)
+        walls = [row['total_wall_seconds'] for row in selected]
+        arms[arm] = {'tasks': len(selected), 'checker_pass': sum(row['checker_pass'] for row in selected),
+                     'severe_regressions': sum(row['severe_regression'] for row in selected),
+                     'execution_failures': sum(row['status'] != 'completed' or row['checker_status'] != 'completed'
+                                               for row in selected),
+                     'usage': usage, 'usage_missing_tasks': missing,
+                     'total_wall_seconds': {'sum': sum(walls), 'p50': quantile(walls, .5),
+                                            'p95': quantile(walls, .95)}}
+    comparisons = {}
+    for candidate, baseline in [('raw_full', 'no_history'), ('raw_top8', 'no_history'),
+                                ('raw_top8', 'raw_full')]:
+        counts = Counter()
+        for cluster in manifest['clusters']:
+            for step in cluster['steps']:
+                left, right = by_key.get((step['id'], candidate)), by_key.get((step['id'], baseline))
+                if not left or not right:
+                    continue
+                outcome = ('win' if left['checker_pass'] and not right['checker_pass'] else
+                           'loss' if right['checker_pass'] and not left['checker_pass'] else 'tie')
+                counts[outcome] += 1; counts[f"{step['kind']}_{outcome}"] += 1
+        comparisons[f'{candidate}_vs_{baseline}'] = dict(counts)
+    expected = len(ARMS) * sum(len(cluster['steps']) for cluster in manifest['clusters'])
+    return {'schema': 1, 'protocol': 'topic3-be-route-v2-failure-discovery',
+            'evaluation_mode': manifest['evaluation_mode'], 'task_source': manifest.get('task_source'),
+            'complete': len(rows) == expected and all(value['execution_failures'] == 0 for value in arms.values()),
+            'arms': arms, 'paired': comparisons,
+            'current_system_failures': [row['task_id'] for row in rows
+                                        if row['arm'] == 'raw_full' and not row['checker_pass']],
+            'memory_dependent_wins': [task for task in task_ids
+                                      if by_key.get((task, 'raw_full'), {}).get('checker_pass') is True
+                                      and by_key.get((task, 'no_history'), {}).get('checker_pass') is False],
+            'raw_full_regressions_vs_no_history': [task for task in task_ids
+                                                   if by_key.get((task, 'no_history'), {}).get('checker_pass') is True
+                                                   and by_key.get((task, 'raw_full'), {}).get('checker_pass') is False],
+            'retrieval_misses_vs_raw_full': [task for task in task_ids
+                                             if by_key.get((task, 'raw_full'), {}).get('checker_pass') is True
+                                             and by_key.get((task, 'raw_top8'), {}).get('checker_pass') is False],
+            'all_arm_passes_no_discrimination': [task for task in task_ids
+                                                 if all(by_key.get((task, arm), {}).get('checker_pass') is True
+                                                        for arm in ARMS)],
+            'same_topic_regressions': [row['task_id'] for row in rows
+                                       if row['arm'] == 'raw_full' and row['kind'] == 'same_topic_control'
+                                       and not row['checker_pass']],
+            'decision': 'diagnosis_only_no_candidate_fix_tested'}
+
+
+def run(manifest, output):
+    validate(manifest); output.mkdir(parents=True, exist_ok=False)
+    atomic_write(output / 'manifest.json', json.dumps(manifest, indent=2) + '\n')
+    rows = []
+    for cluster_index, cluster in enumerate(manifest['clusters']):
+        for step_index, step in enumerate(cluster['steps']):
+            offset = (cluster_index + step_index) % len(ARMS)
+            arms = ARMS[offset:] + ARMS[:offset]
+            for arm in arms:
+                started = time.perf_counter(); workspace = Path(cluster['workspaces'][arm]).resolve()
+                evidence = output / cluster['id'] / arm / step['id']; evidence.mkdir(parents=True)
+                state = output / 'states' / cluster['id'] / arm
+                args = argparse.Namespace(state=state, workspace=workspace, project=cluster['id'], owner=arm,
+                    backend=manifest.get('backend', 'codex'), model=manifest.get('model'),
+                    effort=manifest.get('effort', 'medium'), timeout=manifest.get('timeout_seconds', 240),
+                    instruction_mode=manifest.get('instruction_mode', 'project'), mode=MODES[arm],
+                    paths=step['paths'], action='edit', max_bytes=manifest.get('max_context_bytes', 12000),
+                    retrieval_k=8, check=json.dumps(step['checker']))
+                host = Host(args); history = []
+                with (state / 'writer.lock').open('a') as handle:
+                    fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    if arm != 'no_history':
+                        for index, text in enumerate(step.get('history', [])):
+                            history.append(host.record(text, evidence / f'history-{index}'))
+                    before = workspace_state(workspace, include_untracked=True)
+                    result = host.run(step['prompt'], evidence)
+                call = result['calls'][-1] if result['calls'] else {}
+                checker_path = evidence / 'checker.json'
+                checker = json.loads(checker_path.read_text()) if checker_path.exists() else {}
+                context = json.loads((evidence / 'context.json').read_text())
+                row = {'task_id': step['id'], 'kind': step['kind'], 'cluster_id': cluster['id'], 'arm': arm,
+                       'base_commit': before['base_commit'], 'changes_before': before['changes'],
+                       'changes_after': workspace_state(workspace, include_untracked=True)['changes'],
+                       'status': call.get('status', 'host_error'), 'agent_returncode': call.get('returncode'),
+                       'checker_status': checker.get('status', 'not_run'),
+                       'checker_returncode': checker.get('returncode'),
+                       'checker_pass': result['checker_pass'] is True and not result['error'],
+                       'severe_regression': checker.get('returncode') == 2,
+                       'usage': call.get('usage'), 'agent_wall_seconds': call.get('wall_seconds', 0),
+                       'checker_wall_seconds': checker.get('wall_seconds', 0),
+                       'total_wall_seconds': time.perf_counter() - started,
+                       'context_mode': result['context_mode'], 'context_bytes': result['context_bytes'],
+                       'selected_orders': context.get('selected_orders'), 'memory_error': result['memory_error'],
+                       'history_count': len(history), 'evidence': str(evidence)}
+                rows.append(row)
+                atomic_write(output / 'receipts.jsonl', ''.join(json.dumps(item) + '\n' for item in rows))
+                atomic_write(output / 'summary.json', json.dumps(summarize(rows, manifest), indent=2) + '\n')
+                print(json.dumps({key: row[key] for key in
+                                  ('task_id', 'arm', 'checker_pass', 'severe_regression', 'context_mode')}), flush=True)
+                if call.get('status') == 'cancelled':
+                    raise KeyboardInterrupt
+    return summarize(rows, manifest)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--manifest', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    arguments = parser.parse_args()
+    run(json.loads(arguments.manifest.read_text()), arguments.output.resolve())
