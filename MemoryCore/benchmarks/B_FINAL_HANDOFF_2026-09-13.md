@@ -82,7 +82,7 @@ CUPID固定HF revision `f6e5fdae9b31f2b400d6ceb281a6a6760cc00309`，源码`a8560
 
 重建已用集合：smoke_development_ids对应group，events/audit-inputs.jsonl，以及views、scope-audit、learning、fragments、capability、strong-baseline、rule-transfer各selection.json。LoCoMo/LongMemEval历史已暴露；不得作为未见新来源包装。完整数据与含原文状态在`.local-evidence/`，模型不入Git。
 
-独立交付树：`/home/edarace/Tencent-Memory-2/topic3-be-delivery`，分支`delivery/topic3-be-v1`。PR：[newmancai/TencentDB-Agent-Memory#2](https://github.com/newmancai/TencentDB-Agent-Memory/pull/2)，OPEN/draft，目标`feat/anchor-memory`。文档编写前远端75b870c，本地209db44；本次收尾同步后的精确head以PR和`.local-evidence/topic3-b-pr2-published-current.json`为准。
+独立交付树：`/home/edarace/Tencent-Memory-2/topic3-be-delivery`，分支`delivery/topic3-be-v1`。PR：[newmancai/TencentDB-Agent-Memory#2](https://github.com/newmancai/TencentDB-Agent-Memory/pull/2)，OPEN/draft，目标`feat/anchor-memory`。五项验收包、最新sidecar与负结果已同步；精确head以PR实时元数据为准。
 
 保留未追踪`topic3-be-v9/{.gitignore,PROTOCOL.md,native.ts,prepare.py,rewrite.py}`及`MemoryCore/node_modules`链接，未清理/纳入本次提交。原项目树与PR1历史保留。
 

@@ -12,7 +12,7 @@ or manufacture a positive result from a negative public comparison.
 | Public long-dialogue runner + structured baseline result | [protocol](PUBLIC_LONG_DIALOGUE_PROTOCOL.md), `delivery_eval.py`, `results/public-long-dialogue.json` | pass for delivery; feedback gain fails 3W/4L/5T |
 | Selected implementation + comparison | `src/core/memory-feedback/`, instrumented loop 4W/0L/0T, natural extractor 2/2 + abstain 12/12 | pass as bounded component method; not commercial B |
 | Off switch + forced-failure fallback | `runtime_contract_harness.ts`, `results/runtime-contract.json` | pass |
-| Reviewable PR + adapter/porting notes | additive adapter and [PORTING.md](PORTING.md); existing draft PR #2 remains the publication vehicle | local patch ready; publication state must be checked separately |
+| Reviewable PR + adapter/porting notes | additive adapter and [PORTING.md](PORTING.md); draft PR #2 is the publication vehicle | published to OPEN/draft PR; not merged or production-enabled |
 
 ## What “direct judgment” and “high confidence” mean here
 
