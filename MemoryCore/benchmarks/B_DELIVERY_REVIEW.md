@@ -31,6 +31,7 @@
 
 ## 最新补充研究
 
+- [B+E编码产品就绪度](B_E_PRODUCT_READINESS_2026-09-13.md)：初版研究交付满足，稳定B+E质量收益与Codex/Claude Code产品对标未满足。新增四臂顺序编码任务runner，主指标为各产品内部MemoryCore相对clean增量；尚未运行，不报产品成绩。
 - [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md)：直接最终绑定13/16失败，两阶段桥接13/16失败；全新留出集的candidate-only依赖扩展15/16通过（正例8/8、T2 4/4、负例7/8）。新增接口只提名待核验记忆，关闭/失败为空增量且永不写记忆；小样本方法验证不改变公开长对话负收益或商用结论。
 - [STALE候选池检索](topic3-b-stale-universe-v1/RESULTS.md)：另200行固定BM25，真实新会话用户文本找旧会话recall@8为96%、T2 94%；归一化M_new仅61%/53%。支持下一步在raw session top-8上验证，不等于MemoryCore生产检索或答案收益。
 

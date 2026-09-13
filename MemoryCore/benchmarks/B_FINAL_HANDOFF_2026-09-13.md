@@ -4,6 +4,8 @@
 
 > **初版交付后的恢复与最新研究：** 用户在五项初版交付完成后明确要求继续复盘并优化研究问题。新路线没有恢复30B、本地旧模型、旧题prompt追分或production，而是用公开STALE验证跨交互时态依赖。直接最终绑定13/16失败；提议+裁决仍13/16失败且成本约翻倍；全新留出集的candidate-only提议15/16通过（正例8/8、T2 4/4、负例7/8）。另200行候选池审计显示，真实新会话用户文本BM25找旧会话recall@8为96%、T2 94%，归一化M_new仅61%/53%。因此新增接口只提名待检索/核验ID，明确无写句柄、不接Gateway；下一步可在raw-session top-8上做端到端对照。完整边界见 [B_STALE_RESEARCH_REVIEW_2026-09-13.md](B_STALE_RESEARCH_REVIEW_2026-09-13.md)。这些组件结果不把原公开长对话负收益改写为正，也不构成商用完成。
 
+> **编码代理产品口径：** 用户进一步明确最终目标是对标Codex和Claude Code。当前只满足初版B+E研究交付，不满足编码代理产品完成。新增 [B_E_PRODUCT_READINESS_2026-09-13.md](B_E_PRODUCT_READINESS_2026-09-13.md) 及 `topic3-be-agent-product-v1` 四臂runner：Codex/Claude各自clean与MemoryCore对照，独立工作树、隐藏checker、usage/时延/严重回归均结构化记录。协议和汇总测试已完成，至少12个新顺序编码任务尚未构造与实跑，不得报告产品对标成绩。
+
 > **停止后的有界更新：** 用户随后明确授权继续一次、但不再作为长期任务。已完成一个新开发persona/三题/四臂的12次独立Codex诊断并再次停止；结果见 [CODEX_BOUNDED_RESULTS.md](topic3-b-contextual-feedback-v1/CODEX_BOUNDED_RESULTS.md)。`rules_feedback`对frozen为1胜1负1平、对无纠正规则2胜1负、对直接反馈1胜2负，没有稳定净收益。该授权不恢复30B、本地模型、持续研究或旧历史“下一步”。
 
 > **停止后的研究复盘更新：** 用户又明确要求对B既有工作、直接相关开源与相邻领域做一次有终点的调研复盘。已形成 [B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md](B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md)：结论是把B收缩为带决策轨迹、对象/范围/权威分离、双时态状态和可估计对照的记忆动作学习问题；首个判伪实验应先测oracle attribution，而不是恢复旧30B或继续调画像/规则。本次仅调研与设计，未启动新模型、下载或评测，完成后再次停止。
