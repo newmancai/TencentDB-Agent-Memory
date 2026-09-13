@@ -181,6 +181,30 @@ class ProjectAgentTest(unittest.TestCase):
                 with self.assertRaises(ValueError):host.check_run('../original',root)
                 execute.assert_not_called()
 
+    def test_explicit_incomplete_recovery_checks_terminal_partial_files(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);host=self.host(root,'off')
+            original=host.state/'runs'/'original';(original/'agent').mkdir(parents=True)
+            host.args.check=json.dumps([sys.executable,'-c',
+                'from pathlib import Path; assert Path("answer").read_text()=="partial"'])
+            (original/'task.json').write_text(json.dumps({
+                'schema':1,'workspace':str(host.workspace),'owner':host.args.owner,
+                'project':host.args.project,'check':json.loads(host.args.check)}))
+            (original/'agent'/'receipt.json').write_text(json.dumps({'status':'timeout'}))
+            (root/'answer').write_text('partial')
+            host.args.allow_incomplete=True
+            evidence=host.state/'runs'/'retry';evidence.mkdir()
+            result=host.check_run('original',evidence)
+            self.assertTrue(result['checker_pass'])
+            self.assertFalse(result['completion_confirmed'])
+            self.assertEqual(result['source_agent_status'],'timeout')
+            self.assertIn('not automatically accepted',result['acceptance'])
+
+            # A fabricated/nonterminal status cannot use the opt-in path.
+            (original/'agent'/'receipt.json').write_text(json.dumps({'status':'completed'}))
+            with self.assertRaisesRegex(ValueError,'terminal timeout'):
+                host.check_run('original',root)
+
     def test_coding_checkpoint_survives_host_interruption_before_check(self):
         with TemporaryDirectory() as directory:
             root=Path(directory);host=self.host(root,'off')

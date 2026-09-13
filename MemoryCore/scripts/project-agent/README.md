@@ -77,6 +77,11 @@ workspace、owner、project 必须与原运行一致。每次补跑保留独立�
 此入口只支持本版以后产生这些记录的运行。`--check` 的 JSON 和参数类型在编码前校验；可执行程序
 是否存在、依赖是否齐全仍由实际运行检查决定。
 
+若原代理已有 `timeout`、`cancelled` 或 `agent_error` 终态回执但没有完成记录，可在人工审阅 partial diff
+后显式运行 `check-run RUN_ID --allow-incomplete`。它只对当前静止文件执行 checker，记录
+`completion_confirmed=false` 和原 agent 状态；通过也只是检查证据，不会自动接受修改、伪造模型完成或
+写入项目记忆。没有终态回执、仍在运行或来源不匹配时继续拒绝。
+
 四种模式用于真实对照：`--mode scoped` 使用有作用范围的视图；`--mode raw` 直接读取全部相同原话；
 `--mode raw_topk` 用当前任务、动作和路径做确定性 BM25 top-k，只返回未改写的原话；
 `--mode off` 完全绕过本工具的记忆读写。`raw_topk` 是普通检索实验基线，不是已证明优于默认原话的

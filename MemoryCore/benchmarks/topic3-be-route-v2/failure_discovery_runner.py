@@ -45,6 +45,8 @@ def validate(manifest):
         raise ValueError('expected schema=1 and development or heldout evaluation_mode')
     if not isinstance(manifest.get('clusters'), list) or not manifest['clusters']:
         raise ValueError('clusters must be nonempty')
+    if not isinstance(manifest.get('enforce_change_paths', False), bool):
+        raise ValueError('enforce_change_paths must be boolean')
     arms = arms_for(manifest)
     clusters, tasks, workspaces = set(), set(), set()
     for cluster in manifest['clusters']:
@@ -117,6 +119,18 @@ def quality_comparable(row):
                 and row.get('checker_status') == 'completed'
                 and row.get('filesystem_isolated') is True
                 and not row.get('visibility_violations'))
+
+
+def unexpected_change_paths(changes, allowed):
+    """Return porcelain entries outside exact files or declared directory prefixes."""
+    violations = []
+    for entry in changes:
+        path = entry[3:] if len(entry) >= 4 else entry
+        candidates = path.split(' -> ') if ' -> ' in path else [path]
+        if any(not any(candidate == root.rstrip('/') or candidate.startswith(root.rstrip('/') + '/')
+                       for root in allowed) for candidate in candidates):
+            violations.append(entry)
+    return violations
 
 
 def summarize(rows, manifest):
@@ -238,18 +252,21 @@ def run(manifest, output):
                     result = host.run(step['prompt'], evidence)
                 call = result['calls'][-1] if result['calls'] else {}
                 violations = visibility_violations(evidence, workspace, manifest, output)
+                after = workspace_state(workspace, include_untracked=True)
+                unexpected = (unexpected_change_paths(after['changes'], step['paths'])
+                              if manifest.get('enforce_change_paths', False) else [])
                 checker_path = evidence / 'checker.json'
                 checker = json.loads(checker_path.read_text()) if checker_path.exists() else {}
                 context = json.loads((evidence / 'context.json').read_text())
                 row = {'task_id': step['id'], 'kind': step['kind'], 'cluster_id': cluster['id'], 'arm': arm,
                        'base_commit': before['base_commit'], 'changes_before': before['changes'],
-                       'changes_after': workspace_state(workspace, include_untracked=True)['changes'],
+                       'changes_after': after['changes'], 'unexpected_changes': unexpected,
                        'status': call.get('status', 'host_error'), 'agent_returncode': call.get('returncode'),
                        'checker_status': checker.get('status', 'not_run'),
                        'checker_returncode': checker.get('returncode'),
-                       'checker_pass': (result['checker_pass'] is True and not result['error']
+                       'checker_pass': (result['checker_pass'] is True and not result['error'] and not unexpected
                                         and call.get('filesystem_isolated') is True and not violations),
-                       'severe_regression': checker.get('returncode') == 2,
+                       'severe_regression': checker.get('returncode') == 2 or bool(unexpected),
                        'usage': call.get('usage'), 'agent_wall_seconds': call.get('wall_seconds', 0),
                        'checker_wall_seconds': checker.get('wall_seconds', 0),
                        'total_wall_seconds': time.perf_counter() - started,

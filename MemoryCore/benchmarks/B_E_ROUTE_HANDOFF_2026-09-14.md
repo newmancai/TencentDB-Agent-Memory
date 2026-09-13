@@ -279,3 +279,11 @@ v6 随后完成冻结和 base／上游／等价实现预检，但首个 platform
 这三家并补一个新小家族，明确只改指定源码、不加测试／文档、至多一次 focused smoke 后停止；不重跑
 platformdirs 或放宽既有结果。现有 `check-run` 无法检查未完成调用，已获得真实 E 缺口证据，但不得自动
 接受 partial edit。
+
+v7 进一步把任务限制为单一源码文件。hpack、PrettyTable 共八格完成且两个家族首任务全平；
+importlib_metadata 中 no-history 把缺失源转成空 Message 而行为失败，full-raw 依据历史返回 `None` 并通过
+行为检查，但同时留下两个 `__pycache__` 目录，违反冻结的单文件／无生成物合同。runner 当时只记录
+`changes_after`、未把越界路径纳入 pass，因此整组按 checker 缺陷停止，旧汇总的一个 memory win 不可引用；
+详见 [v7 失效复盘](topic3-be-route-v2/HELDOUT_V7_INVALID_REVIEW.md)。现在隔离运行设置
+`PYTHONDONTWRITEBYTECODE=1`，runner 也会把任何非声明路径标成 checker 失败和严重范围回归。zipp 没有
+收到模型调用，仍可用于下一新协议；hpack、PrettyTable、importlib_metadata 均不可重包装。

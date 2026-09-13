@@ -199,6 +199,8 @@ class Host:
                 raise ValueError('filesystem-isolated extraction is not supported')
             command = isolated_filesystem_command(command, self.workspace, Path(isolation_root))
         environment = os.environ.copy()
+        if isolation_root:
+            environment['PYTHONDONTWRITEBYTECODE'] = '1'
         if controlled:
             environment.update(CLAUDE_CODE_DISABLE_AUTO_MEMORY='1', CLAUDE_CODE_DISABLE_CLAUDE_MDS='1')
         result = run_command(command, self.workspace, self.args.timeout,
@@ -371,7 +373,7 @@ class Host:
         return checker
 
     def check_run(self, run_id, evidence):
-        """Recheck current files after a completed coding stage, without calling an agent."""
+        """Recheck current files without calling an agent; incomplete runs require explicit opt-in."""
         started = time.perf_counter()
         if not run_id or Path(run_id).name != run_id or run_id in {'.', '..'}:
             raise ValueError('check-run requires a run ID from this state directory')
@@ -383,14 +385,25 @@ class Host:
                 or task.get('owner') != self.args.owner or task.get('project') != self.args.project):
             raise ValueError('original run workspace, owner and project must match')
         checkpoint = original / 'agent-result.json'
-        if not checkpoint.exists() or json.loads(checkpoint.read_text()).get('status') != 'completed':
-            raise ValueError('coding completion is unconfirmed; inspect the original agent logs and edits')
+        completion_confirmed = (checkpoint.exists()
+                                and json.loads(checkpoint.read_text()).get('status') == 'completed')
+        agent_status = 'completed'
+        if not completion_confirmed:
+            receipt_path = original / 'agent' / 'receipt.json'
+            if not getattr(self.args, 'allow_incomplete', False) or not receipt_path.is_file():
+                raise ValueError('coding completion is unconfirmed; inspect the original agent logs and edits')
+            agent_status = json.loads(receipt_path.read_text()).get('status')
+            if agent_status not in {'timeout', 'cancelled', 'agent_error'}:
+                raise ValueError('incomplete check requires a terminal timeout, cancelled, or agent_error receipt')
         if self.args.check is None and task.get('check') is None:
             raise ValueError('original run has no checker; provide --check')
         command = checker_command(self.args.check if self.args.check is not None
                                   else json.dumps(task.get('check')))
+        target = ('current workspace after confirmed coding completion' if completion_confirmed else
+                  f'current partial workspace after terminal agent status {agent_status}')
         save_json(evidence / 'recheck.json', dict(original_run=run_id, workspace=str(self.workspace),
-                  check=command, target='current workspace; may include edits since the original run'))
+                  check=command, target=target, completion_confirmed=completion_confirmed,
+                  source_agent_status=agent_status))
         checker = self.check(command, evidence)
         try:
             changes = capture_changes(self.workspace, evidence, self.state)
@@ -399,7 +412,9 @@ class Host:
         return dict(run_id=evidence.name, original_run=run_id, calls=[],
                     checker_pass=checker['status'] == 'completed' and checker['returncode'] == 0,
                     checker_status=checker['status'], wall_seconds=time.perf_counter()-started,
-                    changes=changes, target='current workspace')
+                    changes=changes, target=target, completion_confirmed=completion_confirmed,
+                    source_agent_status=agent_status,
+                    acceptance='checker evidence only; partial edits are not automatically accepted')
 
 
 def main():
@@ -421,9 +436,11 @@ def main():
     sub.add_parser('record', help='preserve a user observation verbatim without a model call').add_argument('text')
     run = sub.add_parser('run', help='perform a coding task with prior persistent project context')
     run.add_argument('text'); run.add_argument('--check', help='checker command as JSON argv')
-    recheck = sub.add_parser('check-run', help='rerun only the checker on current files after a completed coding stage')
+    recheck = sub.add_parser('check-run', help='rerun only the checker on current completed or explicit partial files')
     recheck.add_argument('run_id')
     recheck.add_argument('--check', help='optional replacement checker command as JSON argv')
+    recheck.add_argument('--allow-incomplete', action='store_true',
+                         help='explicitly check current partial files after a terminal timeout/cancel/error receipt')
     context_parser = sub.add_parser('context', help='preview exact context before invoking an agent')
     for item in (run, context_parser):
         item.add_argument('--mode', choices=['scoped', 'raw', 'raw_topk', 'off'], default='scoped')

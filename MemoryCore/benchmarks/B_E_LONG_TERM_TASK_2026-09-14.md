@@ -33,6 +33,9 @@
 6. **v6 小任务替代矩阵：首格即因执行失效停止。** platformdirs no-history 在正确源码行为已经形成后
    继续扩测试／文档，300 秒超时且正式 checker 未运行；配对 full-raw 在确认整组失效后由操作者取消。
    事后冻结 checker 两臂都过，只用于定位 E 的完成／恢复缺口，不追认质量成绩。其余三家族没有模型调用。
+7. **v7 单源码矩阵：输出范围 checker 缺口导致失效。** hpack、PrettyTable 八格完成且两家族全平；
+   importlib_metadata 出现历史臂行为通过、无历史返回空 Message 的诊断分叉，但历史臂同时留下两个
+   `__pycache__` 目录，违反冻结的单文件合同。旧 runner 未把该范围违规纳入 pass，整组停止且不计复制。
 
 证据和限制见 [v4 结果](topic3-be-route-v2/HELDOUT_V4_RESULTS.md)。这支持继续复现完整原话路线，
 不支持“已普遍有效”“优于开源产品”或“已可默认推广”。
@@ -91,8 +94,9 @@ prompt 追分、production、Gateway 自动启用或操作他人 GPU。
 - 一个明确决定：继续复现、进入自然验证、采用最小修复、保持实验、关闭候选或改变路线。
 - 更新本任务和总交接，不把失效矩阵、累积控制或开发题包装成独立产品成绩。
 
-当前进度：v5 结果与失效边界见 [v5 结果](topic3-be-route-v2/HELDOUT_V5_RESULTS.md)，v6 精确停止状态见
-[v6 失效复盘](topic3-be-route-v2/HELDOUT_V6_INVALID_REVIEW.md)。完整原话仍只有 v4 是完整有效矩阵；
-v5／v6 都不能报告复制成功或成本优势。精确下一步是复用 v6 中没有模型调用的 hpack、PrettyTable、
-importlib_metadata，再加一个全新小家族，冻结限制为只改指定源码、不加测试／文档、至多一次 focused smoke
-即停止的 v7；不重跑 platformdirs、不事后提高时限，也不进入 Phase B。
+当前进度：v5 结果见 [v5 结果](topic3-be-route-v2/HELDOUT_V5_RESULTS.md)，v6／v7 精确停止状态见
+[v6 失效复盘](topic3-be-route-v2/HELDOUT_V6_INVALID_REVIEW.md)与
+[v7 失效复盘](topic3-be-route-v2/HELDOUT_V7_INVALID_REVIEW.md)。完整原话仍只有 v4 是完整有效矩阵；
+后三轮都不能报告复制成功或成本优势。runner 现已强制允许变更路径，隔离执行也禁写 Python bytecode；
+五项 route-runner 与 21 项 project-agent 测试通过。精确下一步只可复用 v7 未调用的 zipp，并补三个全新
+单文件家族冻结干净替代矩阵；不得重跑已暴露项目、引用 v7 的机械 memory win 或进入 Phase B。

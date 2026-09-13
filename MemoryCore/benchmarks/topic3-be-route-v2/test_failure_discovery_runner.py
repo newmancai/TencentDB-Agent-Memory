@@ -8,7 +8,8 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
-from failure_discovery_runner import ARMS, run, summarize, visibility_violations
+from failure_discovery_runner import (ARMS, run, summarize, unexpected_change_paths,
+                                      visibility_violations)
 
 
 class FakeHost:
@@ -62,6 +63,12 @@ def fixture_manifest(root, source, arms=ARMS):
 
 
 class FailureDiscoveryRunnerTest(unittest.TestCase):
+    def test_unexpected_change_paths_accepts_exact_file_and_directory(self):
+        changes = [' M src/pkg/core.py', '?? src/pkg/generated.py', ' M tests/test_core.py']
+        self.assertEqual(unexpected_change_paths(changes, ['src/pkg']), [' M tests/test_core.py'])
+        self.assertEqual(unexpected_change_paths(changes, ['src/pkg/core.py']),
+                         ['?? src/pkg/generated.py', ' M tests/test_core.py'])
+
     def test_execution_failure_is_indeterminate_not_a_memory_win(self):
         manifest = {'schema': 1, 'evaluation_mode': 'heldout', 'task_source': 'test',
                     'arms': ['no_history', 'raw_full'], 'clusters': [{
