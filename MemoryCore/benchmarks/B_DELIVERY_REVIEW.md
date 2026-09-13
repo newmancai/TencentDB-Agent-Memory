@@ -1,5 +1,7 @@
 # Topic3 B 研究交付审阅入口
 
+**整个长期任务已按用户要求停止执行。最高优先级：[最终复盘与交接](B_FINAL_HANDOFF_2026-09-13.md)。下文“goal active/下一步/下载中”均为历史记录，不构成恢复授权。**
+
 用户最新校正：[停止本地扩展，改用Codex强对照](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md)。30B下载与未完成规则迁移已停止，保留部分成本，不报质量结论；下方历史“下载中”状态已失效。
 
 [CUPID可计量强基线准备与半程实跑](topic3-b-contextual-feedback-v1/STRONG_BASELINE_RESULTS.md)：新2开发persona/6题排除24；4B六调用13561输入771输出21.967s，无超限/错误，质量未审。固定30B-A3B revision0d7cf239下载中，尚未运行。GPU分片代码与gold隔离独立审查通过，30B部署未验证。模型升级只诊断普通能力，不算B学习；下一两臂齐全匿名审，再冻结同基座检验同反馈更新增益。无E/生产，goal active。
