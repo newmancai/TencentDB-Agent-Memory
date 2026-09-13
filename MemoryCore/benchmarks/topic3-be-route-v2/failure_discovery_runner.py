@@ -155,6 +155,18 @@ def summarize(rows, manifest):
             'decision': 'diagnosis_only_no_candidate_fix_tested'}
 
 
+def visibility_violations(evidence, workspace, manifest, output):
+    event_path = evidence / 'agent' / 'stdout.jsonl'
+    if not event_path.is_file():
+        return ['missing agent event log']
+    text = event_path.read_text(errors='replace')
+    forbidden = {str(output.resolve()), str(HERE.parents[3])}
+    for cluster in manifest['clusters']:
+        forbidden.update(str(Path(value).resolve()) for value in cluster['workspaces'].values()
+                         if Path(value).resolve() != workspace)
+    return sorted(value for value in forbidden if value in text)
+
+
 def run(manifest, output):
     validate(manifest); output.mkdir(parents=True, exist_ok=False)
     atomic_write(output / 'manifest.json', json.dumps(manifest, indent=2) + '\n')
@@ -172,7 +184,8 @@ def run(manifest, output):
                     effort=manifest.get('effort', 'medium'), timeout=manifest.get('timeout_seconds', 240),
                     instruction_mode=manifest.get('instruction_mode', 'project'), mode=MODES[arm],
                     paths=step['paths'], action='edit', max_bytes=manifest.get('max_context_bytes', 12000),
-                    retrieval_k=8, check=json.dumps(step['checker']))
+                    retrieval_k=8, check=json.dumps(step['checker']),
+                    agent_isolation_root=HERE.parents[4])
                 host = Host(args); history = []
                 with (state / 'writer.lock').open('a') as handle:
                     fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -182,6 +195,7 @@ def run(manifest, output):
                     before = workspace_state(workspace, include_untracked=True)
                     result = host.run(step['prompt'], evidence)
                 call = result['calls'][-1] if result['calls'] else {}
+                violations = visibility_violations(evidence, workspace, manifest, output)
                 checker_path = evidence / 'checker.json'
                 checker = json.loads(checker_path.read_text()) if checker_path.exists() else {}
                 context = json.loads((evidence / 'context.json').read_text())
@@ -191,19 +205,28 @@ def run(manifest, output):
                        'status': call.get('status', 'host_error'), 'agent_returncode': call.get('returncode'),
                        'checker_status': checker.get('status', 'not_run'),
                        'checker_returncode': checker.get('returncode'),
-                       'checker_pass': result['checker_pass'] is True and not result['error'],
+                       'checker_pass': (result['checker_pass'] is True and not result['error']
+                                        and call.get('filesystem_isolated') is True and not violations),
                        'severe_regression': checker.get('returncode') == 2,
                        'usage': call.get('usage'), 'agent_wall_seconds': call.get('wall_seconds', 0),
                        'checker_wall_seconds': checker.get('wall_seconds', 0),
                        'total_wall_seconds': time.perf_counter() - started,
                        'context_mode': result['context_mode'], 'context_bytes': result['context_bytes'],
                        'selected_orders': context.get('selected_orders'), 'memory_error': result['memory_error'],
+                       'filesystem_isolated': call.get('filesystem_isolated') is True,
+                       'visibility_violations': violations,
                        'history_count': len(history), 'evidence': str(evidence)}
                 rows.append(row)
                 atomic_write(output / 'receipts.jsonl', ''.join(json.dumps(item) + '\n' for item in rows))
                 atomic_write(output / 'summary.json', json.dumps(summarize(rows, manifest), indent=2) + '\n')
                 print(json.dumps({key: row[key] for key in
                                   ('task_id', 'arm', 'checker_pass', 'severe_regression', 'context_mode')}), flush=True)
+                if violations or call.get('filesystem_isolated') is not True:
+                    atomic_write(output / 'INVALID_VISIBILITY.json', json.dumps({
+                        'task_id': step['id'], 'arm': arm, 'violations': violations,
+                        'filesystem_isolated': call.get('filesystem_isolated') is True,
+                    }, indent=2) + '\n')
+                    raise RuntimeError('agent filesystem isolation audit failed')
                 if call.get('status') == 'cancelled':
                     raise KeyboardInterrupt
     return summarize(rows, manifest)

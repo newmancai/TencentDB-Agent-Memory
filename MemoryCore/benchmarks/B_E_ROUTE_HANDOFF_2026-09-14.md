@@ -225,3 +225,14 @@ workspace 均实核只有一个可达提交、无 remote、最终 review SHA 不
 attrs、MarkupSafe 均视为已暴露，不能重包装。详见
 [留出失效复盘](topic3-be-route-v2/HELDOUT_INVALID_REVIEW.md)。下一留出必须换新项目，并在冻结前用至少
 两种语义等价实现验证 checker 的实现无关性。
+
+替代留出 v2 随后换用 urllib3、Starlette、AnyIO、Trio，并以行为检查器完成 base、上游结果和等价实现
+预检。但在第 9 个调用中，Starlette `no_history` agent 从绝对工作路径向上搜索，读取了已完成
+`raw_full` 的 diff、上下文、prompt 和 checker 结果。独立 clone、无 remote 和不可解析未来 SHA 仍不足以
+构成 arm 隔离；已立即停止 runner，8 条完成回执和中断调用全部作废，四个项目家族均视为暴露。详见
+[v2 留出失效复盘](topic3-be-route-v2/HELDOUT_V2_INVALID_REVIEW.md)。
+
+runner 现已加入外层 `bwrap` 文件系统隔离：隐藏整个研究仓与 `.local-evidence`，只重新挂载当前独立 clone，
+并给 Codex 单独的临时 runtime。20 个项目代理测试通过；一次使用已暴露 AnyIO clone 的真实 CLI 预检确认
+主研究仓和兄弟 arm 不可见、当前 Git clone 可用。下一矩阵必须再换四个新项目，强制经过该隔离层，并在
+接纳结果前扫描原始事件中的禁用路径；此前看似有利的 urllib3/Starlette 数字不进入产品结论。

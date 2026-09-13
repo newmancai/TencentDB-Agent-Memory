@@ -1,7 +1,9 @@
 # Replacement behavior-oriented held-out protocol
 
-Date: 2026-09-14. Frozen before any v2 held-out model call. This replaces, rather than repairs or
-reuses, the invalid first held-out matrix.
+Date: 2026-09-14. Frozen before any v2 held-out model call. This attempted to replace the invalid
+first matrix, but was itself invalidated when a later arm read earlier-arm artifacts. See
+[the v2 invalidation review](HELDOUT_V2_INVALID_REVIEW.md). No result from this protocol is retained
+as held-out evidence.
 
 ## Frozen inputs
 

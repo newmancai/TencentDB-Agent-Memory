@@ -18,7 +18,8 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-from backend import command_for, events_from, parse_usage, run_command, terminal_error
+from backend import (command_for, events_from, isolated_filesystem_command, parse_usage,
+                     run_command, terminal_error)
 from changes import capture_changes
 
 SCHEMA = {
@@ -192,6 +193,11 @@ class Host:
             else:
                 command[command.index('--tools') + 1] = ''
                 command[-1:-1] = ['--json-schema', json.dumps(SCHEMA)]
+        isolation_root = getattr(self.args, 'agent_isolation_root', None)
+        if isolation_root:
+            if extraction:
+                raise ValueError('filesystem-isolated extraction is not supported')
+            command = isolated_filesystem_command(command, self.workspace, Path(isolation_root))
         environment = os.environ.copy()
         if controlled:
             environment.update(CLAUDE_CODE_DISABLE_AUTO_MEMORY='1', CLAUDE_CODE_DISABLE_CLAUDE_MDS='1')
@@ -203,7 +209,8 @@ class Host:
             result['status'] = 'agent_error'
         result.update(usage=parse_usage(self.args.backend, stdout), backend=self.args.backend,
                       model_requested=self.args.model, model_observed=observed_model(stdout),
-                      effort=self.args.effort, evidence=str(evidence), extraction=extraction)
+                      effort=self.args.effort, evidence=str(evidence), extraction=extraction,
+                      filesystem_isolated=bool(isolation_root))
         result['instruction_mode'] = 'controlled' if controlled else 'project'
         (evidence / 'receipt.json').write_text(json.dumps(result, indent=2) + '\n')
         self.calls.append(result)

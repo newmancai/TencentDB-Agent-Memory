@@ -8,10 +8,33 @@ from tempfile import TemporaryDirectory
 import time
 import unittest
 from concurrent.futures import ThreadPoolExecutor
-from backend import run_command
+from backend import isolated_filesystem_command, run_command
 
 
 class BackendProcessTest(unittest.TestCase):
+    def test_isolated_filesystem_hides_siblings_and_rebinds_workspace(self):
+        with TemporaryDirectory() as directory:
+            hidden = Path(directory) / 'benchmark-root'
+            workspace = hidden / 'workspaces' / 'project' / 'arm'
+            sibling = hidden / 'results' / 'other-arm'
+            workspace.mkdir(parents=True)
+            sibling.mkdir(parents=True)
+            (workspace / 'visible').write_text('yes')
+            (sibling / 'secret').write_text('no')
+            probe = ('from pathlib import Path; '
+                     'assert Path("visible").read_text() == "yes"; '
+                     f'assert not Path({str(sibling)!r}).exists()')
+            command = isolated_filesystem_command(
+                [sys.executable, '-c', probe], workspace, hidden)
+            completed = subprocess.run(command, capture_output=True, text=True)
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+
+    def test_isolated_filesystem_rejects_external_workspace(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            with self.assertRaisesRegex(ValueError, 'below the hidden root'):
+                isolated_filesystem_command(['true'], root / 'outside', root / 'hidden')
+
     def test_events_are_visible_before_command_completion(self):
         with TemporaryDirectory() as directory, ThreadPoolExecutor(max_workers=1) as pool:
             root=Path(directory); logs=root/'logs'

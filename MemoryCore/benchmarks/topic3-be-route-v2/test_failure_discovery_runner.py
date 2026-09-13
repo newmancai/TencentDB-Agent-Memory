@@ -25,7 +25,9 @@ class FakeHost:
         assert self.args.mode == expected and self.args.retrieval_k == 8
         if self.args.owner != 'no_history': assert (self.state / 'raw.txt').exists()
         self.calls.append({'usage': {'input_tokens': 10}, 'wall_seconds': 1,
-                           'status': 'completed', 'returncode': 0})
+                           'status': 'completed', 'returncode': 0, 'filesystem_isolated': True})
+        agent = evidence / 'agent'; agent.mkdir()
+        (agent / 'stdout.jsonl').write_text('{}\n')
         (evidence / 'context.json').write_text(json.dumps({'mode': expected, 'selected_orders': [1]}))
         (evidence / 'checker.json').write_text(json.dumps({'status': 'completed', 'returncode': 0,
                                                           'wall_seconds': .1}))

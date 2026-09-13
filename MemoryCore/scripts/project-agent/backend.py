@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import signal
+import shutil
 import subprocess
 import time
 
@@ -69,6 +70,44 @@ def run_command(command: list[str], workspace: Path, timeout: int, **kwargs) -> 
         stderr = stderr.decode(errors="replace")
     return {"status": status, "returncode": returncode, "stdout": stdout, "stderr": stderr,
             "wall_seconds": time.perf_counter() - started}
+
+
+def isolated_filesystem_command(command: list[str], workspace: Path, hidden_root: Path) -> list[str]:
+    """Hide benchmark sources and sibling arms while leaving one clone writable."""
+    workspace = workspace.resolve()
+    hidden_root = hidden_root.resolve()
+    try:
+        workspace.relative_to(hidden_root)
+    except ValueError as exc:
+        raise ValueError('isolated workspace must be below the hidden root') from exc
+    bubblewrap = shutil.which('bwrap')
+    if not bubblewrap:
+        raise ValueError('bwrap is required for benchmark filesystem isolation')
+
+    result = [bubblewrap, '--die-with-parent', '--unshare-pid', '--unshare-ipc',
+              '--unshare-uts', '--share-net', '--ro-bind', '/', '/', '--dev', '/dev',
+              '--proc', '/proc', '--tmpfs', '/tmp', '--dir', '/tmp/codex-runtime',
+              '--setenv', 'XDG_RUNTIME_DIR', '/tmp/codex-runtime',
+              '--tmpfs', str(hidden_root)]
+    ancestors = []
+    current = workspace.parent
+    while current != hidden_root:
+        ancestors.append(current)
+        current = current.parent
+    for path in reversed(ancestors):
+        result += ['--dir', str(path)]
+    result += ['--bind', str(workspace), str(workspace)]
+
+    # Codex needs its credentials but not user sessions, skills, logs, or thread
+    # databases. The inner Codex sandbox continues to protect these bootstrap
+    # files from model-issued shell commands.
+    codex_home = Path.home() / '.codex'
+    result += ['--tmpfs', str(codex_home)]
+    for name in ('auth.json', 'config.toml'):
+        source = codex_home / name
+        if source.is_file():
+            result += ['--ro-bind', str(source), str(source)]
+    return result + ['--chdir', str(workspace), '--'] + command
 
 
 def command_for(arm: str, workspace: Path, prompt: str, manifest: dict) -> list[str]:
