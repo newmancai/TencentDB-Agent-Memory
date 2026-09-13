@@ -1,13 +1,14 @@
 {
-  "schema": 1,
+  "schema": 2,
   "suite": "topic3-b-delivery-acceptance-v1",
-  "status": "pass_with_negative_public_gain",
+  "status": "pass_with_mixed_method_evidence",
   "deliverables": {
     "research_and_design": {
       "status": "pass",
       "artifacts": [
-        "../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md",
-        "../B_FINAL_HANDOFF_2026-09-13.md"
+        "../../B_COMPLETE_DELIVERY_2026-09-13.md",
+        "../../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md",
+        "../../B_FINAL_HANDOFF_2026-09-13.md"
       ]
     },
     "public_long_dialogue_eval": {
@@ -18,38 +19,222 @@
     },
     "implementation_and_comparison": {
       "status": "pass",
-      "mode": "bounded_component",
+      "mode": "real_memorycore_host_method_validation",
       "baseline": {
-        "name": "temporary_correction_omitted",
-        "correct": 0,
-        "total": 4
+        "name": "base_tools",
+        "pass": 112,
+        "total": 140
       },
       "enabled": {
-        "name": "temporary_correction_included",
-        "correct": 4,
-        "total": 4
+        "name": "trigger_policy_v3",
+        "pass": 130,
+        "total": 140
       },
       "paired": {
-        "wins": 4,
-        "losses": 0,
-        "ties": 0
-      }
+        "baseline": "base_tools",
+        "candidate": "trigger_policy_v3",
+        "caseExactTwoSidedP": 0.0002771615982055664,
+        "clustered": {
+          "bootstrap95Pp": [
+            5.982905982905983,
+            19.12568306010929
+          ],
+          "bootstrapReplicates": 10000,
+          "bootstrapSeed": 1309,
+          "negative": 2,
+          "positive": 15,
+          "signExactTwoSidedP": 0.002349853515625,
+          "tied": 57,
+          "units": 74
+        },
+        "field": "fullPass",
+        "losses": 3,
+        "observedDeltaPp": 12.857142857142858,
+        "ties": 116,
+        "wins": 21
+      },
+      "result": "../../topic3-b-public-suite-v1/results/trigger-codex-holdout.json"
     },
     "off_and_forced_fallback": {
       "status": "pass",
-      "mode": "runtime_contract",
-      "cases": 4,
-      "result": "runtime-contract.json"
+      "mode": "two_runtime_contracts",
+      "contracts": [
+        {
+          "scope": "host_neutral_sidecar",
+          "cases": 4,
+          "result": "runtime-contract.json"
+        },
+        {
+          "scope": "codex_mcp_memorycore_host",
+          "cases": 3,
+          "result": "../../topic3-b-public-suite-v1/results/trigger-runtime-contract.json"
+        }
+      ]
     },
     "portable_pr": {
       "status": "pass",
       "mode": "additive_sidecar",
-      "adapter": "../../../src/core/memory-feedback/answer-feedback.ts",
+      "adapters": [
+        "../../../src/core/memory-feedback/answer-feedback.ts",
+        "../../topic3-b-public-suite-v1/validmem_adapter.py",
+        "../../topic3-b-public-suite-v1/trigger_adapter.py",
+        "../../topic3-b-public-suite-v1/trigger_memory_mcp.py",
+        "../../topic3-b-public-suite-v1/trigger_memory_bridge.ts"
+      ],
       "porting_notes": "../PORTING.md",
-      "remote_publication": "must be checked from PR state; this JSON validates local reviewability only"
+      "remote_publication": "https://github.com/newmancai/TencentDB-Agent-Memory/pull/2",
+      "remote_state": "must be checked live; this JSON validates local reviewability only"
     }
   },
   "component_evidence": {
+    "validmem_lifecycle_holdout": {
+      "status": "pass_method_validation_with_confidence_limit",
+      "baseline": {
+        "correct": 374,
+        "total": 406,
+        "percent": 92.1182
+      },
+      "enabled": {
+        "correct": 387,
+        "total": 406,
+        "percent": 95.3202
+      },
+      "paired": {
+        "wins": 15,
+        "losses": 2,
+        "ties": 389,
+        "accuracyDeltaPercentagePoints": 3.202,
+        "mcnemarExactTwoSidedP": 0.002349853515625,
+        "byPart": {
+          "A": {
+            "wins": 0,
+            "losses": 0,
+            "ties": 150
+          },
+          "B": {
+            "wins": 14,
+            "losses": 2,
+            "ties": 160,
+            "p": 0.004180908203125
+          },
+          "C": {
+            "wins": 1,
+            "losses": 0,
+            "ties": 79
+          }
+        }
+      },
+      "clustered": {
+        "batchUnits": 26,
+        "positiveBatches": 4,
+        "negativeBatches": 0,
+        "tiedBatches": 22,
+        "bootstrapReplicates": 10000,
+        "bootstrapSeed": 1309,
+        "accuracyDelta95PercentCI": [
+          0.2463,
+          7.3892
+        ],
+        "batchSignExactTwoSidedP": 0.125,
+        "interpretation": "directional holdout evidence; batch-level repetition is not yet high confidence"
+      },
+      "cost": {
+        "L1": "not_measured_prebuilt_public_store",
+        "L0": {
+          "injectedMemoryRecordsPerArm": 1193,
+          "sameVisibleRecordsAcrossArms": true
+        },
+        "plain_visibility": {
+          "inputTokens": 428557,
+          "cachedInputTokens": 201856,
+          "outputTokens": 15940,
+          "reasoningOutputTokens": 5402,
+          "promptCharacters": 235991,
+          "latencyMs": {
+            "total": 513979.632,
+            "p50": 18639.354,
+            "p95": 30496.155
+          }
+        },
+        "type_aware_policy": {
+          "inputTokens": 431079,
+          "cachedInputTokens": 244352,
+          "outputTokens": 17779,
+          "reasoningOutputTokens": 7327,
+          "promptCharacters": 249849,
+          "latencyMs": {
+            "total": 585978.529,
+            "p50": 21213.819,
+            "p95": 34717.293
+          }
+        },
+        "enabledRelativeToBaseline": {
+          "inputTokensPercent": 0.5885,
+          "outputTokensPercent": 11.537,
+          "reasoningOutputTokensPercent": 35.635,
+          "promptCharactersPercent": 5.8723,
+          "totalLatencyPercent": 14.0081,
+          "p50LatencyPercent": 13.812,
+          "p95LatencyPercent": 13.8415
+        }
+      },
+      "claim_boundary": "public lifecycle method validation; L1 write path and business utility not measured"
+    },
+    "trigger_real_host_holdout": {
+      "status": "pass_method_validation",
+      "baseline": {
+        "pass": 112,
+        "total": 140
+      },
+      "enabled": {
+        "pass": 130,
+        "total": 140
+      },
+      "paired": {
+        "baseline": "base_tools",
+        "candidate": "trigger_policy_v3",
+        "caseExactTwoSidedP": 0.0002771615982055664,
+        "clustered": {
+          "bootstrap95Pp": [
+            5.982905982905983,
+            19.12568306010929
+          ],
+          "bootstrapReplicates": 10000,
+          "bootstrapSeed": 1309,
+          "negative": 2,
+          "positive": 15,
+          "signExactTwoSidedP": 0.002349853515625,
+          "tied": 57,
+          "units": 74
+        },
+        "field": "fullPass",
+        "losses": 3,
+        "observedDeltaPp": 12.857142857142858,
+        "ties": 116,
+        "wins": 21
+      },
+      "positive_trigger_recall": {
+        "baseline": {
+          "total": 74,
+          "triggered": 73
+        },
+        "enabled": {
+          "total": 74,
+          "triggered": 72
+        }
+      },
+      "negative_trigger_specificity": {
+        "baseline": {
+          "silent": 41,
+          "total": 66
+        },
+        "enabled": {
+          "silent": 59,
+          "total": 66
+        }
+      },
+      "claim_boundary": "single-model public microtask holdout; not natural feedback learning or coding-task utility"
+    },
     "natural_raw_candidate": {
       "status": "pass",
       "mode": "enabled_extractor_plus_fail_closed_gate",
@@ -136,6 +321,7 @@
   },
   "release_boundary": {
     "commercial_b": "not_proven",
+    "public_evidence": "mixed: CUPID feedback negative; ValidMem and Trigger Bench positive method validation",
     "learned_gate": "stopped_for_this_exact_domain_due_to_no_headroom_over_deterministic_rule",
     "production_enabled": false,
     "durable_promotion_enabled": false

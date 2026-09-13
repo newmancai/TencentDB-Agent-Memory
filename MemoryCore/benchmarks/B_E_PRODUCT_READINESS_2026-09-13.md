@@ -2,24 +2,25 @@
 
 ## Verdict
 
-The current repository satisfies the requested **initial B+E research delivery**:
+The current repository satisfies the requested **complete B+E research delivery**:
 reviewable design, public runner and baseline, structured results, bounded
-implementation, off/failure fallback, and portability notes are present. It does
-not yet satisfy **effective B+E product readiness**, and it is not a peer product
-to Codex or Claude Code.
+implementation, off/failure fallback, portability notes, and two positive held-out
+component results are present. It does not yet satisfy **effective B+E product
+readiness**, and it is not a peer product to Codex or Claude Code.
 
 | Level | Current status | Evidence still missing |
 |---|---|---|
 | Assignment artifacts | met | reviewer acceptance remains external |
 | E verification/lifecycle mechanics | met as bounded sidecar | broad production host and distributed failure validation |
 | B feedback representation | partially met | natural memory-cause attribution and durable cross-task correctness |
-| B+E quality gain | not met | public CUPID feedback arm is 3W/4L/5T vs frozen |
+| B+E component quality gain | met as method validation | Trigger full pass 112/140→130/140; ValidMem 374/406→387/406 |
+| Natural cross-task B learning | not met | public CUPID feedback arm is 3W/4L/5T vs frozen; coding transfer remains unproven |
 | Temporal candidate discovery | promising component | 15/16 small STALE candidate test; no downstream answer gain yet |
 | Coding-agent product | not met | real sequential repository tasks, UX, permissions, orchestration and product-level reliability |
 
-The distinction matters: a complete negative-result research delivery can be
-accepted without proving that the method improves a product. The first statement
-is true today; the second is not.
+The distinction matters: positive trigger/lifecycle components and a complete
+research delivery can coexist with an unresolved natural-learning product goal.
+The first two statements are true today; the product claim is not.
 
 ## Product comparison boundary
 
