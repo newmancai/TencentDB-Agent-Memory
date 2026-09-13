@@ -40,6 +40,10 @@
    `git_output.strip()` 删除第一条 status 的前导空格，使允许路径被误写为 `rc/...` 并机械标成严重回归。
    整组立即停止；raw-full 是操作者取消，其他 14 格未调用。v8 没有配对质量结论。解析现只删除尾部换行，
    并有真实 Git 状态回归测试。
+9. **v9 执行完整但 checker 语义覆盖不足。** 16/16 调用、checker、usage、隔离和路径回执完整，raw-full
+   机械 8/8、no-history 5/8；jmespath 首任务出现历史臂通过、无历史失败，zipp 控制也分叉。但 typeguard
+   no-history 把值相等放在类型相等之前仍获通过；合法 Enum 事后探针证明其会抛出错误。违反冻结语义条款，
+   整组不计 Phase A。后续 checker 新增强制近错实现拒绝门槛。
 
 证据和限制见 [v4 结果](topic3-be-route-v2/HELDOUT_V4_RESULTS.md)。这支持继续复现完整原话路线，
 不支持“已普遍有效”“优于开源产品”或“已可默认推广”。
@@ -98,11 +102,13 @@ prompt 追分、production、Gateway 自动启用或操作他人 GPU。
 - 一个明确决定：继续复现、进入自然验证、采用最小修复、保持实验、关闭候选或改变路线。
 - 更新本任务和总交接，不把失效矩阵、累积控制或开发题包装成独立产品成绩。
 
-当前进度：v5 结果见 [v5 结果](topic3-be-route-v2/HELDOUT_V5_RESULTS.md)，v6／v7／v8 精确停止状态见
+当前进度：v5 结果见 [v5 结果](topic3-be-route-v2/HELDOUT_V5_RESULTS.md)，v6 至 v9 精确边界见
 [v6 失效复盘](topic3-be-route-v2/HELDOUT_V6_INVALID_REVIEW.md)与
 [v7 失效复盘](topic3-be-route-v2/HELDOUT_V7_INVALID_REVIEW.md)及
-[v8 失效复盘](topic3-be-route-v2/HELDOUT_V8_INVALID_REVIEW.md)。完整原话仍只有 v4 是完整有效矩阵；
-后四轮都不能报告复制成功或成本优势。runner 现已强制允许变更路径、保留 porcelain 前导状态位，隔离
+[v8 失效复盘](topic3-be-route-v2/HELDOUT_V8_INVALID_REVIEW.md)与
+[v9 失效复盘](topic3-be-route-v2/HELDOUT_V9_INVALID_REVIEW.md)。完整原话仍只有 v4 是完整有效矩阵；
+v5 至 v9 都不能报告复制成功或成本优势。runner 现已强制允许变更路径、保留 porcelain 前导状态位，隔离
 执行也禁写 Python bytecode；五项 route-runner、16 项 agent-product 和 21 项 project-agent 测试通过。
-精确下一步只可复用 v8 未调用的 jmespath、pluggy、zipp，并补一个全新单文件家族冻结 v9；hyperframe
-已暴露不可重跑，也不得引用 v7/v8 的机械字段或进入 Phase B。
+精确下一步必须遵守[checker 编写标准](topic3-be-route-v2/CHECKER_AUTHORING_STANDARD.md)，换四个未调用
+家族，并为每个关键语义加入至少一个应被拒绝的近错实现后再冻结新矩阵。v9 四家族均已暴露不可重跑，
+不得引用其机械三胜或成本差进入 Phase B。

@@ -296,3 +296,12 @@ porcelain 输出使用 `.strip()`，删除第一行的前导状态空格；路�
 结论；no-history 只修标识符、漏掉值掩码仅是单臂机制观察。共享解析现保留前导状态位，并新增真实 Git
 回归测试；21 项 project-agent、16 项 agent-product、5 项 route-runner 测试通过。下一 v9 只能复用未调用
 的 jmespath、pluggy、zipp，另补一个全新家族；已调用的 hyperframe 不得重跑或包装成 v8 成绩。
+
+v9 修复 porcelain 后完成全部 16 格，执行、checker、usage、隔离和声明路径回执齐全，raw-full 机械 8/8、
+no-history 5/8。jmespath 首任务按接受历史实现 FIFO/512/并发删除边界，无历史臂保留随机淘汰/128；zipp
+无历史臂在后续控制中受旧测试影响撤销了刚做的异常类型更新，历史臂保留更新。两者是有价值机制诊断。
+但逐补丁审计发现 typeguard 无历史臂先比较值再比较类型，仍被冻结 checker 接受；合法 Enum 的只读探针
+证明其行为不等价，而协议明确要求类型检查在前。因此 v9 整组失效，机械三胜和较低 token／时延均不能
+作为正式收益。精确数据见 [v9 失效复盘](topic3-be-route-v2/HELDOUT_V9_INVALID_REVIEW.md)。下一矩阵不得
+复用这四家族，且须按 [checker 编写标准](topic3-be-route-v2/CHECKER_AUTHORING_STANDARD.md) 为每个关键
+语义提供会被拒绝的近错实现；仅验证 base fail、上游和等价实现 pass 已被证明不够。
