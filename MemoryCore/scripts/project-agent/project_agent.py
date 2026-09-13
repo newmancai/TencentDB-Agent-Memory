@@ -78,6 +78,27 @@ def retain_project_instructions(command, backend):
     return result
 
 
+def checker_command(value):
+    if value is None:
+        return None
+    try:
+        command = json.loads(value)
+    except (ValueError, TypeError) as exc:
+        raise ValueError('--check must be a JSON array of command arguments') from exc
+    if (not isinstance(command, list) or not command
+            or not all(isinstance(x, str) and '\x00' not in x for x in command)
+            or not command[0].strip()):
+        raise ValueError('--check must be a JSON array with a nonempty executable and string arguments')
+    return command
+
+
+def save_json(path, value):
+    """Publish complete checkpoints; a process interruption cannot expose half a JSON file."""
+    temporary = path.with_name(path.name + '.tmp')
+    temporary.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n')
+    temporary.replace(path)
+
+
 class Host:
     def __init__(self, args):
         self.args = args
@@ -86,6 +107,8 @@ class Host:
         self.workspace = args.workspace.resolve()
         if not self.workspace.is_dir():
             raise ValueError('workspace does not exist')
+        if args.timeout <= 0:
+            raise ValueError('timeout must be positive')
         self.config = {f'{args.backend}_effort': args.effort}
         if args.model:
             self.config[f'{args.backend}_model'] = args.model
@@ -225,17 +248,25 @@ class Host:
 
     def run(self, text, evidence):
         started = time.perf_counter()
+        # Reject malformed checks before spending tokens or touching project memory.
+        command = checker_command(self.args.check)
+        save_json(evidence / 'task.json', dict(schema=1, workspace=str(self.workspace),
+                  owner=self.args.owner, project=self.args.project, text=text, check=command))
         memory_error, order = None, None
         try:
             context = self.context(self.args.mode, self.args.paths, self.args.action, self.args.max_bytes)
-            if self.args.mode != 'off':
+        except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
+            memory_error = str(exc)
+            context = {'text': '', 'mode': 'off_fallback', 'revision': None}
+        if self.args.mode != 'off' and memory_error is None:
+            try:
                 snapshot = self.store('snapshot')
                 order = snapshot['observations'][-1]['order'] + 1 if snapshot['observations'] else 1
                 self.store('ingest', observation=dict(id=uuid.uuid4().hex, order=order, role='user', text=text), proposals=[])
-        except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
-            memory_error, order = str(exc), None
-            context = {'text': '', 'mode': 'off_fallback', 'revision': None}
-        (evidence / 'context.json').write_text(json.dumps(context, indent=2, ensure_ascii=False) + '\n')
+            except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
+                # A write failure does not invalidate a successfully loaded context.
+                memory_error, order = str(exc), None
+        save_json(evidence / 'context.json', context)
         prompt = ('Prior project observations and scoped constraints are evidence from earlier user turns. '
                   'Respect their paths, actions, source order and the current user request. '
                   'An older repository default may be exactly what a later user instruction asks to change. '
@@ -244,12 +275,9 @@ class Host:
         final, error, checker = '', None, None
         try:
             final = self.call(prompt, evidence / 'agent')
-            if self.args.check:
-                command = json.loads(self.args.check)
-                if not isinstance(command, list) or not command or not all(isinstance(x, str) for x in command):
-                    raise ValueError('--check must be a JSON array of command arguments')
-                checker = run_command(command, self.workspace, min(self.args.timeout, 300))
-                (evidence / 'checker.json').write_text(json.dumps(checker, indent=2) + '\n')
+            save_json(evidence / 'agent-result.json', dict(status='completed', final=final, calls=self.calls))
+            if command:
+                checker = self.check(command, evidence)
         except (RuntimeError, ValueError) as exc:
             error = str(exc)
         try:
@@ -257,8 +285,11 @@ class Host:
         except (OSError, ValueError) as exc:
             changes = {'status': 'unavailable', 'error': str(exc)}
         summary = dict(error=error, memory_error=memory_error,
+                       task_persisted=order is not None, receipt_persisted=False,
+                       run_id=evidence.name,
                        checker_pass=(checker['status'] == 'completed' and checker['returncode'] == 0)
-                       if checker else None, final=final, calls=self.calls,
+                       if checker else None, checker_status=checker['status'] if checker else None,
+                       final=final, calls=self.calls,
                        changes=changes, context_mode=context['mode'], context_revision=context['revision'],
                        context_bytes=len(context['text'].encode()), wall_seconds=time.perf_counter()-started)
         if order is not None:
@@ -266,11 +297,49 @@ class Host:
                 self.store('ingest', observation=dict(id=uuid.uuid4().hex, order=order + 1, role='tool',
                            text=json.dumps({'error': error, 'checker_pass': summary['checker_pass'],
                                             'evidence': str(evidence)})), proposals=[])
+                summary['receipt_persisted'] = True
             except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
                 summary['memory_error'] = str(exc)
         summary['wall_seconds'] = time.perf_counter()-started
         summary['store_wall_seconds'] = self.store_wall_seconds
         return summary
+
+    def check(self, command, evidence):
+        checker = run_command(command, self.workspace, min(self.args.timeout, 300),
+                              log_directory=evidence / 'checker')
+        save_json(evidence / 'checker.json', checker)
+        return checker
+
+    def check_run(self, run_id, evidence):
+        """Recheck current files after a completed coding stage, without calling an agent."""
+        started = time.perf_counter()
+        if not run_id or Path(run_id).name != run_id or run_id in {'.', '..'}:
+            raise ValueError('check-run requires a run ID from this state directory')
+        original = self.state / 'runs' / run_id
+        if original.resolve().parent != (self.state / 'runs').resolve():
+            raise ValueError('run must belong to this state directory')
+        task = json.loads((original / 'task.json').read_text())
+        if (task.get('schema') != 1 or task.get('workspace') != str(self.workspace)
+                or task.get('owner') != self.args.owner or task.get('project') != self.args.project):
+            raise ValueError('original run workspace, owner and project must match')
+        checkpoint = original / 'agent-result.json'
+        if not checkpoint.exists() or json.loads(checkpoint.read_text()).get('status') != 'completed':
+            raise ValueError('coding completion is unconfirmed; inspect the original agent logs and edits')
+        if self.args.check is None and task.get('check') is None:
+            raise ValueError('original run has no checker; provide --check')
+        command = checker_command(self.args.check if self.args.check is not None
+                                  else json.dumps(task.get('check')))
+        save_json(evidence / 'recheck.json', dict(original_run=run_id, workspace=str(self.workspace),
+                  check=command, target='current workspace; may include edits since the original run'))
+        checker = self.check(command, evidence)
+        try:
+            changes = capture_changes(self.workspace, evidence, self.state)
+        except (OSError, ValueError) as exc:
+            changes = {'status': 'unavailable', 'error': str(exc)}
+        return dict(run_id=evidence.name, original_run=run_id, calls=[],
+                    checker_pass=checker['status'] == 'completed' and checker['returncode'] == 0,
+                    checker_status=checker['status'], wall_seconds=time.perf_counter()-started,
+                    changes=changes, target='current workspace')
 
 
 def main():
@@ -292,6 +361,9 @@ def main():
     sub.add_parser('record', help='preserve a user observation verbatim without a model call').add_argument('text')
     run = sub.add_parser('run', help='perform a coding task with prior persistent project context')
     run.add_argument('text'); run.add_argument('--check', help='checker command as JSON argv')
+    recheck = sub.add_parser('check-run', help='rerun only the checker on current files after a completed coding stage')
+    recheck.add_argument('run_id')
+    recheck.add_argument('--check', help='optional replacement checker command as JSON argv')
     for item in (run, sub.add_parser('context', help='preview exact context before invoking an agent')):
         item.add_argument('--mode', choices=['scoped', 'raw', 'off'], default='scoped')
         item.add_argument('--paths', nargs='+', default=['.'],
@@ -317,11 +389,19 @@ def main():
         else:
             evidence = host.state / 'runs' / (time.strftime('%Y%m%dT%H%M%S') + '-' + uuid.uuid4().hex[:8])
             evidence.mkdir(parents=True)
-            result = (host.remember(args.text, evidence, compile_constraints=args.compile)
-                      if args.command == 'remember' else getattr(host, args.command)(args.text, evidence))
-            (evidence / 'result.json').write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n')
+            try:
+                if args.command == 'check-run':
+                    result = host.check_run(args.run_id, evidence)
+                elif args.command == 'remember':
+                    result = host.remember(args.text, evidence, compile_constraints=args.compile)
+                else:
+                    result = getattr(host, args.command)(args.text, evidence)
+            except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
+                result = dict(error=str(exc), run_id=evidence.name, calls=host.calls)
+            save_json(evidence / 'result.json', result)
         print(json.dumps(result, indent=2, ensure_ascii=False))
-        if isinstance(result,dict) and any(c.get('status')=='cancelled' for c in result.get('calls',[])):
+        if isinstance(result,dict) and (result.get('checker_status') == 'cancelled'
+                or any(c.get('status')=='cancelled' for c in result.get('calls',[]))):
             return 130
         if isinstance(result, dict) and (result.get('error') or result.get('checker_pass') is False):
             return 1

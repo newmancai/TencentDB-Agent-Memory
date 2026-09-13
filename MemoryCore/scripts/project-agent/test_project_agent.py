@@ -3,7 +3,8 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
+import sys
 
 from project_agent import Host, final_text, retain_project_instructions, command_for
 
@@ -90,6 +91,80 @@ class ProjectAgentTest(unittest.TestCase):
             {'type':'item.completed','item':{'type':'command_execution','aggregated_output':'bad JSON'}},
             {'type':'item.completed','item':{'type':'agent_message','text':'{"proposals":[]}'}}])
         self.assertEqual(json.loads(final_text('codex',stdout)),{'proposals':[]})
+
+    def test_full_store_retains_loaded_context_and_marks_unsaved_task(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory); host=self.host(root)
+            snapshot={'observations':[{'id':'policy','order':128,'role':'user',
+                       'text':'Explicit zero must be preserved.'}], 'constraints':[], 'revision':128}
+            host.store=Mock(side_effect=[snapshot,snapshot,ValueError('capacity exceeded')])
+            host.call=Mock(return_value='edited')
+            result=host.run('Fix the retry default.',root)
+            self.assertEqual(result['context_mode'],'raw')
+            self.assertIn('Explicit zero must be preserved.',host.call.call_args.args[0])
+            self.assertFalse(result['task_persisted'])
+            self.assertFalse(result['receipt_persisted'])
+            self.assertIn('capacity',result['memory_error'])
+            self.assertEqual(json.loads((root/'task.json').read_text())['text'],'Fix the retry default.')
+
+    def test_invalid_checker_fails_before_memory_or_model(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory); host=self.host(root)
+            host.store=Mock();host.call=Mock()
+            for invalid in ('{','[]','[""]','["python", 3]','["python", "\\u0000"]'):
+                host.args.check=invalid
+                with self.assertRaises(ValueError):host.run('Edit code.',root)
+            host.store.assert_not_called();host.call.assert_not_called()
+
+    def test_checker_recovery_uses_current_files_without_model_or_memory_calls(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);host=self.host(root,'off')
+            original=host.state/'runs'/'original';original.mkdir(parents=True)
+            host.args.check=json.dumps([sys.executable,'-c',
+                'from pathlib import Path; assert Path("answer").read_text()=="fixed"'])
+            host.call=Mock(return_value='coding done')
+            host.store=Mock(side_effect=AssertionError('no memory in off/recheck'))
+            # A checker failure must leave a completed coding checkpoint.
+            first=host.run('Implement answer.',original)
+            self.assertFalse(first['checker_pass'])
+            (root/'answer').write_text('fixed')
+            host.args.check=None
+            evidence=host.state/'runs'/'retry';evidence.mkdir()
+            result=host.check_run('original',evidence)
+            self.assertTrue(result['checker_pass'])
+            self.assertEqual(result['calls'],[])
+            host.call.assert_called_once();host.store.assert_not_called()
+            self.assertEqual(json.loads((original/'checker.json').read_text())['returncode'],1)
+            self.assertEqual(json.loads((evidence/'checker.json').read_text())['returncode'],0)
+
+    def test_recovery_refuses_unknown_completion_and_different_workspace(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);host=self.host(root,'off')
+            original=host.state/'runs'/'original';original.mkdir(parents=True)
+            host.call=Mock(side_effect=RuntimeError('interrupted model'))
+            host.run('Edit code.',original)
+            with patch('project_agent.run_command') as execute:
+                with self.assertRaisesRegex(ValueError,'completion is unconfirmed'):
+                    host.check_run('original',root)
+                task=json.loads((original/'task.json').read_text());task['workspace']='/different'
+                (original/'task.json').write_text(json.dumps(task))
+                with self.assertRaisesRegex(ValueError,'must match'):
+                    host.check_run('original',root)
+                with self.assertRaises(ValueError):host.check_run('../original',root)
+                execute.assert_not_called()
+
+    def test_coding_checkpoint_survives_host_interruption_before_check(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);host=self.host(root,'off')
+            original=host.state/'runs'/'original';original.mkdir(parents=True)
+            host.args.check=json.dumps([sys.executable,'-c','print("checked")'])
+            host.call=Mock(return_value='complete')
+            with patch.object(host,'check',side_effect=KeyboardInterrupt):
+                with self.assertRaises(KeyboardInterrupt):host.run('Edit code.',original)
+            self.assertTrue((original/'agent-result.json').exists())
+            evidence=host.state/'runs'/'retry';evidence.mkdir()
+            self.assertTrue(host.check_run('original',evidence)['checker_pass'])
+            host.call.assert_called_once()
 
 
 if __name__ == '__main__':
