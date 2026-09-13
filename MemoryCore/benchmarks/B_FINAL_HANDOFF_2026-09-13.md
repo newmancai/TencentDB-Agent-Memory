@@ -2,7 +2,7 @@
 
 **2026-09-13用户曾停止整个长期任务，随后又明确恢复有界推进及初版交付后的研究优化。本文记录完整状态，是最高优先级交接入口。**
 
-> **公开集组合路线已启动并完成首轮复盘优化：** 用户要求把近期公开资源结合起来，但继续以B为主线、E只作闭环。新入口是 [topic3-b-public-suite-v1](topic3-b-public-suite-v1/README.md)。已固定 H6 revision `20017969711c7c72c649d9e4d70a8df730ec6176`，完成30任务/90 variant 适配、标签隔离和六类 checker 烟测；同时固定 AMB revision `e0859d1ca757f65747b4d32e21f158d55c595879`，完成34任务/196 session适配及关键合同核验。第一层 `fa-dedup-key` Codex四臂中clean/无关记忆失败、oracle选源raw/compiled通过。复盘后新增 [实际失败回执重放](topic3-b-public-suite-v1/AMB_OBSERVED_LOOP_RESULTS.md)：只从任务可见target/scope、前一clean真实artifact与checker failure确定性形成临时候选，不读公开历史/gold；E-only重放仍失败，B+E重放通过，1胜0负。它闭合了真实E→B→E，但仍是同任务n=1、无自主候选池检索/未见任务迁移/原生持久写入，不能称稳定收益。最新一轮又固定并全量适配 ValidMem v1.1（466例/1,393记忆）与 Agent Memory Trigger Bench（172例，90应触发/82不应触发），保留空ground-truth到期例，隔离生命周期/trigger标签并保存SHA和结构化准备结果；当前尚未运行模型，不能报生命周期或触发收益。近期候选的纳入、延后与排除依据见[数据集选择复盘](topic3-b-public-suite-v1/DATASET_SELECTION_REVIEW.md)。H6上游受控`apply_strategy`和Codex自由编辑action space不能直接混作严格复现，下一先在pilot冻结diff→fingerprint对齐，再进入main。本授权不恢复旧30B、本地旧模型、旧题prompt追分或production写入。
+> **公开集组合路线已启动并完成首轮复盘优化：** 用户要求把近期公开资源结合起来，但继续以B为主线、E只作闭环。新入口是 [topic3-b-public-suite-v1](topic3-b-public-suite-v1/README.md)。已固定 H6 revision `20017969711c7c72c649d9e4d70a8df730ec6176`，完成30任务/90 variant 适配、标签隔离和六类 checker 烟测；同时固定 AMB revision `e0859d1ca757f65747b4d32e21f158d55c595879`，完成34任务/196 session适配及关键合同核验。`fa-dedup-key`实际失败回执形成的B候选在同任务重放由失败变通过，但仍是n=1。最新ValidMem v1.1全量466例完成固定开发/一次性留出Codex评测：开发60例选择type-aware TTL后，406例留出从普通374/406提高到387/406，15胜2负389平，case级`p=0.00235`；26个batch聚类bootstrap区间`[+0.25,+7.39]pp`，batch符号检验`p=0.125`，输入token+0.59%、时延+14.01%。这是正向生命周期方法验证，不是自然反馈学习、原生MemoryCore状态机或高置信产品收益，留出不再调参。Agent Memory Trigger Bench全量172例已适配但未运行，作为下一外部安全轴。详见[ValidMem结果](topic3-b-public-suite-v1/VALIDMEM_RESULTS.md)与[数据集选择复盘](topic3-b-public-suite-v1/DATASET_SELECTION_REVIEW.md)。本授权不恢复旧30B、本地旧模型、旧题prompt追分或production写入。
 
 > **初版交付后的恢复与最新研究：** 用户在五项初版交付完成后明确要求继续复盘并优化研究问题。新路线没有恢复30B、本地旧模型、旧题prompt追分或production，而是用公开STALE验证跨交互时态依赖。直接最终绑定13/16失败；提议+裁决仍13/16失败且成本约翻倍；全新留出集的candidate-only提议15/16通过（正例8/8、T2 4/4、负例7/8）。另200行候选池审计显示，真实新会话用户文本BM25找旧会话recall@8为96%、T2 94%，归一化M_new仅61%/53%。因此新增接口只提名待检索/核验ID，明确无写句柄、不接Gateway；下一步可在raw-session top-8上做端到端对照。完整边界见 [B_STALE_RESEARCH_REVIEW_2026-09-13.md](B_STALE_RESEARCH_REVIEW_2026-09-13.md)。这些组件结果不把原公开长对话负收益改写为正，也不构成商用完成。
 
@@ -28,7 +28,7 @@ B的核心问题是从交互证据形成可用监督：反馈说了什么、针�
 
 | 内容 | 入口 | 实际边界 |
 |---|---|---|
-| 近期公开集组合主线 | [topic3-b-public-suite-v1/README.md](topic3-b-public-suite-v1/README.md) | H6/AMB/ValidMem/Trigger已适配；AMB先证明相关信息价值，再以真实artifact+checker回执形成候选并1/1改善重放；ValidMem/Trigger仅prepared未运行，仍无跨任务、候选池检索或稳定收益 |
+| 近期公开集组合主线 | [topic3-b-public-suite-v1/README.md](topic3-b-public-suite-v1/README.md) | H6/AMB/ValidMem/Trigger已适配；AMB同任务实际回执重放1/1改善；ValidMem一次性留出type-aware 387/406对普通374/406，为正向生命周期方法验证；Trigger尚未运行，仍无自然反馈跨任务产品收益 |
 | 五项交付验收包 | [topic3-b-delivery-v1/README.md](topic3-b-delivery-v1/README.md) | 统一runner/JSON、指标、off/fallback、适配与移植；公开反馈增益仍明确fail |
 | Instrumented临时纠正闭环 | [topic3-b-instrumented-loop-v1/RESULTS.md](topic3-b-instrumented-loop-v1/RESULTS.md) | SQLite+Codex+trace+checker，include 4/4、omit 0/4；脚本oracle、仅当前交互 |
 | 自然原话候选与运行时gate | [topic3-b-natural-assertion-v1/RESULTS.md](topic3-b-natural-assertion-v1/RESULTS.md) | 预审14/14、2候选/12拒绝；仅当前交互candidate，无memory cause/持久化收益 |

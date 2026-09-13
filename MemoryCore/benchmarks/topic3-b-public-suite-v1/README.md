@@ -2,7 +2,7 @@
 
 本目录把近期公开资源按能力缺口组合使用，不把不同分母合成一个总分。主问题始终是：**一次反馈或任务结果，何时应形成什么记忆、绑定到哪个动作和范围、在后续哪一个决策点使用，才能减少重复失败而不过度干预？** E 只提供可追溯的 checker / verifier 回执，不替代 B，也不因任务通过就反推某条记忆必然正确。
 
-当前完成第 0 轮数据固定和两级 AMB 单题方法烟测，并新增两条正交诊断轴。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。第一层四臂中 clean / 无关记忆失败，oracle 选中的原始/结构化反馈通过。第二层去掉公开历史选源，只用任务可见target/scope、第一层 clean 的真实 artifact 与 E checker failure 自动形成候选：E-only 重放失败，B+E 重放通过。ValidMem v1.1 全量466例/1,393记忆、Trigger Bench全量172例现已固定和标签隔离适配，但尚未运行模型。详见 [`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md)、[`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md)、[`DATASET_SELECTION_REVIEW.md`](DATASET_SELECTION_REVIEW.md) 与结构化 [`results`](results)。AMB结果闭合了实际 E→B→E，但仍是同任务 n=1，不是自主检索或稳定净收益。
+当前完成第 0 轮数据固定和两级 AMB 单题方法烟测，并新增两条正交诊断轴。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。第一层四臂中 clean / 无关记忆失败，oracle 选中的原始/结构化反馈通过。第二层去掉公开历史选源，只用任务可见target/scope、第一层 clean 的真实 artifact 与 E checker failure 自动形成候选：E-only 重放失败，B+E 重放通过。ValidMem已完成60例开发选择和406例一次性Codex留出：type-aware相对普通为387/406对374/406、15胜2负389平；Trigger Bench全量172例已适配但尚未运行。详见 [`VALIDMEM_RESULTS.md`](VALIDMEM_RESULTS.md)、[`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md)、[`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md)、[`DATASET_SELECTION_REVIEW.md`](DATASET_SELECTION_REVIEW.md) 与结构化 [`results`](results)。ValidMem是正向生命周期方法验证，AMB闭合一次实际 E→B→E；二者都还不是自然反馈学习或稳定产品收益。
 
 ## 统一闭环
 
@@ -26,7 +26,7 @@ B 更新：candidate → verified/disputed/superseded；unknown 不自动晋升
 |---|---|---|---|
 | [H6 Failure Gate](https://huggingface.co/datasets/joshuaswarren/h6-failure-gate-tasks) | 第一主集，B timing + E checker | 已知失败记忆在 turn-start 与 pre-action 的因果差异、重复失败、no-trap 误触发 | 自然多轮学习、跨项目泛化、最终完成率必然提升 |
 | [Agent Memory Bench](https://github.com/GiulioDER/agent-memory-bench) | 第二主集，执行式 read/lifecycle 路径 | present / absent / superseded / contradictory / adjacent 条件下的任务结果 | 当前版本尚不能单独证明从 agent 自身反馈学习 |
-| [ValidMem](https://huggingface.co/datasets/Zhou11Alex/ValidMem) | B 生命周期诊断，已适配 | current/history、supersession、expiry | 编码任务完成与真实反馈闭环；当前没有模型成绩 |
+| [ValidMem](https://huggingface.co/datasets/Zhou11Alex/ValidMem) | B 生命周期诊断，适配与Codex留出已完成 | current/history、supersession、expiry；type-aware在留出+3.20pp | 编码任务完成与真实反馈闭环；不是自然反馈学习 |
 | [AutoMemoryBench](https://huggingface.co/datasets/Multilingual-Multimodal-NLP/AutoMemoryBench) | 大规模状态合同审计 | required / admissible / prohibited 的容量与边界压力 | 真实代码执行；许可元数据未明确前不进入主结论 |
 | [ISETrace Memory Queries](https://huggingface.co/datasets/HazeLocus/ISETrace-Memory-Queries) | L1 抽取与证据对齐 | 完成轨迹上的 exact-span 检索、跨项目表述泛化 | 在线决策因果；轨迹已完成且全量并非人工复标 |
 | [Trigger Bench](https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench) | B 触发与误用安全诊断，已适配 | 何时该读写、何时不应触发、如何抵抗过时/注入/secret | 端到端质量主结论；上游Codex/Claude成绩不算本项目成绩 |
@@ -63,7 +63,7 @@ ValidMem 固定为 v1.1 revision `786d5cd9f18e65bff6172d81fcb7c9009350a400`，�
 
 Trigger Bench 固定 revision `f64b921474c9d84d073a588ed13568e917275a1c`：56 write、56 read、28 trap、32 frozen regression，共172例；其中90应触发、82不应触发，46例预置记忆、2例带工作区。agent侧只见单轮 prompt、预置 store 和工作区文件；正负 trigger、模块/类别、答案或store包含/排除规则只在 gold。它的正式判断必须读取真实操作 trace 和 turn 后 store；仅输出“我搜索了/记住了”不算通过。准备结果见 [`results/trigger-preparation.json`](results/trigger-preparation.json)。
 
-两者当前状态都是 `prepared` 而不是 `evaluated`。ValidMem 后续按 A/B/C 分别报告 accuracy、CRR、EAR；Trigger 分别报告 trigger recall、false-trigger rate、wrong-op/wrong-report 与 trap safety。所有成本仍按 L1 写入/更新和 L0 检索/注入分开记录，不能与 AMB task pass 或 H6 repeated failure 求一个总分。
+ValidMem现已`evaluated`：开发60例选择type-aware策略后，冻结规则在406例留出上以15胜2负提高13题，详见 [`VALIDMEM_RESULTS.md`](VALIDMEM_RESULTS.md)。case级检验显著，但26个batch的符号检验不显著，因此不称高置信产品收益。Trigger仍为`prepared`。后续Trigger分别报告trigger recall、false-trigger rate、wrong-op/wrong-report与trap safety；所有成本仍按L1写入/更新和L0检索/注入分开记录，不能与AMB task pass或H6 repeated failure求一个总分。
 
 ## 三轮推进协议
 
@@ -77,7 +77,7 @@ Trigger Bench 固定 revision `f64b921474c9d84d073a588ed13568e917275a1c`：56 wr
 ### 第 2 轮：AMB + ValidMem 生命周期
 
 - AMB 用执行 checker 判断 E 结果，比较 clean / E-only / B+E，而不是只比较是否检索到文本。
-- ValidMem 已完成全量适配；模型实验专门测 verified / superseded / expired 在 current 与 history 查询下的状态转移，69 个空 ground-truth expiry case 不过滤。
+- ValidMem 已完成全量适配与固定开发/留出实验；type-aware候选保留，留出不再调参，下一验证其原生host表达与外部误触发。
 - 同时报告 L1 写入/更新与 L0 检索/注入，避免把生命周期正确误算成答案收益。
 
 ### 第 3 轮：跨项目与误触发
@@ -122,6 +122,13 @@ python3 validmem_adapter.py --source /tmp/validmem --output /tmp/validmem-adapte
 git clone https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench /tmp/trigger-bench
 git -C /tmp/trigger-bench checkout f64b921474c9d84d073a588ed13568e917275a1c
 python3 trigger_adapter.py --source /tmp/trigger-bench --output /tmp/trigger-adapted
+
+# 先固定开发，再一次性留出；留出只比较冻结后的两臂
+python3 validmem_codex_runner.py --adapted /tmp/validmem-adapted \
+  --output /tmp/validmem-development --split development --batch-size 8 --execute
+python3 validmem_codex_runner.py --adapted /tmp/validmem-adapted \
+  --output /tmp/validmem-holdout --split holdout \
+  --arms plain_visibility,type_aware_policy --batch-size 16 --execute
 
 # 不加 --execute 时只验证并物化四臂协议；实际调用需本机已配置 codex CLI
 python3 amb_failed_approach_runner.py --source /tmp/agent-memory-bench \

@@ -40,7 +40,8 @@
       "snapshotDate": "2026-08-26",
       "license": "CC-BY-4.0",
       "size": {"cases": 466, "memories": 1393},
-      "independentRun": "adapter_validation_only"
+      "independentRun": "codex_development_and_406_case_holdout_complete",
+      "result": "type-aware 387/406 vs plain 374/406; 15W/2L/389T"
     },
     {
       "id": "automemorybench",

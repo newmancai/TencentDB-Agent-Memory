@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "protocol": "validmem-codex-v1",
+  "status": "pass_method_validation_with_batch_confidence_limit",
+  "source": {
+    "dataset": "ValidMem-v1.1",
+    "revision": "786d5cd9f18e65bff6172d81fcb7c9009350a400",
+    "tasksSha256": "cef3fe3e7ab7fb2b48ff330722c8b203d16746595f0fa7b6e7a4842c10c93dc3",
+    "goldSha256": "8b70d72b776f4a32b946e480d96cc618beab66a9165e997a24570304ceceb726"
+  },
+  "split": {
+    "name": "holdout",
+    "seed": "validmem-codex-dev-v1",
+    "cases": 406,
+    "partCounts": {"A": 150, "B": 176, "C": 80},
+    "caseIdsSha256": "c3c34c5e909b32b8b9d18204575a1ae9fa41656175f97a5e14da6b37d8978f4b",
+    "developmentCases": 60,
+    "developmentHoldoutOverlap": 0
+  },
+  "execution": {
+    "model": "gpt-5.6-sol",
+    "reasoningEffort": "medium",
+    "cliVersion": "codex-cli 0.153.4",
+    "batchSize": 16,
+    "calls": 52,
+    "commandExecutions": 0,
+    "failedCalls": 0,
+    "parseErrors": 0
+  },
+  "arms": {
+    "plain_visibility": {
+      "mode": "baseline",
+      "answerAccuracy": {"correct": 374, "total": 406, "percent": 92.1182},
+      "byPart": {
+        "A": {"correct": 150, "total": 150, "percent": 100.0},
+        "B": {"correct": 147, "total": 176, "percent": 83.5227},
+        "C": {"correct": 77, "total": 80, "percent": 96.25}
+      },
+      "CRR_partA": {"pass": 150, "total": 150, "percent": 100.0},
+      "EAR_partB": {"pass": 147, "total": 176, "percent": 83.5227},
+      "invalidSelections": 0
+    },
+    "type_aware_policy": {
+      "mode": "enabled",
+      "answerAccuracy": {"correct": 387, "total": 406, "percent": 95.3202},
+      "byPart": {
+        "A": {"correct": 150, "total": 150, "percent": 100.0},
+        "B": {"correct": 159, "total": 176, "percent": 90.3409},
+        "C": {"correct": 78, "total": 80, "percent": 97.5}
+      },
+      "CRR_partA": {"pass": 150, "total": 150, "percent": 100.0},
+      "EAR_partB": {"pass": 159, "total": 176, "percent": 90.3409},
+      "invalidSelections": 0
+    }
+  },
+  "pairedEnabledVsBaseline": {
+    "wins": 15,
+    "losses": 2,
+    "ties": 389,
+    "accuracyDeltaPercentagePoints": 3.202,
+    "mcnemarExactTwoSidedP": 0.002349853515625,
+    "byPart": {
+      "A": {"wins": 0, "losses": 0, "ties": 150},
+      "B": {"wins": 14, "losses": 2, "ties": 160, "p": 0.004180908203125},
+      "C": {"wins": 1, "losses": 0, "ties": 79}
+    }
+  },
+  "batchClusteredConfidence": {
+    "batchUnits": 26,
+    "positiveBatches": 4,
+    "negativeBatches": 0,
+    "tiedBatches": 22,
+    "bootstrapReplicates": 10000,
+    "bootstrapSeed": 1309,
+    "accuracyDelta95PercentCI": [0.2463, 7.3892],
+    "batchSignExactTwoSidedP": 0.125,
+    "interpretation": "directional holdout evidence; batch-level repetition is not yet high confidence"
+  },
+  "singleChoiceSensitivity": {
+    "excludedCaseId": "TC-B-0185",
+    "baseline": {"correct": 373, "total": 405, "percent": 92.0988},
+    "enabled": {"correct": 386, "total": 405, "percent": 95.3086},
+    "wins": 15,
+    "losses": 2,
+    "ties": 388
+  },
+  "cost": {
+    "L1": "not_measured_prebuilt_public_store",
+    "L0": {"injectedMemoryRecordsPerArm": 1193, "sameVisibleRecordsAcrossArms": true},
+    "plain_visibility": {
+      "inputTokens": 428557,
+      "cachedInputTokens": 201856,
+      "outputTokens": 15940,
+      "reasoningOutputTokens": 5402,
+      "promptCharacters": 235991,
+      "latencyMs": {"total": 513979.632, "p50": 18639.354, "p95": 30496.155}
+    },
+    "type_aware_policy": {
+      "inputTokens": 431079,
+      "cachedInputTokens": 244352,
+      "outputTokens": 17779,
+      "reasoningOutputTokens": 7327,
+      "promptCharacters": 249849,
+      "latencyMs": {"total": 585978.529, "p50": 21213.819, "p95": 34717.293}
+    },
+    "enabledRelativeToBaseline": {
+      "inputTokensPercent": 0.5885,
+      "outputTokensPercent": 11.537,
+      "reasoningOutputTokensPercent": 35.635,
+      "promptCharactersPercent": 5.8723,
+      "totalLatencyPercent": 14.0081,
+      "p50LatencyPercent": 13.812,
+      "p95LatencyPercent": 13.8415
+    }
+  },
+  "developmentSelection": {
+    "round1": {"baseline": "54/60", "lifecycle": "55/60", "paired": "1W/0L/59T"},
+    "round2": {
+      "baseline": "54/60",
+      "lifecycle": "54/60",
+      "typeAware": "57/60",
+      "typeAwarePaired": "3W/0L/57T"
+    }
+  },
+  "errorAnalysis": {
+    "winSubcategories": {"implicit_temporal": 13, "boundary_cases": 1, "superseded_but_new_expired": 1},
+    "lossSubcategories": {"implicit_temporal": 2},
+    "claim": "most gains match the intended implicit project-status TTL mechanism; two regressions are retained"
+  },
+  "localEvidenceSha256": {
+    "developmentV1Calls": "bef253caf43223fd1d68d61e1407f5fdf73ffb76642781014d0748f0dcc48f26",
+    "developmentV1Cases": "927b4b711cf26631f0390e2cefe8a5195e2cb25e7f62105585357aa5622fc3ba",
+    "developmentV1Summary": "b89e8b424b4cd78d1fcedc5c99e51e132518ee77559c03123b6e0756e8bcc89f",
+    "developmentV2Calls": "3dcb03cc2c59b518b7ada09ccddcd90bcb18f487c66885951637421cc3fc40cc",
+    "developmentV2Cases": "fd9cefef865cd423c68110706b47f8829e7e0781a414341c84671da2b3935832",
+    "developmentV2Summary": "01568190c20170a664223ba2906db4e86d39b0137e126345dc360e754c98dd4e",
+    "holdoutCalls": "094ad0cc8e77a604ef111a2280ecd063228a44da6a634d5638613fba8b87160c",
+    "holdoutCases": "0e08a851deaa723a10c56d4ac5b85edf769021dace59a0285fa95c1cbe45543e",
+    "holdoutSummary": "b0769310cd14cb02e65a697147487d296d6f0cadd170d3cb3d02b5d5874c9bf6"
+  },
+  "boundaries": {
+    "publicMethodValidationOnly": true,
+    "naturalFeedbackLearning": false,
+    "memoryCoreWritePathMeasured": false,
+    "independentBusinessMetric": false,
+    "productionDefaultRecommended": false
+  }
+}
