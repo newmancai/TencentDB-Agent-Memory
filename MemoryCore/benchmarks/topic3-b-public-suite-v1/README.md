@@ -2,7 +2,7 @@
 
 本目录把近期公开资源按能力缺口组合使用，不把不同分母合成一个总分。主问题始终是：**一次反馈或任务结果，何时应形成什么记忆、绑定到哪个动作和范围、在后续哪一个决策点使用，才能减少重复失败而不过度干预？** E 只提供可追溯的 checker / verifier 回执，不替代 B，也不因任务通过就反推某条记忆必然正确。
 
-当前完成第 0 轮数据固定和两级 AMB 单题方法烟测。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。第一层四臂中 clean / 无关记忆失败，oracle 选中的原始/结构化反馈通过。第二层去掉公开历史选源，只用任务可见target/scope、第一层 clean 的真实 artifact 与 E checker failure 自动形成候选：E-only 重放失败，B+E 重放通过。详见 [`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md)、[`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md) 与 [`results/amb-fa-observed-loop.json`](results/amb-fa-observed-loop.json)。后者闭合了实际 E→B→E，但仍是同任务 n=1，不是自主检索或稳定净收益。
+当前完成第 0 轮数据固定和两级 AMB 单题方法烟测，并新增两条正交诊断轴。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。第一层四臂中 clean / 无关记忆失败，oracle 选中的原始/结构化反馈通过。第二层去掉公开历史选源，只用任务可见target/scope、第一层 clean 的真实 artifact 与 E checker failure 自动形成候选：E-only 重放失败，B+E 重放通过。ValidMem v1.1 全量466例/1,393记忆、Trigger Bench全量172例现已固定和标签隔离适配，但尚未运行模型。详见 [`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md)、[`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md)、[`DATASET_SELECTION_REVIEW.md`](DATASET_SELECTION_REVIEW.md) 与结构化 [`results`](results)。AMB结果闭合了实际 E→B→E，但仍是同任务 n=1，不是自主检索或稳定净收益。
 
 ## 统一闭环
 
@@ -26,10 +26,10 @@ B 更新：candidate → verified/disputed/superseded；unknown 不自动晋升
 |---|---|---|---|
 | [H6 Failure Gate](https://huggingface.co/datasets/joshuaswarren/h6-failure-gate-tasks) | 第一主集，B timing + E checker | 已知失败记忆在 turn-start 与 pre-action 的因果差异、重复失败、no-trap 误触发 | 自然多轮学习、跨项目泛化、最终完成率必然提升 |
 | [Agent Memory Bench](https://github.com/GiulioDER/agent-memory-bench) | 第二主集，执行式 read/lifecycle 路径 | present / absent / superseded / contradictory / adjacent 条件下的任务结果 | 当前版本尚不能单独证明从 agent 自身反馈学习 |
-| [ValidMem](https://huggingface.co/datasets/Zhou11Alex/ValidMem) | B 生命周期诊断 | current/history、supersession、expiry | 编码任务完成与真实反馈闭环 |
+| [ValidMem](https://huggingface.co/datasets/Zhou11Alex/ValidMem) | B 生命周期诊断，已适配 | current/history、supersession、expiry | 编码任务完成与真实反馈闭环；当前没有模型成绩 |
 | [AutoMemoryBench](https://huggingface.co/datasets/Multilingual-Multimodal-NLP/AutoMemoryBench) | 大规模状态合同审计 | required / admissible / prohibited 的容量与边界压力 | 真实代码执行；许可元数据未明确前不进入主结论 |
 | [ISETrace Memory Queries](https://huggingface.co/datasets/HazeLocus/ISETrace-Memory-Queries) | L1 抽取与证据对齐 | 完成轨迹上的 exact-span 检索、跨项目表述泛化 | 在线决策因果；轨迹已完成且全量并非人工复标 |
-| [Trigger Bench](https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench) | B 触发安全烟测 | 何时不应写、不应更新、不应触发 | 端到端质量主结论 |
+| [Trigger Bench](https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench) | B 触发与误用安全诊断，已适配 | 何时该读写、何时不应触发、如何抵抗过时/注入/secret | 端到端质量主结论；上游Codex/Claude成绩不算本项目成绩 |
 | [AgentArtifactCorpus](https://huggingface.co/datasets/searchsim/AgentArtifactCorpus) | 训练/分析语料候选 | 真实 AGENTS / CLAUDE / rules 形态 | 不能作带结果标签的主评测集 |
 
 ## H6 证据口径
@@ -57,6 +57,14 @@ H6 的 episode-1 history 是用已知 bad/good strategy 构造并冻结的控制
 
 本机用隔离 Python 3.12 重放时，corpus、plants、data-safety 三项审计均通过；另外30项 capability/lifecycle/task-scope 测试与5项 `fa-dedup-key` 合同测试通过。全任务102项 do-nothing/naive/informed replay 在进入 checker 前被宿主 Git 2.25 阻断，因为上游使用 `git init -b`；这记为环境阻断，不记任务失败，也不修改上游 harness 绕过。后续实跑应使用 Git ≥2.28 或上游声明的容器。
 
+## ValidMem 与 Trigger 适配合同
+
+ValidMem 固定为 v1.1 revision `786d5cd9f18e65bff6172d81fcb7c9009350a400`，不用 pre-QC v1。适配器全量连接466个 case 与1,393条 memory，保留69个“正确答案是已无有效记忆”的空 ground-truth case，以及12条QC删除后不可达但仍属于固定源池的 memory。agent侧只见 query、current day、固定种子打乱的选项和按创建时间排列的 store；替换/过期/无关身份、正确选项与 reference 留在 gold。`expiresDay` 是上游提供并建议使用的标准化输入元数据，冲突实体和 supersedes 图不暴露。准备结果见 [`results/validmem-preparation.json`](results/validmem-preparation.json)。
+
+Trigger Bench 固定 revision `f64b921474c9d84d073a588ed13568e917275a1c`：56 write、56 read、28 trap、32 frozen regression，共172例；其中90应触发、82不应触发，46例预置记忆、2例带工作区。agent侧只见单轮 prompt、预置 store 和工作区文件；正负 trigger、模块/类别、答案或store包含/排除规则只在 gold。它的正式判断必须读取真实操作 trace 和 turn 后 store；仅输出“我搜索了/记住了”不算通过。准备结果见 [`results/trigger-preparation.json`](results/trigger-preparation.json)。
+
+两者当前状态都是 `prepared` 而不是 `evaluated`。ValidMem 后续按 A/B/C 分别报告 accuracy、CRR、EAR；Trigger 分别报告 trigger recall、false-trigger rate、wrong-op/wrong-report 与 trap safety。所有成本仍按 L1 写入/更新和 L0 检索/注入分开记录，不能与 AMB task pass 或 H6 repeated failure 求一个总分。
+
 ## 三轮推进协议
 
 ### 第 1 轮：H6 action-site gate
@@ -69,12 +77,12 @@ H6 的 episode-1 history 是用已知 bad/good strategy 构造并冻结的控制
 ### 第 2 轮：AMB + ValidMem 生命周期
 
 - AMB 用执行 checker 判断 E 结果，比较 clean / E-only / B+E，而不是只比较是否检索到文本。
-- ValidMem 专门测 verified / superseded / expired 在 current 与 history 查询下的状态转移；69 个空 ground-truth expiry case 不过滤。
+- ValidMem 已完成全量适配；模型实验专门测 verified / superseded / expired 在 current 与 history 查询下的状态转移，69 个空 ground-truth expiry case 不过滤。
 - 同时报告 L1 写入/更新与 L0 检索/注入，避免把生命周期正确误算成答案收益。
 
 ### 第 3 轮：跨项目与误触发
 
-- ISETrace 用未见项目的 exact span 测 candidate evidence 对齐；Trigger Bench 测无反馈、弱反馈、相反范围下的保守性。
+- Trigger Bench 已完成全量适配，下一接隔离MemoryCore host实跑；ISETrace 再用未见项目的 exact span 测 candidate evidence 对齐，两者不混分。
 - AgentArtifactCorpus 只用于诱导有限规则候选，所有选择在开发分区完成；最终验证不把语料中的规则文字当 gold。
 - 若前两轮仍无净收益，交付负结果与失败归因，不扩 E 来掩盖 B。
 
@@ -107,6 +115,14 @@ python3 amb_adapter.py prepare --source /tmp/agent-memory-bench --output /tmp/am
 python3 amb_adapter.py materialize --source /tmp/agent-memory-bench \
   --task-id fa-dedup-key --output /tmp/amb-workspace
 
+git clone https://huggingface.co/datasets/Zhou11Alex/ValidMem /tmp/validmem
+git -C /tmp/validmem checkout 786d5cd9f18e65bff6172d81fcb7c9009350a400
+python3 validmem_adapter.py --source /tmp/validmem --output /tmp/validmem-adapted
+
+git clone https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench /tmp/trigger-bench
+git -C /tmp/trigger-bench checkout f64b921474c9d84d073a588ed13568e917275a1c
+python3 trigger_adapter.py --source /tmp/trigger-bench --output /tmp/trigger-adapted
+
 # 不加 --execute 时只验证并物化四臂协议；实际调用需本机已配置 codex CLI
 python3 amb_failed_approach_runner.py --source /tmp/agent-memory-bench \
   --output /tmp/amb-fa-dry-run
@@ -116,6 +132,8 @@ python3 amb_failed_approach_runner.py --source /tmp/agent-memory-bench \
 # 从上一次已评分 clean failure 形成 observed candidate；不读公开历史/gold
 python3 amb_failed_approach_runner.py --source /tmp/agent-memory-bench \
   --observed-from /tmp/amb-fa-run --output /tmp/amb-fa-observed --execute
+
+python3 -m unittest discover -s . -p 'test_*adapter.py'
 ```
 
-两套 `tasks.json` 只含 agent 可见任务、工作区/语料合同和 checker 接口；`gold.json` 才含 bad/good、trap、fact terms、相关 source 和 reference。适配层不绑定 MemoryCore 存储实现，后续内部数据只需提供同等的 workspace、pre-decision trace、E receipt 和 evaluator-only labels。
+四套 `tasks.json` 只含 agent 可见任务、工作区/语料/初始store合同和 checker 接口；`gold.json` 才含 bad/good、trap、生命周期身份、trigger expectation、fact terms、相关 source 和 reference。适配层不绑定 MemoryCore 存储实现，后续内部数据只需提供同等的 workspace、pre-decision trace、E receipt 和 evaluator-only labels。

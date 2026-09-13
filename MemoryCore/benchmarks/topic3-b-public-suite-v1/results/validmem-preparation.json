@@ -1,0 +1,55 @@
+{
+  "caseLanguageCounts": {
+    "en": 439,
+    "mixed": 10,
+    "zh": 17
+  },
+  "cases": 466,
+  "choiceCountDistribution": {
+    "1": 1,
+    "2": 134,
+    "3": 223,
+    "4": 107,
+    "5": 1
+  },
+  "emptyGroundTruthCasesRetained": 69,
+  "evaluationUnit": "case",
+  "independentModelRun": "not_run",
+  "inputHashes": {
+    "cases.jsonl": "1bccc39b48a644919baef45808ae7a318e30504b383e916ccee6a2c142bb4db0",
+    "memories.jsonl": "46627076c4170070ef33aa2c036ade07fe83a827658c0e0a2e2b3602665ac521"
+  },
+  "labelsSeparated": true,
+  "memories": 1393,
+  "memoryLanguageCounts": {
+    "en": 1324,
+    "mixed": 7,
+    "zh": 62
+  },
+  "optionPermutationSeed": 1309,
+  "outputHashes": {
+    "gold.json": "8b70d72b776f4a32b946e480d96cc618beab66a9165e997a24570304ceceb726",
+    "tasks.json": "cef3fe3e7ab7fb2b48ff330722c8b203d16746595f0fa7b6e7a4842c10c93dc3"
+  },
+  "partCounts": {
+    "A": 170,
+    "B": 196,
+    "C": 100
+  },
+  "protocol": "topic3-b-public-suite-v1",
+  "reachableMemories": 1381,
+  "schema": 1,
+  "selection": "all_cases_no_subsampling",
+  "source": {
+    "revision": "786d5cd9f18e65bff6172d81fcb7c9009350a400",
+    "url": "https://huggingface.co/datasets/Zhou11Alex/ValidMem",
+    "version": "v1.1"
+  },
+  "status": "prepared",
+  "storeSizeDistribution": {
+    "2": 89,
+    "3": 307,
+    "4": 68,
+    "5": 2
+  }
+}

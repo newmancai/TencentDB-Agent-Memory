@@ -33,14 +33,14 @@
     },
     {
       "id": "validmem",
-      "status": "next",
+      "status": "adapted",
       "role": "lifecycle_current_history_supersession_expiry",
       "source": "https://huggingface.co/datasets/Zhou11Alex/ValidMem",
       "revision": "786d5cd9f18e65bff6172d81fcb7c9009350a400",
       "snapshotDate": "2026-08-26",
       "license": "CC-BY-4.0",
       "size": {"cases": 466, "memories": 1393},
-      "independentRun": "not_run"
+      "independentRun": "adapter_validation_only"
     },
     {
       "id": "automemorybench",
@@ -66,14 +66,14 @@
     },
     {
       "id": "agent-memory-trigger-bench",
-      "status": "later",
-      "role": "trigger_safety_smoke",
+      "status": "adapted",
+      "role": "trigger_and_memory_misuse_safety",
       "source": "https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench",
       "revision": "f64b921474c9d84d073a588ed13568e917275a1c",
       "snapshotDate": "2026-08-30",
       "license": "CC-BY-4.0 data; MIT code",
       "size": {"microcases": 172},
-      "independentRun": "not_run"
+      "independentRun": "adapter_validation_only"
     },
     {
       "id": "agent-artifact-corpus",
