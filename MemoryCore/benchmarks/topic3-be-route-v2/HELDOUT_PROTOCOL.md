@@ -51,3 +51,9 @@ top-8-versus-full decision.
 This one held-out matrix can justify a product pilot, not a stable universal claim. Promotion to a
 default still requires a fresh replication and at least one second backend or materially different
 task family. No threshold will be tuned after seeing the held-out rows.
+
+## Outcome
+
+This frozen run was invalidated after 15 receipts because the attrs checker rejected an equivalent
+implementation by source spelling. See [the invalidation review](HELDOUT_INVALID_REVIEW.md). None of
+its partial quality or cost results are evidence, and its four projects are now consumed.

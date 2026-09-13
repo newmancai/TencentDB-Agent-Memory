@@ -217,3 +217,11 @@ workspace 均实核只有一个可达提交、无 remote、最终 review SHA 不
 三臂仍各 4/4、严重回归 0，质量全平。HTTPX 必要更新中 raw 两臂比 no-history 少用输入 token 和时间，
 但单次开发运行只构成效率线索。当前仍没有可重复的质量失败，因此不据此增加编译器或学习器；下一组
 必须选择代码常识无法唯一推回的维护者决策，继续找真实质量边界。
+
+又完成 HTTP Core #1008 与 Werkzeug #3166 的精确策略开发矩阵：12 次调用仍全过、质量全平，full raw
+相对 no-history 的总输入和墙钟继续下降，top-8 相对 full raw 也继续下降，但 uncached input 略升；因此只
+冻结“top-8 能否无质量损失降成本”留出，不增加编译器。首个四项目留出在 15/24 回执时发现 attrs checker
+错误依赖源码字面形式，把语义等价条件表达式误判成严重回归，整组已停止并全部作废；Click、HTTP Core、
+attrs、MarkupSafe 均视为已暴露，不能重包装。详见
+[留出失效复盘](topic3-be-route-v2/HELDOUT_INVALID_REVIEW.md)。下一留出必须换新项目，并在冻结前用至少
+两种语义等价实现验证 checker 的实现无关性。
