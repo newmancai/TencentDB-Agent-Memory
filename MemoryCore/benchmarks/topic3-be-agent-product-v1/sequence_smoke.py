@@ -42,7 +42,7 @@ def main():
         'Within src/api, future edit tasks must use 2 as the default retry attempts. Within src/workers, future edit tasks must use 5 as the default retry attempts.',
         'Correction for future edit tasks within src/api: use 0 as the default retry attempts, replacing the previous default of 2. This change does not apply to src/workers.',
     ):
-        setup.append(invoke(root,seed_state,seed,['remember',message]))
+        setup.append(invoke(root,seed_state,seed,['remember',message,'--compile']))
     (root / 'setup.json').write_text(json.dumps(setup,indent=2)+'\n')
     # The checker values are outside the coding workspaces and are never serialized into agent prompts.
     assertions = [

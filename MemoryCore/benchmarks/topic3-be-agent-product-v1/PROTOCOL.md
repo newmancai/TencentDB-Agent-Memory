@@ -92,3 +92,40 @@ implements actual persistent observation → scoped context → coding → check
 execution. `sequence_smoke.py` exercises that host with three paired tasks and
 independent state/workspaces. Its single synthetic fixture is an integration
 smoke only; it does not satisfy the real-project held-out protocol above.
+
+## Persistent repository sequences (schema 2)
+
+`sequence_runner.py` accepts clusters, each with four marked independent
+workspaces at one declared initial commit and ordered `steps`. Each step carries
+raw user `history`, a task prompt, task paths and an external checker. Within a
+cluster/arm, both working-tree edits and MemoryCore state persist to the next step.
+This deliberately differs from schema 1's fresh workspace for every task.
+
+Clean arms record the same user history without model compilation and read it
+verbatim. Memory arms run the existing constraint compiler and read the scoped
+state. No prepared memory-context file is accepted as a substitute. Compiler
+receipts and costs are separate from coding, and total step time includes both.
+Project clusters may run concurrently, but each individual arm remains sequential.
+
+`prepare_real_projects.py` prepares boltons, more-itertools, packaging and
+itsdangerous at fixed upstream commits. Each receives three authored maintenance
+scenarios grounded in its existing API: a changed new helper policy, a similar
+helper whose prior behavior must be retained, and a later policy change plus
+follow-up API. These are controlled tasks on real repositories, not real user
+issues or an official benchmark. Twelve tasks are a pilot, not a held-out proof.
+
+Checkers are outside the agent workspaces. Before running, each checks that
+existing APIs pass and the absent new feature fails. Later checks cover current
+features cumulatively: failures can propagate along a sequence and are not twelve
+independent observations. Compatibility exit code 2 marks a tested old-API
+regression; it is not a complete repository test suite or complete severity oracle.
+
+All four workspaces are prepared even if a service is unavailable. Missing arms
+remain missing, and partial-backend summaries cannot pass the full protocol.
+The compiler and task prompts are not tuned on these pilot outcomes.
+
+Future prepared manifests alternate `arm_order_offset` across clusters as well
+as step order. The first recorded pilot had no offset field (equivalent to 0
+in every cluster), so its first/third steps always ran raw first. Reproducing
+that pilot uses its recorded manifest; do not claim its latency/cache comparisons
+were fully counterbalanced or replace it with a freshly prepared balanced manifest.

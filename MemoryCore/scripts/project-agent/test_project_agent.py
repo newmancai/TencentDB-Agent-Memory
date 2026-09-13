@@ -44,7 +44,7 @@ class ProjectAgentTest(unittest.TestCase):
         with TemporaryDirectory() as directory:
             root=Path(directory); host=self.host(root)
             observation={'id':'u1','order':1,'role':'user','text':'Keep the zero override.'}
-            snapshot={'observations':[observation],'constraints':[], 'retractions':[], 'revision':1}
+            snapshot={'observations':[observation],'constraints':[{'sourceId':'u1','quote':observation['text']}], 'retractions':[], 'revision':1}
             host.store=Mock(side_effect=[snapshot,{'status':'selected','omittedForBudget':1}])
             result=host.context('scoped',['src/api'],'edit',1)
             self.assertEqual(result['mode'],'raw_fallback')
@@ -55,10 +55,25 @@ class ProjectAgentTest(unittest.TestCase):
             root=Path(directory); host=self.host(root)
             host.store=Mock(side_effect=[{'observations':[],'constraints':[]}, {'accepted':[]}])
             host.call=Mock(side_effect=RuntimeError('backend 502'))
-            result=host.remember('Keep existing worker behavior.',root)
+            result=host.remember('Keep existing worker behavior.',root,compile_constraints=True)
             self.assertEqual(result['extraction_error'],'backend 502')
             self.assertEqual(host.store.call_args.kwargs['proposals'],[])
             self.assertEqual(host.store.call_args.kwargs['observation']['text'],'Keep existing worker behavior.')
+
+    def test_remember_defaults_to_lossless_raw_storage_without_model_calls(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);host=self.host(root)
+            host.store=Mock(side_effect=[{'observations':[]}, {'revision':1,'accepted':[]}])
+            host.call=Mock(side_effect=AssertionError('must not invoke a model'))
+            result=host.remember('Keep the exact instruction.',root)
+            host.call.assert_not_called()
+            self.assertEqual(result['observation']['text'],'Keep the exact instruction.')
+            self.assertEqual(result['calls'],[])
+            source=result['observation']
+            host.store=Mock(return_value={'observations':[source],'constraints':[],'revision':1})
+            context=host.context('scoped',['.'],'edit',12000)
+            self.assertEqual(context['mode'],'raw')
+            self.assertEqual(json.loads(context['text']),source)
 
     def test_partial_compilation_does_not_drop_other_user_requirements(self):
         with TemporaryDirectory() as directory:

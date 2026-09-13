@@ -16,8 +16,8 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / 'benchmarks/topic3-be-agent-product-v1'))
-from agent_product_runner import command_for, events_from, parse_usage, run_command, terminal_error
+from backend import command_for, events_from, parse_usage, run_command, terminal_error
+from changes import capture_changes
 
 SCHEMA = {
     'type': 'object', 'additionalProperties': False, 'required': ['proposals'],
@@ -96,7 +96,7 @@ class Host:
         started = time.perf_counter()
         request = dict(database=str(self.state / 'memory.sqlite'), owner=self.args.owner,
                        project=self.args.project, operation=operation, **payload)
-        result = subprocess.run(['node', '--import', 'tsx', str(Path(__file__).with_name('store.ts'))],
+        result = subprocess.run([os.environ.get('MEMORY_AGENT_NODE','node'), '--import', 'tsx', str(Path(__file__).with_name('store.ts'))],
                                 cwd=ROOT, input=json.dumps(request), text=True, capture_output=True,
                                 timeout=30)
         self.store_wall_seconds += time.perf_counter() - started
@@ -128,10 +128,9 @@ class Host:
         if controlled:
             environment.update(CLAUDE_CODE_DISABLE_AUTO_MEMORY='1', CLAUDE_CODE_DISABLE_CLAUDE_MDS='1')
         result = run_command(command, self.workspace, self.args.timeout,
-                             input=prompt if self.args.backend == 'codex' else None, env=environment)
-        (evidence / 'stdout.jsonl').write_text(result.pop('stdout'))
-        (evidence / 'stderr.txt').write_text(result.pop('stderr'))
-        stdout = (evidence / 'stdout.jsonl').read_text()
+                             input=prompt if self.args.backend == 'codex' else None, env=environment,
+                             log_directory=evidence)
+        stdout = result.pop('stdout'); result.pop('stderr')
         if terminal_error(stdout):
             result['status'] = 'agent_error'
         result.update(usage=parse_usage(self.args.backend, stdout), backend=self.args.backend,
@@ -144,7 +143,12 @@ class Host:
             raise RuntimeError(f"{self.args.backend}: {result['status']} (see {evidence})")
         return final_text(self.args.backend, stdout)
 
-    def remember(self, text, evidence):
+    def remember(self, text, evidence, *, compile_constraints=False):
+        if not compile_constraints:
+            return self.record(text, evidence)
+        return self._compile_observation(text, evidence)
+
+    def _compile_observation(self, text, evidence):
         started = time.perf_counter()
         snapshot = self.store('snapshot')
         observation = dict(id=uuid.uuid4().hex, order=(snapshot['observations'][-1]['order'] + 1
@@ -176,6 +180,14 @@ class Host:
                 'store_wall_seconds': self.store_wall_seconds,
                 'scope': 'source-grounded proposals; semantic scope is not proven'}
 
+    def record(self, text, evidence):
+        """Ordinary raw-history baseline: preserve a user observation without inference."""
+        snapshot = self.store('snapshot')
+        observation = dict(id=uuid.uuid4().hex, order=(snapshot['observations'][-1]['order'] + 1
+                           if snapshot['observations'] else 1), role='user', text=text)
+        return {'observation': observation,
+                'accepted': self.store('ingest', observation=observation, proposals=[]), 'calls': []}
+
     def context(self, mode, paths, action, budget):
         if mode == 'off':
             return {'text': '', 'mode': 'off', 'revision': None}
@@ -185,6 +197,9 @@ class Host:
         raw = '\n'.join(json.dumps(o, ensure_ascii=False) for o in observations if o['role'] == 'user')
         if mode == 'raw':
             return {'text': raw, 'mode': 'raw', 'revision': snapshot['revision']}
+        if not snapshot['constraints']:
+            return {'text': raw, 'mode': 'raw', 'revision': snapshot['revision'],
+                    'selection_reason': 'no_compiled_constraints'}
         selected = self.store('context', options=dict(paths=paths, action=action, beforeOrder=before, maxBytes=budget))
         if selected['status'] == 'fallback' or selected['omittedForBudget']:
             return {'text': raw, 'mode': 'raw_fallback', 'selection': selected, 'revision': snapshot['revision']}
@@ -237,10 +252,14 @@ class Host:
                 (evidence / 'checker.json').write_text(json.dumps(checker, indent=2) + '\n')
         except (RuntimeError, ValueError) as exc:
             error = str(exc)
+        try:
+            changes = capture_changes(self.workspace, evidence, self.state)
+        except (OSError, ValueError) as exc:
+            changes = {'status': 'unavailable', 'error': str(exc)}
         summary = dict(error=error, memory_error=memory_error,
                        checker_pass=(checker['status'] == 'completed' and checker['returncode'] == 0)
                        if checker else None, final=final, calls=self.calls,
-                       context_mode=context['mode'], context_revision=context['revision'],
+                       changes=changes, context_mode=context['mode'], context_revision=context['revision'],
                        context_bytes=len(context['text'].encode()), wall_seconds=time.perf_counter()-started)
         if order is not None:
             try:
@@ -267,8 +286,10 @@ def main():
     parser.add_argument('--instruction-mode', choices=['project', 'controlled'], default='project',
                         help='retain project guidance normally; disable discovery only for controlled evaluation')
     sub = parser.add_subparsers(dest='command', required=True)
-    remember = sub.add_parser('remember', help='preserve user correction and compile source-grounded candidate constraints')
+    remember = sub.add_parser('remember', help='preserve user correction verbatim; optionally compile candidate constraints')
     remember.add_argument('text')
+    remember.add_argument('--compile', action='store_true', help='explicitly invoke the experimental constraint compiler')
+    sub.add_parser('record', help='preserve a user observation verbatim without a model call').add_argument('text')
     run = sub.add_parser('run', help='perform a coding task with prior persistent project context')
     run.add_argument('text'); run.add_argument('--check', help='checker command as JSON argv')
     for item in (run, sub.add_parser('context', help='preview exact context before invoking an agent')):
@@ -296,9 +317,12 @@ def main():
         else:
             evidence = host.state / 'runs' / (time.strftime('%Y%m%dT%H%M%S') + '-' + uuid.uuid4().hex[:8])
             evidence.mkdir(parents=True)
-            result = getattr(host, args.command)(args.text, evidence)
+            result = (host.remember(args.text, evidence, compile_constraints=args.compile)
+                      if args.command == 'remember' else getattr(host, args.command)(args.text, evidence))
             (evidence / 'result.json').write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n')
         print(json.dumps(result, indent=2, ensure_ascii=False))
+        if isinstance(result,dict) and any(c.get('status')=='cancelled' for c in result.get('calls',[])):
+            return 130
         if isinstance(result, dict) and (result.get('error') or result.get('checker_pass') is False):
             return 1
     return 0

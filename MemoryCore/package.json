@@ -7,7 +7,8 @@
   "bin": {
     "migrate-sqlite-to-tcvdb": "./bin/migrate-sqlite-to-tcvdb.mjs",
     "export-tencent-vdb": "./bin/export-tencent-vdb.mjs",
-    "read-local-memory": "./bin/read-local-memory.mjs"
+    "read-local-memory": "./bin/read-local-memory.mjs",
+    "memory-agent": "./bin/memory-agent.mjs"
   },
   "exports": {
     ".": {
@@ -79,7 +80,12 @@
     "!src/**/*.spec.ts",
     "!src/**/__tests__/",
     "!hermes-plugin/**/__pycache__/**",
-    "!hermes-plugin/**/*.pyc"
+    "!hermes-plugin/**/*.pyc",
+    "bin/memory-agent.mjs",
+    "scripts/project-agent/*.py",
+    "scripts/project-agent/store.ts",
+    "scripts/project-agent/README.md",
+    "!scripts/project-agent/test_*.py"
   ],
   "keywords": [
     "openclaw",
