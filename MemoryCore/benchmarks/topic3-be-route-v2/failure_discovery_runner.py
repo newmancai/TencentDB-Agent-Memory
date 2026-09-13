@@ -24,6 +24,14 @@ TASK_ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$')
 COMMIT_ID = re.compile(r'^[0-9a-f]{40}$')
 
 
+def arms_for(manifest):
+    arms = tuple(manifest.get('arms', ARMS))
+    if (not arms or len(set(arms)) != len(arms) or not set(arms) <= set(MODES)
+            or not {'no_history', 'raw_full'} <= set(arms)):
+        raise ValueError('arms must uniquely include no_history and raw_full')
+    return arms
+
+
 def quantile(values, q):
     if not values:
         return None
@@ -37,6 +45,7 @@ def validate(manifest):
         raise ValueError('expected schema=1 and development or heldout evaluation_mode')
     if not isinstance(manifest.get('clusters'), list) or not manifest['clusters']:
         raise ValueError('clusters must be nonempty')
+    arms = arms_for(manifest)
     clusters, tasks, workspaces = set(), set(), set()
     for cluster in manifest['clusters']:
         if not TASK_ID.fullmatch(cluster.get('id', '')) or cluster['id'] in clusters:
@@ -46,14 +55,14 @@ def validate(manifest):
         if (not isinstance(source, dict) or source.get('kind') not in {'github_issue', 'github_pr', 'repository_failure'}
                 or not isinstance(source.get('url'), str) or not source['url'].startswith('https://')):
             raise ValueError('each cluster needs a reviewable real source')
-        if set(cluster.get('workspaces', {})) != set(ARMS):
-            raise ValueError('each cluster needs three independent workspaces')
+        if set(cluster.get('workspaces', {})) != set(arms):
+            raise ValueError('each cluster needs one independent workspace per arm')
         forbidden = cluster.get('forbidden_commits')
         if (not isinstance(forbidden, list) or not forbidden
                 or not all(isinstance(value, str) and COMMIT_ID.fullmatch(value) for value in forbidden)):
             raise ValueError('each cluster needs known post-base commits to exclude')
         revisions = set()
-        for arm in ARMS:
+        for arm in arms:
             path = Path(cluster['workspaces'][arm]).resolve()
             if path in workspaces or not (path / '.agent-benchmark-worktree').is_file():
                 raise ValueError('unmarked or shared workspace')
@@ -105,8 +114,9 @@ def numeric_usage(rows):
 def summarize(rows, manifest):
     by_key = {(row['task_id'], row['arm']): row for row in rows}
     task_ids = [step['id'] for cluster in manifest['clusters'] for step in cluster['steps']]
+    configured_arms = arms_for(manifest)
     arms = {}
-    for arm in ARMS:
+    for arm in configured_arms:
         selected = [row for row in rows if row['arm'] == arm]
         usage, missing = numeric_usage(selected)
         walls = [row['total_wall_seconds'] for row in selected]
@@ -120,6 +130,8 @@ def summarize(rows, manifest):
     comparisons = {}
     for candidate, baseline in [('raw_full', 'no_history'), ('raw_top8', 'no_history'),
                                 ('raw_top8', 'raw_full')]:
+        if candidate not in configured_arms or baseline not in configured_arms:
+            continue
         counts = Counter()
         for cluster in manifest['clusters']:
             for step in cluster['steps']:
@@ -130,7 +142,7 @@ def summarize(rows, manifest):
                            'loss' if right['checker_pass'] and not left['checker_pass'] else 'tie')
                 counts[outcome] += 1; counts[f"{step['kind']}_{outcome}"] += 1
         comparisons[f'{candidate}_vs_{baseline}'] = dict(counts)
-    expected = len(ARMS) * sum(len(cluster['steps']) for cluster in manifest['clusters'])
+    expected = len(configured_arms) * sum(len(cluster['steps']) for cluster in manifest['clusters'])
     return {'schema': 1, 'protocol': 'topic3-be-route-v2-failure-discovery',
             'evaluation_mode': manifest['evaluation_mode'], 'task_source': manifest.get('task_source'),
             'complete': len(rows) == expected and all(value['execution_failures'] == 0 for value in arms.values()),
@@ -148,7 +160,7 @@ def summarize(rows, manifest):
                                              and by_key.get((task, 'raw_top8'), {}).get('checker_pass') is False],
             'all_arm_passes_no_discrimination': [task for task in task_ids
                                                  if all(by_key.get((task, arm), {}).get('checker_pass') is True
-                                                        for arm in ARMS)],
+                                                        for arm in configured_arms)],
             'same_topic_regressions': [row['task_id'] for row in rows
                                        if row['arm'] == 'raw_full' and row['kind'] == 'same_topic_control'
                                        and not row['checker_pass']],
@@ -178,13 +190,13 @@ def visibility_violations(evidence, workspace, manifest, output):
 
 
 def run(manifest, output):
-    validate(manifest); output.mkdir(parents=True, exist_ok=False)
+    validate(manifest); configured_arms = arms_for(manifest); output.mkdir(parents=True, exist_ok=False)
     atomic_write(output / 'manifest.json', json.dumps(manifest, indent=2) + '\n')
     rows = []
     for cluster_index, cluster in enumerate(manifest['clusters']):
         for step_index, step in enumerate(cluster['steps']):
-            offset = (cluster_index + step_index) % len(ARMS)
-            arms = ARMS[offset:] + ARMS[:offset]
+            offset = (cluster_index + step_index) % len(configured_arms)
+            arms = configured_arms[offset:] + configured_arms[:offset]
             for arm in arms:
                 started = time.perf_counter(); workspace = Path(cluster['workspaces'][arm]).resolve()
                 evidence = output / cluster['id'] / arm / step['id']; evidence.mkdir(parents=True)

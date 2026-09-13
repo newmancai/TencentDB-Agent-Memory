@@ -35,7 +35,44 @@ class FakeHost:
                 'context_bytes': 10, 'memory_error': None}
 
 
+def fixture_manifest(root, source, arms=ARMS):
+    for command in (['git', 'init', '-q'], ['git', 'add', '.'],
+                    ['git', '-c', 'user.name=T', '-c', 'user.email=t@example.invalid',
+                     'commit', '-qm', 'base']):
+        subprocess.run(command, cwd=source, check=True, capture_output=True)
+    base = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=source, text=True).strip()
+    workspaces = {}
+    for arm in arms:
+        path = root / arm
+        shutil.copytree(source, path)
+        (path / '.agent-benchmark-worktree').touch()
+        workspaces[arm] = str(path)
+    return {'schema': 1, 'evaluation_mode': 'heldout', 'task_source': 'test',
+            'arms': list(arms), 'clusters': [{
+                'id': 'repo', 'base_commit': base, 'workspaces': workspaces,
+                'forbidden_commits': ['0' * 40],
+                'source': {'kind': 'github_issue', 'url': 'https://example.invalid/issue/1'},
+                'steps': [
+                    {'id': 'update', 'kind': 'necessary_update', 'prompt': 'one', 'paths': ['a'],
+                     'history': ['old', 'correction'], 'checker': ['true']},
+                    {'id': 'control', 'kind': 'same_topic_control', 'prompt': 'two', 'paths': ['a'],
+                     'history': [], 'checker': ['true']},
+                ],
+            }]}
+
+
 class FailureDiscoveryRunnerTest(unittest.TestCase):
+    def test_two_arm_replication_omits_closed_retrieval_candidate(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')
+            manifest = fixture_manifest(root, source, ('no_history', 'raw_full'))
+            with patch('failure_discovery_runner.Host', FakeHost), contextlib.redirect_stdout(io.StringIO()):
+                summary = run(manifest, root / 'out')
+            self.assertTrue(summary['complete'])
+            self.assertEqual(set(summary['arms']), {'no_history', 'raw_full'})
+            self.assertEqual(len((root / 'out' / 'receipts.jsonl').read_text().splitlines()), 4)
+            self.assertEqual(set(summary['paired']), {'raw_full_vs_no_history'})
+
     def test_web_search_event_is_a_visibility_violation(self):
         with TemporaryDirectory() as directory:
             root = Path(directory); workspace = root / 'workspace'; output = root / 'output'
