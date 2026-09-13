@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "protocol": "topic3-b-public-suite-v1",
+  "mode": "adapter_and_upstream_contract_audit",
+  "status": "pass_with_host_blocked_reference_replay",
+  "source": {
+    "repository": "GiulioDER/agent-memory-bench",
+    "revision": "e0859d1ca757f65747b4d32e21f158d55c595879",
+    "archiveSha256": "8d7f5970ecf81810ddec75ce24eccd94f77320625c4922aaf12a1e5d562e2208",
+    "taskTreeSha256": "00b2cdf5605040853dc4fc1e4968e25a20ae54b36841af380c41c3ccb9936b4b",
+    "corpusManifestSha256": "58055df1828b2c1e51bc3c7f9f82e916145c67aa58332f22ce1b86b2d849b814"
+  },
+  "adaptation": {
+    "tasks": 34,
+    "groups": {"ts": 30, "xs": 3, "fa": 1},
+    "corpusSessions": 196,
+    "synthesis": {"single": 31, "evolve": 1, "join": 1, "widen": 1},
+    "conditionTaskCounts": {"absent": 15, "adjacent": 15, "contradictory": 14, "superseded": 14},
+    "tasksJsonSha256": "c6d3ef7c0e77a12918757810a1a73706ab16bebb6eedb60fc5fdf95d1c47b02f",
+    "goldJsonSha256": "a30fa7828936cdaa39c394908293ae93c66e172053b01b5a066b126d99889c87",
+    "labelsSeparated": true,
+    "labelKeyLeakScan": "pass"
+  },
+  "upstreamAudits": {
+    "corpus": {"status": "pass", "tasks": 34, "files": 258, "reportedVocabularyOverlapPairs": 1},
+    "plants": {"status": "pass", "conditions": 58, "tasks": 15},
+    "dataSafety": {"status": "pass", "declaration": "synthetic-only", "manifestMembers": 196},
+    "capabilityLifecycleScopeTests": {"status": "pass", "passed": 30},
+    "failedApproachContractTests": {"status": "pass", "passed": 5},
+    "fullReferenceReplay": {
+      "status": "blocked_before_checker",
+      "tests": 102,
+      "reason": "host git 2.25.1 does not support upstream git init -b; upstream requires Python >=3.12 and a newer Git/container",
+      "countedAsTaskFailure": false
+    }
+  },
+  "failedApproachCase": {
+    "id": "fa-dedup-key",
+    "relevantSessions": 1,
+    "memorySemantics": "exclude the outcome-proven order_id-only strategy without prescribing a replacement",
+    "distinctPassingReferences": 2,
+    "knownCalibration": "upstream bare-only 0/3 after redesign; too small for a rate claim"
+  },
+  "adapterUnitTests": {"passed": 3, "failed": 0},
+  "modelCalls": 0,
+  "independentOutcomeComparison": "not_run",
+  "officialWritePathMeasured": false,
+  "claim": "The pinned AMB task/corpus contracts are adapter-ready and fa-dedup-key is a valid multi-solution failure-memory method case; no MemoryCore gain has been measured."
+}

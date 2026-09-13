@@ -1,6 +1,6 @@
 # Topic3 B 研究交付审阅入口
 
-**用户已在初版交付完成后明确恢复后续复盘与研究优化；恢复范围不包含旧30B下载、旧prompt追分或production写入。最新入口是 [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md) 与 [最终复盘与交接](B_FINAL_HANDOFF_2026-09-13.md)。下文历史“下载中”仍已失效。**
+**用户已在初版交付完成后明确恢复后续复盘与研究优化；恢复范围不包含旧30B下载、旧prompt追分或production写入。当前新主线是 [B公开集组合协议](topic3-b-public-suite-v1/README.md)：B负责记忆决策，E只提供闭环回执；历史入口仍保留 [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md) 与 [最终复盘与交接](B_FINAL_HANDOFF_2026-09-13.md)。下文历史“下载中”仍已失效。**
 
 用户最新校正：[停止本地扩展，改用Codex强对照](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md)。30B下载与未完成规则迁移已停止，保留部分成本，不报质量结论；下方历史“下载中”状态已失效。
 
@@ -39,6 +39,7 @@
 
 ## 最新补充研究
 
+- [B公开集组合协议](topic3-b-public-suite-v1/README.md)：固定近期 H6 与 AMB revision。H6完成30任务/90 variant的标签隔离适配和六类 checker 四状态烟测；AMB完成34任务/196正式session适配，上游三项数据审计、30项能力/生命周期/作用域测试及5项failure-attribution多解合同通过。另在唯一failed-approach任务上实跑Codex四臂：clean与无关记忆均失败，raw feedback与compiled failure均通过；这是n=1、oracle选源的方法烟测，不是自主学习或稳定收益。全任务102项reference replay被本机旧Git在checker前阻断，原样记录。后续仍按 H6 action-site→AMB/ValidMem→ISETrace/Trigger 推进。
 - [B+E编码产品就绪度](B_E_PRODUCT_READINESS_2026-09-13.md)：初版研究交付满足，稳定B+E质量收益与Codex/Claude Code产品对标未满足。新增四臂顺序编码任务runner，主指标为各产品内部MemoryCore相对clean增量；尚未运行，不报产品成绩。
 - [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md)：直接最终绑定13/16失败，两阶段桥接13/16失败；全新留出集的candidate-only依赖扩展15/16通过（正例8/8、T2 4/4、负例7/8）。新增接口只提名待核验记忆，关闭/失败为空增量且永不写记忆；小样本方法验证不改变公开长对话负收益或商用结论。
 - [STALE候选池检索](topic3-b-stale-universe-v1/RESULTS.md)：另200行固定BM25，真实新会话用户文本找旧会话recall@8为96%、T2 94%；归一化M_new仅61%/53%。支持下一步在raw session top-8上验证，不等于MemoryCore生产检索或答案收益。
