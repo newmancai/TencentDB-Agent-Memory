@@ -237,6 +237,7 @@ def delivery_summary(public: dict) -> dict:
             "research_and_design": {
                 "status": "pass",
                 "artifacts": [
+                    "../../B_REVIEW_HANDOFF_2026-09-13.md",
                     "../../B_COMPLETE_DELIVERY_2026-09-13.md",
                     "../../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md",
                     "../../B_FINAL_HANDOFF_2026-09-13.md",

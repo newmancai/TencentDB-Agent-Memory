@@ -2,7 +2,7 @@
 
 **用户已在初版交付完成后明确恢复后续复盘与研究优化；恢复范围不包含旧30B下载、旧prompt追分或production写入。当前新主线是 [B公开集组合协议](topic3-b-public-suite-v1/README.md)：B负责记忆决策，E只提供闭环回执；历史入口仍保留 [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md) 与 [最终复盘与交接](B_FINAL_HANDOFF_2026-09-13.md)。下文历史“下载中”仍已失效。**
 
-**最终五项交付的统一入口是 [B+E完整交付总报告](B_COMPLETE_DELIVERY_2026-09-13.md)，机器可读索引是 [delivery-summary.json](topic3-b-delivery-v1/results/delivery-summary.json)。当前状态为`pass_with_mixed_method_evidence`：五项材料通过，Trigger/ValidMem为正向方法验证，CUPID自然反馈主结果仍为负，产品级长期收益未证明。**
+**交给下一位审阅者时先读 [B+E复盘审阅交接](B_REVIEW_HANDOFF_2026-09-13.md)，再读 [B+E完整交付总报告](B_COMPLETE_DELIVERY_2026-09-13.md)；机器可读索引是 [delivery-summary.json](topic3-b-delivery-v1/results/delivery-summary.json)。当前状态为`pass_with_mixed_method_evidence`：五项材料通过，Trigger/ValidMem为正向方法验证，CUPID自然反馈主结果仍为负，产品级长期收益未证明。**
 
 用户最新校正：[停止本地扩展，改用Codex强对照](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md)。30B下载与未完成规则迁移已停止，保留部分成本，不报质量结论；下方历史“下载中”状态已失效。
 
