@@ -1,8 +1,8 @@
 # Memory feedback sidecar
 
 This directory contains the opt-in runtime boundary for the B and E experiments.
-It is deliberately not re-exported from `core/index.ts`: hosts that adopt the
-experimental API import `memory-feedback/index.ts` explicitly.
+It is deliberately not re-exported from `core/index.ts`. Consumers use the
+explicit `@tencentdb-agent-memory/memory-tencentdb-v2/memory-feedback` subpath.
 
 The module does not install Gateway hooks. Disabled and failed calls preserve the
 host-provided baseline, and the B selectors receive no memory-write handle.
@@ -17,7 +17,7 @@ passing and unknown candidates cannot be selected. A valid empty list is success
 import {
   parseAnswerFeedback,
   runAnswerFeedbackAdapter,
-} from './index.js';
+} from '@tencentdb-agent-memory/memory-tencentdb-v2/memory-feedback';
 
 const result = await runAnswerFeedbackAdapter({
   enabled: config.feedback.enabled,
@@ -67,7 +67,7 @@ import {
   FeedbackMemory,
   FeedbackPolicy,
   processFeedback,
-} from './index.js';
+} from '@tencentdb-agent-memory/memory-tencentdb-v2/memory-feedback';
 
 const memory = new FeedbackMemory(owner, sidecarDirectory, baseStore, auxiliaryStore);
 const policy = new FeedbackPolicy('source/action/verifier:v1');

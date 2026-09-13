@@ -13,6 +13,10 @@
     ".": {
       "import": "./dist/index.mjs",
       "default": "./dist/index.mjs"
+    },
+    "./memory-feedback": {
+      "import": "./dist/memory-feedback.mjs",
+      "default": "./dist/memory-feedback.mjs"
     }
   },
   "scripts": {
@@ -51,6 +55,7 @@
     "bin/export-tencent-vdb.mjs",
     "bin/read-local-memory.mjs",
     "index.ts",
+    "memory-feedback.ts",
     "scripts/migrate-sqlite-to-tcvdb/dist/",
     "scripts/export-tencent-vdb/dist/",
     "scripts/read-local-memory/dist/",
