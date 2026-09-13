@@ -86,7 +86,7 @@ class FailureDiscoveryRunnerTest(unittest.TestCase):
             'indeterminate': 1, 'necessary_update_indeterminate': 1,
             'win': 1, 'same_topic_control_win': 1,
         })
-        self.assertEqual(summary['execution_failed_tasks'], ['update'])
+        self.assertEqual(summary['execution_failed_tasks'], ['no_history/update'])
         self.assertEqual(summary['memory_dependent_wins'], ['control'])
 
     def test_two_arm_replication_omits_closed_retrieval_candidate(self):

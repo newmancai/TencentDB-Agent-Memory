@@ -270,3 +270,12 @@ jsonschema 的 no-history 两格达到 300 秒时限、未运行 checker 且缺 
 仍不够进入自然轨迹验证。隔离复核未发现实际泄漏：宽路径只看见当前 clone，两个远端命令均连接失败；
 所有尝试原样保存在事件日志。runner 已在 v5 后修正为将执行失败汇总为 `indeterminate`。下一步必须换
 未暴露、规模更小的新家族做 v6，不重跑 v5 或事后提高时限。
+
+v6 随后完成冻结和 base／上游／等价实现预检，但首个 platformdirs no-history 调用在正确源码行为已经
+形成后继续增加测试、文档和检查，最终 300 秒超时且没有正式 checker／usage。确认整组按合同失效后，
+正在运行的 full-raw 配对由操作者取消；事后冻结 checker 在两份静止代码上都通过，只用于证明这是 E 的
+完成／恢复缺口，不能追认 B 质量成绩。其余 hpack、PrettyTable、importlib_metadata 没有模型调用，仍可
+进入新协议。精确边界见 [v6 失效复盘](topic3-be-route-v2/HELDOUT_V6_INVALID_REVIEW.md)。下一 v7 只复用
+这三家并补一个新小家族，明确只改指定源码、不加测试／文档、至多一次 focused smoke 后停止；不重跑
+platformdirs 或放宽既有结果。现有 `check-run` 无法检查未完成调用，已获得真实 E 缺口证据，但不得自动
+接受 partial edit。

@@ -30,13 +30,16 @@
    300 秒超时且未运行 checker，按预注册规则整组不能作为 Phase A 复现。可比首任务中 Websockets、
    wsproto 两家族出现有利于完整原话的行为分叉，Scrapy 平，jsonschema 不可判；旧汇总把超时误算胜例，
    后续 runner 已改为 `indeterminate`。
+6. **v6 小任务替代矩阵：首格即因执行失效停止。** platformdirs no-history 在正确源码行为已经形成后
+   继续扩测试／文档，300 秒超时且正式 checker 未运行；配对 full-raw 在确认整组失效后由操作者取消。
+   事后冻结 checker 两臂都过，只用于定位 E 的完成／恢复缺口，不追认质量成绩。其余三家族没有模型调用。
 
 证据和限制见 [v4 结果](topic3-be-route-v2/HELDOUT_V4_RESULTS.md)。这支持继续复现完整原话路线，
 不支持“已普遍有效”“优于开源产品”或“已可默认推广”。
 
 ## Phase A：新家族复现（当前）
 
-建立 v5 两臂协议：`no_history` 与 `raw_full`。使用四个此前所有开发／留出均未出现的项目家族，每个家族
+建立干净两臂协议：`no_history` 与 `raw_full`。使用四个此前所有开发／留出均未出现的项目家族，每个家族
 一个必要更新和一个累积同主题控制，共 16 次调用。任务来自可核验的真实 issue／PR 决策，但明确标注为
 重放的顺序用户观察；不得读取未来 revision、公开搜索、checker 或其他 arm。
 
@@ -59,7 +62,7 @@
 no-history 在独立工作区按同一请求运行，使用项目原测试或维护者可接受的行为检查。报告项目级首次重复错误、
 误用、无需修改控制、总成本和用户人工纠正次数。自然验证不得把公开 PR 的答案重写成“用户历史”。
 
-通过条件不是任意总分，而是 v4/v5 已识别的机制在自然轨迹中至少再次出现，且没有严重范围误用。否则回到
+通过条件不是任意总分，而是有效留出已识别的机制在自然轨迹中至少再次出现，且没有严重范围误用。否则回到
 失败分类，不自动进入复杂机制。
 
 ## Phase C：开源对照（Phase B 有效后）
@@ -88,7 +91,8 @@ prompt 追分、production、Gateway 自动启用或操作他人 GPU。
 - 一个明确决定：继续复现、进入自然验证、采用最小修复、保持实验、关闭候选或改变路线。
 - 更新本任务和总交接，不把失效矩阵、累积控制或开发题包装成独立产品成绩。
 
-当前进度：v5 结果与失效边界见 [v5 结果](topic3-be-route-v2/HELDOUT_V5_RESULTS.md)。完整原话 8/8，
-但 no-history 两个 jsonschema 调用超时，成本也缺两份 usage，因此不能报告复制成功、5 胜或成本优势；
-Websockets／wsproto 的两个首任务分叉只作为下一轮机制诊断。精确下一步是用未暴露的新项目家族准备
-更小、更可在时限内检查的 v6；不重跑 v5、不事后提高其 timeout，也不进入 Phase B。
+当前进度：v5 结果与失效边界见 [v5 结果](topic3-be-route-v2/HELDOUT_V5_RESULTS.md)，v6 精确停止状态见
+[v6 失效复盘](topic3-be-route-v2/HELDOUT_V6_INVALID_REVIEW.md)。完整原话仍只有 v4 是完整有效矩阵；
+v5／v6 都不能报告复制成功或成本优势。精确下一步是复用 v6 中没有模型调用的 hpack、PrettyTable、
+importlib_metadata，再加一个全新小家族，冻结限制为只改指定源码、不加测试／文档、至多一次 focused smoke
+即停止的 v7；不重跑 platformdirs、不事后提高时限，也不进入 Phase B。

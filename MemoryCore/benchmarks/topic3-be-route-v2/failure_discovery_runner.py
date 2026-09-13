@@ -159,7 +159,7 @@ def summarize(rows, manifest):
             'current_system_failures': [row['task_id'] for row in rows
                                         if row['arm'] == 'raw_full' and quality_comparable(row)
                                         and not row['checker_pass']],
-            'execution_failed_tasks': [row['task_id'] for row in rows
+            'execution_failed_tasks': [f"{row['arm']}/{row['task_id']}" for row in rows
                                        if not quality_comparable(row)],
             'memory_dependent_wins': [task for task in task_ids
                                       if quality_comparable(by_key.get((task, 'raw_full')))
