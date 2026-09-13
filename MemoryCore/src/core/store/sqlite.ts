@@ -117,6 +117,10 @@ export interface L0RecordRow {
 }
 
 const TAG = "[memory-tdai][sqlite]";
+const L1_QUERY_COLUMNS = `record_id, content, type, priority, scene_name, session_key, session_id,
+  team_id, task_id, user_id, agent_id, version,
+  timestamp_str, timestamp_start, timestamp_end,
+  created_time, updated_time, metadata_json`;
 
 /** Persisted metadata about the embedding provider used to generate stored vectors. */
 interface EmbeddingMeta {
@@ -1109,48 +1113,43 @@ export class VectorStore implements IMemoryStore {
     // L1 query statements (for l1-reader)
     // user_id / agent_id surfaced in every L1 read so callers (router /
     // candidate-pool / l1-reader) can enforce isolation downstream.
-    const l1QueryCols = `record_id, content, type, priority, scene_name, session_key, session_id,
-      team_id, task_id, user_id, agent_id, version,
-      timestamp_str, timestamp_start, timestamp_end,
-      created_time, updated_time, metadata_json`;
-
     this.stmtQueryBySessionId = this.db.prepare(`
-      SELECT ${l1QueryCols} FROM l1_records
+      SELECT ${L1_QUERY_COLUMNS} FROM l1_records
       WHERE session_id = ?
       ORDER BY updated_time ASC
     `);
 
     this.stmtQueryBySessionIdSince = this.db.prepare(`
-      SELECT ${l1QueryCols} FROM l1_records
+      SELECT ${L1_QUERY_COLUMNS} FROM l1_records
       WHERE session_id = ? AND updated_time > ?
       ORDER BY updated_time ASC
     `);
 
     this.stmtQueryBySessionKey = this.db.prepare(`
-      SELECT ${l1QueryCols} FROM l1_records
+      SELECT ${L1_QUERY_COLUMNS} FROM l1_records
       WHERE session_key = ?
       ORDER BY updated_time ASC
     `);
 
     this.stmtQueryBySessionKeySince = this.db.prepare(`
-      SELECT ${l1QueryCols} FROM l1_records
+      SELECT ${L1_QUERY_COLUMNS} FROM l1_records
       WHERE session_key = ? AND updated_time > ?
       ORDER BY updated_time ASC
     `);
 
     this.stmtQueryAll = this.db.prepare(`
-      SELECT ${l1QueryCols} FROM l1_records
+      SELECT ${L1_QUERY_COLUMNS} FROM l1_records
       ORDER BY updated_time ASC
     `);
 
     this.stmtQueryAllSince = this.db.prepare(`
-      SELECT ${l1QueryCols} FROM l1_records
+      SELECT ${L1_QUERY_COLUMNS} FROM l1_records
       WHERE updated_time > ?
       ORDER BY updated_time ASC
     `);
 
     this.stmtL1QueryMigrationCursor = this.db.prepare(`
-      SELECT ${l1QueryCols} FROM l1_records
+      SELECT ${L1_QUERY_COLUMNS} FROM l1_records
       WHERE record_id > ?
       ORDER BY record_id ASC
       LIMIT ?
@@ -1707,8 +1706,33 @@ export class VectorStore implements IMemoryStore {
 
       let raw: Record<string, unknown>[];
 
-      // Priority: sessionId > sessionKey (sessionId is more specific)
-      if (sessionId && updatedAfter) {
+      if (filter?.recordIds !== undefined) {
+        if (filter.recordIds.length === 0) return [];
+        const conditions = [`record_id IN (${filter.recordIds.map(() => "?").join(", ")})`];
+        const params: SQLInputValue[] = [...filter.recordIds];
+        // Preserve the existing priority: sessionId is more specific than sessionKey.
+        if (sessionId) {
+          conditions.push("session_id = ?"); params.push(sessionId);
+        } else if (sessionKey) {
+          conditions.push("session_key = ?"); params.push(sessionKey);
+        }
+        if (updatedAfter) {
+          conditions.push("updated_time > ?"); params.push(updatedAfter);
+        }
+        for (const [column, value] of [
+          ["team_id", filter.teamId], ["user_id", filter.userId],
+          ["agent_id", filter.agentId], ["task_id", taskId],
+        ] as const) {
+          if (value !== undefined) {
+            conditions.push(`${column} = ?`); params.push(value);
+          }
+        }
+        raw = this.db.prepare(`
+          SELECT ${L1_QUERY_COLUMNS} FROM l1_records
+          WHERE ${conditions.join(" AND ")}
+          ORDER BY updated_time ASC
+        `).all(...params) as Record<string, unknown>[];
+      } else if (sessionId && updatedAfter) {
         raw = this.stmtQueryBySessionIdSince.all(sessionId, updatedAfter) as Record<string, unknown>[];
       } else if (sessionId) {
         raw = this.stmtQueryBySessionId.all(sessionId) as Record<string, unknown>[];
@@ -1732,15 +1756,9 @@ export class VectorStore implements IMemoryStore {
       }
 
       let rows = raw as unknown as L1RecordRow[];
-      if (filter?.recordIds !== undefined) {
-        const requestedIds = new Set(filter.recordIds);
-        rows = rows.filter((row) => requestedIds.has(row.record_id));
-      }
-      // Prepared statements above optimize the common session/time predicates.
-      // Isolation dimensions are optional and can be combined with any query
-      // shape (notably L2 profile queries use teamId+agentId+updatedAfter
-      // without sessionKey). Apply them in memory to keep the statement matrix
-      // bounded and to match queryL1Paginated semantics.
+      // The exact-ID query pushes all predicates into SQLite. For the prepared
+      // session/time statements, apply optional isolation dimensions here to
+      // keep the statement matrix bounded and match paginated-query semantics.
       if (filter?.teamId !== undefined) rows = rows.filter((r) => r.team_id === filter.teamId);
       if (filter?.userId !== undefined) rows = rows.filter((r) => r.user_id === filter.userId);
       if (filter?.agentId !== undefined) rows = rows.filter((r) => r.agent_id === filter.agentId);
