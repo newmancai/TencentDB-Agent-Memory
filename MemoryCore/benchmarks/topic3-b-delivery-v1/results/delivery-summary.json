@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "suite": "topic3-b-delivery-acceptance-v1",
+  "status": "pass_with_negative_public_gain",
+  "deliverables": {
+    "research_and_design": {
+      "status": "pass",
+      "artifacts": [
+        "../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md",
+        "../B_FINAL_HANDOFF_2026-09-13.md"
+      ]
+    },
+    "public_long_dialogue_eval": {
+      "status": "pass",
+      "mode": "method_validation",
+      "quality_gain_status": "fail",
+      "result": "public-long-dialogue.json"
+    },
+    "implementation_and_comparison": {
+      "status": "pass",
+      "mode": "bounded_component",
+      "baseline": {
+        "name": "temporary_correction_omitted",
+        "correct": 0,
+        "total": 4
+      },
+      "enabled": {
+        "name": "temporary_correction_included",
+        "correct": 4,
+        "total": 4
+      },
+      "paired": {
+        "wins": 4,
+        "losses": 0,
+        "ties": 0
+      }
+    },
+    "off_and_forced_fallback": {
+      "status": "pass",
+      "mode": "runtime_contract",
+      "cases": 4,
+      "result": "runtime-contract.json"
+    },
+    "portable_pr": {
+      "status": "pass",
+      "mode": "additive_sidecar",
+      "adapter": "../../../src/core/memory-feedback/answer-feedback-adapter.ts",
+      "porting_notes": "../PORTING.md",
+      "remote_publication": "must be checked from PR state; this JSON validates local reviewability only"
+    }
+  },
+  "component_evidence": {
+    "natural_raw_candidate": {
+      "status": "pass",
+      "mode": "enabled_extractor_plus_fail_closed_gate",
+      "proposal_correct": {
+        "correct": 2,
+        "total": 2
+      },
+      "abstention_correct": {
+        "correct": 12,
+        "total": 12
+      },
+      "host_replay": {
+        "ok": true,
+        "counts": {
+          "decision_trace": 28,
+          "feedback_claim": 14,
+          "memory_assertion": 2,
+          "outcome": 14
+        },
+        "learner_ready_extractor_decisions": 14,
+        "pending_offpolicy_answer_decisions": 14
+      },
+      "claim_boundary": "candidate generation only; not durable truth or memory-cause attribution"
+    },
+    "instrumented_causal_loop": {
+      "status": "pass",
+      "mode": "paired_include_omit",
+      "initial": {
+        "correct": 0,
+        "total": 4
+      },
+      "baseline_omit": {
+        "correct": 0,
+        "total": 4
+      },
+      "enabled_include": {
+        "correct": 4,
+        "total": 4
+      },
+      "paired": {
+        "wins": 4,
+        "losses": 0,
+        "ties": 0
+      },
+      "usage": {
+        "input_tokens": 168480,
+        "cached_input_tokens": 27648,
+        "output_tokens": 296,
+        "reasoning_output_tokens": 97
+      },
+      "wall_seconds": 90.35606169200001,
+      "replay": {
+        "ok": true,
+        "decision_trace": 12,
+        "feedback_claim": 4,
+        "memory_assertion": 4,
+        "outcome": 12,
+        "learning_samples": 12,
+        "pending": 0
+      },
+      "l1_extraction": {
+        "status": "path_verified",
+        "latency": "not_measured_separately"
+      },
+      "l0_retrieval_and_injection": {
+        "status": "path_and_exact_prompt_span_verified",
+        "latency": "not_measured_separately"
+      }
+    },
+    "public_feedback_gain": {
+      "status": "fail",
+      "mode": "feedback_vs_frozen_same_model",
+      "observed": {
+        "loss": 4,
+        "tie": 5,
+        "win": 3
+      },
+      "cost": {
+        "input_token_ratio": 3.434372300126271,
+        "input_token_delta": 73260,
+        "generation_time_ratio": 1.6204225977155917
+      }
+    }
+  },
+  "release_boundary": {
+    "commercial_b": "not_proven",
+    "learned_gate": "stopped_for_this_exact_domain_due_to_no_headroom_over_deterministic_rule",
+    "production_enabled": false,
+    "durable_promotion_enabled": false
+  }
+}

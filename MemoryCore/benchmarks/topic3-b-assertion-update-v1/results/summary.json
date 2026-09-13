@@ -1,0 +1,18 @@
+{
+  "protocol": "topic3-b-assertion-update-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "calls": 8,
+  "completed": 8,
+  "correct": 8,
+  "threshold": 7,
+  "pass": true,
+  "wall_seconds": 76.61975789931603,
+  "usage": {
+    "input_tokens": 114112,
+    "cached_input_tokens": 10624,
+    "output_tokens": 287,
+    "reasoning_output_tokens": 0
+  },
+  "scope": "Only target-bound synthetic explicit corrections; exact target/value/scope checker."
+}

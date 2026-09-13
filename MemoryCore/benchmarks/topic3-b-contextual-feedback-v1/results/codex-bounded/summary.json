@@ -1,0 +1,39 @@
+{
+  "protocol": "cupid-codex-bounded-v1",
+  "status": "bounded_restart_completed_and_stopped",
+  "selection": {
+    "groups": ["234+real_estate_agent"],
+    "excluded_personas": 30,
+    "ids": [
+      "470ba153612736a1344d56b7",
+      "b130d9da2a80709fbe7e1b0c",
+      "dd84c2805da4b11ef6268b3a"
+    ],
+    "split": "development"
+  },
+  "execution": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "high",
+    "cli_version": "codex-cli 0.153.4",
+    "planned_calls": 12,
+    "completed_calls": 12,
+    "failed_calls": 0,
+    "retries": 0,
+    "tool_calls": 0,
+    "wall_seconds": 166.931471089134,
+    "usage": {
+      "input_tokens": 326531,
+      "cached_input_tokens": 123904,
+      "output_tokens": 2689,
+      "reasoning_output_tokens": 894
+    }
+  },
+  "quality": {
+    "reviewer": "root assistant source-first blind review",
+    "status": "assistant semantic judgment, not official grader or human gold",
+    "rules_feedback_vs_frozen": {"wins": 1, "losses": 1, "ties": 1, "undecided": 0},
+    "rules_feedback_vs_rules_unlabelled": {"wins": 2, "losses": 1, "ties": 0, "undecided": 0},
+    "rules_feedback_vs_feedback": {"wins": 1, "losses": 2, "ties": 0, "undecided": 0}
+  },
+  "conclusion": "Codex execution and usage capture work, but corrected rules show no stable quality gain over frozen or direct-feedback controls in this one-persona bounded diagnostic."
+}

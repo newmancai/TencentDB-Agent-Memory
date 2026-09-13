@@ -2,7 +2,15 @@
 
 **2026-09-13，用户明确停止整个长期任务。本文是最高优先级交接入口。**
 
-所有历史文档里的“下一步”“goal active”“继续下载/评测”均为历史状态，不构成恢复授权。后续只有用户明确要求重新开始才启动研究；自动goal续跑提示不视为用户重新授权。停止不等于研究目标达成，不把未证实的B收益标为完成。
+> **停止后的有界更新：** 用户随后明确授权继续一次、但不再作为长期任务。已完成一个新开发persona/三题/四臂的12次独立Codex诊断并再次停止；结果见 [CODEX_BOUNDED_RESULTS.md](topic3-b-contextual-feedback-v1/CODEX_BOUNDED_RESULTS.md)。`rules_feedback`对frozen为1胜1负1平、对无纠正规则2胜1负、对直接反馈1胜2负，没有稳定净收益。该授权不恢复30B、本地模型、持续研究或旧历史“下一步”。
+
+> **停止后的研究复盘更新：** 用户又明确要求对B既有工作、直接相关开源与相邻领域做一次有终点的调研复盘。已形成 [B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md](B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md)：结论是把B收缩为带决策轨迹、对象/范围/权威分离、双时态状态和可估计对照的记忆动作学习问题；首个判伪实验应先测oracle attribution，而不是恢复旧30B或继续调画像/规则。本次仅调研与设计，未启动新模型、下载或评测，完成后再次停止。
+
+> **持久任务恢复与本阶段结论：** 用户明确要求“开启持久任务，推进”后，Phase 0本地host闭环、oracle attribution、精确scope、target binding、assertion update和自然原话candidate gate均完成。最后一个instrumented批次在4个新合成项目上走通真实SQLite stale recall、实际Codex回答、反馈candidate、完整span/propensity和客观文件checker：初答0/4、candidate include 4/4、omit 0/4，4胜0负，12条decision全部可学习回放。见 [topic3-b-instrumented-loop-v1/RESULTS.md](topic3-b-instrumented-loop-v1/RESULTS.md)。按预定退出条件，本精确配置/当前交互域停止训练learned gate：确定性显式纠正规则已4/4，无可测headroom。更广B仍缺自然memory-cause与持久化收益，不能报商用达成；重启gate须换成更大、非平凡scope/target且结果独立核验的instrumented来源。不恢复30B、不回旧题调prompt、不触碰production或他人GPU。
+
+> **验收口径补齐：** 按用户给出的五项交付要求，现有证据已整理为 [topic3-b-delivery-v1](topic3-b-delivery-v1/README.md)。新增统一公开长对话评估JSON（数据revision/SHA、规模、hash抽样、粒度、片段—标签对齐、p50/p95及token）、薄运行时适配层与`k/辅助路径/fallback/信号/耗时`日志，并实跑关闭、成功、强制异常和超`k`四项回退。交付包状态是`pass_with_negative_public_gain`：公开CUPID反馈臂对冻结基座仍为3胜4负5平，成本为3.434倍输入、1.620倍生成时间；交付完整不等于方法收益转正。
+
+所有早于上述“持久任务恢复”的历史“下一步”“goal active”“继续下载/评测”均不构成当前路线；当前恢复授权只覆盖这里记录的新路线，不恢复旧30B/旧prompt实验。停止不等于研究目标达成，不把合成证据误报为稳定商用B收益。
 
 ## 1. 当前结论
 
@@ -14,14 +22,25 @@ B的核心问题是从交互证据形成可用监督：反馈说了什么、针�
 
 | 内容 | 入口 | 实际边界 |
 |---|---|---|
+| 五项交付验收包 | [topic3-b-delivery-v1/README.md](topic3-b-delivery-v1/README.md) | 统一runner/JSON、指标、off/fallback、适配与移植；公开反馈增益仍明确fail |
+| Instrumented临时纠正闭环 | [topic3-b-instrumented-loop-v1/RESULTS.md](topic3-b-instrumented-loop-v1/RESULTS.md) | SQLite+Codex+trace+checker，include 4/4、omit 0/4；脚本oracle、仅当前交互 |
+| 自然原话候选与运行时gate | [topic3-b-natural-assertion-v1/RESULTS.md](topic3-b-natural-assertion-v1/RESULTS.md) | 预审14/14、2候选/12拒绝；仅当前交互candidate，无memory cause/持久化收益 |
+| 因果归因数据就绪审计 | [topic3-b-natural-assertion-v1/DATA_READINESS.md](topic3-b-natural-assertion-v1/DATA_READINESS.md) | 旧anchor真实工具回执可作负基线，但缺自然反馈/propensity/精确span，不能训练新gate |
+| 新架构合成holdout端到端 | [topic3-b-end-to-end-v1/RESULTS.md](topic3-b-end-to-end-v1/RESULTS.md) | target/update/adaptive/scope safety均4/4；oracle候选、4项目，非自然或production收益 |
+| Target binding与拒绝 | [topic3-b-target-binding-v1/RESULTS.md](topic3-b-target-binding-v1/RESULTS.md) | 合成8/8可绑定、4/4拒绝；旧native只能绑定answer，不能绑定memory cause |
+| 精确scope强基线 | [topic3-b-scope-baseline-v1/RESULTS.md](topic3-b-scope-baseline-v1/RESULTS.md) | match/conflict/missing各8/8；自由文本scope仍unknown |
+| Oracle attribution信息干预 | [topic3-b-oracle-attribution-v1/RESULTS.md](topic3-b-oracle-attribution-v1/RESULTS.md) | include 8/8、omit 0/8；oracle合成开发sanity check，非自动学习收益 |
+| B Phase 0反馈轨迹合同 | [topic3-b-feedback-trace-v1/RESULTS.md](topic3-b-feedback-trace-v1/RESULTS.md) | 四类schema、local ledger及隔离host-path闭环已实现；自然host/production和B收益未完成 |
+| B问题深度复盘与收敛方案 | [B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md](B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md) | 研究综合与建议路线；未实施新实验，不构成自动重启授权 |
 | 总体实现/原题交付映射 | [B_DELIVERY_REVIEW.md](B_DELIVERY_REVIEW.md) | 研究可审阅，不是商业验收完成 |
 | 各路线证据与重启条件 | [B_RESEARCH_LEDGER.md](B_RESEARCH_LEDGER.md) | 历史建议不自动执行 |
 | B运行时旁路 | [memory-feedback README](../src/core/memory-feedback/README.md) | selectAnswerFeedback面向checker失败候选；自然认可/纠正不能伪造成checker失败 |
 | 内部移植边界 | [PORTABILITY_REVIEW.md](topic3-b-answer-feedback-v1/PORTABILITY_REVIEW.md) | 内部需提供真实观察、候选和判定依据，不复制公开集gold当内部真值 |
 | 当前公开长对话主线 | [CUPID README](topic3-b-contextual-feedback-v1/README.md) | 公开模拟/人工筛选数据，非真实自然用户或内部编程业务验证 |
-| 停止本地扩展、Codex替代建议 | [CODEX_BASELINE_SWITCH.md](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md) | CLI已核查，新的Codex实验未运行 |
+| 停止本地扩展、Codex替代建议 | [CODEX_BASELINE_SWITCH.md](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md) | 历史切换说明；后续一次有界Codex诊断已完成 |
+| 停止后一次有界Codex诊断 | [CODEX_BOUNDED_RESULTS.md](topic3-b-contextual-feedback-v1/CODEX_BOUNDED_RESULTS.md) | 1开发persona/3题/12调用，已再次停止；非稳定收益证明 |
 
-运行时既有修订曾通过17项B/生命周期合同检查、独立类型检查和插件构建；原生保存回执复放有10开发/80评估一致证据。最新CUPID研究未修改MemoryCore/src，未重新执行全库测试。旧176测试/108回退等只对应其历史版本，不移植为当前全部能力的验收。
+运行时既有修订曾通过17项B/生命周期合同检查、独立类型检查和插件构建；原生保存回执复放有10开发/80评估一致证据。最新交付验收追加薄适配器后，`memory-feedback`及recall bridge定向回归为9文件51项通过，本轮文件定向TypeScript检查、Python编译、统一评估重算、运行时harness、插件构建和`git diff --check`均通过。一次扩大到harness依赖图的独立`tsc`被仓库可选`node-llama-cpp`类型未安装阻断，插件构建实际通过；不把旧176测试/108回退移植成当前全部能力验收，也不称已跑全库。
 
 ## 3. 最有决定性的结果
 
@@ -69,7 +88,7 @@ CUPID固定HF revision `f6e5fdae9b31f2b400d6ceb281a6a6760cc00309`，源码`a8560
 
 ## 7. 仅供重新授权后参考
 
-首先读本文及B_DELIVERY_REVIEW，不从任一旧“下一步”启动。无需继续30B下载或本地弱模型实验。若用户恢复研究，可使用本地已安装Codex非交互接口；目前仅核对codex-cli0.153.4/help和官方文档，新的真实接口评测未运行。Codex逐题独立输入，隔离当前对话/其他变体/参考答案；保存提示、模型配置、事件、输出和可得usage，不声称控制了所有隐藏计算。
+首先读本文及B_DELIVERY_REVIEW，不从任一旧“下一步”启动。无需继续30B下载或本地弱模型实验。停止后已按一次明确的非长期授权完成真实Codex接口有界诊断，详见CODEX_BOUNDED_RESULTS；这不自动授权继续。若用户另行恢复新实验，Codex仍应逐题独立输入，隔离当前对话/其他变体/参考答案；保存提示、模型配置、事件、输出和可得usage，不声称控制了所有隐藏计算。
 
 较有信息价值的问题是：同一Codex配置下，受控反馈更新的规则是否胜过普通同信息处理及无纠正规则？先固定训练来源、规则容量和一次新persona协议，避免以Codex生成的答案又由同一上下文自行认证。已有规则可作候选，不预判有效。若只有成本优势，需要计编译、选择、失败与服务成本并检验质量代价。
 

@@ -1,0 +1,17 @@
+{
+  "protocol": "topic3-b-instrumented-loop-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "cases": 4,
+  "calls": 12,
+  "completed": 12,
+  "initial": {"correct": 0, "total": 4},
+  "include": {"correct": 4, "total": 4},
+  "omit": {"correct": 0, "total": 4},
+  "paired": {"wins": 4, "losses": 0, "ties": 0},
+  "pass": true,
+  "usage": {"input_tokens": 168480, "cached_input_tokens": 27648, "output_tokens": 296, "reasoning_output_tokens": 97},
+  "wall_seconds": 90.35606169200001,
+  "replay": {"ok": true, "decision_trace": 12, "feedback_claim": 4, "memory_assertion": 4, "outcome": 12, "learning_samples": 12, "pending": 0},
+  "decision": "Keep the deterministic same-interaction explicit-correction rule; do not train a gate on this exact task domain."
+}

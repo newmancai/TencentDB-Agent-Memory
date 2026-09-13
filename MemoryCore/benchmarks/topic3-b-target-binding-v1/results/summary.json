@@ -1,0 +1,19 @@
+{
+  "protocol": "topic3-b-target-binding-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "calls": 12,
+  "completed": 12,
+  "overall": "12/12",
+  "identifiable": "8/8",
+  "reject": "4/4",
+  "pass": true,
+  "wall_seconds": 116.37757188337855,
+  "usage": {
+    "input_tokens": 174446,
+    "cached_input_tokens": 42496,
+    "output_tokens": 247,
+    "reasoning_output_tokens": 0
+  },
+  "scope": "Synthetic development with oracle candidate sets and exact labels; not natural feedback learning or memory-cause proof."
+}

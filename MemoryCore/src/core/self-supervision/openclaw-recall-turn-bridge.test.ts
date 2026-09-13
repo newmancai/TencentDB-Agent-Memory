@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import type { L1SearchResult } from "../store/types.js";
+import { decisionTraceFromRecallObservation } from "../memory-feedback/recall-trace-adapter.js";
 import {
   applyStructuredRecallBudget,
   createRecallShadowDraft,
@@ -114,9 +115,10 @@ describe("OpenClawRecallTurnBridge", () => {
     })).toBe(true);
     handle.shadowTap.onDraft(draftFor(handle, "session-a", CONTEXT_A));
 
+    const prompt = `Question before\n${CONTEXT_A}\nQuestion after`;
     const observation = bridge.onLlmInput({
       sessionKey: "session-a",
-      prompt: `Question before\n${CONTEXT_A}\nQuestion after`,
+      prompt,
     });
     expect(observation).toMatchObject({
       taskRunId: "task-run-a",
@@ -125,6 +127,30 @@ describe("OpenClawRecallTurnBridge", () => {
     expect(observation?.candidates[0]).toMatchObject({ exposed: true, highestObservedState: "exposed" });
     await flushObserver();
     expect(appended).toEqual([observation]);
+
+    const renderedMemory = "- [work_fact|atlas] Atlas uses Shanghai.";
+    const spanStart = prompt.indexOf(renderedMemory);
+    const decision = decisionTraceFromRecallObservation({
+      observation: observation!,
+      policyVersion: "openclaw-recall:deterministic-v1",
+      propensity: 1,
+      prompt,
+      promptMemorySpans: [{
+        memoryId: "session-a-record",
+        start: spanStart,
+        end: spanStart + renderedMemory.length,
+      }],
+      outputIds: ["assistant-message-1"],
+      contextEventIds: ["user-message-1"],
+    });
+    expect(decision).toMatchObject({
+      candidateMemoryIds: ["session-a-record"],
+      action: "include",
+      selectedMemoryIds: ["session-a-record"],
+      propensity: 1,
+      contextEventIds: [observation!.eventId, "user-message-1"],
+      outputIds: ["assistant-message-1"],
+    });
 
     const result = bridge.endTurn({
       sessionKey: "session-a",

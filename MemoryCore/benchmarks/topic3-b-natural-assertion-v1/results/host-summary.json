@@ -1,0 +1,1 @@
+{"source_calls":14,"exact_actions":14,"candidate_assertions":2,"replay_ok":true,"replay_counts":{"decision_trace":28,"feedback_claim":14,"memory_assertion":2,"outcome":14},"learner_ready_extractor_decisions":14,"pending_offpolicy_answer_decisions":14,"scope":"Local runtime candidate gate and JSONL restart replay; no durable promotion or memory-cause label."}
