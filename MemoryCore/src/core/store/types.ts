@@ -576,6 +576,8 @@ export interface IMemoryStore {
 
   countL1(filter?: L1CountFilter): MaybePromise<number>;
   queryL1Records(filter?: L1QueryFilter): MaybePromise<L1RecordRow[]>;
+  /** Optional failure-distinguishing read for stateful read/modify/write consumers. */
+  queryL1RecordsStrict?(filter?: L1QueryFilter): MaybePromise<L1RecordRow[]>;
   getAllL1Texts(): MaybePromise<Array<{ record_id: string; content: string; updated_time: string }>>;
 
   // ── L1 Search ────────────────────────────────────────────
