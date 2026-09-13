@@ -33,7 +33,7 @@
     },
     {
       "id": "validmem",
-      "status": "adapted",
+      "status": "evaluated_method_validation",
       "role": "lifecycle_current_history_supersession_expiry",
       "source": "https://huggingface.co/datasets/Zhou11Alex/ValidMem",
       "revision": "786d5cd9f18e65bff6172d81fcb7c9009350a400",
@@ -67,14 +67,15 @@
     },
     {
       "id": "agent-memory-trigger-bench",
-      "status": "adapted",
+      "status": "evaluated_method_validation",
       "role": "trigger_and_memory_misuse_safety",
       "source": "https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench",
       "revision": "f64b921474c9d84d073a588ed13568e917275a1c",
       "snapshotDate": "2026-08-30",
       "license": "CC-BY-4.0 data; MIT code",
       "size": {"microcases": 172},
-      "independentRun": "adapter_validation_only"
+      "independentRun": "codex_development_and_140_case_memorycore_host_holdout_complete",
+      "result": "trigger-policy-v3 130/140 vs base-tools 112/140 full pass; 21W/3L/116T"
     },
     {
       "id": "agent-artifact-corpus",

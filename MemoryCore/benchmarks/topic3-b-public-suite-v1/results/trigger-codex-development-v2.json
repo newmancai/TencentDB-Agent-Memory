@@ -1,0 +1,138 @@
+{
+  "L0": "not_measured_trigger_bench_targets_persistent_tool_use",
+  "L1": {
+    "path": "writeMemory + executeMemorySearch(FTS) + queryL1Records",
+    "perCaseFreshStore": true
+  },
+  "arms": {
+    "trigger_policy_v2": {
+      "attemptsWithUnavailableUsage": 1,
+      "byModule": {
+        "implicit-read-neg": {
+          "fullPass": 3,
+          "total": 4,
+          "triggerDecisionCorrect": 4
+        },
+        "implicit-read-pos": {
+          "fullPass": 3,
+          "total": 4,
+          "triggerDecisionCorrect": 3
+        },
+        "implicit-write-neg": {
+          "fullPass": 4,
+          "total": 4,
+          "triggerDecisionCorrect": 4
+        },
+        "implicit-write-pos": {
+          "fullPass": 4,
+          "total": 4,
+          "triggerDecisionCorrect": 4
+        },
+        "regression": {
+          "fullPass": 7,
+          "total": 8,
+          "triggerDecisionCorrect": 7
+        },
+        "trap-read-neg": {
+          "fullPass": 2,
+          "total": 2,
+          "triggerDecisionCorrect": 2
+        },
+        "trap-read-pos": {
+          "fullPass": 4,
+          "total": 4,
+          "triggerDecisionCorrect": 4
+        },
+        "trap-write-neg": {
+          "fullPass": 2,
+          "total": 2,
+          "triggerDecisionCorrect": 2
+        }
+      },
+      "falseNegatives": 2,
+      "falsePositives": 0,
+      "fullPass": {
+        "pass": 29,
+        "total": 32
+      },
+      "incurredAttemptLatencyMs": {
+        "basis": "all_attempts_including_runtime_retries",
+        "p50": 26431.40200106427,
+        "p95": 60060.522916028276,
+        "total": 1019116.628118325
+      },
+      "incurredUsageKnown": {
+        "cached_input_tokens": 1374848,
+        "input_tokens": 1642963,
+        "output_tokens": 15458,
+        "reasoning_output_tokens": 4570
+      },
+      "latencyMs": {
+        "basis": "selected_attempt_per_case",
+        "p50": 26431.40200106427,
+        "p95": 60060.522916028276,
+        "total": 1019116.628118325
+      },
+      "negativeTriggerSpecificity": {
+        "silent": 16,
+        "total": 16
+      },
+      "newRecords": 5,
+      "positiveTriggerRecall": {
+        "total": 16,
+        "triggered": 14
+      },
+      "runtimeAttempts": 32,
+      "runtimeRetries": 0,
+      "searchCalls": 9,
+      "seedRecords": 12,
+      "toolCalls": 14,
+      "triggerAccuracy": {
+        "correct": 30,
+        "total": 32
+      },
+      "usage": {
+        "cached_input_tokens": 1374848,
+        "input_tokens": 1642963,
+        "output_tokens": 15458,
+        "reasoning_output_tokens": 4570
+      },
+      "writeCalls": 5
+    }
+  },
+  "cliVersion": "codex-cli 0.153.4",
+  "goldVisibleToModel": false,
+  "independentBusinessMetric": false,
+  "mcpFeature": "mcp_2026_07_28 (under development in codex-cli 0.153.4)",
+  "model": "gpt-5.6-sol",
+  "paired": {},
+  "protocol": "trigger-memorycore-codex-v1",
+  "reasoningEffort": "medium",
+  "schema": 1,
+  "source": {
+    "dataset": "Agent Memory Trigger Bench",
+    "goldSha256": "889ea65b524e5ff9f121b47fe32864e4219c1b8d3365f0ef4d971b67f56db6e8",
+    "revision": "f64b921474c9d84d073a588ed13568e917275a1c",
+    "tasksSha256": "e15f7be65b2831135478b4dc04a7fde9ef030d02d91595190bd47d957e574c01"
+  },
+  "split": {
+    "caseIdsSha256": "da02b0d86b96cbb56daa4492848c79373b55b48dbbfaf0be0665d2ea00629099",
+    "cases": 32,
+    "moduleCounts": {
+      "implicit-read-neg": 4,
+      "implicit-read-pos": 4,
+      "implicit-write-neg": 4,
+      "implicit-write-pos": 4,
+      "regression": 8,
+      "trap-read-neg": 2,
+      "trap-read-pos": 4,
+      "trap-write-neg": 2
+    },
+    "name": "development",
+    "negative": 16,
+    "positive": 16,
+    "seed": "trigger-codex-development-v1"
+  },
+  "status": "incomplete",
+  "unit": "one isolated Codex CLI turn plus actual MCP trace and fresh MemoryCore SQLite L1 store"
+}

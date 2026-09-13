@@ -7,7 +7,7 @@
 | 数据 | 截止版本 | 为什么现在纳入 | 当前完成度与边界 |
 |---|---|---|---|
 | [ValidMem](https://huggingface.co/datasets/Zhou11Alex/ValidMem) | `786d5cd9...`，v1.1，2026-08-26 | 466例/1,393记忆，同时覆盖事件替换、时间过期、current/history；恰好检验 B 状态是否把“可见”误当“仍有效” | 全量适配；固定开发60后一次性Codex留出406已完成，type-aware 387/406对普通374/406；仅方法验证 |
-| [Agent Memory Trigger Bench](https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench) | `f64b9214...`，2026-08-30 | 172个Codex/Claude/OpenCode CLI微场景，以真实操作trace和最终store判断读写触发；含注入、实体混淆、过时、secret、环境冲突 | 全量适配，90正/82负，46预置store、2工作区；尚未接MemoryCore host实跑，上游成绩不是本项目成绩 |
+| [Agent Memory Trigger Bench](https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench) | `f64b9214...`，2026-08-30 | 172个Codex/Claude/OpenCode CLI微场景，以真实操作trace和最终store判断读写触发；含注入、实体混淆、过时、secret、环境冲突 | 全量适配并完成32开发/140留出真实Codex×MemoryCore host评测；冻结v3完整通过130/140对base 112/140。它仍是公开微任务方法验证，上游及本次成绩都不是内部业务指标 |
 
 ValidMem 的 `tasks.json` 只给出当前日、问题、打乱后的选项，以及按上游四个引用列表合并并按创建时间排列的 store；`gold.json` 才保存 ground truth、superseded/expired/irrelevant 身份和正确选项。标准化 `expiresDay` 是上游明确建议使用的源字段，不是本项目从答案反推的标签；冲突实体、替换关系等 evaluator 注释不暴露。源数据有1例只有正确选项、没有干扰项（`TC-B-0185`），不临时删除；正式结果需同时报告包含全量466例和排除此例的敏感性结果，避免一个必然命中样本抬分。
 
@@ -30,7 +30,7 @@ Trigger Bench 的 `tasks.json` 只包含用户 prompt、初始记忆和可选工
 ## 进入模型实验的顺序
 
 1. ValidMem已完成：普通374/406，冻结type-aware 387/406，配对15胜2负；完整CRR/EAR、成本和batch置信限制见[`VALIDMEM_RESULTS.md`](VALIDMEM_RESULTS.md)。留出不再调参。
-2. 下一把 Trigger Bench 接到一次一store的 host runner：报告 trigger recall、false-trigger rate、wrong-op/wrong-report、trap safety 和实际 store readback。开关关闭时回普通 Codex 路径；读写异常必须回退且不污染下一例。
+2. Trigger Bench 已按一次一store的 host runner完成一次留出，报告 trigger recall、false-trigger、wrong-op/wrong-report、trap safety和实际store readback，并通过关闭开关/强制失败合同。下一步是在不同模型或重复种子上复核稳定性，不在当前留出继续改规则。
 3. 只有前两步的 labels/trace/回退合同稳定后，再接 ISETrace，作为 exact-span 证据抽取表，不与编码任务通过率或生命周期准确率求平均。
 
 这套顺序能区分三类失败：记忆内容不对、记忆已经失效、以及根本不该触发。若仍无净收益，可以给出可定位的负结果；继续堆相似QA数据只会扩大样本数，不会增强B的因果解释。

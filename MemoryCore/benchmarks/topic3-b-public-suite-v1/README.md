@@ -2,7 +2,7 @@
 
 本目录把近期公开资源按能力缺口组合使用，不把不同分母合成一个总分。主问题始终是：**一次反馈或任务结果，何时应形成什么记忆、绑定到哪个动作和范围、在后续哪一个决策点使用，才能减少重复失败而不过度干预？** E 只提供可追溯的 checker / verifier 回执，不替代 B，也不因任务通过就反推某条记忆必然正确。
 
-当前完成第 0 轮数据固定和两级 AMB 单题方法烟测，并新增两条正交诊断轴。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。第一层四臂中 clean / 无关记忆失败，oracle 选中的原始/结构化反馈通过。第二层去掉公开历史选源，只用任务可见target/scope、第一层 clean 的真实 artifact 与 E checker failure 自动形成候选：E-only 重放失败，B+E 重放通过。ValidMem已完成60例开发选择和406例一次性Codex留出：type-aware相对普通为387/406对374/406、15胜2负389平；Trigger Bench全量172例已适配但尚未运行。详见 [`VALIDMEM_RESULTS.md`](VALIDMEM_RESULTS.md)、[`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md)、[`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md)、[`DATASET_SELECTION_REVIEW.md`](DATASET_SELECTION_REVIEW.md) 与结构化 [`results`](results)。ValidMem是正向生命周期方法验证，AMB闭合一次实际 E→B→E；二者都还不是自然反馈学习或稳定产品收益。
+当前完成第 0 轮数据固定和两级 AMB 单题方法烟测，并完成两条正交公开诊断轴。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。第一层四臂中 clean / 无关记忆失败，oracle 选中的原始/结构化反馈通过。第二层去掉公开历史选源，只用任务可见target/scope、第一层 clean 的真实 artifact 与 E checker failure 自动形成候选：E-only 重放失败，B+E 重放通过。ValidMem已完成60例开发选择和406例一次性Codex留出：type-aware相对普通为387/406对374/406、15胜2负389平。Trigger Bench也完成32例开发与140例一次性Codex×MemoryCore host留出：冻结策略完整通过130/140对基座112/140、21胜3负116平。详见 [`VALIDMEM_RESULTS.md`](VALIDMEM_RESULTS.md)、[`TRIGGER_RESULTS.md`](TRIGGER_RESULTS.md)、[`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md)、[`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md)、[`DATASET_SELECTION_REVIEW.md`](DATASET_SELECTION_REVIEW.md) 与结构化 [`results`](results)。ValidMem和Trigger是正向方法验证，AMB闭合一次实际 E→B→E；它们都还不是自然反馈学习或稳定产品收益。
 
 ## 统一闭环
 
@@ -63,7 +63,7 @@ ValidMem 固定为 v1.1 revision `786d5cd9f18e65bff6172d81fcb7c9009350a400`，�
 
 Trigger Bench 固定 revision `f64b921474c9d84d073a588ed13568e917275a1c`：56 write、56 read、28 trap、32 frozen regression，共172例；其中90应触发、82不应触发，46例预置记忆、2例带工作区。agent侧只见单轮 prompt、预置 store 和工作区文件；正负 trigger、模块/类别、答案或store包含/排除规则只在 gold。它的正式判断必须读取真实操作 trace 和 turn 后 store；仅输出“我搜索了/记住了”不算通过。准备结果见 [`results/trigger-preparation.json`](results/trigger-preparation.json)。
 
-ValidMem现已`evaluated`：开发60例选择type-aware策略后，冻结规则在406例留出上以15胜2负提高13题，详见 [`VALIDMEM_RESULTS.md`](VALIDMEM_RESULTS.md)。case级检验显著，但26个batch的符号检验不显著，因此不称高置信产品收益。Trigger仍为`prepared`。后续Trigger分别报告trigger recall、false-trigger rate、wrong-op/wrong-report与trap safety；所有成本仍按L1写入/更新和L0检索/注入分开记录，不能与AMB task pass或H6 repeated failure求一个总分。
+ValidMem现已`evaluated`：开发60例选择type-aware策略后，冻结规则在406例留出上以15胜2负提高13题，详见 [`VALIDMEM_RESULTS.md`](VALIDMEM_RESULTS.md)。case级检验显著，但26个batch的符号检验不显著，因此不称高置信产品收益。Trigger现已`evaluated_method_validation`：真实Codex MCP调用与隔离MemoryCore L1写读的140例留出中，冻结v3完整通过130/140对base 112/140，负例静默59/66对41/66；工具调用94对144。相关簇bootstrap完整通过差值为`[+5.98,+19.13]pp`且cluster sign `p=0.00235`，但仍是单模型、单次公开微任务运行，不能称高置信产品收益。完整口径见[`TRIGGER_RESULTS.md`](TRIGGER_RESULTS.md)。所有成本仍按L1写入/检索与L0分开记录，不能与AMB task pass或H6 repeated failure求一个总分。
 
 ## 三轮推进协议
 
@@ -82,7 +82,7 @@ ValidMem现已`evaluated`：开发60例选择type-aware策略后，冻结规则�
 
 ### 第 3 轮：跨项目与误触发
 
-- Trigger Bench 已完成全量适配，下一接隔离MemoryCore host实跑；ISETrace 再用未见项目的 exact span 测 candidate evidence 对齐，两者不混分。
+- Trigger Bench 已完成全量适配、三轮开发和隔离MemoryCore host留出；下一用不同模型/重复运行复核策略随机性，ISETrace再用未见项目的exact span测candidate evidence对齐，两者不混分。
 - AgentArtifactCorpus 只用于诱导有限规则候选，所有选择在开发分区完成；最终验证不把语料中的规则文字当 gold。
 - 若前两轮仍无净收益，交付负结果与失败归因，不扩 E 来掩盖 B。
 
@@ -122,6 +122,12 @@ python3 validmem_adapter.py --source /tmp/validmem --output /tmp/validmem-adapte
 git clone https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench /tmp/trigger-bench
 git -C /tmp/trigger-bench checkout f64b921474c9d84d073a588ed13568e917275a1c
 python3 trigger_adapter.py --source /tmp/trigger-bench --output /tmp/trigger-adapted
+
+python3 trigger_codex_runner.py --adapted /tmp/trigger-adapted \
+  --output /tmp/trigger-holdout --split holdout \
+  --arms base_tools,trigger_policy_v3 --runtime-attempts 2 --execute
+
+python3 trigger_runtime_contract.py --output /tmp/trigger-runtime-contract
 
 # 先固定开发，再一次性留出；留出只比较冻结后的两臂
 python3 validmem_codex_runner.py --adapted /tmp/validmem-adapted \
