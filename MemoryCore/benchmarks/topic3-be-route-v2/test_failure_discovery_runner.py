@@ -48,6 +48,7 @@ class FailureDiscoveryRunnerTest(unittest.TestCase):
                 workspaces[arm] = str(path)
             manifest = {'schema': 1, 'evaluation_mode': 'development', 'task_source': 'test',
                         'clusters': [{'id': 'repo', 'base_commit': base, 'workspaces': workspaces,
+                          'forbidden_commits': ['0' * 40],
                           'source': {'kind': 'github_issue', 'url': 'https://example.invalid/issue/1'}, 'steps': [
                             {'id': 'update', 'kind': 'necessary_update', 'prompt': 'one', 'paths': ['a'],
                              'history': ['old', 'correction'], 'checker': ['true']},

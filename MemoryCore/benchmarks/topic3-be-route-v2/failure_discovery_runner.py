@@ -8,6 +8,7 @@ import json
 import math
 from pathlib import Path
 import re
+import subprocess
 import sys
 import time
 
@@ -20,6 +21,7 @@ from project_agent import Host
 ARMS = ('no_history', 'raw_full', 'raw_top8')
 MODES = {'no_history': 'off', 'raw_full': 'raw', 'raw_top8': 'raw_topk'}
 TASK_ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$')
+COMMIT_ID = re.compile(r'^[0-9a-f]{40}$')
 
 
 def quantile(values, q):
@@ -46,6 +48,10 @@ def validate(manifest):
             raise ValueError('each cluster needs a reviewable real source')
         if set(cluster.get('workspaces', {})) != set(ARMS):
             raise ValueError('each cluster needs three independent workspaces')
+        forbidden = cluster.get('forbidden_commits')
+        if (not isinstance(forbidden, list) or not forbidden
+                or not all(isinstance(value, str) and COMMIT_ID.fullmatch(value) for value in forbidden)):
+            raise ValueError('each cluster needs known post-base commits to exclude')
         revisions = set()
         for arm in ARMS:
             path = Path(cluster['workspaces'][arm]).resolve()
@@ -56,6 +62,13 @@ def validate(manifest):
             if state['changes']:
                 raise ValueError('sequence must start from a clean marked workspace')
             revisions.add(state['base_commit'])
+            for revision in forbidden:
+                visible = subprocess.run(
+                    ['git', 'cat-file', '-e', f'{revision}^{{commit}}'], cwd=path,
+                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                )
+                if visible.returncode == 0:
+                    raise ValueError(f'future commit is visible in {cluster["id"]}/{arm}')
         if revisions != {cluster.get('base_commit')}:
             raise ValueError('all arms must use the declared base commit')
         if not isinstance(cluster.get('steps'), list) or len(cluster['steps']) < 2:

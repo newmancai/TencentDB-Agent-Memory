@@ -11,9 +11,11 @@ from failure_discovery_runner import ARMS
 
 SOURCES = {
     'tenacity': ('https://github.com/jd/tenacity.git',
-                 'fd7842774cc10d41e68e6bc64afe7d9f83221aa0'),
+                 'fd7842774cc10d41e68e6bc64afe7d9f83221aa0',
+                 '68faeb07c19a609b11e9e377ac210c266fa74435'),
     'cattrs': ('https://github.com/python-attrs/cattrs.git',
-               '44aba28bd02388e0dc2c7d1539f7688b76c365cc'),
+               '44aba28bd02388e0dc2c7d1539f7688b76c365cc',
+               'ceb0dbd166c2d34b848f6346a9c8e372b9c1b63f'),
 }
 
 NOISE = [
@@ -69,27 +71,33 @@ def command(*args, cwd=None, check=True):
     return subprocess.run(list(args), cwd=cwd, text=True, capture_output=True, check=check)
 
 
+def isolated_checkout(url, workspace, commit, forbidden, label):
+    """Fetch exactly the declared commit into a standalone shallow repository."""
+    workspace.mkdir(parents=True)
+    command('git', 'init', '-q', cwd=workspace)
+    command('git', 'fetch', '--depth=1', '--no-tags', url, commit, cwd=workspace)
+    command('git', 'checkout', '--detach', commit, cwd=workspace)
+    if command('git', 'cat-file', '-e', f'{forbidden}^{{commit}}', cwd=workspace, check=False).returncode == 0:
+        raise RuntimeError(f'post-fix commit leaked into isolated workspace: {label}')
+    (workspace / '.agent-benchmark-worktree').write_text(label + '\n')
+
+
 def prepare(root):
-    root = root.resolve(); sources = root / 'sources'; sources.mkdir(parents=True, exist_ok=True)
+    root = root.resolve(); root.mkdir(parents=True, exist_ok=True)
     checker = Path(__file__).with_name('development_checker.py').resolve()
     manifest = {'schema': 1, 'evaluation_mode': 'development', 'backend': 'codex',
                 'model': 'gpt-5.6-sol', 'effort': 'medium', 'timeout_seconds': 300,
                 'instruction_mode': 'controlled', 'max_context_bytes': 12000,
                 'task_source': 'two previously unused GitHub issues plus explicitly labeled authored controls',
                 'clusters': []}
-    for name, (url, commit) in SOURCES.items():
-        source = sources / name
-        if not source.exists(): command('git', 'clone', '--filter=blob:none', url, str(source))
-        command('git', 'fetch', 'origin', commit, cwd=source)
-        actual = command('git', 'rev-parse', f'{commit}^{{commit}}', cwd=source).stdout.strip()
-        if actual != commit: raise RuntimeError(f'wrong source revision for {name}')
+    for name, (url, commit, post_fix) in SOURCES.items():
         spec = SCENARIOS[name]
         cluster = {'id': name, 'source': spec['source'], 'source_url': url,
-                   'base_commit': commit, 'workspaces': {}, 'steps': []}
+                   'base_commit': commit, 'forbidden_commits': [post_fix],
+                   'workspaces': {}, 'steps': []}
         for arm in ARMS:
             workspace = root / 'workspaces' / name / arm; workspace.parent.mkdir(parents=True, exist_ok=True)
-            command('git', 'worktree', 'add', '--detach', str(workspace), commit, cwd=source)
-            (workspace / '.agent-benchmark-worktree').write_text(f'{name} {arm}\n')
+            isolated_checkout(url, workspace, commit, post_fix, f'{name} {arm}')
             cluster['workspaces'][arm] = str(workspace)
         for index, (task_id, kind, prompt) in enumerate(spec['steps'], 1):
             cluster['steps'].append({'id': task_id, 'kind': kind, 'prompt': prompt,

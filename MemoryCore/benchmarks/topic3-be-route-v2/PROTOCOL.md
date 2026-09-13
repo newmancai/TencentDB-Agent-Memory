@@ -23,6 +23,10 @@ memory discovery in every arm so only the declared repository and B+E context di
 All task prompts and tool receipts naturally accumulate in the two raw states. The retrieval query is
 the current request, action and declared paths; hidden checks and expected patches never enter it.
 No constraint compiler, summary model, prepared answer, or candidate fix runs in this stage.
+Each workspace is a standalone depth-one fetch of the declared base SHA, with no configured remote.
+The manifest names known post-base fix or review commits, and the runner refuses to start if any of
+those future commits is available through the workspace object database. Merely checking out an old
+revision in a clone that still exposes later refs is invalid.
 
 Development cases locate and explain failures. They are never reused as held-out evidence. A useful
 failure report must distinguish missing information, retrieval miss, stale update, scope misuse,
