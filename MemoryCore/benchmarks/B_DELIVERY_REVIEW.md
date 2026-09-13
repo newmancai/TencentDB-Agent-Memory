@@ -2,6 +2,8 @@
 
 **用户已在初版交付完成后明确恢复后续复盘与研究优化；恢复范围不包含旧30B下载、旧prompt追分或production写入。当前新主线是 [B公开集组合协议](topic3-b-public-suite-v1/README.md)：B负责记忆决策，E只提供闭环回执；历史入口仍保留 [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md) 与 [最终复盘与交接](B_FINAL_HANDOFF_2026-09-13.md)。下文历史“下载中”仍已失效。**
 
+**最终五项交付的统一入口是 [B+E完整交付总报告](B_COMPLETE_DELIVERY_2026-09-13.md)，机器可读索引是 [delivery-summary.json](topic3-b-delivery-v1/results/delivery-summary.json)。当前状态为`pass_with_mixed_method_evidence`：五项材料通过，Trigger/ValidMem为正向方法验证，CUPID自然反馈主结果仍为负，产品级长期收益未证明。**
+
 用户最新校正：[停止本地扩展，改用Codex强对照](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md)。30B下载与未完成规则迁移已停止，保留部分成本，不报质量结论；下方历史“下载中”状态已失效。
 
 [CUPID可计量强基线准备与半程实跑](topic3-b-contextual-feedback-v1/STRONG_BASELINE_RESULTS.md)：新2开发persona/6题排除24；4B六调用13561输入771输出21.967s，无超限/错误，质量未审。固定30B-A3B revision0d7cf239下载中，尚未运行。GPU分片代码与gold隔离独立审查通过，30B部署未验证。模型升级只诊断普通能力，不算B学习；下一两臂齐全匿名审，再冻结同基座检验同反馈更新增益。无E/生产，goal active。
@@ -89,11 +91,11 @@
 
 | 交付物 | 当前证据 | 未完成/限制 |
 |---|---|---|
-| 调研与设计 | [设计](topic3-be/DESIGN.md)、[复盘](topic3-be/REASSESSMENT.md)、知识库及各协议 | 新路线建议不是已实现收益 |
-| 公开长对话Runner及基线 | [运行入口](topic3-be/README.md)、EvolIF等结果与脚本 | 主结果为负；LMSYS/WildChat较短，不能单独替代长对话主验收 |
-| B实现与对比 | B临时选择器、反馈策略模块、四臂/受控监督对照 | 选择器本身不学习；另有离线反馈头/浅树/关联状态更新，但没有稳定净收益；原生示例用oracle候选 |
-| 关闭与强制失败回退 | `answer-feedback.test.ts`、`lifecycle.test.ts`；原生回执与旧108回退核验 | 宿主必须实际消费返回的baseline；未宣称默认Gateway已启用 |
-| 适配与内部移植 | [适配器](topic3-be/adapters.py)、[迁移审查](topic3-b-answer-feedback-v1/PORTABILITY_REVIEW.md) | 内部需提供真实观察、候选及可信判定，公开集标签不能复制成内部真值 |
+| 调研与设计 | [完整总报告](B_COMPLETE_DELIVERY_2026-09-13.md)、[深度复盘](B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md)、知识库及各协议 | 产品收益边界仍保留 |
+| 公开长对话Runner及基线 | [CUPID协议与runner](topic3-b-delivery-v1/PUBLIC_LONG_DIALOGUE_PROTOCOL.md)、[结构化结果](topic3-b-delivery-v1/results/public-long-dialogue.json) | 交付通过，feedback对frozen 3胜4负5平，负结果保留 |
+| B实现与对比 | B旁路模块；Trigger真实host 130/140对112/140；ValidMem 387/406对374/406 | 是方法验证；自然反馈学习、跨任务产品收益未证明 |
+| 关闭与强制失败回退 | [sidecar四态](topic3-b-delivery-v1/results/runtime-contract.json)与[Codex MCP三态](topic3-b-public-suite-v1/results/trigger-runtime-contract.json) | 默认Gateway未启用，生产宿主仍需自己的故障注入 |
+| 适配与内部移植 | [公开套件适配器](topic3-b-public-suite-v1/README.md)、[移植说明](topic3-b-delivery-v1/PORTING.md)、[PR #2](https://github.com/newmancai/TencentDB-Agent-Memory/pull/2) | 内部必须提供真实观察、候选和可信checker，公开gold不能复制成内部真值 |
 
 原题允许负结果；因此这些材料可以作为研究PR审阅。用户另外要求的可观B收益或充分路线闭包持续探索仍在进行，不能因负结果材料齐备就宣布整个目标完成。
 

@@ -1,18 +1,19 @@
 # B delivery acceptance package
 
 This directory turns the existing B research into a line-by-line review package.
-It does not replace the full [research retrospective](../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md)
-or manufacture a positive result from a negative public comparison.
+The consolidated entry is the [complete B+E delivery](../B_COMPLETE_DELIVERY_2026-09-13.md).
+It retains the full [research retrospective](../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md)
+and does not manufacture a positive natural-feedback result from the negative CUPID comparison.
 
 ## Delivery matrix
 
 | Required item | Reviewable artifact | Status |
 |---|---|---|
-| Research report + design | [retrospective](../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md), [final handoff](../B_FINAL_HANDOFF_2026-09-13.md), this confidence boundary | pass |
+| Research report + design | [complete delivery](../B_COMPLETE_DELIVERY_2026-09-13.md), [retrospective](../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md), [final handoff](../B_FINAL_HANDOFF_2026-09-13.md), this confidence boundary | pass |
 | Public long-dialogue runner + structured baseline result | [protocol](PUBLIC_LONG_DIALOGUE_PROTOCOL.md), `delivery_eval.py`, `results/public-long-dialogue.json` | pass for delivery; feedback gain fails 3W/4L/5T |
-| Selected implementation + comparison | `src/core/memory-feedback/`, instrumented loop 4W/0L/0T, natural extractor 2/2 + abstain 12/12 | pass as bounded component method; not commercial B |
-| Off switch + forced-failure fallback | `runtime_contract_harness.ts`, `results/runtime-contract.json` | pass |
-| Reviewable PR + adapter/porting notes | additive adapter and [PORTING.md](PORTING.md); draft PR #2 is the publication vehicle | published to OPEN/draft PR; not merged or production-enabled |
+| Selected implementation + comparison | `src/core/memory-feedback/`; real Trigger host 130/140 vs 112/140; ValidMem 387/406 vs 374/406; instrumented loop 4W/0L/0T | pass as bounded method validation; not commercial B |
+| Off switch + forced-failure fallback | sidecar `runtime_contract_harness.ts`/`results/runtime-contract.json`; real Codex MCP `../topic3-b-public-suite-v1/trigger_runtime_contract.py`/result | both pass |
+| Reviewable PR + adapter/porting notes | additive sidecar, public-data/host adapters and [PORTING.md](PORTING.md); [draft PR #2](https://github.com/newmancai/TencentDB-Agent-Memory/pull/2) | published OPEN/draft; not merged or production-enabled |
 
 ## What “direct judgment” and “high confidence” mean here
 
@@ -76,15 +77,15 @@ baseline pass; positive feedback gain fails. That distinction is the delivery
 contract, not an embarrassment to hide.
 
 `results/delivery-summary.json` is the machine-readable five-deliverable index.
-Its overall value is `pass_with_negative_public_gain`: the package is reviewable,
-while the public feedback method remains a recorded negative result.
+Its overall value is `pass_with_mixed_method_evidence`: the package is reviewable;
+CUPID natural-feedback use remains negative, while frozen ValidMem lifecycle and
+Trigger Bench real-host holdouts are positive method validations.
 
 ## Post-delivery research addendum
 
-The later [STALE temporal-invalidation review](../B_STALE_RESEARCH_REVIEW_2026-09-13.md)
-does not change this package's public long-dialogue verdict. It narrows a new
-component boundary: direct and two-stage final invalidation both failed 13/16,
-whereas candidate-only dependency nomination passed a fresh 15/16 holdout. The
-corresponding adapter can only nominate bounded IDs for retrieval or verification;
-it is off by default, has empty-addition fallback, exposes no memory-write handle
-and is not connected to Gateway.
+Later public-suite work does not change the CUPID long-dialogue verdict. ValidMem
+adds a lifecycle result (387/406 vs 374/406, but batch sign `p=0.125`); Trigger
+Bench adds a real Codex×MemoryCore host result (130/140 vs 112/140, clustered sign
+`p=0.00235`) and a three-mode off/failure contract. The [STALE review](../B_STALE_RESEARCH_REVIEW_2026-09-13.md)
+also retains its narrower candidate-only 15/16 result. None is presented as
+natural durable feedback learning or a production default.

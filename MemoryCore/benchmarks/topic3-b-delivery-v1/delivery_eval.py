@@ -19,6 +19,10 @@ INSTRUMENTED = BENCHMARKS / "topic3-b-instrumented-loop-v1" / "results" / "summa
 NATURAL = BENCHMARKS / "topic3-b-natural-assertion-v1" / "results" / "v2-summary.json"
 NATURAL_HOST = BENCHMARKS / "topic3-b-natural-assertion-v1" / "results" / "host-summary.json"
 RUNTIME = HERE / "results" / "runtime-contract.json"
+PUBLIC_SUITE = BENCHMARKS / "topic3-b-public-suite-v1"
+VALIDMEM = PUBLIC_SUITE / "results" / "validmem-codex-holdout.json"
+TRIGGER = PUBLIC_SUITE / "results" / "trigger-codex-holdout.json"
+TRIGGER_RUNTIME = PUBLIC_SUITE / "results" / "trigger-runtime-contract.json"
 ARMS = ("request", "frozen", "unlabelled", "feedback")
 
 
@@ -199,22 +203,44 @@ def delivery_summary(public: dict) -> dict:
     natural = load(NATURAL)
     natural_host = load(NATURAL_HOST)
     runtime = load(RUNTIME)
+    validmem = load(VALIDMEM)
+    trigger = load(TRIGGER)
+    trigger_runtime = load(TRIGGER_RUNTIME)
     if not instrumented["pass"] or not instrumented["replay"]["ok"]:
         raise ValueError("instrumented component result is not a passing causal replay")
     if not natural["pass"] or not natural_host["replay_ok"]:
         raise ValueError("natural candidate result is not a passing extraction/gate replay")
     if runtime["status"] != "pass":
         raise ValueError("runtime switch/fallback contract did not pass")
+    if not validmem["status"].startswith("pass_method_validation"):
+        raise ValueError("ValidMem holdout is not a passing method validation")
+    if trigger["status"] != "complete":
+        raise ValueError("Trigger Bench holdout is incomplete")
+    if trigger_runtime["status"] != "passed":
+        raise ValueError("Trigger Bench switch/failure contract did not pass")
+
+    validmem_base = validmem["arms"]["plain_visibility"]["answerAccuracy"]
+    validmem_enabled = validmem["arms"]["type_aware_policy"]["answerAccuracy"]
+    trigger_base = trigger["arms"]["base_tools"]["fullPass"]
+    trigger_enabled = trigger["arms"]["trigger_policy_v3"]["fullPass"]
+    if (validmem_base["correct"], validmem_enabled["correct"], validmem_base["total"]) != (374, 387, 406):
+        raise ValueError("ValidMem committed aggregate changed")
+    if (trigger_base["pass"], trigger_enabled["pass"], trigger_base["total"]) != (112, 130, 140):
+        raise ValueError("Trigger Bench committed aggregate changed")
 
     feedback_gain = public["acceptance"]["feedback_quality_gain"]
     return {
-        "schema": 1,
+        "schema": 2,
         "suite": "topic3-b-delivery-acceptance-v1",
-        "status": "pass_with_negative_public_gain" if feedback_gain["status"] == "fail" else "pass",
+        "status": "pass_with_mixed_method_evidence",
         "deliverables": {
             "research_and_design": {
                 "status": "pass",
-                "artifacts": ["../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md", "../B_FINAL_HANDOFF_2026-09-13.md"],
+                "artifacts": [
+                    "../../B_COMPLETE_DELIVERY_2026-09-13.md",
+                    "../../B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md",
+                    "../../B_FINAL_HANDOFF_2026-09-13.md",
+                ],
             },
             "public_long_dialogue_eval": {
                 "status": "pass",
@@ -224,26 +250,62 @@ def delivery_summary(public: dict) -> dict:
             },
             "implementation_and_comparison": {
                 "status": "pass",
-                "mode": "bounded_component",
-                "baseline": {"name": "temporary_correction_omitted", **instrumented["omit"]},
-                "enabled": {"name": "temporary_correction_included", **instrumented["include"]},
-                "paired": instrumented["paired"],
+                "mode": "real_memorycore_host_method_validation",
+                "baseline": {"name": "base_tools", **trigger_base},
+                "enabled": {"name": "trigger_policy_v3", **trigger_enabled},
+                "paired": trigger["paired"]["fullPass"],
+                "result": "../../topic3-b-public-suite-v1/results/trigger-codex-holdout.json",
             },
             "off_and_forced_fallback": {
-                "status": runtime["status"],
-                "mode": "runtime_contract",
-                "cases": len(runtime["cases"]),
-                "result": "runtime-contract.json",
+                "status": "pass",
+                "mode": "two_runtime_contracts",
+                "contracts": [
+                    {"scope": "host_neutral_sidecar", "cases": len(runtime["cases"]),
+                     "result": "runtime-contract.json"},
+                    {"scope": "codex_mcp_memorycore_host", "cases": len(trigger_runtime["modes"]),
+                     "result": "../../topic3-b-public-suite-v1/results/trigger-runtime-contract.json"},
+                ],
             },
             "portable_pr": {
                 "status": "pass",
                 "mode": "additive_sidecar",
-                "adapter": "../../../src/core/memory-feedback/answer-feedback.ts",
+                "adapters": [
+                    "../../../src/core/memory-feedback/answer-feedback.ts",
+                    "../../topic3-b-public-suite-v1/validmem_adapter.py",
+                    "../../topic3-b-public-suite-v1/trigger_adapter.py",
+                    "../../topic3-b-public-suite-v1/trigger_memory_mcp.py",
+                    "../../topic3-b-public-suite-v1/trigger_memory_bridge.ts",
+                ],
                 "porting_notes": "../PORTING.md",
-                "remote_publication": "must be checked from PR state; this JSON validates local reviewability only",
+                "remote_publication": "https://github.com/newmancai/TencentDB-Agent-Memory/pull/2",
+                "remote_state": "must be checked live; this JSON validates local reviewability only",
             },
         },
         "component_evidence": {
+            "validmem_lifecycle_holdout": {
+                "status": "pass_method_validation_with_confidence_limit",
+                "baseline": validmem_base,
+                "enabled": validmem_enabled,
+                "paired": validmem["pairedEnabledVsBaseline"],
+                "clustered": validmem["batchClusteredConfidence"],
+                "cost": validmem["cost"],
+                "claim_boundary": "public lifecycle method validation; L1 write path and business utility not measured",
+            },
+            "trigger_real_host_holdout": {
+                "status": "pass_method_validation",
+                "baseline": trigger_base,
+                "enabled": trigger_enabled,
+                "paired": trigger["paired"]["fullPass"],
+                "positive_trigger_recall": {
+                    "baseline": trigger["arms"]["base_tools"]["positiveTriggerRecall"],
+                    "enabled": trigger["arms"]["trigger_policy_v3"]["positiveTriggerRecall"],
+                },
+                "negative_trigger_specificity": {
+                    "baseline": trigger["arms"]["base_tools"]["negativeTriggerSpecificity"],
+                    "enabled": trigger["arms"]["trigger_policy_v3"]["negativeTriggerSpecificity"],
+                },
+                "claim_boundary": "single-model public microtask holdout; not natural feedback learning or coding-task utility",
+            },
             "natural_raw_candidate": {
                 "status": "pass",
                 "mode": "enabled_extractor_plus_fail_closed_gate",
@@ -279,6 +341,7 @@ def delivery_summary(public: dict) -> dict:
         },
         "release_boundary": {
             "commercial_b": "not_proven",
+            "public_evidence": "mixed: CUPID feedback negative; ValidMem and Trigger Bench positive method validation",
             "learned_gate": "stopped_for_this_exact_domain_due_to_no_headroom_over_deterministic_rule",
             "production_enabled": False,
             "durable_promotion_enabled": False,
