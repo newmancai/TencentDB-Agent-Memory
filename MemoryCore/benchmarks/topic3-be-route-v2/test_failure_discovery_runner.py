@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
-from failure_discovery_runner import ARMS, run, visibility_violations
+from failure_discovery_runner import ARMS, run, summarize, visibility_violations
 
 
 class FakeHost:
@@ -62,6 +62,33 @@ def fixture_manifest(root, source, arms=ARMS):
 
 
 class FailureDiscoveryRunnerTest(unittest.TestCase):
+    def test_execution_failure_is_indeterminate_not_a_memory_win(self):
+        manifest = {'schema': 1, 'evaluation_mode': 'heldout', 'task_source': 'test',
+                    'arms': ['no_history', 'raw_full'], 'clusters': [{
+                        'id': 'repo', 'steps': [
+                            {'id': 'update', 'kind': 'necessary_update'},
+                            {'id': 'control', 'kind': 'same_topic_control'},
+                        ]}]}
+        common = {'severe_regression': False, 'usage': None, 'total_wall_seconds': 1,
+                  'filesystem_isolated': True, 'visibility_violations': []}
+        rows = [
+            dict(common, task_id='update', kind='necessary_update', arm='no_history',
+                 status='timeout', checker_status='not_run', checker_pass=False),
+            dict(common, task_id='update', kind='necessary_update', arm='raw_full',
+                 status='completed', checker_status='completed', checker_pass=True),
+            dict(common, task_id='control', kind='same_topic_control', arm='no_history',
+                 status='completed', checker_status='completed', checker_pass=False),
+            dict(common, task_id='control', kind='same_topic_control', arm='raw_full',
+                 status='completed', checker_status='completed', checker_pass=True),
+        ]
+        summary = summarize(rows, manifest)
+        self.assertEqual(summary['paired']['raw_full_vs_no_history'], {
+            'indeterminate': 1, 'necessary_update_indeterminate': 1,
+            'win': 1, 'same_topic_control_win': 1,
+        })
+        self.assertEqual(summary['execution_failed_tasks'], ['update'])
+        self.assertEqual(summary['memory_dependent_wins'], ['control'])
+
     def test_two_arm_replication_omits_closed_retrieval_candidate(self):
         with TemporaryDirectory() as directory:
             root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')

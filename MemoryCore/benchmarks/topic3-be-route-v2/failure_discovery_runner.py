@@ -111,6 +111,14 @@ def numeric_usage(rows):
     return dict(totals) or None, missing
 
 
+def quality_comparable(row):
+    """A failed or unaudited execution is missing quality data, not a checker loss."""
+    return bool(row and row.get('status') == 'completed'
+                and row.get('checker_status') == 'completed'
+                and row.get('filesystem_isolated') is True
+                and not row.get('visibility_violations'))
+
+
 def summarize(rows, manifest):
     by_key = {(row['task_id'], row['arm']): row for row in rows}
     task_ids = [step['id'] for cluster in manifest['clusters'] for step in cluster['steps']]
@@ -138,7 +146,8 @@ def summarize(rows, manifest):
                 left, right = by_key.get((step['id'], candidate)), by_key.get((step['id'], baseline))
                 if not left or not right:
                     continue
-                outcome = ('win' if left['checker_pass'] and not right['checker_pass'] else
+                outcome = ('indeterminate' if not quality_comparable(left) or not quality_comparable(right) else
+                           'win' if left['checker_pass'] and not right['checker_pass'] else
                            'loss' if right['checker_pass'] and not left['checker_pass'] else 'tie')
                 counts[outcome] += 1; counts[f"{step['kind']}_{outcome}"] += 1
         comparisons[f'{candidate}_vs_{baseline}'] = dict(counts)
@@ -148,21 +157,32 @@ def summarize(rows, manifest):
             'complete': len(rows) == expected and all(value['execution_failures'] == 0 for value in arms.values()),
             'arms': arms, 'paired': comparisons,
             'current_system_failures': [row['task_id'] for row in rows
-                                        if row['arm'] == 'raw_full' and not row['checker_pass']],
+                                        if row['arm'] == 'raw_full' and quality_comparable(row)
+                                        and not row['checker_pass']],
+            'execution_failed_tasks': [row['task_id'] for row in rows
+                                       if not quality_comparable(row)],
             'memory_dependent_wins': [task for task in task_ids
-                                      if by_key.get((task, 'raw_full'), {}).get('checker_pass') is True
-                                      and by_key.get((task, 'no_history'), {}).get('checker_pass') is False],
+                                      if quality_comparable(by_key.get((task, 'raw_full')))
+                                      and quality_comparable(by_key.get((task, 'no_history')))
+                                      and by_key[(task, 'raw_full')]['checker_pass'] is True
+                                      and by_key[(task, 'no_history')]['checker_pass'] is False],
             'raw_full_regressions_vs_no_history': [task for task in task_ids
-                                                   if by_key.get((task, 'no_history'), {}).get('checker_pass') is True
-                                                   and by_key.get((task, 'raw_full'), {}).get('checker_pass') is False],
+                                                   if quality_comparable(by_key.get((task, 'raw_full')))
+                                                   and quality_comparable(by_key.get((task, 'no_history')))
+                                                   and by_key[(task, 'no_history')]['checker_pass'] is True
+                                                   and by_key[(task, 'raw_full')]['checker_pass'] is False],
             'retrieval_misses_vs_raw_full': [task for task in task_ids
-                                             if by_key.get((task, 'raw_full'), {}).get('checker_pass') is True
-                                             and by_key.get((task, 'raw_top8'), {}).get('checker_pass') is False],
+                                             if quality_comparable(by_key.get((task, 'raw_full')))
+                                             and quality_comparable(by_key.get((task, 'raw_top8')))
+                                             and by_key[(task, 'raw_full')]['checker_pass'] is True
+                                             and by_key[(task, 'raw_top8')]['checker_pass'] is False],
             'all_arm_passes_no_discrimination': [task for task in task_ids
-                                                 if all(by_key.get((task, arm), {}).get('checker_pass') is True
+                                                 if all(quality_comparable(by_key.get((task, arm)))
+                                                        and by_key[(task, arm)]['checker_pass'] is True
                                                         for arm in configured_arms)],
             'same_topic_regressions': [row['task_id'] for row in rows
                                        if row['arm'] == 'raw_full' and row['kind'] == 'same_topic_control'
+                                       and quality_comparable(row)
                                        and not row['checker_pass']],
             'decision': 'diagnosis_only_no_candidate_fix_tested'}
 

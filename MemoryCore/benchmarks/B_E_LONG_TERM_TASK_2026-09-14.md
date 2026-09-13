@@ -26,6 +26,10 @@
 3. **首个有效留出 v4：完成。** 四项目／八任务／24 调用；完整原话 8/8、无历史 6/8、严重回归 0。
    tqdm 是一个独立家族收益；完整原话还少 17.06% 非缓存输入和 12.46% 墙钟，但每格仅一次。
 4. **top-8 决策：关闭。** 它质量与完整原话全平，但多 23.14% 非缓存输入和 4.04% 墙钟；不在 v4 调参。
+5. **v5 新家族复现：失效但保留诊断。** 16 个计划调用都有回执，但 jsonschema 的 no-history 两格
+   300 秒超时且未运行 checker，按预注册规则整组不能作为 Phase A 复现。可比首任务中 Websockets、
+   wsproto 两家族出现有利于完整原话的行为分叉，Scrapy 平，jsonschema 不可判；旧汇总把超时误算胜例，
+   后续 runner 已改为 `indeterminate`。
 
 证据和限制见 [v4 结果](topic3-be-route-v2/HELDOUT_V4_RESULTS.md)。这支持继续复现完整原话路线，
 不支持“已普遍有效”“优于开源产品”或“已可默认推广”。
@@ -84,7 +88,7 @@ prompt 追分、production、Gateway 自动启用或操作他人 GPU。
 - 一个明确决定：继续复现、进入自然验证、采用最小修复、保持实验、关闭候选或改变路线。
 - 更新本任务和总交接，不把失效矩阵、累积控制或开发题包装成独立产品成绩。
 
-当前进度：v5 已选 Websockets、jsonschema、Scrapy、wsproto 四个全新家族并完成 base／上游／等价实现
-两阶段预检；两臂 manifest、checker 和隔离合同见
-[v5 协议](topic3-be-route-v2/HELDOUT_V5_PROTOCOL.md)。精确下一步是在冻结提交后运行 16 次正式调用；
-在完整结果前不得报告复现成功。
+当前进度：v5 结果与失效边界见 [v5 结果](topic3-be-route-v2/HELDOUT_V5_RESULTS.md)。完整原话 8/8，
+但 no-history 两个 jsonschema 调用超时，成本也缺两份 usage，因此不能报告复制成功、5 胜或成本优势；
+Websockets／wsproto 的两个首任务分叉只作为下一轮机制诊断。精确下一步是用未暴露的新项目家族准备
+更小、更可在时限内检查的 v6；不重跑 v5、不事后提高其 timeout，也不进入 Phase B。
