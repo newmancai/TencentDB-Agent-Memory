@@ -101,7 +101,7 @@ path, fallback reason, elapsed time and exact-baseline preservation.
 
 ### 7. Programming-specific public validation
 
-The MemoryCode round adds one public-data adapter over the existing
+Commit `9f0271f69fbb4e8a2e7046a33e6f8fa9af3bbc1c` adds one public-data adapter over the existing
 MemoryCore SQLite/FTS path and keeps model generation/scoring outside runtime.
 It audits all 360 dialogues/4,182 final-history queries, then runs a frozen
 24-dialogue/72-call comparison spanning every official history length. Results
