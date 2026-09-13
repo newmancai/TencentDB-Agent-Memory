@@ -237,3 +237,19 @@ explicit references or a host reply edge. A reply edge binds the answer object b
 never promotes it to a memory-cause claim, even when only one memory candidate was
 present. These helpers deliberately leave natural-language candidate discovery and
 causal attribution outside their contract.
+
+## Experimental dependency candidate expansion
+
+`selectDependencyCandidates` accepts an already-computed, bounded dependency
+proposal and returns only memory IDs to retrieve or verify. It has no write
+handle and its decision log fixes `memoryMutationAllowed: false`. `necessary`
+and `possible` paths must name an ID in the caller's candidate universe and cite
+an exact span from the later observation. Unknown IDs, non-exact evidence,
+capacity overflow, and over-`k` output fall back to an empty additive set; the
+off switch does not inspect the proposal.
+
+This is a candidate-scope interface, not an invalidation policy. Its motivating
+STALE component experiment is recorded in
+[`topic3-b-stale-candidate-v1`](../../../benchmarks/topic3-b-stale-candidate-v1/RESULTS.md);
+the small method-validation pass does not authorize durable promotion or a
+Gateway hook.

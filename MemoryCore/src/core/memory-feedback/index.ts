@@ -10,6 +10,15 @@ export type {
   AnswerFeedbackAdapterResult,
   AnswerFeedbackDecisionLog,
 } from './answer-feedback-adapter.js';
+export { selectDependencyCandidates } from './dependency-candidate-adapter.js';
+export type {
+  DependencyCandidateDecisionLog,
+  DependencyCandidatePath,
+  DependencyCandidateProposal,
+  DependencyCandidateRelation,
+  DependencyCandidateResult,
+  DependencyCandidateStatus,
+} from './dependency-candidate-adapter.js';
 export {
   observeFeedback,
   recordMemoryAssertion,

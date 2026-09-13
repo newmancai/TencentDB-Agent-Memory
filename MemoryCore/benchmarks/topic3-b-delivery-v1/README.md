@@ -77,3 +77,13 @@ contract, not an embarrassment to hide.
 `results/delivery-summary.json` is the machine-readable five-deliverable index.
 Its overall value is `pass_with_negative_public_gain`: the package is reviewable,
 while the public feedback method remains a recorded negative result.
+
+## Post-delivery research addendum
+
+The later [STALE temporal-invalidation review](../B_STALE_RESEARCH_REVIEW_2026-09-13.md)
+does not change this package's public long-dialogue verdict. It narrows a new
+component boundary: direct and two-stage final invalidation both failed 13/16,
+whereas candidate-only dependency nomination passed a fresh 15/16 holdout. The
+corresponding adapter can only nominate bounded IDs for retrieval or verification;
+it is off by default, has empty-addition fallback, exposes no memory-write handle
+and is not connected to Gateway.

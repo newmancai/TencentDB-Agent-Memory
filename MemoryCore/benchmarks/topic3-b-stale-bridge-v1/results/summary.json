@@ -1,0 +1,46 @@
+{
+  "protocol": "topic3-b-stale-bridge-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "tasks": 16,
+  "calls": 48,
+  "completed": 48,
+  "direct": {
+    "overall": { "correct": 13, "total": 16 },
+    "positive": { "correct": 5, "total": 8 },
+    "t1_positive": { "correct": 4, "total": 4 },
+    "t2_positive": { "correct": 1, "total": 4 },
+    "negative": { "correct": 8, "total": 8 },
+    "predictions": { "supersede": 5, "retain": 10, "ask": 1 },
+    "invalid_span_predictions": 0
+  },
+  "bridge": {
+    "overall": { "correct": 13, "total": 16 },
+    "positive": { "correct": 5, "total": 8 },
+    "t1_positive": { "correct": 3, "total": 4 },
+    "t2_positive": { "correct": 2, "total": 4 },
+    "negative": { "correct": 8, "total": 8 },
+    "predictions": { "retain": 11, "supersede": 5 },
+    "invalid_span_predictions": 0
+  },
+  "paired_bridge_vs_direct": { "loss": 1, "tie": 14, "win": 1 },
+  "baselines": {
+    "always_supersede": { "correct": 8, "total": 16 },
+    "always_retain": { "correct": 8, "total": 16 },
+    "surface_any_content_token_overlap": { "correct": 12, "total": 16 }
+  },
+  "cost": {
+    "direct": {
+      "calls": 16,
+      "usage": { "input_tokens": 226783, "cached_input_tokens": 108928, "output_tokens": 1380, "reasoning_output_tokens": 487 },
+      "wall_seconds": { "sum": 148.56788660492748, "p50_per_call": 8.716150568099692, "p95_per_call": 12.390498144028243 }
+    },
+    "bridge": {
+      "calls": 32,
+      "usage": { "input_tokens": 455788, "cached_input_tokens": 173312, "output_tokens": 3400, "reasoning_output_tokens": 1007 },
+      "wall_seconds": { "sum": 303.1799480190966, "p50_per_call": 8.783570090541616, "p95_per_call": 13.96048464233754 }
+    }
+  },
+  "pass": false,
+  "scope": "New STALE component holdout; bridge adds a structured reasoning call but no source evidence or labels. Not downstream probe quality, durable promotion, or production."
+}

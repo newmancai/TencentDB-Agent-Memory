@@ -1,6 +1,6 @@
 # Topic3 B 研究交付审阅入口
 
-**整个长期任务已按用户要求停止执行。最高优先级：[最终复盘与交接](B_FINAL_HANDOFF_2026-09-13.md)。下文“goal active/下一步/下载中”均为历史记录，不构成恢复授权。**
+**用户已在初版交付完成后明确恢复后续复盘与研究优化；恢复范围不包含旧30B下载、旧prompt追分或production写入。最新入口是 [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md) 与 [最终复盘与交接](B_FINAL_HANDOFF_2026-09-13.md)。下文历史“下载中”仍已失效。**
 
 用户最新校正：[停止本地扩展，改用Codex强对照](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md)。30B下载与未完成规则迁移已停止，保留部分成本，不报质量结论；下方历史“下载中”状态已失效。
 
@@ -30,6 +30,8 @@
 本PR提供可开关的B旁路接口、公开数据适配、可复现研究和失败路线知识库。**没有证明可观且稳定的B反馈学习收益，不建议作为商用默认策略。** E保留为旧实验辅助，不作为B成功的替代指标。原持续研究目标仍未完成。
 
 ## 最新补充研究
+
+- [STALE时态失效研究](B_STALE_RESEARCH_REVIEW_2026-09-13.md)：直接最终绑定13/16失败，两阶段桥接13/16失败；全新留出集的candidate-only依赖扩展15/16通过（正例8/8、T2 4/4、负例7/8）。新增接口只提名待核验记忆，关闭/失败为空增量且永不写记忆；小样本方法验证不改变公开长对话负收益或商用结论。
 
 - [CUPID局部反馈与独立审查](topic3-b-contextual-feedback-v1/LOCAL_BASELINE_RESULTS.md)：公开长交互适配，16例真实推断及审查分歧；不是高置信gold或学习增益。
 - [原话强基线](topic3-b-contextual-feedback-v1/RAW_BASELINE_RESULTS.md)：原话719/摘要1432 token，不宣称等质量成本优势。
