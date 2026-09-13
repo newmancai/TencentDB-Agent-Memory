@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID共享规则编译训练诊断](topic3-b-contextual-feedback-v1/RULE_COMPILATION_RESULTS.md)：旧两例、有/无纠正各1调用，12100输入238输出8.755s，三规则各87/77词，无截断。仅输入纠正不同实核；有纠正保留叙事与受众条件，独立审查仍认为主要是领域偏好、未解决通用反馈归属/强度。原样保留候选，允许新persona诊断、不旧例调提示。未新题评估/未计B收益；不改30B普通基线或扩E。
+
 [CUPID可更新规则候选机制](topic3-b-contextual-feedback-v1/RULE_LEARNING_ROUTE_REVIEW.md)：联网核查GEPA官方API和ACE v1，区别反馈驱动规则更新与完整画像ICL。GEPA选择valset不是最终测试；ACE依赖反思质量，不能代替反馈真值。暂不开放搜索，先完成普通基线；候选须比同信息直接反馈和无标签规则，计编译/选择成本。未实施、无收益声明，不扩E。
 
 [CUPID可计量强基线准备与半程实跑](topic3-b-contextual-feedback-v1/STRONG_BASELINE_RESULTS.md)：新2开发persona/6题排除24；4B六调用13561输入771输出21.967s，无超限/错误，质量未审。固定30B-A3B revision0d7cf239下载中，尚未运行。GPU分片代码与gold隔离独立审查通过，30B部署未验证。模型升级只诊断普通能力，不算B学习；下一两臂齐全匿名审，再冻结同基座检验同反馈更新增益。无E/生产，goal active。

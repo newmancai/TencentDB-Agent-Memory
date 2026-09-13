@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "training_ids": [
+    "b2f17518ddd41beab6ec6740",
+    "5c399dd70556b311c35d0413"
+  ],
+  "status": "unreviewed_candidates_not_default",
+  "max_rules": 3,
+  "max_output_tokens": 384,
+  "candidates": {
+    "unlabelled": {
+      "text": "1. **Check for subjective language** in formal reports (e.g., ethics proposals, summaries) — if user requests removal of terms like \"potential trends\" or \"comprehensive understanding,\" prioritize neutral, factual phrasing.  \n2. **Verify technical claims with references** in compliance or methodology contexts — if user asks for alignment with standards, ensure all assertions are supported by specific, current guidelines.  \n3. **Prioritize usability and real-world context** in customer-facing content — when designing signage, recipes, or market plans, use accessible language, highlight sensory attributes (flavor, texture), and include practical, actionable details.",
+      "error": null
+    },
+    "feedback": {
+      "text": "1. If user requests factual, neutral presentation (e.g., summaries, proposals), verify explicit requests to remove interpretive language or subjective terms; prioritize raw data and precise metrics.  \n2. If user requests narrative or storytelling elements (e.g., discovery journeys, species stories), confirm explicit preference for engagement and context, while maintaining scientific accuracy.  \n3. If user specifies audience (e.g., public, technical, or regulatory), align language and structure to that context—using everyday terms for public-facing content, formal references for compliance documents.",
+      "error": null
+    }
+  }
+}
