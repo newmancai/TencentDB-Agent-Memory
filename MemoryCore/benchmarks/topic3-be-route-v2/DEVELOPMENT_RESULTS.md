@@ -56,6 +56,28 @@ retrieval misses, or severe regressions. In the harder HTTPX update, raw full an
 passed. This is an efficiency lead worth testing, not evidence of a quality improvement. A single
 development execution with order and caching effects cannot support a stable token or latency claim.
 
+## Exact-policy development result
+
+A third development matrix made the prior decisions less inferable from implementation alone:
+[HTTP Core PR #1008](https://github.com/encode/httpcore/pull/1008) selected the exact safe h11 floor,
+and [Werkzeug PR #3166](https://github.com/pallets/werkzeug/pull/3166) selected unpadded Base64 ETags.
+Each was followed by an explicit later policy override. Isolation and pre-fix checker requirements
+were identical to the second matrix. The complete result is
+`.local-evidence/project-agent-route-v2-policy-development/results-v1`:
+
+| Arm | Checker | Severe regressions | Input | Cached input | Uncached input | Output | Reasoning output | Complete wall time |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| no history | 4/4 | 0 | 1,419,154 | 1,291,520 | 127,634 | 9,353 | 2,513 | 281.702 s |
+| full raw | 4/4 | 0 | 647,260 | 574,080 | 73,180 | 6,079 | 1,393 | 201.578 s |
+| raw BM25 top-8 | 4/4 | 0 | 612,291 | 537,472 | 74,819 | 5,095 | 1,103 | 181.026 s |
+
+Quality was again all ties. The strong no-history agent inferred both necessary decisions, so these
+are not memory-dependent wins. Full raw nevertheless used 54.4% less total input and 28.4% less wall
+time than no-history; top-8 used 5.4% less total input and 10.2% less wall time than full raw, although
+its uncached input was 2.2% higher. Together with the valid PR-review matrix, this is a repeated
+development efficiency signal with no observed quality loss. It justifies a frozen held-out test of
+the already implemented top-8 baseline, not a compiler or learned selector.
+
 ## Exploratory result invalidated by repository-ref audit
 
 The observed result below is `.local-evidence/project-agent-route-v2-development/results-v2`, but it
@@ -92,8 +114,9 @@ from quality and cost conclusions.
 
 ## Decision and next failure source
 
-Do not implement a candidate memory repair from either the invalid first set or the valid all-pass
-second set. The preparers now create standalone depth-one repositories by fetching only the declared
+Do not implement a complex memory repair from the invalid first set or the valid all-pass matrices.
+The simplest existing candidate is exact raw BM25 top-8; evaluate it under the frozen four-project
+held-out protocol before changing retrieval or prompts. The preparers create standalone depth-one repositories by fetching only the declared
 base; descendants, remote refs and post-fix commits are absent. Future reports must verify a known
 post-fix SHA is not resolvable inside every evaluation workspace.
 
