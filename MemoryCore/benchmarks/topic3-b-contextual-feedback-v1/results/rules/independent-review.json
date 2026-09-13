@@ -1,0 +1,23 @@
+{
+  "status": "助手对匿名候选规则的语义审查，非官方gold；仅使用review-packet.json，未推断候选身份或新任务效果。",
+  "A": {
+    "feedback_object": "有条件地识别中性表达、叙事、受众三类要求，但没有把反馈绑定到具体被评价输出或当前同类任务；主要仍是内容条件的概括。",
+    "scope_and_strength": "if user requests/specifies保留了条件，避免无条件要求所有输出科学叙事。但规则1将summaries作为中性示例，规则2另列叙事，没有说明同为Monthly Research Summary的s4/s5与s6/s8应如何比较适用性；不会自动解决旧草稿把当前叙事降为optional的问题。第三条仅当用户明确受众才适用，较旧草稿猜技术/公众受众谨慎。",
+    "task_preference_carryover": "raw data/precise metrics、scientific accuracy、公用日常语言/监管引用均取自两例领域偏好，尚未成为独立于领域的反馈解释操作。没有明确保留展位语言中everyday cooking terms和避免technical jargon的强度。",
+    "evidence_limits": "第一例s6:t3,t5及s8:t3,t5支持精确数据加叙事；第二例s4:t3/s7:t3支持顾客用语，但不能概括成所有public-facing内容都需同一种日常表达。规则写public/technical作为条件示例而非当前受众事实，不能将其本身判成臆造当前受众。未提供message IDs，不等于内容必错；其抽象概括不足以单独证明已落实具体纠正。",
+    "decision": "可以原样冻结，作为弱候选进入有界新persona诊断；不宜提前称其已学到反馈适用或强度机制。不要继续在这两例改措辞追求语义全通过。"
+  },
+  "B": {
+    "feedback_object": "能识别删主观措辞、引用标准、顾客可用性，但侧重如何写领域内容，未识别反馈指向哪个对象及如何区分当前适用与旧任务要求。",
+    "scope_and_strength": "第一条有if user requests条件，不是无条件禁止摘要叙事；然而没有第一例s6/s8后来明确认可叙事的正向规则，不能据此纠正optional叙事或处理相反历史。第三条的accessible language和sensory attributes保留市场偏好的一部分，但未明确日常烹饪词或避免技术农业术语，仍不足以落实第二例纠正。",
+    "task_preference_carryover": "signage/recipes/market plans一并套用风味质地及实用细节，直接携带训练领域任务偏好；将市场计划一概视作顾客沟通比原市场标牌/顾客食谱更宽。规则不是纯粹泛泛口号，但新增作用更像主题模板。",
+    "evidence_limits": "第二例s2:t3–t29支持ROCB具体且最新标准，第一例s7:t3,t5,t7支持方法论各主张的适当引用；合并成compliance or methodology一律用specific,current guidelines支持all assertions，扩大了标准类型和时效要求的范围。市场感官语言在第二例s4:t3、s7:t3有来源，不能因未包含于其他任务参考而自动判错。",
+    "decision": "可原样冻结作对照，不需要以零错误为进入门槛；但其内容尚不足以代表已实现反馈对象/适用范围学习。尤其不能把这组规则本身当高置信教师纠正。"
+  },
+  "overall": {
+    "comparison": "A比B更明确保留叙事正向要求和条件化受众，因此更接近处理两例的纠正问题；两者都没有可执行的同对象适用判断或必须/可选/禁止强度保持规则。这是产物审查，不能预言A在新persona更好。",
+    "freeze_recommendation": "若下一步是固定预算、有限新persona上的可证伪诊断，两组均可直接原样冻结，不再编译或改这两例prompt。运行前只需明确它们是待验证的规则候选，而非已证明正确的通用策略。",
+    "decisive_missing_information": "决定性缺口是迁移结果：是否在新任务中更准确保留当前有来源的反馈、避免跨场景扩大及弱化强度。当前两例无法证明。须与同一冻结模型、同一当前user-only历史的普通无规则读取比较，并保留无纠正来源的规则对照；只有候选之间比较，无法排除普通提示/额外规则文本收益。不同候选的原始来源身份由父线程核实，本审查不猜。",
+    "evaluation_boundary": "先据用户原话评价明确内容/强度与适用错误，再单列参考覆盖；参考强于可见原话的缺项不自动产生纠正。报告实际token及规则生成成本，不能称严格等计算。停止条件是固定新样本未胜普通同信息基线，或收益伴明显跨域旧偏好误用：保留结果，关闭本两例规则配置，不在该批样本补规则追分。不扩E，不把画像模板更换称权重训练。"
+  }
+}

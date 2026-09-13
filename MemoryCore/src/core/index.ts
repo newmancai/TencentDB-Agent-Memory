@@ -25,6 +25,10 @@ export type {
 export { TdaiCore } from "./tdai-core.js";
 export type { TdaiCoreOptions } from "./tdai-core.js";
 
+// Optional bounded B+E sidecar; importing it does not enable lifecycle changes.
+export { FeedbackMemory, FeedbackPolicy, verifyBounded, processFeedback } from './memory-feedback/index.js';
+export type { Candidate, SourceRecord, Verification, PolicyState } from './memory-feedback/index.js';
+
 // Instance config provider (VDB per-instance pool + COS global).
 // LocalConfigSource lives inline in instance-config-provider.ts; other
 // deployments may provide their own IConfigSource implementation.

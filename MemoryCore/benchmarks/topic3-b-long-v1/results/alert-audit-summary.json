@@ -1,0 +1,23 @@
+{
+  "scope": "assistant silver independent audit of all FTS alarms at frozen 0.7; not human gold",
+  "n": 34,
+  "a": {
+    "unsupported": 29,
+    "uncertain": 2,
+    "supported_update": 3
+  },
+  "b": {
+    "unsupported": 28,
+    "uncertain": 3,
+    "supported_update": 3
+  },
+  "agreement": 33,
+  "disagreements": [
+    {
+      "id": "ea0a0f6161766eefc237:c4bfc3b74131d3b3a605",
+      "a": "unsupported",
+      "b": "uncertain"
+    }
+  ],
+  "same_supported_updates": true
+}

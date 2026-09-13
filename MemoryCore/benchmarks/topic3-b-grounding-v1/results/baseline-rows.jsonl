@@ -1,0 +1,889 @@
+{"id": "84", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "85", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "86", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[116, 159]], "char_tp": 23, "char_fp": 20, "char_fn": 0, "gold_characters": 23}
+{"id": "87", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[200, 262]], "char_tp": 56, "char_fp": 6, "char_fn": 0, "gold_characters": 56}
+{"id": "88", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[109, 152], [230, 283]], "char_tp": 62, "char_fp": 34, "char_fn": 0, "gold_characters": 62}
+{"id": "89", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[104, 195]], "char_tp": 90, "char_fp": 1, "char_fn": 0, "gold_characters": 90}
+{"id": "126", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[53, 124]], "char_tp": 69, "char_fp": 2, "char_fn": 0, "gold_characters": 69}
+{"id": "127", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "128", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "129", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "130", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "131", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[110, 159]], "char_tp": 31, "char_fp": 18, "char_fn": 0, "gold_characters": 31}
+{"id": "324", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "325", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[134, 208]], "char_tp": 73, "char_fp": 1, "char_fn": 0, "gold_characters": 73}
+{"id": "326", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "327", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[303, 337], [340, 346], [349, 359]], "char_tp": 32, "char_fp": 18, "char_fn": 0, "gold_characters": 32}
+{"id": "328", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "329", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "762", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "763", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "764", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "765", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "766", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "767", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "768", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "769", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "770", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "771", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "772", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[367, 424]], "char_tp": 56, "char_fp": 1, "char_fn": 0, "gold_characters": 56}
+{"id": "773", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[226, 274]], "char_tp": 47, "char_fp": 1, "char_fn": 0, "gold_characters": 47}
+{"id": "828", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "829", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "830", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "831", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "832", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[183, 219]], "char_tp": 19, "char_fp": 17, "char_fn": 0, "gold_characters": 19}
+{"id": "833", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "978", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "979", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "980", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[628, 653]], "char_tp": 24, "char_fp": 1, "char_fn": 0, "gold_characters": 24}
+{"id": "981", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "982", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[306, 334]], "char_tp": 27, "char_fp": 1, "char_fn": 0, "gold_characters": 27}
+{"id": "983", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "984", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "985", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "986", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[270, 465]], "char_tp": 193, "char_fp": 2, "char_fn": 0, "gold_characters": 193}
+{"id": "987", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "988", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "989", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1026", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1027", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1028", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[440, 529]], "char_tp": 88, "char_fp": 1, "char_fn": 0, "gold_characters": 88}
+{"id": "1029", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[495, 577]], "char_tp": 77, "char_fp": 5, "char_fn": 0, "gold_characters": 77}
+{"id": "1030", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[113, 153]], "char_tp": 34, "char_fp": 6, "char_fn": 0, "gold_characters": 34}
+{"id": "1031", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1164", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1165", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1166", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[344, 412]], "char_tp": 67, "char_fp": 1, "char_fn": 0, "gold_characters": 67}
+{"id": "1167", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[986, 1011], [1014, 1018]], "char_tp": 23, "char_fp": 6, "char_fn": 51, "gold_characters": 74}
+{"id": "1168", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[227, 257], [331, 390]], "char_tp": 86, "char_fp": 3, "char_fn": 0, "gold_characters": 86}
+{"id": "1169", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1410", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1411", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1412", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[354, 408]], "char_tp": 53, "char_fp": 1, "char_fn": 0, "gold_characters": 53}
+{"id": "1413", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1414", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1415", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1668", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1669", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1670", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[316, 419]], "char_tp": 102, "char_fp": 1, "char_fn": 0, "gold_characters": 102}
+{"id": "1671", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[223, 253]], "char_tp": 29, "char_fp": 1, "char_fn": 0, "gold_characters": 29}
+{"id": "1672", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1673", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1704", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1705", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1706", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[276, 325]], "char_tp": 47, "char_fp": 2, "char_fn": 0, "gold_characters": 47}
+{"id": "1707", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1708", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1709", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[675, 719]], "char_tp": 44, "char_fp": 0, "char_fn": 31, "gold_characters": 75}
+{"id": "1926", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1927", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1928", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[687, 860]], "char_tp": 172, "char_fp": 1, "char_fn": 0, "gold_characters": 172}
+{"id": "1929", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[314, 511]], "char_tp": 196, "char_fp": 1, "char_fn": 0, "gold_characters": 196}
+{"id": "1930", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1931", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1974", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1975", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1976", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[43, 57], [83, 98], [219, 272]], "char_tp": 76, "char_fp": 6, "char_fn": 0, "gold_characters": 76}
+{"id": "1977", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1978", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "1979", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[77, 110]], "char_tp": 27, "char_fp": 6, "char_fn": 0, "gold_characters": 27}
+{"id": "2040", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2041", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2042", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[367, 408], [409, 471]], "char_tp": 64, "char_fp": 39, "char_fn": 0, "gold_characters": 64}
+{"id": "2043", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2044", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2045", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2184", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[64, 146]], "char_tp": 81, "char_fp": 1, "char_fn": 1, "gold_characters": 82}
+{"id": "2185", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2187", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2188", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[648, 679]], "char_tp": 31, "char_fp": 0, "char_fn": 13, "gold_characters": 44}
+{"id": "2189", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2262", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2263", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2264", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[207, 223], [626, 685]], "char_tp": 73, "char_fp": 2, "char_fn": 0, "gold_characters": 73}
+{"id": "2265", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[165, 176]], "char_tp": 10, "char_fp": 1, "char_fn": 0, "gold_characters": 10}
+{"id": "2266", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2267", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2340", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2341", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2342", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2343", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2344", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[458, 477]], "char_tp": 9, "char_fp": 10, "char_fn": 0, "gold_characters": 9}
+{"id": "2345", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2364", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2365", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2366", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[315, 374]], "char_tp": 54, "char_fp": 5, "char_fn": 0, "gold_characters": 54}
+{"id": "2367", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2368", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2369", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[134, 224]], "char_tp": 89, "char_fp": 1, "char_fn": 0, "gold_characters": 89}
+{"id": "2496", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2497", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2498", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2499", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[294, 346]], "char_tp": 45, "char_fp": 7, "char_fn": 0, "gold_characters": 45}
+{"id": "2500", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2501", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[222, 304]], "char_tp": 80, "char_fp": 2, "char_fn": 0, "gold_characters": 80}
+{"id": "2694", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2695", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2696", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[259, 264]], "char_tp": 4, "char_fp": 1, "char_fn": 0, "gold_characters": 4}
+{"id": "2697", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1095, 1143], [1287, 1310]], "char_tp": 68, "char_fp": 3, "char_fn": 1, "gold_characters": 69}
+{"id": "2698", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[822, 914]], "char_tp": 91, "char_fp": 1, "char_fn": 0, "gold_characters": 91}
+{"id": "2699", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2772", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2773", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2774", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[358, 406]], "char_tp": 47, "char_fp": 1, "char_fn": 0, "gold_characters": 47}
+{"id": "2775", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[67, 85]], "char_tp": 17, "char_fp": 1, "char_fn": 14, "gold_characters": 31}
+{"id": "2776", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2777", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 25, "gold_characters": 25}
+{"id": "2802", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2803", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2804", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2805", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[265, 294]], "char_tp": 29, "char_fp": 0, "char_fn": 16, "gold_characters": 45}
+{"id": "2806", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2807", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2850", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[253, 314], [420, 539]], "char_tp": 174, "char_fp": 6, "char_fn": 1, "gold_characters": 175}
+{"id": "2851", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2852", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[21, 25], [35, 57], [159, 179], [184, 207], [210, 216]], "char_tp": 63, "char_fp": 12, "char_fn": 6, "gold_characters": 69}
+{"id": "2853", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[217, 243]], "char_tp": 25, "char_fp": 1, "char_fn": 0, "gold_characters": 25}
+{"id": "2854", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "2855", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3006", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3007", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3008", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[594, 599]], "char_tp": 5, "char_fp": 0, "char_fn": 2, "gold_characters": 7}
+{"id": "3009", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[213, 320], [657, 695]], "char_tp": 134, "char_fp": 11, "char_fn": 50, "gold_characters": 184}
+{"id": "3010", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3011", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3156", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3157", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3158", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1084, 1147]], "char_tp": 62, "char_fp": 1, "char_fn": 0, "gold_characters": 62}
+{"id": "3159", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[494, 514]], "char_tp": 8, "char_fp": 12, "char_fn": 10, "gold_characters": 18}
+{"id": "3160", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3161", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[466, 617]], "char_tp": 149, "char_fp": 2, "char_fn": 0, "gold_characters": 149}
+{"id": "3174", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3175", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3176", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[21, 28], [319, 360]], "char_tp": 46, "char_fp": 2, "char_fn": 2, "gold_characters": 48}
+{"id": "3177", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[146, 192]], "char_tp": 45, "char_fp": 1, "char_fn": 0, "gold_characters": 45}
+{"id": "3178", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3179", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3228", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3229", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3230", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[123, 230]], "char_tp": 106, "char_fp": 1, "char_fn": 0, "gold_characters": 106}
+{"id": "3231", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3232", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[295, 333]], "char_tp": 37, "char_fp": 1, "char_fn": 0, "gold_characters": 37}
+{"id": "3233", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3318", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3319", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3320", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[611, 719]], "char_tp": 107, "char_fp": 1, "char_fn": 0, "gold_characters": 107}
+{"id": "3321", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[505, 543]], "char_tp": 37, "char_fp": 1, "char_fn": 0, "gold_characters": 37}
+{"id": "3322", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3323", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[668, 732]], "char_tp": 63, "char_fp": 1, "char_fn": 0, "gold_characters": 63}
+{"id": "3402", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3403", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3404", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[293, 325], [329, 334], [349, 354]], "char_tp": 41, "char_fp": 1, "char_fn": 19, "gold_characters": 60}
+{"id": "3405", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[34, 149]], "char_tp": 113, "char_fp": 2, "char_fn": 0, "gold_characters": 113}
+{"id": "3406", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[56, 68]], "char_tp": 12, "char_fp": 0, "char_fn": 0, "gold_characters": 12}
+{"id": "3407", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[529, 599]], "char_tp": 68, "char_fp": 2, "char_fn": 0, "gold_characters": 68}
+{"id": "3474", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3475", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3476", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[209, 301]], "char_tp": 91, "char_fp": 1, "char_fn": 0, "gold_characters": 91}
+{"id": "3477", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[636, 689]], "char_tp": 52, "char_fp": 1, "char_fn": 0, "gold_characters": 52}
+{"id": "3478", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3479", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[576, 627]], "char_tp": 47, "char_fp": 4, "char_fn": 0, "gold_characters": 47}
+{"id": "3600", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3601", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3602", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[544, 660]], "char_tp": 115, "char_fp": 1, "char_fn": 0, "gold_characters": 115}
+{"id": "3603", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3604", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3605", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3612", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3613", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3614", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[640, 707]], "char_tp": 65, "char_fp": 2, "char_fn": 0, "gold_characters": 65}
+{"id": "3615", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3616", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3617", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3702", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3703", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3704", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 7, "gold_characters": 7}
+{"id": "3705", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3706", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3707", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3774", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3775", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3776", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3777", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3778", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3779", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3900", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3901", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3902", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3903", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[432, 472]], "char_tp": 39, "char_fp": 1, "char_fn": 10, "gold_characters": 49}
+{"id": "3904", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[71, 85]], "char_tp": 13, "char_fp": 1, "char_fn": 0, "gold_characters": 13}
+{"id": "3905", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3966", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3967", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3968", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 36, "gold_characters": 36}
+{"id": "3969", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3970", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "3971", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4152", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4153", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4154", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[468, 514]], "char_tp": 44, "char_fp": 2, "char_fn": 0, "gold_characters": 44}
+{"id": "4155", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[358, 438]], "char_tp": 73, "char_fp": 7, "char_fn": 0, "gold_characters": 73}
+{"id": "4156", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4157", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4590", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4591", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4592", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4593", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[239, 265]], "char_tp": 25, "char_fp": 1, "char_fn": 0, "gold_characters": 25}
+{"id": "4594", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4595", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4686", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4687", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4688", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[250, 271]], "char_tp": 21, "char_fp": 0, "char_fn": 13, "gold_characters": 34}
+{"id": "4689", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[218, 224], [227, 268]], "char_tp": 25, "char_fp": 22, "char_fn": 1, "gold_characters": 26}
+{"id": "4690", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[149, 215]], "char_tp": 65, "char_fp": 1, "char_fn": 0, "gold_characters": 65}
+{"id": "4691", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4830", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4831", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4832", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[197, 242]], "char_tp": 44, "char_fp": 1, "char_fn": 0, "gold_characters": 44}
+{"id": "4833", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4834", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4835", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4878", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4879", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4880", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4881", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4882", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4883", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4932", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4933", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4934", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4935", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[118, 186]], "char_tp": 68, "char_fp": 0, "char_fn": 2, "gold_characters": 70}
+{"id": "4936", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4937", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4998", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "4999", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5000", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[248, 303]], "char_tp": 53, "char_fp": 2, "char_fn": 0, "gold_characters": 53}
+{"id": "5001", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5002", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5003", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5190", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[520, 562], [584, 595], [613, 617]], "char_tp": 26, "char_fp": 31, "char_fn": 0, "gold_characters": 26}
+{"id": "5191", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5192", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5193", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5194", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[408, 526]], "char_tp": 117, "char_fp": 1, "char_fn": 0, "gold_characters": 117}
+{"id": "5195", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5262", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5263", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5264", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[227, 267]], "char_tp": 39, "char_fp": 1, "char_fn": 0, "gold_characters": 39}
+{"id": "5265", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5266", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[126, 187]], "char_tp": 60, "char_fp": 1, "char_fn": 0, "gold_characters": 60}
+{"id": "5267", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5370", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5371", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5372", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[515, 528]], "char_tp": 13, "char_fp": 0, "char_fn": 6, "gold_characters": 19}
+{"id": "5373", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5374", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5375", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5466", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5467", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5468", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5469", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5470", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5471", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5508", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5509", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5510", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5511", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[208, 212], [222, 225], [231, 235], [260, 440]], "char_tp": 189, "char_fp": 2, "char_fn": 41, "gold_characters": 230}
+{"id": "5512", "source_kind": "Summary", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 23, "gold_characters": 23}
+{"id": "5513", "source_kind": "Summary", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5664", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[195, 206]], "char_tp": 10, "char_fp": 1, "char_fn": 1, "gold_characters": 11}
+{"id": "5665", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5666", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[197, 254]], "char_tp": 51, "char_fp": 6, "char_fn": 0, "gold_characters": 51}
+{"id": "5667", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[307, 316], [327, 352]], "char_tp": 29, "char_fp": 5, "char_fn": 0, "gold_characters": 29}
+{"id": "5668", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[239, 246], [262, 278], [419, 445], [589, 609], [664, 680]], "char_tp": 78, "char_fp": 7, "char_fn": 18, "gold_characters": 96}
+{"id": "5669", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[131, 178], [340, 367]], "char_tp": 72, "char_fp": 2, "char_fn": 2, "gold_characters": 74}
+{"id": "5712", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[471, 477]], "char_tp": 6, "char_fp": 0, "char_fn": 3, "gold_characters": 9}
+{"id": "5713", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5714", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[330, 348]], "char_tp": 17, "char_fp": 1, "char_fn": 43, "gold_characters": 60}
+{"id": "5715", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[223, 254]], "char_tp": 30, "char_fp": 1, "char_fn": 1, "gold_characters": 31}
+{"id": "5716", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[331, 334], [337, 340], [758, 800], [895, 965], [1021, 1053]], "char_tp": 99, "char_fp": 51, "char_fn": 0, "gold_characters": 99}
+{"id": "5717", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[30, 38], [111, 155], [475, 541], [761, 769], [774, 794]], "char_tp": 93, "char_fp": 53, "char_fn": 6, "gold_characters": 99}
+{"id": "5742", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5743", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[297, 298], [303, 306], [318, 321]], "char_tp": 7, "char_fp": 0, "char_fn": 42, "gold_characters": 49}
+{"id": "5744", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[471, 473]], "char_tp": 1, "char_fp": 1, "char_fn": 0, "gold_characters": 1}
+{"id": "5745", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[180, 206]], "char_tp": 26, "char_fp": 0, "char_fn": 5, "gold_characters": 31}
+{"id": "5746", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[459, 486]], "char_tp": 26, "char_fp": 1, "char_fn": 23, "gold_characters": 49}
+{"id": "5747", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[174, 199]], "char_tp": 25, "char_fp": 0, "char_fn": 4, "gold_characters": 29}
+{"id": "5784", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "5785", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[805, 828]], "char_tp": 22, "char_fp": 1, "char_fn": 0, "gold_characters": 22}
+{"id": "5786", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[797, 814]], "char_tp": 16, "char_fp": 1, "char_fn": 0, "gold_characters": 16}
+{"id": "5787", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[556, 636], [678, 687]], "char_tp": 87, "char_fp": 2, "char_fn": 38, "gold_characters": 125}
+{"id": "5788", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[402, 537], [696, 733]], "char_tp": 170, "char_fp": 2, "char_fn": 17, "gold_characters": 187}
+{"id": "5789", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[23, 61], [117, 133], [439, 491], [527, 543], [544, 652], [838, 859]], "char_tp": 210, "char_fp": 41, "char_fn": 28, "gold_characters": 238}
+{"id": "6126", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6127", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[310, 313], [316, 318], [326, 333], [334, 343], [348, 355], [1006, 1033]], "char_tp": 48, "char_fp": 7, "char_fn": 6, "gold_characters": 54}
+{"id": "6128", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[428, 433]], "char_tp": 5, "char_fp": 0, "char_fn": 8, "gold_characters": 13}
+{"id": "6129", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[512, 536], [583, 594], [625, 636], [639, 646], [694, 736], [1015, 1022]], "char_tp": 91, "char_fp": 11, "char_fn": 36, "gold_characters": 127}
+{"id": "6130", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[371, 384], [940, 945], [979, 1011], [1193, 1201]], "char_tp": 42, "char_fp": 16, "char_fn": 6, "gold_characters": 48}
+{"id": "6131", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[14, 32], [512, 538]], "char_tp": 42, "char_fp": 2, "char_fn": 18, "gold_characters": 60}
+{"id": "6180", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[693, 723]], "char_tp": 29, "char_fp": 1, "char_fn": 0, "gold_characters": 29}
+{"id": "6181", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6182", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[111, 114], [324, 362], [919, 942]], "char_tp": 50, "char_fp": 14, "char_fn": 1, "gold_characters": 51}
+{"id": "6183", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[486, 512], [594, 645]], "char_tp": 70, "char_fp": 7, "char_fn": 0, "gold_characters": 70}
+{"id": "6184", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 10, "gold_characters": 10}
+{"id": "6185", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[166, 170], [1014, 1251], [1327, 1361]], "char_tp": 263, "char_fp": 12, "char_fn": 0, "gold_characters": 263}
+{"id": "6258", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6259", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6260", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[276, 283]], "char_tp": 6, "char_fp": 1, "char_fn": 0, "gold_characters": 6}
+{"id": "6261", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[191, 201], [492, 518]], "char_tp": 29, "char_fp": 7, "char_fn": 4, "gold_characters": 33}
+{"id": "6262", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[345, 412], [1022, 1034], [1138, 1174]], "char_tp": 113, "char_fp": 2, "char_fn": 44, "gold_characters": 157}
+{"id": "6263", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[118, 138], [320, 335], [1025, 1062]], "char_tp": 52, "char_fp": 20, "char_fn": 17, "gold_characters": 69}
+{"id": "6372", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[204, 209], [213, 226]], "char_tp": 17, "char_fp": 1, "char_fn": 4, "gold_characters": 21}
+{"id": "6373", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6374", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[292, 298], [302, 443]], "char_tp": 113, "char_fp": 34, "char_fn": 0, "gold_characters": 113}
+{"id": "6375", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[290, 357], [943, 975]], "char_tp": 88, "char_fp": 11, "char_fn": 16, "gold_characters": 104}
+{"id": "6376", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[163, 217], [1084, 1128]], "char_tp": 92, "char_fp": 6, "char_fn": 0, "gold_characters": 92}
+{"id": "6377", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[690, 714], [718, 741], [746, 766], [769, 787]], "char_tp": 81, "char_fp": 4, "char_fn": 0, "gold_characters": 81}
+{"id": "6444", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6445", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6446", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[195, 202]], "char_tp": 6, "char_fp": 1, "char_fn": 0, "gold_characters": 6}
+{"id": "6447", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[186, 195], [196, 208]], "char_tp": 20, "char_fp": 1, "char_fn": 1, "gold_characters": 21}
+{"id": "6448", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[496, 503], [609, 620], [741, 822]], "char_tp": 96, "char_fp": 3, "char_fn": 0, "gold_characters": 96}
+{"id": "6449", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[108, 117], [118, 122], [152, 219], [235, 259]], "char_tp": 97, "char_fp": 7, "char_fn": 18, "gold_characters": 115}
+{"id": "6498", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[763, 871]], "char_tp": 108, "char_fp": 0, "char_fn": 13, "gold_characters": 121}
+{"id": "6499", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6500", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[26, 65], [77, 121], [204, 219], [302, 326], [443, 486]], "char_tp": 126, "char_fp": 39, "char_fn": 11, "gold_characters": 137}
+{"id": "6501", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[47, 78]], "char_tp": 31, "char_fp": 0, "char_fn": 58, "gold_characters": 89}
+{"id": "6502", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[285, 296], [299, 388], [392, 414], [478, 510], [514, 542], [997, 1015]], "char_tp": 157, "char_fp": 43, "char_fn": 0, "gold_characters": 157}
+{"id": "6503", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[49, 87], [279, 288], [526, 571]], "char_tp": 52, "char_fp": 40, "char_fn": 0, "gold_characters": 52}
+{"id": "6654", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6655", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6656", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[215, 241], [245, 263]], "char_tp": 37, "char_fp": 7, "char_fn": 0, "gold_characters": 37}
+{"id": "6657", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[439, 458]], "char_tp": 18, "char_fp": 1, "char_fn": 0, "gold_characters": 18}
+{"id": "6658", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[244, 248], [471, 482], [653, 683]], "char_tp": 42, "char_fp": 3, "char_fn": 34, "gold_characters": 76}
+{"id": "6659", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[514, 520]], "char_tp": 5, "char_fp": 1, "char_fn": 1, "gold_characters": 6}
+{"id": "6708", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 7, "gold_characters": 7}
+{"id": "6709", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6710", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[183, 248], [288, 294]], "char_tp": 50, "char_fp": 21, "char_fn": 0, "gold_characters": 50}
+{"id": "6711", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[338, 356], [681, 700], [950, 968], [995, 1018]], "char_tp": 76, "char_fp": 2, "char_fn": 39, "gold_characters": 115}
+{"id": "6712", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[304, 318]], "char_tp": 13, "char_fp": 1, "char_fn": 1, "gold_characters": 14}
+{"id": "6713", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6804", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[739, 755]], "char_tp": 15, "char_fp": 1, "char_fn": 0, "gold_characters": 15}
+{"id": "6805", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6806", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[276, 301], [302, 308]], "char_tp": 29, "char_fp": 2, "char_fn": 1, "gold_characters": 30}
+{"id": "6807", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[849, 858], [1038, 1083]], "char_tp": 33, "char_fp": 21, "char_fn": 28, "gold_characters": 61}
+{"id": "6808", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[229, 236], [348, 364], [368, 393], [427, 510]], "char_tp": 98, "char_fp": 33, "char_fn": 1, "gold_characters": 99}
+{"id": "6809", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[249, 256]], "char_tp": 6, "char_fp": 1, "char_fn": 0, "gold_characters": 6}
+{"id": "6876", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[93, 113]], "char_tp": 19, "char_fp": 1, "char_fn": 0, "gold_characters": 19}
+{"id": "6877", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "6878", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[205, 209], [217, 229], [442, 474], [1069, 1085]], "char_tp": 62, "char_fp": 2, "char_fn": 21, "gold_characters": 83}
+{"id": "6879", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[52, 79]], "char_tp": 24, "char_fp": 3, "char_fn": 0, "gold_characters": 24}
+{"id": "6880", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[170, 195], [238, 300], [397, 406], [438, 445], [925, 950]], "char_tp": 119, "char_fp": 9, "char_fn": 29, "gold_characters": 148}
+{"id": "6881", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[139, 164], [374, 411], [773, 790]], "char_tp": 57, "char_fp": 22, "char_fn": 36, "gold_characters": 93}
+{"id": "6948", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[282, 350]], "char_tp": 39, "char_fp": 29, "char_fn": 12, "gold_characters": 51}
+{"id": "6949", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[194, 322]], "char_tp": 127, "char_fp": 1, "char_fn": 0, "gold_characters": 127}
+{"id": "6950", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[320, 327]], "char_tp": 6, "char_fp": 1, "char_fn": 16, "gold_characters": 22}
+{"id": "6951", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[988, 1036]], "char_tp": 48, "char_fp": 0, "char_fn": 11, "gold_characters": 59}
+{"id": "6952", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[747, 758], [786, 793], [879, 894]], "char_tp": 30, "char_fp": 3, "char_fn": 0, "gold_characters": 30}
+{"id": "6953", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[260, 276], [375, 384], [1227, 1248]], "char_tp": 36, "char_fp": 10, "char_fn": 3, "gold_characters": 39}
+{"id": "7044", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[416, 444]], "char_tp": 28, "char_fp": 0, "char_fn": 7, "gold_characters": 35}
+{"id": "7045", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7046", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7047", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[459, 475], [479, 487], [488, 528]], "char_tp": 39, "char_fp": 25, "char_fn": 0, "gold_characters": 39}
+{"id": "7048", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[158, 162], [446, 486], [1222, 1237]], "char_tp": 42, "char_fp": 17, "char_fn": 0, "gold_characters": 42}
+{"id": "7049", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[47, 85], [971, 1042], [1282, 1330]], "char_tp": 118, "char_fp": 39, "char_fn": 8, "gold_characters": 126}
+{"id": "7080", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7081", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7082", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[280, 324]], "char_tp": 22, "char_fp": 22, "char_fn": 2, "gold_characters": 24}
+{"id": "7083", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[527, 546], [578, 645]], "char_tp": 84, "char_fp": 2, "char_fn": 1, "gold_characters": 85}
+{"id": "7084", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[276, 324], [879, 943], [959, 982], [1002, 1015]], "char_tp": 117, "char_fp": 31, "char_fn": 15, "gold_characters": 132}
+{"id": "7085", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[739, 819], [825, 877], [1198, 1304]], "char_tp": 220, "char_fp": 18, "char_fn": 1, "gold_characters": 221}
+{"id": "7338", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7339", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[442, 473], [728, 733]], "char_tp": 4, "char_fp": 32, "char_fn": 0, "gold_characters": 4}
+{"id": "7340", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[327, 343], [459, 472], [473, 595], [657, 681]], "char_tp": 159, "char_fp": 16, "char_fn": 1, "gold_characters": 160}
+{"id": "7341", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[517, 561]], "char_tp": 36, "char_fp": 8, "char_fn": 0, "gold_characters": 36}
+{"id": "7342", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[488, 516], [540, 561], [625, 657]], "char_tp": 79, "char_fp": 2, "char_fn": 4, "gold_characters": 83}
+{"id": "7343", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[491, 507]], "char_tp": 15, "char_fp": 1, "char_fn": 0, "gold_characters": 15}
+{"id": "7416", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7417", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1208, 1250], [1647, 1723]], "char_tp": 82, "char_fp": 36, "char_fn": 0, "gold_characters": 82}
+{"id": "7418", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[137, 157], [520, 528], [544, 562]], "char_tp": 35, "char_fp": 11, "char_fn": 1, "gold_characters": 36}
+{"id": "7419", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7420", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[256, 262], [914, 932]], "char_tp": 23, "char_fp": 1, "char_fn": 2, "gold_characters": 25}
+{"id": "7421", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[210, 334], [351, 418], [568, 583], [647, 678], [682, 719], [724, 745]], "char_tp": 245, "char_fp": 50, "char_fn": 18, "gold_characters": 263}
+{"id": "7590", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7591", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7592", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[329, 335]], "char_tp": 5, "char_fp": 1, "char_fn": 0, "gold_characters": 5}
+{"id": "7593", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7594", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[257, 289], [331, 349], [555, 590]], "char_tp": 78, "char_fp": 7, "char_fn": 5, "gold_characters": 83}
+{"id": "7595", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[134, 176], [255, 372], [780, 789]], "char_tp": 156, "char_fp": 12, "char_fn": 1, "gold_characters": 157}
+{"id": "7632", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[289, 316]], "char_tp": 27, "char_fp": 0, "char_fn": 4, "gold_characters": 31}
+{"id": "7633", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7634", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[197, 230], [246, 249], [258, 273], [427, 442], [492, 499]], "char_tp": 69, "char_fp": 4, "char_fn": 16, "gold_characters": 85}
+{"id": "7635", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7636", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[202, 211], [557, 563], [884, 893]], "char_tp": 5, "char_fp": 19, "char_fn": 26, "gold_characters": 31}
+{"id": "7637", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[579, 609]], "char_tp": 29, "char_fp": 1, "char_fn": 0, "gold_characters": 29}
+{"id": "7638", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[246, 262], [266, 272]], "char_tp": 20, "char_fp": 2, "char_fn": 1, "gold_characters": 21}
+{"id": "7639", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7640", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[259, 284], [288, 305], [384, 449], [776, 792]], "char_tp": 116, "char_fp": 7, "char_fn": 0, "gold_characters": 116}
+{"id": "7641", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[905, 924], [929, 947]], "char_tp": 32, "char_fp": 5, "char_fn": 2, "gold_characters": 34}
+{"id": "7642", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[190, 209], [365, 407], [442, 465], [476, 482], [510, 548]], "char_tp": 55, "char_fp": 73, "char_fn": 0, "gold_characters": 55}
+{"id": "7643", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[362, 397], [453, 477]], "char_tp": 57, "char_fp": 2, "char_fn": 1, "gold_characters": 58}
+{"id": "7644", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7645", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7646", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[708, 744]], "char_tp": 35, "char_fp": 1, "char_fn": 0, "gold_characters": 35}
+{"id": "7647", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7648", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[780, 810], [853, 884], [943, 963]], "char_tp": 78, "char_fp": 3, "char_fn": 2, "gold_characters": 80}
+{"id": "7649", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1237, 1297]], "char_tp": 58, "char_fp": 2, "char_fn": 0, "gold_characters": 58}
+{"id": "7650", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": true, "spans": [[744, 751]], "char_tp": 0, "char_fp": 7, "char_fn": 0, "gold_characters": 0}
+{"id": "7651", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7652", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[567, 580]], "char_tp": 12, "char_fp": 1, "char_fn": 0, "gold_characters": 12}
+{"id": "7653", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[184, 245], [754, 867], [985, 1015], [1048, 1075], [1218, 1283]], "char_tp": 273, "char_fp": 23, "char_fn": 0, "gold_characters": 273}
+{"id": "7654", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[270, 342]], "char_tp": 71, "char_fp": 1, "char_fn": 0, "gold_characters": 71}
+{"id": "7655", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[661, 713]], "char_tp": 51, "char_fp": 1, "char_fn": 0, "gold_characters": 51}
+{"id": "7746", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7747", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1201, 1235]], "char_tp": 34, "char_fp": 0, "char_fn": 3, "gold_characters": 37}
+{"id": "7748", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[389, 396]], "char_tp": 6, "char_fp": 1, "char_fn": 0, "gold_characters": 6}
+{"id": "7749", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[944, 985], [986, 1016], [1021, 1035], [1188, 1225]], "char_tp": 79, "char_fp": 43, "char_fn": 4, "gold_characters": 83}
+{"id": "7750", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[343, 377], [959, 1021]], "char_tp": 94, "char_fp": 2, "char_fn": 4, "gold_characters": 98}
+{"id": "7751", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[495, 558], [589, 661], [1087, 1108]], "char_tp": 139, "char_fp": 17, "char_fn": 4, "gold_characters": 143}
+{"id": "7794", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7795", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[694, 718]], "char_tp": 23, "char_fp": 1, "char_fn": 0, "gold_characters": 23}
+{"id": "7796", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "7797", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[148, 192]], "char_tp": 38, "char_fp": 6, "char_fn": 0, "gold_characters": 38}
+{"id": "7798", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[382, 394], [476, 480], [482, 498]], "char_tp": 30, "char_fp": 2, "char_fn": 3, "gold_characters": 33}
+{"id": "7799", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[698, 709], [720, 734]], "char_tp": 13, "char_fp": 12, "char_fn": 1, "gold_characters": 14}
+{"id": "8088", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8089", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8090", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[212, 227], [295, 311], [312, 317], [370, 392]], "char_tp": 49, "char_fp": 9, "char_fn": 15, "gold_characters": 64}
+{"id": "8091", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[252, 301]], "char_tp": 48, "char_fp": 1, "char_fn": 0, "gold_characters": 48}
+{"id": "8092", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[412, 435], [871, 875], [986, 989], [992, 1035]], "char_tp": 52, "char_fp": 21, "char_fn": 65, "gold_characters": 117}
+{"id": "8093", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[590, 601]], "char_tp": 10, "char_fp": 1, "char_fn": 0, "gold_characters": 10}
+{"id": "8292", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 19, "gold_characters": 19}
+{"id": "8293", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[501, 523]], "char_tp": 21, "char_fp": 1, "char_fn": 1, "gold_characters": 22}
+{"id": "8294", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[199, 219], [222, 249], [338, 357], [407, 429]], "char_tp": 55, "char_fp": 33, "char_fn": 0, "gold_characters": 55}
+{"id": "8295", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[156, 176], [292, 395]], "char_tp": 87, "char_fp": 36, "char_fn": 0, "gold_characters": 87}
+{"id": "8296", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[231, 266], [270, 293]], "char_tp": 45, "char_fp": 13, "char_fn": 1, "gold_characters": 46}
+{"id": "8297", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 18, "gold_characters": 18}
+{"id": "8310", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8311", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8312", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[329, 359]], "char_tp": 29, "char_fp": 1, "char_fn": 1, "gold_characters": 30}
+{"id": "8313", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[213, 259], [379, 413]], "char_tp": 78, "char_fp": 2, "char_fn": 0, "gold_characters": 78}
+{"id": "8314", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[225, 238], [264, 307], [339, 367], [396, 422]], "char_tp": 59, "char_fp": 51, "char_fn": 2, "gold_characters": 61}
+{"id": "8315", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[303, 324], [1078, 1130]], "char_tp": 58, "char_fp": 15, "char_fn": 1, "gold_characters": 59}
+{"id": "8364", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8365", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[188, 191], [194, 199], [259, 284]], "char_tp": 23, "char_fp": 10, "char_fn": 0, "gold_characters": 23}
+{"id": "8366", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[691, 700], [705, 712]], "char_tp": 14, "char_fp": 2, "char_fn": 19, "gold_characters": 33}
+{"id": "8367", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[241, 246], [279, 286], [477, 550], [679, 687], [691, 703]], "char_tp": 60, "char_fp": 45, "char_fn": 0, "gold_characters": 60}
+{"id": "8368", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[230, 234], [238, 263], [404, 412], [424, 428], [444, 456], [891, 900]], "char_tp": 15, "char_fp": 47, "char_fn": 0, "gold_characters": 15}
+{"id": "8369", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[50, 65], [71, 88], [135, 181], [748, 884], [943, 961], [962, 1032]], "char_tp": 250, "char_fp": 52, "char_fn": 2, "gold_characters": 252}
+{"id": "8370", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8371", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[385, 440]], "char_tp": 54, "char_fp": 1, "char_fn": 1, "gold_characters": 55}
+{"id": "8372", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[166, 171], [176, 183], [251, 291], [466, 473]], "char_tp": 31, "char_fp": 28, "char_fn": 22, "gold_characters": 53}
+{"id": "8373", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[112, 126], [322, 327], [428, 441], [653, 658]], "char_tp": 27, "char_fp": 10, "char_fn": 16, "gold_characters": 43}
+{"id": "8374", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[226, 229], [441, 443], [834, 852], [906, 914], [921, 929]], "char_tp": 21, "char_fp": 18, "char_fn": 4, "gold_characters": 25}
+{"id": "8375", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[316, 323], [692, 742]], "char_tp": 51, "char_fp": 6, "char_fn": 0, "gold_characters": 51}
+{"id": "8562", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8563", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8564", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[260, 275], [278, 393]], "char_tp": 129, "char_fp": 1, "char_fn": 3, "gold_characters": 132}
+{"id": "8565", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[296, 301], [306, 342], [410, 415]], "char_tp": 39, "char_fp": 7, "char_fn": 1, "gold_characters": 40}
+{"id": "8566", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[196, 215], [310, 364], [420, 433], [436, 558]], "char_tp": 139, "char_fp": 69, "char_fn": 0, "gold_characters": 139}
+{"id": "8567", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[50, 57], [63, 72], [349, 384], [711, 750]], "char_tp": 38, "char_fp": 52, "char_fn": 1, "gold_characters": 39}
+{"id": "8598", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8599", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8600", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[546, 667], [887, 957]], "char_tp": 148, "char_fp": 43, "char_fn": 0, "gold_characters": 148}
+{"id": "8601", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8602", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[169, 171], [246, 265], [266, 304], [308, 323], [760, 784]], "char_tp": 67, "char_fp": 31, "char_fn": 5, "gold_characters": 72}
+{"id": "8603", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[126, 133], [610, 629], [690, 733]], "char_tp": 44, "char_fp": 25, "char_fn": 1, "gold_characters": 45}
+{"id": "8910", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8911", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8912", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[168, 179]], "char_tp": 11, "char_fp": 0, "char_fn": 3, "gold_characters": 14}
+{"id": "8913", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[371, 394], [400, 423], [428, 451]], "char_tp": 46, "char_fp": 23, "char_fn": 9, "gold_characters": 55}
+{"id": "8914", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[277, 300], [301, 412], [665, 671], [678, 683], [688, 700], [701, 720]], "char_tp": 161, "char_fp": 15, "char_fn": 0, "gold_characters": 161}
+{"id": "8915", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[309, 325], [468, 524]], "char_tp": 69, "char_fp": 3, "char_fn": 3, "gold_characters": 72}
+{"id": "8988", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8989", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8990", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[316, 346]], "char_tp": 30, "char_fp": 0, "char_fn": 3, "gold_characters": 33}
+{"id": "8991", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "8992", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[368, 428], [514, 596], [705, 812], [1313, 1426]], "char_tp": 351, "char_fp": 11, "char_fn": 3, "gold_characters": 354}
+{"id": "8993", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[160, 185]], "char_tp": 24, "char_fp": 1, "char_fn": 39, "gold_characters": 63}
+{"id": "9024", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[348, 371]], "char_tp": 22, "char_fp": 1, "char_fn": 1, "gold_characters": 23}
+{"id": "9025", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "9026", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 22, "gold_characters": 22}
+{"id": "9027", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[375, 414], [490, 510], [519, 551], [555, 577]], "char_tp": 109, "char_fp": 4, "char_fn": 13, "gold_characters": 122}
+{"id": "9028", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[272, 301]], "char_tp": 28, "char_fp": 1, "char_fn": 1, "gold_characters": 29}
+{"id": "9029", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[265, 288], [850, 868], [927, 933]], "char_tp": 23, "char_fp": 24, "char_fn": 4, "gold_characters": 27}
+{"id": "9204", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "9205", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "9206", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[231, 261], [308, 329]], "char_tp": 41, "char_fp": 10, "char_fn": 18, "gold_characters": 59}
+{"id": "9207", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[559, 578]], "char_tp": 18, "char_fp": 1, "char_fn": 0, "gold_characters": 18}
+{"id": "9208", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "9209", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[847, 864]], "char_tp": 17, "char_fp": 0, "char_fn": 3, "gold_characters": 20}
+{"id": "9660", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "9661", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "9662", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "9663", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[153, 184]], "char_tp": 30, "char_fp": 1, "char_fn": 0, "gold_characters": 30}
+{"id": "9664", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[248, 273], [506, 544], [1049, 1081]], "char_tp": 93, "char_fp": 2, "char_fn": 3, "gold_characters": 96}
+{"id": "9665", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[948, 974], [994, 1004], [1010, 1039], [1192, 1228]], "char_tp": 95, "char_fp": 6, "char_fn": 26, "gold_characters": 121}
+{"id": "10008", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10009", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10010", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[281, 322], [509, 589], [616, 623]], "char_tp": 121, "char_fp": 7, "char_fn": 8, "gold_characters": 129}
+{"id": "10011", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[378, 427], [498, 522]], "char_tp": 62, "char_fp": 11, "char_fn": 1, "gold_characters": 63}
+{"id": "10012", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[475, 484], [487, 563]], "char_tp": 75, "char_fp": 10, "char_fn": 0, "gold_characters": 75}
+{"id": "10013", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[505, 521], [568, 639], [1018, 1269]], "char_tp": 313, "char_fp": 25, "char_fn": 0, "gold_characters": 313}
+{"id": "10092", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10093", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10094", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[168, 188]], "char_tp": 19, "char_fp": 1, "char_fn": 0, "gold_characters": 19}
+{"id": "10095", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[665, 688], [692, 697]], "char_tp": 26, "char_fp": 2, "char_fn": 0, "gold_characters": 26}
+{"id": "10096", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[374, 397]], "char_tp": 22, "char_fp": 1, "char_fn": 0, "gold_characters": 22}
+{"id": "10097", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[190, 208], [260, 310]], "char_tp": 66, "char_fp": 2, "char_fn": 0, "gold_characters": 66}
+{"id": "10296", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10297", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10298", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[144, 165], [175, 215], [218, 251], [270, 322]], "char_tp": 85, "char_fp": 61, "char_fn": 3, "gold_characters": 88}
+{"id": "10299", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[858, 974]], "char_tp": 100, "char_fp": 16, "char_fn": 0, "gold_characters": 100}
+{"id": "10300", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[245, 279], [280, 339], [668, 684]], "char_tp": 78, "char_fp": 31, "char_fn": 7, "gold_characters": 85}
+{"id": "10301", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": true, "spans": [[170, 194]], "char_tp": 0, "char_fp": 24, "char_fn": 0, "gold_characters": 0}
+{"id": "10836", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10837", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "10838", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[247, 266], [339, 352]], "char_tp": 31, "char_fp": 1, "char_fn": 2, "gold_characters": 33}
+{"id": "10839", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[156, 158], [480, 494], [550, 581], [600, 648]], "char_tp": 90, "char_fp": 5, "char_fn": 0, "gold_characters": 90}
+{"id": "10840", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[463, 525]], "char_tp": 62, "char_fp": 0, "char_fn": 3, "gold_characters": 65}
+{"id": "10841", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[296, 321], [910, 962]], "char_tp": 76, "char_fp": 1, "char_fn": 4, "gold_characters": 80}
+{"id": "11142", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11143", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11144", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[329, 390], [481, 488]], "char_tp": 52, "char_fp": 16, "char_fn": 0, "gold_characters": 52}
+{"id": "11145", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[781, 804], [805, 845], [846, 940]], "char_tp": 127, "char_fp": 30, "char_fn": 0, "gold_characters": 127}
+{"id": "11146", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[340, 418], [641, 871], [884, 901], [979, 986]], "char_tp": 310, "char_fp": 22, "char_fn": 8, "gold_characters": 318}
+{"id": "11147", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[602, 729], [764, 786]], "char_tp": 121, "char_fp": 28, "char_fn": 13, "gold_characters": 134}
+{"id": "11166", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11167", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[181, 252], [253, 293]], "char_tp": 110, "char_fp": 1, "char_fn": 1, "gold_characters": 111}
+{"id": "11168", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[162, 243]], "char_tp": 74, "char_fp": 7, "char_fn": 0, "gold_characters": 74}
+{"id": "11169", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11170", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[369, 470]], "char_tp": 81, "char_fp": 20, "char_fn": 0, "gold_characters": 81}
+{"id": "11171", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[112, 144], [496, 570]], "char_tp": 102, "char_fp": 4, "char_fn": 0, "gold_characters": 102}
+{"id": "11250", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11251", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11252", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[190, 207], [837, 853]], "char_tp": 30, "char_fp": 3, "char_fn": 0, "gold_characters": 30}
+{"id": "11253", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[524, 576]], "char_tp": 50, "char_fp": 2, "char_fn": 0, "gold_characters": 50}
+{"id": "11254", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[210, 243], [713, 740]], "char_tp": 40, "char_fp": 20, "char_fn": 0, "gold_characters": 40}
+{"id": "11255", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11496", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11497", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11498", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[119, 142], [318, 325]], "char_tp": 28, "char_fp": 2, "char_fn": 0, "gold_characters": 28}
+{"id": "11499", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[242, 258], [262, 294]], "char_tp": 39, "char_fp": 9, "char_fn": 0, "gold_characters": 39}
+{"id": "11500", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[859, 976]], "char_tp": 116, "char_fp": 1, "char_fn": 44, "gold_characters": 160}
+{"id": "11501", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11526", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11527", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11528", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[142, 163], [167, 189], [208, 263], [280, 288], [293, 311]], "char_tp": 113, "char_fp": 11, "char_fn": 0, "gold_characters": 113}
+{"id": "11529", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[284, 376], [393, 426], [437, 453], [466, 498], [785, 805]], "char_tp": 176, "char_fp": 17, "char_fn": 1, "gold_characters": 177}
+{"id": "11530", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[282, 305], [317, 326], [378, 387]], "char_tp": 37, "char_fp": 4, "char_fn": 0, "gold_characters": 37}
+{"id": "11531", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[209, 227], [231, 255]], "char_tp": 40, "char_fp": 2, "char_fn": 0, "gold_characters": 40}
+{"id": "11790", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[347, 353]], "char_tp": 5, "char_fp": 1, "char_fn": 1, "gold_characters": 6}
+{"id": "11791", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11792", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[340, 346]], "char_tp": 4, "char_fp": 2, "char_fn": 0, "gold_characters": 4}
+{"id": "11793", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[549, 572]], "char_tp": 14, "char_fp": 9, "char_fn": 10, "gold_characters": 24}
+{"id": "11794", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[310, 315]], "char_tp": 4, "char_fp": 1, "char_fn": 12, "gold_characters": 16}
+{"id": "11795", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[292, 402]], "char_tp": 109, "char_fp": 1, "char_fn": 0, "gold_characters": 109}
+{"id": "11796", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11797", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11798", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[257, 314], [348, 381]], "char_tp": 85, "char_fp": 5, "char_fn": 31, "gold_characters": 116}
+{"id": "11799", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[255, 261], [270, 292], [430, 441]], "char_tp": 10, "char_fp": 29, "char_fn": 0, "gold_characters": 10}
+{"id": "11800", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[337, 342], [427, 489], [490, 535]], "char_tp": 92, "char_fp": 20, "char_fn": 0, "gold_characters": 92}
+{"id": "11801", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[242, 266], [404, 456]], "char_tp": 56, "char_fp": 20, "char_fn": 0, "gold_characters": 56}
+{"id": "11832", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11833", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11834", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[143, 192], [298, 311]], "char_tp": 60, "char_fp": 2, "char_fn": 1, "gold_characters": 61}
+{"id": "11835", "source_kind": "Data2txt", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11836", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[254, 267], [390, 471]], "char_tp": 79, "char_fp": 15, "char_fn": 0, "gold_characters": 79}
+{"id": "11837", "source_kind": "Data2txt", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[60, 81], [87, 89], [456, 524]], "char_tp": 67, "char_fp": 24, "char_fn": 0, "gold_characters": 67}
+{"id": "11862", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11863", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11864", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[0, 98]], "char_tp": 98, "char_fp": 0, "char_fn": 1, "gold_characters": 99}
+{"id": "11865", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11866", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11867", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11946", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11947", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11948", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11949", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11950", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "11951", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12222", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12223", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12224", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[286, 371]], "char_tp": 84, "char_fp": 1, "char_fn": 0, "gold_characters": 84}
+{"id": "12225", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12226", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[96, 153]], "char_tp": 57, "char_fp": 0, "char_fn": 0, "gold_characters": 57}
+{"id": "12227", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12276", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12278", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12279", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12280", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12281", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[335, 338], [340, 361]], "char_tp": 20, "char_fp": 4, "char_fn": 6, "gold_characters": 26}
+{"id": "12606", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12607", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12608", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12609", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[57, 65], [70, 78], [99, 110], [126, 127], [135, 416], [425, 427], [429, 434], [443, 445], [446, 450], [453, 746], [783, 1104]], "char_tp": 892, "char_fp": 44, "char_fn": 0, "gold_characters": 892}
+{"id": "12611", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12810", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12811", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12812", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[474, 521], [588, 703]], "char_tp": 159, "char_fp": 3, "char_fn": 0, "gold_characters": 159}
+{"id": "12813", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12814", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[350, 380]], "char_tp": 29, "char_fp": 1, "char_fn": 1, "gold_characters": 30}
+{"id": "12815", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[784, 889]], "char_tp": 104, "char_fp": 1, "char_fn": 0, "gold_characters": 104}
+{"id": "12936", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12937", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12938", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 9, "gold_characters": 9}
+{"id": "12939", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12940", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "12941", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13194", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13195", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13196", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13197", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13198", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1025, 1100], [1101, 1163]], "char_tp": 137, "char_fp": 0, "char_fn": 1, "gold_characters": 138}
+{"id": "13199", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13248", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13249", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13250", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[136, 266], [268, 387]], "char_tp": 249, "char_fp": 0, "char_fn": 0, "gold_characters": 249}
+{"id": "13251", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[159, 297], [398, 519]], "char_tp": 257, "char_fp": 2, "char_fn": 0, "gold_characters": 257}
+{"id": "13252", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[215, 287], [290, 310], [311, 367]], "char_tp": 148, "char_fp": 0, "char_fn": 3, "gold_characters": 151}
+{"id": "13253", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13326", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13327", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13328", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13329", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13330", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[573, 658]], "char_tp": 85, "char_fp": 0, "char_fn": 0, "gold_characters": 85}
+{"id": "13331", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13332", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13333", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13335", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13336", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13337", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13524", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13525", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13526", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13527", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13528", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[441, 553]], "char_tp": 109, "char_fp": 3, "char_fn": 0, "gold_characters": 109}
+{"id": "13529", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13596", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13597", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13598", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13599", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[294, 337], [345, 347], [349, 458], [733, 738], [804, 810], [815, 818], [827, 829]], "char_tp": 109, "char_fp": 61, "char_fn": 23, "gold_characters": 132}
+{"id": "13600", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[295, 418], [553, 564]], "char_tp": 115, "char_fp": 19, "char_fn": 13, "gold_characters": 128}
+{"id": "13601", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[78, 167], [315, 418], [525, 585], [586, 705]], "char_tp": 362, "char_fp": 9, "char_fn": 0, "gold_characters": 362}
+{"id": "13686", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13687", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13688", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13689", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13690", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13691", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13800", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13801", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13802", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13803", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[928, 929], [930, 1234], [1235, 1549], [1550, 1940]], "char_tp": 933, "char_fp": 76, "char_fn": 0, "gold_characters": 933}
+{"id": "13804", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "13805", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14058", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14059", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14060", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14061", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14062", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14063", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14076", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14077", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14078", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[286, 325]], "char_tp": 29, "char_fp": 10, "char_fn": 0, "gold_characters": 29}
+{"id": "14079", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14080", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14081", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14142", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14143", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14144", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14145", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14146", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[170, 240], [570, 650]], "char_tp": 148, "char_fp": 2, "char_fn": 0, "gold_characters": 148}
+{"id": "14147", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14214", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14215", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14216", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[659, 1093]], "char_tp": 432, "char_fp": 2, "char_fn": 0, "gold_characters": 432}
+{"id": "14217", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[471, 618]], "char_tp": 147, "char_fp": 0, "char_fn": 0, "gold_characters": 147}
+{"id": "14218", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[431, 598]], "char_tp": 167, "char_fp": 0, "char_fn": 0, "gold_characters": 167}
+{"id": "14219", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[405, 475], [484, 486]], "char_tp": 69, "char_fp": 3, "char_fn": 0, "gold_characters": 69}
+{"id": "14328", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14329", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14330", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[36, 109]], "char_tp": 72, "char_fp": 1, "char_fn": 0, "gold_characters": 72}
+{"id": "14331", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[339, 654], [655, 880], [881, 1101], [1102, 1405]], "char_tp": 1062, "char_fp": 1, "char_fn": 0, "gold_characters": 1062}
+{"id": "14332", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[328, 348]], "char_tp": 18, "char_fp": 2, "char_fn": 0, "gold_characters": 18}
+{"id": "14333", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[358, 415]], "char_tp": 56, "char_fp": 1, "char_fn": 0, "gold_characters": 56}
+{"id": "14682", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14683", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14684", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[595, 813]], "char_tp": 155, "char_fp": 63, "char_fn": 0, "gold_characters": 155}
+{"id": "14685", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14686", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14687", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[504, 669]], "char_tp": 164, "char_fp": 1, "char_fn": 0, "gold_characters": 164}
+{"id": "14928", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14929", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14930", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14931", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1462, 1640]], "char_tp": 175, "char_fp": 3, "char_fn": 0, "gold_characters": 175}
+{"id": "14932", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "14933", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[915, 992]], "char_tp": 77, "char_fp": 0, "char_fn": 0, "gold_characters": 77}
+{"id": "15018", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15019", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15020", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15021", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[289, 322], [323, 392]], "char_tp": 98, "char_fp": 4, "char_fn": 0, "gold_characters": 98}
+{"id": "15022", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15023", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15312", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15313", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15314", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15315", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[680, 1252]], "char_tp": 570, "char_fp": 2, "char_fn": 0, "gold_characters": 570}
+{"id": "15316", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[270, 498]], "char_tp": 228, "char_fp": 0, "char_fn": 0, "gold_characters": 228}
+{"id": "15317", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15432", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15433", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15434", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15435", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15436", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15437", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15474", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15475", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15476", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15477", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 12, "gold_characters": 12}
+{"id": "15478", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15479", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[242, 288], [588, 740]], "char_tp": 196, "char_fp": 2, "char_fn": 0, "gold_characters": 196}
+{"id": "15768", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15769", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15770", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15771", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15772", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "15773", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16014", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16015", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16016", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16017", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16018", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[988, 1047], [1048, 1130]], "char_tp": 141, "char_fp": 0, "char_fn": 0, "gold_characters": 141}
+{"id": "16019", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[534, 765]], "char_tp": 231, "char_fp": 0, "char_fn": 0, "gold_characters": 231}
+{"id": "16021", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[8, 12], [27, 183]], "char_tp": 154, "char_fp": 6, "char_fn": 0, "gold_characters": 154}
+{"id": "16022", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16023", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[938, 1216]], "char_tp": 278, "char_fp": 0, "char_fn": 0, "gold_characters": 278}
+{"id": "16024", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16025", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[331, 588]], "char_tp": 256, "char_fp": 1, "char_fn": 0, "gold_characters": 256}
+{"id": "16026", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16027", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16028", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[316, 428], [429, 533]], "char_tp": 186, "char_fp": 30, "char_fn": 0, "gold_characters": 186}
+{"id": "16029", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16030", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16031", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16050", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16051", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16052", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16053", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[973, 1135], [1177, 1384]], "char_tp": 369, "char_fp": 0, "char_fn": 0, "gold_characters": 369}
+{"id": "16054", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[797, 942], [943, 1130]], "char_tp": 332, "char_fp": 0, "char_fn": 0, "gold_characters": 332}
+{"id": "16055", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16086", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16087", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16088", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 14, "gold_characters": 14}
+{"id": "16089", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16090", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16091", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[215, 383], [385, 503]], "char_tp": 276, "char_fp": 10, "char_fn": 0, "gold_characters": 276}
+{"id": "16176", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16177", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16178", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16179", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[247, 863], [878, 970], [997, 1144]], "char_tp": 850, "char_fp": 5, "char_fn": 0, "gold_characters": 850}
+{"id": "16180", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16181", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[346, 780]], "char_tp": 434, "char_fp": 0, "char_fn": 0, "gold_characters": 434}
+{"id": "16212", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16213", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[719, 847]], "char_tp": 128, "char_fp": 0, "char_fn": 0, "gold_characters": 128}
+{"id": "16214", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16215", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[180, 491], [515, 1053]], "char_tp": 844, "char_fp": 5, "char_fn": 0, "gold_characters": 844}
+{"id": "16216", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16217", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[523, 741]], "char_tp": 218, "char_fp": 0, "char_fn": 0, "gold_characters": 218}
+{"id": "16374", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16375", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16376", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16377", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16378", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16379", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[596, 711]], "char_tp": 113, "char_fp": 2, "char_fn": 0, "gold_characters": 113}
+{"id": "16410", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16411", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16412", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16413", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16414", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[66, 201]], "char_tp": 135, "char_fp": 0, "char_fn": 0, "gold_characters": 135}
+{"id": "16415", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16428", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16430", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16431", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[211, 244], [250, 280], [390, 408], [495, 514]], "char_tp": 97, "char_fp": 3, "char_fn": 10, "gold_characters": 107}
+{"id": "16432", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[335, 368], [634, 653]], "char_tp": 51, "char_fp": 1, "char_fn": 11, "gold_characters": 62}
+{"id": "16433", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[171, 250], [436, 454]], "char_tp": 77, "char_fp": 20, "char_fn": 1, "gold_characters": 78}
+{"id": "16584", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16585", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16586", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16587", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16588", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[155, 372], [373, 523], [545, 779]], "char_tp": 599, "char_fp": 2, "char_fn": 45, "gold_characters": 644}
+{"id": "16589", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16590", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16591", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16592", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[149, 376], [522, 696]], "char_tp": 398, "char_fp": 3, "char_fn": 0, "gold_characters": 398}
+{"id": "16593", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[105, 211], [323, 327]], "char_tp": 106, "char_fp": 4, "char_fn": 0, "gold_characters": 106}
+{"id": "16594", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[512, 547]], "char_tp": 26, "char_fp": 9, "char_fn": 0, "gold_characters": 26}
+{"id": "16595", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[335, 504]], "char_tp": 169, "char_fp": 0, "char_fn": 0, "gold_characters": 169}
+{"id": "16611", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16612", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16613", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[123, 232]], "char_tp": 108, "char_fp": 1, "char_fn": 0, "gold_characters": 108}
+{"id": "16650", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16651", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16652", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16653", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16654", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16655", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16692", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16693", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16694", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[208, 290]], "char_tp": 81, "char_fp": 1, "char_fn": 0, "gold_characters": 81}
+{"id": "16695", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[624, 646], [662, 665]], "char_tp": 18, "char_fp": 7, "char_fn": 16, "gold_characters": 34}
+{"id": "16696", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[497, 540]], "char_tp": 43, "char_fp": 0, "char_fn": 2, "gold_characters": 45}
+{"id": "16697", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16746", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[303, 320]], "char_tp": 17, "char_fp": 0, "char_fn": 17, "gold_characters": 34}
+{"id": "16748", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16749", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 31, "gold_characters": 31}
+{"id": "16750", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "16751", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[611, 616]], "char_tp": 4, "char_fp": 1, "char_fn": 0, "gold_characters": 4}
+{"id": "17082", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17084", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[633, 824]], "char_tp": 190, "char_fp": 1, "char_fn": 0, "gold_characters": 190}
+{"id": "17085", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17086", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[498, 637]], "char_tp": 139, "char_fp": 0, "char_fn": 0, "gold_characters": 139}
+{"id": "17087", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17118", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[662, 736]], "char_tp": 73, "char_fp": 1, "char_fn": 38, "gold_characters": 111}
+{"id": "17119", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17120", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17121", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[507, 685], [686, 857]], "char_tp": 349, "char_fp": 0, "char_fn": 1, "gold_characters": 350}
+{"id": "17122", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[130, 179]], "char_tp": 43, "char_fp": 6, "char_fn": 0, "gold_characters": 43}
+{"id": "17123", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[164, 167], [169, 179], [182, 200], [205, 207], [216, 252], [368, 404], [445, 626]], "char_tp": 242, "char_fp": 44, "char_fn": 0, "gold_characters": 242}
+{"id": "17292", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17293", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17294", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17295", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[657, 732]], "char_tp": 74, "char_fp": 1, "char_fn": 0, "gold_characters": 74}
+{"id": "17296", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17297", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17316", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[276, 280], [281, 358]], "char_tp": 75, "char_fp": 6, "char_fn": 0, "gold_characters": 75}
+{"id": "17317", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[722, 896]], "char_tp": 173, "char_fp": 1, "char_fn": 0, "gold_characters": 173}
+{"id": "17318", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[264, 352], [820, 910]], "char_tp": 175, "char_fp": 3, "char_fn": 0, "gold_characters": 175}
+{"id": "17319", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[875, 886], [895, 1009], [1076, 1120], [1647, 1771]], "char_tp": 250, "char_fp": 43, "char_fn": 0, "gold_characters": 250}
+{"id": "17320", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[112, 129], [914, 1131]], "char_tp": 232, "char_fp": 2, "char_fn": 0, "gold_characters": 232}
+{"id": "17321", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[844, 908]], "char_tp": 63, "char_fp": 1, "char_fn": 0, "gold_characters": 63}
+{"id": "17376", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17377", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17378", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[775, 890]], "char_tp": 115, "char_fp": 0, "char_fn": 0, "gold_characters": 115}
+{"id": "17379", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[1023, 1089]], "char_tp": 64, "char_fp": 2, "char_fn": 6, "gold_characters": 70}
+{"id": "17380", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[128, 184], [453, 477]], "char_tp": 36, "char_fp": 44, "char_fn": 11, "gold_characters": 47}
+{"id": "17381", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17442", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17443", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17444", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[156, 162], [163, 165]], "char_tp": 6, "char_fp": 2, "char_fn": 16, "gold_characters": 22}
+{"id": "17445", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[412, 452], [696, 829]], "char_tp": 171, "char_fp": 2, "char_fn": 0, "gold_characters": 171}
+{"id": "17446", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17447", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": true, "spans": [[122, 131]], "char_tp": 7, "char_fp": 2, "char_fn": 1, "gold_characters": 8}
+{"id": "17748", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17749", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17750", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17751", "source_kind": "QA", "unknown": false, "gold_positive": true, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 14, "gold_characters": 14}
+{"id": "17752", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}
+{"id": "17753", "source_kind": "QA", "unknown": false, "gold_positive": false, "predicted_positive": false, "spans": [], "char_tp": 0, "char_fp": 0, "char_fn": 0, "gold_characters": 0}

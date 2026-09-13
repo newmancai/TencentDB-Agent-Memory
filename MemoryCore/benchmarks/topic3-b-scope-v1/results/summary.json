@@ -1,0 +1,129 @@
+{
+  "scope": "effective-constraint extraction component; not violation detection or task improvement",
+  "arms": {
+    "fit/direct": {
+      "n": 10,
+      "exact": 0,
+      "family_exact": 0,
+      "tp": 15,
+      "fp": 92,
+      "fn": 22,
+      "invalid": 1,
+      "inputTokens": 18478,
+      "outputTokens": 3138,
+      "elapsedMs": 85044.51506678015,
+      "family_tp": 30,
+      "family_fp": 77,
+      "family_fn": 7,
+      "precision": 0.14018691588785046,
+      "recall": 0.40540540540540543,
+      "family_precision": 0.2803738317757009,
+      "family_recall": 0.8108108108108109,
+      "by_dialog": {
+        "dialog_1": {
+          "n": 10,
+          "exact": 0
+        }
+      }
+    },
+    "eval/direct": {
+      "n": 20,
+      "exact": 0,
+      "family_exact": 1,
+      "tp": 38,
+      "fp": 181,
+      "fn": 44,
+      "invalid": 0,
+      "inputTokens": 30580,
+      "outputTokens": 4533,
+      "elapsedMs": 122008.2344408147,
+      "family_tp": 82,
+      "family_fp": 137,
+      "family_fn": 0,
+      "precision": 0.1735159817351598,
+      "recall": 0.4634146341463415,
+      "family_precision": 0.3744292237442922,
+      "family_recall": 1.0,
+      "by_dialog": {
+        "dialog_2": {
+          "n": 10,
+          "exact": 0
+        },
+        "dialog_3": {
+          "n": 10,
+          "exact": 0
+        }
+      }
+    },
+    "eval/unlabelled": {
+      "n": 20,
+      "exact": 0,
+      "family_exact": 0,
+      "tp": 33,
+      "fp": 207,
+      "fn": 49,
+      "invalid": 0,
+      "inputTokens": 78800,
+      "outputTokens": 5125,
+      "elapsedMs": 145328.45152239315,
+      "family_tp": 82,
+      "family_fp": 158,
+      "family_fn": 0,
+      "precision": 0.1375,
+      "recall": 0.4024390243902439,
+      "family_precision": 0.3416666666666667,
+      "family_recall": 1.0,
+      "by_dialog": {
+        "dialog_2": {
+          "n": 10,
+          "exact": 0
+        },
+        "dialog_3": {
+          "n": 10,
+          "exact": 0
+        }
+      }
+    },
+    "eval/feedback": {
+      "n": 20,
+      "exact": 0,
+      "family_exact": 0,
+      "tp": 35,
+      "fp": 205,
+      "fn": 47,
+      "invalid": 0,
+      "inputTokens": 83740,
+      "outputTokens": 5116,
+      "elapsedMs": 146083.41201068833,
+      "family_tp": 82,
+      "family_fp": 158,
+      "family_fn": 0,
+      "precision": 0.14583333333333334,
+      "recall": 0.4268292682926829,
+      "family_precision": 0.3416666666666667,
+      "family_recall": 1.0,
+      "by_dialog": {
+        "dialog_2": {
+          "n": 10,
+          "exact": 0
+        },
+        "dialog_3": {
+          "n": 10,
+          "exact": 0
+        }
+      }
+    }
+  },
+  "paired": {
+    "feedback_vs_direct": {
+      "win": 0,
+      "loss": 0,
+      "tie": 20
+    },
+    "feedback_vs_unlabelled": {
+      "win": 0,
+      "loss": 0,
+      "tie": 20
+    }
+  }
+}

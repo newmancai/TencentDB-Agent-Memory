@@ -1,0 +1,190 @@
+{
+  "fidelity": {
+    "none": {
+      "n": 144,
+      "agreement": 136,
+      "global_non_choice": 0
+    },
+    "unlabeled": {
+      "n": 144,
+      "agreement": 136,
+      "global_non_choice": 0
+    },
+    "labeled": {
+      "n": 144,
+      "agreement": 134,
+      "global_non_choice": 0
+    },
+    "reversed": {
+      "n": 144,
+      "agreement": 134,
+      "global_non_choice": 0
+    }
+  },
+  "reviews": {
+    "source-review": {
+      "none": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 8,
+          "in_same_pairs": 1,
+          "in_unknown_pairs": 1
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 16,
+          "in_same_pairs": 5,
+          "in_unknown_pairs": 4
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 19,
+          "in_same_pairs": 24,
+          "in_unknown_pairs": 12
+        }
+      },
+      "unlabeled": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 8,
+          "in_same_pairs": 2,
+          "in_unknown_pairs": 1
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 13,
+          "in_same_pairs": 8,
+          "in_unknown_pairs": 5
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 18,
+          "in_same_pairs": 31,
+          "in_unknown_pairs": 13
+        }
+      },
+      "labeled": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 4,
+          "in_same_pairs": 3,
+          "in_unknown_pairs": 2
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 13,
+          "in_same_pairs": 8,
+          "in_unknown_pairs": 7
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 19,
+          "in_same_pairs": 28,
+          "in_unknown_pairs": 12
+        }
+      },
+      "reversed": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 8,
+          "in_same_pairs": 1,
+          "in_unknown_pairs": 0
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 15,
+          "in_same_pairs": 5,
+          "in_unknown_pairs": 4
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 19,
+          "in_same_pairs": 31,
+          "in_unknown_pairs": 10
+        }
+      }
+    },
+    "source-review-second": {
+      "none": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 8,
+          "in_same_pairs": 1,
+          "in_unknown_pairs": 1
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 13,
+          "in_same_pairs": 5,
+          "in_unknown_pairs": 7
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 16,
+          "in_same_pairs": 24,
+          "in_unknown_pairs": 18
+        }
+      },
+      "unlabeled": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 8,
+          "in_same_pairs": 2,
+          "in_unknown_pairs": 1
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 12,
+          "in_same_pairs": 8,
+          "in_unknown_pairs": 5
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 15,
+          "in_same_pairs": 31,
+          "in_unknown_pairs": 19
+        }
+      },
+      "labeled": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 4,
+          "in_same_pairs": 3,
+          "in_unknown_pairs": 2
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 11,
+          "in_same_pairs": 8,
+          "in_unknown_pairs": 8
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 16,
+          "in_same_pairs": 28,
+          "in_unknown_pairs": 17
+        }
+      },
+      "reversed": {
+        "11": {
+          "selected": 11,
+          "marked_change_hits": 6,
+          "in_same_pairs": 1,
+          "in_unknown_pairs": 3
+        },
+        "33": {
+          "selected": 33,
+          "marked_change_hits": 12,
+          "in_same_pairs": 5,
+          "in_unknown_pairs": 8
+        },
+        "89": {
+          "selected": 89,
+          "marked_change_hits": 16,
+          "in_same_pairs": 31,
+          "in_unknown_pairs": 14
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "arms": {
+    "model": {
+      "n": 38,
+      "exact": 20,
+      "unknown": 0,
+      "tp": 116,
+      "fp": 19,
+      "fn": 7
+    },
+    "keep": {
+      "n": 38,
+      "exact": 8,
+      "unknown": 0,
+      "tp": 93,
+      "fp": 12,
+      "fn": 30
+    },
+    "new_family": {
+      "n": 38,
+      "exact": 36,
+      "unknown": 0,
+      "tp": 121,
+      "fp": 1,
+      "fn": 2
+    }
+  },
+  "strata": {
+    "changed": {
+      "model": {
+        "n": 30,
+        "exact": 14
+      },
+      "keep": {
+        "n": 30,
+        "exact": 0
+      },
+      "new_family": {
+        "n": 30,
+        "exact": 28
+      }
+    },
+    "unchanged": {
+      "model": {
+        "n": 8,
+        "exact": 6
+      },
+      "keep": {
+        "n": 8,
+        "exact": 8
+      },
+      "new_family": {
+        "n": 8,
+        "exact": 8
+      }
+    }
+  },
+  "cost": {
+    "inputTokens": 39607,
+    "outputTokens": 743,
+    "elapsedMs": 24664.559048134834
+  }
+}

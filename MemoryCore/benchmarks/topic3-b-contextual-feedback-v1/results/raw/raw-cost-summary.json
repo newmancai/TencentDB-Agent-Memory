@@ -1,0 +1,174 @@
+{
+  "mode": "raw_feedback_cost_diagnostic",
+  "events": 16,
+  "payload_tokens": {
+    "raw": 719,
+    "request_raw": 2298,
+    "parent_raw": 5313,
+    "full_prefix": 12768,
+    "summary": 1432
+  },
+  "per_event": [
+    {
+      "id": "6c50c6b8631b2896ab4fc5c8",
+      "tokens": {
+        "raw": 45,
+        "request_raw": 89,
+        "parent_raw": 171,
+        "full_prefix": 381,
+        "summary": 79
+      }
+    },
+    {
+      "id": "03ffd4ebbafe6b32c776036f",
+      "tokens": {
+        "raw": 40,
+        "request_raw": 76,
+        "parent_raw": 264,
+        "full_prefix": 768,
+        "summary": 72
+      }
+    },
+    {
+      "id": "d388aa45ec4db2a604e9b385",
+      "tokens": {
+        "raw": 60,
+        "request_raw": 139,
+        "parent_raw": 843,
+        "full_prefix": 3009,
+        "summary": 150
+      }
+    },
+    {
+      "id": "ebbff0cf44fd0adcaf19e738",
+      "tokens": {
+        "raw": 52,
+        "request_raw": 131,
+        "parent_raw": 833,
+        "full_prefix": 1674,
+        "summary": 99
+      }
+    },
+    {
+      "id": "1f3f1a4ac62726955bcf8947",
+      "tokens": {
+        "raw": 43,
+        "request_raw": 150,
+        "parent_raw": 169,
+        "full_prefix": 276,
+        "summary": 99
+      }
+    },
+    {
+      "id": "5fc638c4b2ec9db710a57d03",
+      "tokens": {
+        "raw": 34,
+        "request_raw": 165,
+        "parent_raw": 157,
+        "full_prefix": 628,
+        "summary": 75
+      }
+    },
+    {
+      "id": "29bb0ac07daab3eac7abb15f",
+      "tokens": {
+        "raw": 41,
+        "request_raw": 146,
+        "parent_raw": 169,
+        "full_prefix": 274,
+        "summary": 92
+      }
+    },
+    {
+      "id": "b0b820b2f33438ab66448d53",
+      "tokens": {
+        "raw": 42,
+        "request_raw": 146,
+        "parent_raw": 364,
+        "full_prefix": 1058,
+        "summary": 93
+      }
+    },
+    {
+      "id": "19c2d6d1a921e2bbb25ad203",
+      "tokens": {
+        "raw": 40,
+        "request_raw": 311,
+        "parent_raw": 283,
+        "full_prefix": 776,
+        "summary": 115
+      }
+    },
+    {
+      "id": "58a40460d3e26fbe84f48b7e",
+      "tokens": {
+        "raw": 37,
+        "request_raw": 77,
+        "parent_raw": 430,
+        "full_prefix": 964,
+        "summary": 85
+      }
+    },
+    {
+      "id": "061c6b707854f9c0e9f689e8",
+      "tokens": {
+        "raw": 32,
+        "request_raw": 140,
+        "parent_raw": 151,
+        "full_prefix": 469,
+        "summary": 93
+      }
+    },
+    {
+      "id": "a11c24a00f4806f443b2378a",
+      "tokens": {
+        "raw": 59,
+        "request_raw": 218,
+        "parent_raw": 223,
+        "full_prefix": 382,
+        "summary": 72
+      }
+    },
+    {
+      "id": "f521dd11c269e3951c396aa4",
+      "tokens": {
+        "raw": 63,
+        "request_raw": 99,
+        "parent_raw": 205,
+        "full_prefix": 241,
+        "summary": 65
+      }
+    },
+    {
+      "id": "258224e01ccdfc818cb40bb3",
+      "tokens": {
+        "raw": 51,
+        "request_raw": 75,
+        "parent_raw": 191,
+        "full_prefix": 215,
+        "summary": 67
+      }
+    },
+    {
+      "id": "d9f733f5face630815a1ba1c",
+      "tokens": {
+        "raw": 35,
+        "request_raw": 165,
+        "parent_raw": 194,
+        "full_prefix": 497,
+        "summary": 87
+      }
+    },
+    {
+      "id": "1ea2ca4f7f18f2f6c851478a",
+      "tokens": {
+        "raw": 45,
+        "request_raw": 171,
+        "parent_raw": 666,
+        "full_prefix": 1156,
+        "summary": 89
+      }
+    }
+  ],
+  "scope": "Same available prefix; different returned information and sizes, not equal-budget quality comparison. Payload tokens exclude transport envelope/chat template. Raw variants perform no model inference. Prior summary generation cost reported separately, not erased."
+}

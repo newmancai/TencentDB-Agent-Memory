@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1be13d14321e093f497187fa",
+    "arms": {
+      "A": {"target_content": "full", "note": "保留表面与内部测量联合评估及诊断关联，直接对应 s5:t3,t5 和 s7:t3,t5；缺陷联系设置对应 s1:t7、s4:t3。正确限定检查清单、风险示例和温度优先的原任务范围。早期surface-only是较窄诊断的解释合理，但不能据此断言该限制已在所有场景永久撤销。"},
+      "B": {"target_content": "partial", "note": "明确写出表面与内部测量联合评估，须计入核心内容保留；但开头的consistently visible、without non-surface factors把 s1:t3,t5 的局部限制泛化，与 s5:t3,t5、s7:t3,t5 的内部测量要求及自身后句冲突。把会议计时、生产风险和检查清单并列为当前偏好，适用范围未区分。"}
+    },
+    "quality_tiers": [["A"], ["B"]],
+    "note": "助手语义意见，非official grader。参考的联合评估核心有用户直接证据；B并非完全遗漏内部测量，而是其保留被同段排他描述削弱。"
+  },
+  {
+    "id": "073ca63303e325ab55060737",
+    "arms": {
+      "A": {"target_content": "full", "note": "保留可见表面缺陷诊断、设置关联和排除无关材料/infill及预防建议，对应 s1:t3,t5,t7、s5:t3,t5。将数学深度限定为校准测量任务，将连续清单和温度优先限定原语境，未把它们升级为当前必需。"},
+      "B": {"target_content": "full", "note": "明确严格表面范围、直接设置关联及排除宽泛预防，覆盖核心。数学分析在 s3:t3,t5,t7、s7:t3–t9 有来源，但把mathematical rigor和checklist直接并列当前画像，范围比源文更宽；接受数学只要解释缺陷根因是推断，并非用户原定条件。环境因素一概排除也比 s1:t3 的filament/infill例子更广。"}
+    },
+    "quality_tiers": [["A"], ["B"]],
+    "note": "助手语义意见，非official grader。两臂均保留参考核心；排序依据额外要求的适用范围，不因引用形式或长短。"
+  },
+  {
+    "id": "932f3e74eb9a7ea49b5d8dda",
+    "arms": {
+      "A": {"target_content": "full", "note": "保留严格表面诊断、设置对应及避免宽泛预防，符合 s1:t3,t5,t7、s6:t3,t5。实用风险源于 s7 的生产规格，实时清单源于 s3 检查；合并为当前偏好且称All requests诊断导向过广，历史另有文档引用、会议和SOP。"},
+      "B": {"target_content": "full", "note": "保留表面诊断、设置关联和排除预防/无关因素。s2:t3,t5,t7 支持技术文档使用经验证且多来源的引用，would suit/preferably适当保留迁移不确定性。正确区分 s3 连续检查清单与 s8 SOP分节、s7生产风险，未强制当前训练文档沿用全部。"}
+    },
+    "quality_tiers": [["B"], ["A"]],
+    "note": "助手语义意见，非official grader。B新增的多来源建议有可见用户依据，不能因参考未列而判错；来源验证偏好不等这些历史技术事实已客观验证。"
+  },
+  {
+    "id": "66fa898caa65482b7d5855b7",
+    "arms": {
+      "A": {"target_content": "partial", "note": "保留简洁bullet points、逻辑组织、无动画与避免复杂过渡，对应 s2:t3,t5,t7、s3:t3,t5。没有明确线性推进。正确说明 s4/s5 Prezi反思停顿和 s1 Canvas打印性的迁移不确定；未见实质错误归属。"},
+      "B": {"target_content": "partial", "note": "同样保留bullet points、logical flow、无动画/复杂过渡；没有明确线性推进。reflection/natural pauses在 s4:t5,t7、s5:t3,t5 有来源，是相邻演示语境的合理建议，并未明定当前必须，不能直接判错误。"}
+    },
+    "quality_tiers": [["A", "B"]],
+    "note": "助手语义意见，非official grader。partial仅表示严格参考中的linear progression未明确表达；可见用户只明确logical flow、structured与simple，并未明确要求严格线性或禁止非线性，因此该缺项不是已证实违令。两臂核心可观察内容近似，不因A更多范围说明单独判优。"
+  },
+  {
+    "id": "227c678221f3dfa8f8d033b8",
+    "arms": {
+      "A": {"target_content": "partial", "note": "保留polls/quizzes/timelines互动，但遗漏 s4:t1,t3 的嵌入可信视频和 s5:t1,t3 的多媒体、视频/链接，未完整覆盖新偏好。minimal animations比早期用户确认no animations弱；后续互动并不等于解除无动画。打印友好在 s1 Canvas有依据，但当前Slides适用性被合并未说明。"},
+      "B": {"target_content": "full", "note": "同时保留互动参与和可信视频/链接等多媒体，直接对应 s4:t1,t3、s5:t1,t3；明确早期简洁/无动画不应排除后续互动，未把视频误当动画或宣称旧限制全部撤销。Canvas离线可用性及旧时长均限定原语境。"}
+    },
+    "quality_tiers": [["B"], ["A"]],
+    "note": "助手语义意见，非official grader。参考互动与多媒体均有用户明确请求和认可；不是因A保留旧简洁偏好本身判差，而是遗漏新多媒体要求及弱化旧无动画强度。"
+  },
+  {
+    "id": "2ae96446c29106cf519399ee",
+    "arms": {
+      "A": {"target_content": "partial", "note": "保留简洁bullet points、逻辑组织、无动画和避免复杂过渡，对应 s2:t3,t5,t7、s3:t3,t5；未明确严格线性推进。日常例子和讨论中立有 s3:t1、s4:t5 来源，并保留may help和讨论语境；Canvas下载与旧时长未强加当前。"},
+      "B": {"target_content": "partial", "note": "同样保留核心bullet points、逻辑流、无动画/复杂过渡；未明确严格线性推进。s8是图书馆时间安排，并不支持幻灯片逻辑流或bullet points，引用范围混合。下载格式、尊重平衡讨论分别源于Canvas和当前事件讨论，但末句These preferences apply directly把这些跨任务要求整体确定迁移，强度过高。"}
+    },
+    "quality_tiers": [["A"], ["B"]],
+    "note": "助手语义意见，非official grader。参考linear progression强于可见用户对清晰逻辑/简单结构的明确表述；两臂该partial缺项不可直接训练为确定违反反馈。A优于B依据额外迁移断言和s8证据范围问题，而非参考覆盖差异。"
+  }
+]

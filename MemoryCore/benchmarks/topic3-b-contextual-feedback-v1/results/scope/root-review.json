@@ -1,0 +1,29 @@
+{
+  "source": "assistant review, not official gold; four preselected positions 0,1,8,9",
+  "rows": [
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s1",
+      "purpose_match": "different",
+      "feedback_transfer": "unsupported",
+      "note": "s1:t3肯定代理投稿拒信的正式鼓励语气；当前是新作者会议指南，没有可见跨受众许可。unsupported仅为无明确迁移证据，不证明这种语气会伤害当前任务。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s2",
+      "purpose_match": "same",
+      "feedback_transfer": "supported",
+      "note": "同一新作者群体，s2:t3/t9肯定出版作品的具体示例，当前也明确要求案例；仅此部分有支持，真实性唯一主题/不谈subtext属于旧工作坊局部任务，不可整段搬运。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s1",
+      "purpose_match": "different",
+      "feedback_transfer": "unclear",
+      "note": "安全手册的韵律口号、后果描写获肯定，但核化学课堂幻灯片没有明确采用口号的要求。可帮助记忆属于推测性迁移；也不能直接判永不适用。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s2",
+      "purpose_match": "same",
+      "feedback_transfer": "supported",
+      "note": "s2:t3/t5/t7讨论regular chemistry class幻灯片模板，隐藏可访问详细笔记用于缺课学生，功能不限于旧放热反应主题。属于范围解释推断，非用户直接说核化学也要。"
+    }
+  ]
+}

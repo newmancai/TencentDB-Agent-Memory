@@ -1,0 +1,11 @@
+{
+  "status": "user_stop_partial_not_quality_result",
+  "planned_calls": 48,
+  "persisted_complete_tasks": 3,
+  "persisted_calls": 12,
+  "started_calls": 13,
+  "cost_scope": "complete task receipts only; additional completed/inflight work may lack task receipt",
+  "persisted_input_tokens": 50245,
+  "persisted_output_tokens": 1640,
+  "persisted_generation_ms": 52284.43725290708
+}

@@ -1,0 +1,40 @@
+{
+  "total": 60,
+  "common_covered": 58,
+  "metrics": {
+    "original": {
+      "tp": 24,
+      "tn": 29,
+      "fn": 5
+    },
+    "comparison": {
+      "tp": 26,
+      "tn": 28,
+      "fn": 3,
+      "fp": 1
+    },
+    "joint": {
+      "tp": 24,
+      "tn": 29,
+      "fn": 5
+    }
+  },
+  "joint_paired": {
+    "original": {
+      "tie": 50,
+      "win": 4,
+      "loss": 4
+    },
+    "comparison": {
+      "tie": 49,
+      "win": 4,
+      "loss": 5
+    }
+  },
+  "new_forwards": 58,
+  "new_tokens": 120528,
+  "new_seconds": 18.086389715317637,
+  "errors": {
+    "shared_evidence_limit": 2
+  }
+}

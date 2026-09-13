@@ -1,0 +1,38 @@
+[
+  {
+    "id": "pair-01",
+    "task_id": "conv-30:18",
+    "X": "ordinary",
+    "Y": "parts"
+  },
+  {
+    "id": "pair-02",
+    "task_id": "conv-43:48",
+    "X": "ordinary",
+    "Y": "parts"
+  },
+  {
+    "id": "pair-03",
+    "task_id": "conv-49:120",
+    "X": "parts",
+    "Y": "ordinary"
+  },
+  {
+    "id": "pair-04",
+    "task_id": "conv-48:26",
+    "X": "ordinary",
+    "Y": "parts"
+  },
+  {
+    "id": "pair-05",
+    "task_id": "conv-47:127",
+    "X": "ordinary",
+    "Y": "parts"
+  },
+  {
+    "id": "pair-06",
+    "task_id": "conv-42:171",
+    "X": "ordinary",
+    "Y": "parts"
+  }
+]

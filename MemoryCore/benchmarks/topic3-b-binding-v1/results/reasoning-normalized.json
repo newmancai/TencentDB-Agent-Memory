@@ -1,0 +1,83 @@
+{
+  "summary": {
+    "n": 10,
+    "strict_exact": 3,
+    "normalized_exact": 6,
+    "normalized_unknown": 1,
+    "wins": 3,
+    "losses": 0,
+    "note": "posthoc presentation normalization only; unchanged model receipts and gold; development diagnostic"
+  },
+  "rows": [
+    {
+      "id": "dialog_1:5",
+      "strict_prediction": 5,
+      "markdown_normalized_prediction": 5,
+      "correct": true,
+      "direct_correct": true
+    },
+    {
+      "id": "dialog_1:10",
+      "strict_prediction": null,
+      "markdown_normalized_prediction": 1,
+      "correct": true,
+      "direct_correct": false
+    },
+    {
+      "id": "dialog_1:15",
+      "strict_prediction": null,
+      "markdown_normalized_prediction": 5,
+      "correct": true,
+      "direct_correct": false
+    },
+    {
+      "id": "dialog_1:20",
+      "strict_prediction": 1,
+      "markdown_normalized_prediction": 1,
+      "correct": true,
+      "direct_correct": false
+    },
+    {
+      "id": "dialog_1:25",
+      "strict_prediction": 23,
+      "markdown_normalized_prediction": 23,
+      "correct": true,
+      "direct_correct": true
+    },
+    {
+      "id": "dialog_1:30",
+      "strict_prediction": null,
+      "markdown_normalized_prediction": 23,
+      "correct": false,
+      "direct_correct": false
+    },
+    {
+      "id": "dialog_1:35",
+      "strict_prediction": null,
+      "markdown_normalized_prediction": 23,
+      "correct": false,
+      "direct_correct": false
+    },
+    {
+      "id": "dialog_1:40",
+      "strict_prediction": null,
+      "markdown_normalized_prediction": 39,
+      "correct": true,
+      "direct_correct": true
+    },
+    {
+      "id": "dialog_1:45",
+      "strict_prediction": null,
+      "markdown_normalized_prediction": 39,
+      "correct": false,
+      "direct_correct": false
+    },
+    {
+      "id": "dialog_1:50",
+      "strict_prediction": null,
+      "markdown_normalized_prediction": null,
+      "correct": false,
+      "direct_correct": false
+    }
+  ]
+}

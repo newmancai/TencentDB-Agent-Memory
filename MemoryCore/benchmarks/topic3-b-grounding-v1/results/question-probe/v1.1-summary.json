@@ -1,0 +1,69 @@
+{
+  "ordinary": {
+    "total": 200,
+    "covered": 200,
+    "tp": 5,
+    "fp": 56,
+    "fn": 45,
+    "tn": 94,
+    "precision": 0.08196721311475409,
+    "recall": 0.1,
+    "balanced_accuracy": 0.36333333333333334,
+    "categories": {
+      "1": {
+        "total": 50,
+        "correct": 40
+      },
+      "2": {
+        "total": 50,
+        "correct": 8
+      },
+      "4": {
+        "total": 50,
+        "correct": 46
+      },
+      "5": {
+        "total": 50,
+        "correct": 5
+      }
+    },
+    "processed_tokens": 38707,
+    "forward_seconds": 3.9423791526351124
+  },
+  "question_bound": {
+    "total": 200,
+    "covered": 200,
+    "tp": 2,
+    "fp": 56,
+    "fn": 48,
+    "tn": 94,
+    "precision": 0.034482758620689655,
+    "recall": 0.04,
+    "balanced_accuracy": 0.33333333333333337,
+    "categories": {
+      "1": {
+        "total": 50,
+        "correct": 39
+      },
+      "2": {
+        "total": 50,
+        "correct": 7
+      },
+      "4": {
+        "total": 50,
+        "correct": 48
+      },
+      "5": {
+        "total": 50,
+        "correct": 2
+      }
+    },
+    "processed_tokens": 39074,
+    "forward_seconds": 3.7240410305093974
+  },
+  "paired": {
+    "tie": 189,
+    "question_bound_loss": 7,
+    "question_bound_win": 4
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "source": "independent assistant semantic review, not official grader",
+  "coverage": {
+    "local": {
+      "partial": 4,
+      "full": 2
+    },
+    "assistant": {
+      "full": 4,
+      "partial": 2
+    }
+  },
+  "assistant_vs_local": {
+    "win": 5,
+    "tie": 1
+  },
+  "decoded": [
+    {
+      "id": "1be13d14321e093f497187fa",
+      "coverage": {
+        "assistant": "full",
+        "local": "partial"
+      },
+      "quality_tiers": [
+        [
+          "assistant"
+        ],
+        [
+          "local"
+        ]
+      ],
+      "assistant_vs_local": "win"
+    },
+    {
+      "id": "073ca63303e325ab55060737",
+      "coverage": {
+        "assistant": "full",
+        "local": "full"
+      },
+      "quality_tiers": [
+        [
+          "assistant"
+        ],
+        [
+          "local"
+        ]
+      ],
+      "assistant_vs_local": "win"
+    },
+    {
+      "id": "932f3e74eb9a7ea49b5d8dda",
+      "coverage": {
+        "local": "full",
+        "assistant": "full"
+      },
+      "quality_tiers": [
+        [
+          "assistant"
+        ],
+        [
+          "local"
+        ]
+      ],
+      "assistant_vs_local": "win"
+    },
+    {
+      "id": "66fa898caa65482b7d5855b7",
+      "coverage": {
+        "assistant": "partial",
+        "local": "partial"
+      },
+      "quality_tiers": [
+        [
+          "assistant",
+          "local"
+        ]
+      ],
+      "assistant_vs_local": "tie"
+    },
+    {
+      "id": "227c678221f3dfa8f8d033b8",
+      "coverage": {
+        "local": "partial",
+        "assistant": "full"
+      },
+      "quality_tiers": [
+        [
+          "assistant"
+        ],
+        [
+          "local"
+        ]
+      ],
+      "assistant_vs_local": "win"
+    },
+    {
+      "id": "2ae96446c29106cf519399ee",
+      "coverage": {
+        "assistant": "partial",
+        "local": "partial"
+      },
+      "quality_tiers": [
+        [
+          "assistant"
+        ],
+        [
+          "local"
+        ]
+      ],
+      "assistant_vs_local": "win"
+    }
+  ],
+  "cross_review": {
+    "tasks": 2,
+    "coverage_agreement_out_of_4": 3,
+    "preference_agreement_out_of_2": 2,
+    "details": [
+      {
+        "id": "1be13d14321e093f497187fa",
+        "cross_coverage": {
+          "assistant": "full",
+          "local": "full"
+        },
+        "cross_preference": "win"
+      },
+      {
+        "id": "66fa898caa65482b7d5855b7",
+        "cross_coverage": {
+          "assistant": "partial",
+          "local": "partial"
+        },
+        "cross_preference": "tie"
+      }
+    ]
+  }
+}

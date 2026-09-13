@@ -1,0 +1,45 @@
+{
+  "posthoc_reference_audit": {
+    "q_bound_in_reference": 181,
+    "qa_bound_in_reference": 388,
+    "validation_has_prior_reference_overlap": 317,
+    "all_regression": 47,
+    "reference_hits_displaced_in_regressions": 51,
+    "base_all_failure": 428,
+    "all_repairable_by_current_binding_pool_upper_bound": 47,
+    "all_repairable_by_prior_gold_pool_upper_bound": 94
+  },
+  "fallback_checks": [
+    {
+      "case": "empty",
+      "fallback": "no_side_hit",
+      "query_ms": 0.07944507524371147,
+      "side_hits": 0
+    },
+    {
+      "case": "malformed",
+      "fallback": "invalid_state",
+      "query_ms": 0,
+      "side_hits": 0
+    },
+    {
+      "case": "oversized",
+      "fallback": "invalid_state",
+      "query_ms": 0,
+      "side_hits": 0
+    },
+    {
+      "case": "disabled",
+      "fallback": "disabled",
+      "query_ms": 0,
+      "side_hits": 0
+    },
+    {
+      "case": "closed_database",
+      "fallback": "read_failed",
+      "query_ms": 0,
+      "side_hits": 0
+    }
+  ],
+  "interpretation": "Gold-pool repairability is an oracle upper bound, never a deployed policy or future-answer input."
+}

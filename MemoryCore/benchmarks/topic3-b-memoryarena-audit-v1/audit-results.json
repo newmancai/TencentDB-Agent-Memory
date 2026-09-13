@@ -1,0 +1,116 @@
+{
+  "source_commit": "6cd9de14b71915e39ac742a20dc33785e14b6aab",
+  "dataset_revision": "da1a37c8b19280e18627ca01cf368195a5e1d92e",
+  "mode": "source_contract_audit_not_benchmark",
+  "datasets": {
+    "bundled_shopping": {
+      "sha256": "4411a2da528a33dc6aca519b49cc225895363f18b2d19b191fddb501200134ef",
+      "bytes": 1601723,
+      "rows": 150,
+      "questions": 900,
+      "answers": 900,
+      "question_count_range": [
+        6,
+        6
+      ],
+      "count_mismatches": 0
+    },
+    "formal_reasoning_math": {
+      "sha256": "ff5b0ad575847c7476a02d1e35661592a833bd0cff384cb54bc6f35b46de7803",
+      "bytes": 829228,
+      "rows": 40,
+      "questions": 354,
+      "answers": 354,
+      "question_count_range": [
+        2,
+        16
+      ],
+      "count_mismatches": 0
+    },
+    "formal_reasoning_phys": {
+      "sha256": "580862006af2ff2bfc8c5d2d2b9a60bf33a46cbb64f27d60a2bfe039aec61cf6",
+      "bytes": 87070,
+      "rows": 20,
+      "questions": 86,
+      "answers": 86,
+      "question_count_range": [
+        2,
+        12
+      ],
+      "count_mismatches": 0
+    },
+    "group_travel_planner": {
+      "sha256": "2f955d444f6f3ad3c5da2064359ab19f8fc1f90621ff9d00723a450a009c3732",
+      "bytes": 6165901,
+      "rows": 270,
+      "questions": 1869,
+      "answers": 1869,
+      "question_count_range": [
+        5,
+        8
+      ],
+      "count_mismatches": 0
+    },
+    "progressive_search": {
+      "sha256": "b445ee36fa3ccb9ad08eae9e7adda86bbc64f14f1e2a0682a8b2085cdb8e4c0e",
+      "bytes": 3618343,
+      "rows": 221,
+      "questions": 1641,
+      "answers": 1641,
+      "question_count_range": [
+        4,
+        16
+      ],
+      "count_mismatches": 0
+    }
+  },
+  "probes": [
+    {
+      "source": "env/env_systems/travel_env.py",
+      "line": 18,
+      "synthetic_prefix_scores": [
+        1.0,
+        1.0
+      ],
+      "passed": true
+    },
+    {
+      "source": "env/env_systems/travel_planner_env/eval.py",
+      "line": 12,
+      "synthetic_prefix_scores": [
+        1.0,
+        1.0
+      ],
+      "passed": true
+    },
+    {
+      "source": "run_math.py",
+      "line": 185,
+      "memory_flag_true_branch_taken": false,
+      "client_keys": [
+        "done",
+        "info",
+        "observation",
+        "reward"
+      ],
+      "passed": true
+    },
+    {
+      "source": "shopping split-history prompt",
+      "synthetic_prior_target_visible": true,
+      "passed": true
+    },
+    {
+      "source": "webshop_plus_client.py",
+      "line": 1076,
+      "expected_product": "PRODUCT",
+      "parsed_product": "SESSION",
+      "passed": true
+    },
+    {
+      "source": "browsecomp_plus_env.py:run_final_query",
+      "store_eval_in_memory_reads": 0,
+      "passed": true
+    }
+  ]
+}

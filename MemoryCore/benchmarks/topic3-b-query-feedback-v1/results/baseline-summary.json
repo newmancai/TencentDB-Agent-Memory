@@ -1,0 +1,29 @@
+{
+  "mode": "frozen_query_embedding_v1",
+  "unknown": [],
+  "metrics": {
+    "feedback_q": {
+      "n": 734,
+      "any": 521,
+      "all": 436,
+      "macro_recall": 0.644887764370053
+    },
+    "feedback_qa": {
+      "n": 734,
+      "any": 646,
+      "all": 572,
+      "macro_recall": 0.8315189654426712
+    },
+    "validation_q": {
+      "n": 704,
+      "any": 519,
+      "all": 418,
+      "macro_recall": 0.658481932491352
+    }
+  },
+  "feedback_qa_vs_q": {
+    "win": 143,
+    "loss": 7,
+    "tie": 584
+  }
+}

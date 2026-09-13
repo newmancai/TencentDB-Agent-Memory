@@ -1,0 +1,17 @@
+{
+  "protocol": "cupid-strong-baseline-v1",
+  "examples": 6,
+  "load_seconds": 2.574018173851073,
+  "model_path": "/data1/edarace/tdai-memory/models/Qwen3-4B-Instruct-2507",
+  "device_map": {
+    "": "cuda:0"
+  },
+  "arms": {
+    "frozen": {
+      "input_tokens": 13561,
+      "output_tokens": 771,
+      "generation_ms": 21967.438196064904,
+      "errors": 0
+    }
+  }
+}

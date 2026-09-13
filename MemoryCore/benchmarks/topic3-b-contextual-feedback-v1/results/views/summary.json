@@ -1,0 +1,115 @@
+{
+  "examples": 6,
+  "persona_groups": 2,
+  "review_source": "assistant semantic review, not official grader",
+  "preferences": {
+    "full": 1,
+    "users": 3,
+    "tie": 2
+  },
+  "decoded_reviews": [
+    {
+      "id": "b2f17518ddd41beab6ec6740",
+      "preference": "tie",
+      "target_content": {
+        "full": "partial",
+        "users": "partial"
+      }
+    },
+    {
+      "id": "0add0784ec2826129ef02504",
+      "preference": "full",
+      "target_content": {
+        "full": "partial",
+        "users": "partial"
+      }
+    },
+    {
+      "id": "5c399dd70556b311c35d0413",
+      "preference": "tie",
+      "target_content": {
+        "full": "partial",
+        "users": "partial"
+      }
+    },
+    {
+      "id": "3893c05db0150225d92157df",
+      "preference": "users",
+      "target_content": {
+        "full": "partial",
+        "users": "partial"
+      }
+    },
+    {
+      "id": "75d987ca0fff48d2ae914c5e",
+      "preference": "users",
+      "target_content": {
+        "users": "partial",
+        "full": "partial"
+      }
+    },
+    {
+      "id": "27179c3d7822ed4484cdd5a2",
+      "preference": "users",
+      "target_content": {
+        "users": "partial",
+        "full": "partial"
+      }
+    }
+  ],
+  "word_count_definition": "Python str.split whitespace count; prompt limit 100 words",
+  "word_counts": [
+    {
+      "id": "b2f17518ddd41beab6ec6740",
+      "words": {
+        "full": 107,
+        "users": 101
+      }
+    },
+    {
+      "id": "0add0784ec2826129ef02504",
+      "words": {
+        "users": 79,
+        "full": 106
+      }
+    },
+    {
+      "id": "5c399dd70556b311c35d0413",
+      "words": {
+        "full": 102,
+        "users": 83
+      }
+    },
+    {
+      "id": "3893c05db0150225d92157df",
+      "words": {
+        "users": 95,
+        "full": 122
+      }
+    },
+    {
+      "id": "75d987ca0fff48d2ae914c5e",
+      "words": {
+        "full": 117,
+        "users": 86
+      }
+    },
+    {
+      "id": "27179c3d7822ed4484cdd5a2",
+      "words": {
+        "users": 75,
+        "full": 100
+      }
+    }
+  ],
+  "over_100": {
+    "full": 5,
+    "users": 1
+  },
+  "root_overlap": {
+    "examples": 2,
+    "arm_content_agreement": "3/4",
+    "pair_preference_agreement": "2/2",
+    "disagreement": "27179c3d7822ed4484cdd5a2 users: root full, independent partial"
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "audit-01",
+    "candidate_only": "none",
+    "with_neighbors": "none",
+    "reason": "Wrong actor and event: Melanie painting, not Caroline meeting; October timestamp also mismatched."
+  },
+  {
+    "id": "audit-02",
+    "candidate_only": "none",
+    "with_neighbors": "none",
+    "reason": "Dance trophy does not identify Finding Freedom or first place."
+  },
+  {
+    "id": "audit-03",
+    "candidate_only": "none",
+    "with_neighbors": "none",
+    "reason": "Maria hiking is not John with colleagues; neighbor mentions ascent without colleagues or hiking identity."
+  },
+  {
+    "id": "audit-04",
+    "candidate_only": "none",
+    "with_neighbors": "none",
+    "reason": "Bookmark/DIY exchange has no gaming-room lighting evidence."
+  },
+  {
+    "id": "audit-05",
+    "candidate_only": "full",
+    "with_neighbors": "full",
+    "reason": "John explicitly describes NYC culture and food; quote directly supports answer."
+  },
+  {
+    "id": "audit-06",
+    "candidate_only": "none",
+    "with_neighbors": "none",
+    "reason": "Andrew praises Audrey work; no statement about his own biggest stressor."
+  },
+  {
+    "id": "audit-07",
+    "candidate_only": "none",
+    "with_neighbors": "none",
+    "reason": "James planned return July20 is not John sister/dogs event July21."
+  },
+  {
+    "id": "audit-08",
+    "candidate_only": "partial",
+    "with_neighbors": "partial",
+    "reason": "Deborah explicitly supports running and mindfulness/self-care workshops, not entire six-activity answer."
+  },
+  {
+    "id": "audit-09",
+    "candidate_only": "partial",
+    "with_neighbors": "partial",
+    "reason": "Evan explicitly says old Prius broke; new Prius not evidenced."
+  },
+  {
+    "id": "audit-10",
+    "candidate_only": "partial",
+    "with_neighbors": "partial",
+    "reason": "Calvin praises Dave hard work, supports that component for Dave; both people and determination are not established."
+  }
+]

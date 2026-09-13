@@ -1,0 +1,46 @@
+{
+  "source_sha256": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4",
+  "split": {
+    "conv-30": "feedback",
+    "conv-42": "feedback",
+    "conv-47": "feedback",
+    "conv-50": "feedback",
+    "conv-48": "feedback",
+    "conv-43": "validation",
+    "conv-44": "validation",
+    "conv-49": "validation",
+    "conv-26": "validation",
+    "conv-41": "validation"
+  },
+  "documents": 5882,
+  "feedback_queries": 734,
+  "validation_queries": 704,
+  "embedding_items": 8054,
+  "alignment_unknown": [
+    {
+      "id": "conv-26:37",
+      "reason": "alignment_unknown"
+    },
+    {
+      "id": "conv-42:58",
+      "reason": "alignment_unknown"
+    },
+    {
+      "id": "conv-42:88",
+      "reason": "alignment_unknown"
+    },
+    {
+      "id": "conv-43:18",
+      "reason": "alignment_unknown"
+    },
+    {
+      "id": "conv-47:38",
+      "reason": "alignment_unknown"
+    },
+    {
+      "id": "conv-50:69",
+      "reason": "alignment_unknown"
+    }
+  ],
+  "validation_answers_in_embedding_inputs": 0
+}

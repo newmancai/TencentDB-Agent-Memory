@@ -1,0 +1,70 @@
+{
+  "scope": "20 training queries; published evidence exact presence, not memory-fault gold",
+  "queries": 20,
+  "first_action_by_reference_coverage": [
+    {
+      "action": "dislike",
+      "coverage": "complete",
+      "n": 9
+    },
+    {
+      "action": "dislike",
+      "coverage": "none",
+      "n": 4
+    },
+    {
+      "action": "dislike",
+      "coverage": "partial",
+      "n": 3
+    },
+    {
+      "action": "like",
+      "coverage": "complete",
+      "n": 2
+    },
+    {
+      "action": "like",
+      "coverage": "none",
+      "n": 1
+    },
+    {
+      "action": "like",
+      "coverage": "partial",
+      "n": 1
+    }
+  ],
+  "unchanged_initial_prompt_queries": 20,
+  "distinct_additional_user_messages": [
+    "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+  ],
+  "observed_dislike_to_like_queries": 0,
+  "retry_queries": 16,
+  "unchanged_answers_on_retry": 4,
+  "assistant_silver_comparison_not_official_gold": [
+    {
+      "action": "dislike",
+      "judgment": "supported",
+      "n": 2
+    },
+    {
+      "action": "dislike",
+      "judgment": "uncertain",
+      "n": 4
+    },
+    {
+      "action": "dislike",
+      "judgment": "unsupported",
+      "n": 10
+    },
+    {
+      "action": "like",
+      "judgment": "supported",
+      "n": 3
+    },
+    {
+      "action": "like",
+      "judgment": "unsupported",
+      "n": 1
+    }
+  ]
+}

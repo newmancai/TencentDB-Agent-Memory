@@ -1,0 +1,137 @@
+{
+  "protocol": "v1.1-missing-evidence-correction",
+  "scope": "DECODE component signal/grounding; not lifecycle or long-conversation validation",
+  "policy": {
+    "version": 1,
+    "selected": "direct",
+    "feedback_count": 64,
+    "criterion": "classification_correct",
+    "tie": "direct",
+    "capacity": 1
+  },
+  "splits": {
+    "fit": {
+      "arms": {
+        "direct": {
+          "n": 64,
+          "positive": 28,
+          "correct": 44,
+          "tp": 8,
+          "fp": 0,
+          "fn": 14,
+          "tn": 36,
+          "abstain": 6,
+          "precision": 1.0,
+          "recall": 0.2857142857142857,
+          "raw_binary_correct": 50,
+          "joint_exact_known": 38,
+          "joint_evidence_denominator": 64,
+          "positive_evidence_exact": 2,
+          "positive_evidence_denominator": 28,
+          "true_positive_evidence_any_hit": 5,
+          "cost": {
+            "inputTokens": 23474,
+            "outputTokens": 1021,
+            "serviceMs": 29658.52367132902,
+            "p50Ms": 413.7507398845628,
+            "p95Ms": 692.709299037233
+          }
+        },
+        "local": {
+          "n": 64,
+          "positive": 28,
+          "correct": 41,
+          "tp": 5,
+          "fp": 0,
+          "fn": 19,
+          "tn": 36,
+          "abstain": 4,
+          "precision": 1.0,
+          "recall": 0.17857142857142858,
+          "raw_binary_correct": 45,
+          "joint_exact_known": 36,
+          "joint_evidence_denominator": 64,
+          "positive_evidence_exact": 0,
+          "positive_evidence_denominator": 28,
+          "true_positive_evidence_any_hit": 2,
+          "cost": {
+            "inputTokens": 25138,
+            "outputTokens": 1115,
+            "serviceMs": 32097.418484510854,
+            "p50Ms": 489.15504454635084,
+            "p95Ms": 627.5836820714176
+          }
+        }
+      },
+      "local_vs_direct": {
+        "wins": 0,
+        "losses": 3,
+        "ties": 61,
+        "paired_exact_two_sided_p": 0.25
+      },
+      "selected_arm": "direct"
+    },
+    "eval": {
+      "arms": {
+        "direct": {
+          "n": 128,
+          "positive": 54,
+          "correct": 79,
+          "tp": 7,
+          "fp": 1,
+          "fn": 43,
+          "tn": 72,
+          "abstain": 5,
+          "precision": 0.875,
+          "recall": 0.12962962962962962,
+          "raw_binary_correct": 83,
+          "joint_exact_known": 72,
+          "joint_evidence_denominator": 74,
+          "positive_evidence_exact": null,
+          "positive_evidence_denominator": 0,
+          "true_positive_evidence_any_hit": null,
+          "cost": {
+            "inputTokens": 47498,
+            "outputTokens": 1938,
+            "serviceMs": 56227.90569649078,
+            "p50Ms": 406.61926951725036,
+            "p95Ms": 662.4322230927646
+          }
+        },
+        "local": {
+          "n": 128,
+          "positive": 54,
+          "correct": 75,
+          "tp": 3,
+          "fp": 1,
+          "fn": 50,
+          "tn": 72,
+          "abstain": 2,
+          "precision": 0.75,
+          "recall": 0.05555555555555555,
+          "raw_binary_correct": 76,
+          "joint_exact_known": 72,
+          "joint_evidence_denominator": 74,
+          "positive_evidence_exact": null,
+          "positive_evidence_denominator": 0,
+          "true_positive_evidence_any_hit": null,
+          "cost": {
+            "inputTokens": 50826,
+            "outputTokens": 2121,
+            "serviceMs": 61253.955909051,
+            "p50Ms": 481.5666169160977,
+            "p95Ms": 571.7963858041912
+          }
+        }
+      },
+      "local_vs_direct": {
+        "wins": 1,
+        "losses": 5,
+        "ties": 122,
+        "paired_exact_two_sided_p": 0.21875
+      },
+      "selected_arm": "direct"
+    }
+  },
+  "learning_cost_note": "Both arms must be collected on fit; arm selection adds no eval calls. Fixed-arm comparison must count this cold-start cost."
+}

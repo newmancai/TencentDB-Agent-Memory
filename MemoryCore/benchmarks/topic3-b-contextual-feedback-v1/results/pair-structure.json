@@ -1,0 +1,34 @@
+{
+  "mode": "released_cupid_pair_structure_audit",
+  "personas": 252,
+  "pairs": 504,
+  "counts": {
+    "contrastive:same_request": 252,
+    "contrastive:same_factor": 252,
+    "contrastive:same_preference": 252,
+    "contrastive:same_checklist": 252,
+    "contrastive:shared_order_preserved": 252,
+    "changing:same_request": 252,
+    "changing:same_factor": 252,
+    "changing:same_preference": 1,
+    "changing:same_checklist": 1,
+    "changing:shared_order_preserved": 252
+  },
+  "session_difference_patterns": [
+    {
+      "variant": "changing",
+      "shared": 6,
+      "removed": 2,
+      "added": 2,
+      "pairs": 252
+    },
+    {
+      "variant": "contrastive",
+      "shared": 6,
+      "removed": 2,
+      "added": 2,
+      "pairs": 252
+    }
+  ],
+  "scope": "Published structural/annotation relations, not per-feedback semantic applicability or model learning. All-source schema audit; no task text displayed."
+}

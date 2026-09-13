@@ -1,0 +1,84 @@
+{
+  "groups": {
+    "214+etymologist": {
+      "frozen": {
+        "loss": 2,
+        "win": 1
+      },
+      "unlabelled": {
+        "loss": 1,
+        "win": 1,
+        "tie": 1
+      }
+    },
+    "103+professional_genealogist": {
+      "frozen": {
+        "tie": 3
+      },
+      "unlabelled": {
+        "win": 1,
+        "loss": 2
+      }
+    },
+    "26+nutritionist": {
+      "frozen": {
+        "loss": 1,
+        "tie": 1,
+        "win": 1
+      },
+      "unlabelled": {
+        "loss": 1,
+        "tie": 1,
+        "win": 1
+      }
+    },
+    "248+physical_education_teacher": {
+      "frozen": {
+        "tie": 1,
+        "win": 1,
+        "loss": 1
+      },
+      "unlabelled": {
+        "win": 1,
+        "loss": 1,
+        "tie": 1
+      }
+    }
+  },
+  "variants": {
+    "contrastive": {
+      "frozen": {
+        "loss": 1,
+        "tie": 2,
+        "win": 1
+      },
+      "unlabelled": {
+        "loss": 2,
+        "win": 2
+      }
+    },
+    "changing": {
+      "frozen": {
+        "tie": 2,
+        "win": 2
+      },
+      "unlabelled": {
+        "win": 1,
+        "tie": 2,
+        "loss": 1
+      }
+    },
+    "consistent": {
+      "frozen": {
+        "loss": 3,
+        "tie": 1
+      },
+      "unlabelled": {
+        "win": 1,
+        "loss": 2,
+        "tie": 1
+      }
+    }
+  },
+  "scope": "quality comparisons, not automatic state-update accuracy"
+}

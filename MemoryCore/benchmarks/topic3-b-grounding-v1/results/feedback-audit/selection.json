@@ -1,0 +1,74 @@
+[
+  {
+    "id": "conv-43:40::sessions",
+    "pair": "conv-43:40",
+    "category": 2,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": false,
+    "prediction": true
+  },
+  {
+    "id": "conv-47:53::sessions",
+    "pair": "conv-47:53",
+    "category": 2,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": false,
+    "prediction": true
+  },
+  {
+    "id": "conv-48:50::sessions",
+    "pair": "conv-48:50",
+    "category": 2,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": false,
+    "prediction": true
+  },
+  {
+    "id": "conv-44:59::sessions",
+    "pair": "conv-44:59",
+    "category": 2,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": false,
+    "prediction": true
+  },
+  {
+    "id": "conv-41:165::sessions",
+    "pair": "conv-41:165",
+    "category": 5,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": true,
+    "prediction": true
+  },
+  {
+    "id": "conv-26:185::sessions",
+    "pair": "conv-26:185",
+    "category": 5,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": true,
+    "prediction": true
+  },
+  {
+    "id": "conv-30:101::sessions",
+    "pair": "conv-30:101",
+    "category": 5,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": true,
+    "prediction": true
+  },
+  {
+    "id": "conv-47:189::sessions",
+    "pair": "conv-47:189",
+    "category": 5,
+    "scope": "sessions",
+    "model": "semantic",
+    "gold": true,
+    "prediction": true
+  }
+]

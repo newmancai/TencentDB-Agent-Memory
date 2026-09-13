@@ -1,0 +1,82 @@
+{
+  "mode": "fixed_residual_feedback_v1",
+  "fit_seconds": 0.3487172231543809,
+  "training": 734,
+  "validation": 704,
+  "metrics": {
+    "base": {
+      "any": 519,
+      "all": 418,
+      "macro_recall": 0.658481932491352
+    },
+    "mean": {
+      "any": 516,
+      "all": 416,
+      "macro_recall": 0.6548022788116984
+    },
+    "learned": {
+      "any": 520,
+      "all": 418,
+      "macro_recall": 0.661335293618861
+    },
+    "shuffled": {
+      "any": 515,
+      "all": 413,
+      "macro_recall": 0.6517110991580188
+    }
+  },
+  "paired": {
+    "learned_vs_base": {
+      "win": 10,
+      "loss": 10,
+      "tie": 684
+    },
+    "learned_vs_mean": {
+      "win": 11,
+      "loss": 9,
+      "tie": 684
+    },
+    "learned_vs_shuffled": {
+      "win": 15,
+      "loss": 10,
+      "tie": 679
+    }
+  },
+  "by_source": {
+    "conv-26": {
+      "n": 138,
+      "base": 84,
+      "mean": 84,
+      "learned": 82,
+      "shuffled": 82
+    },
+    "conv-41": {
+      "n": 144,
+      "base": 95,
+      "mean": 95,
+      "learned": 98,
+      "shuffled": 93
+    },
+    "conv-43": {
+      "n": 163,
+      "base": 111,
+      "mean": 110,
+      "learned": 110,
+      "shuffled": 111
+    },
+    "conv-44": {
+      "n": 116,
+      "base": 60,
+      "mean": 59,
+      "learned": 58,
+      "shuffled": 59
+    },
+    "conv-49": {
+      "n": 143,
+      "base": 68,
+      "mean": 68,
+      "learned": 70,
+      "shuffled": 68
+    }
+  }
+}

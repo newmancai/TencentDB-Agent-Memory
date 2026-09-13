@@ -1,0 +1,341 @@
+{
+  "source": "two assistant blind reviews, not official grader",
+  "coverage": {
+    "request": {
+      "absent": 12
+    },
+    "frozen": {
+      "partial": 12
+    },
+    "unlabelled": {
+      "partial": 11,
+      "full": 1
+    },
+    "feedback": {
+      "partial": 10,
+      "full": 2
+    }
+  },
+  "feedback_comparison": {
+    "frozen": {
+      "loss": 4,
+      "tie": 5,
+      "win": 3
+    },
+    "unlabelled": {
+      "loss": 5,
+      "win": 4,
+      "tie": 3
+    }
+  },
+  "root_overlap_pair_agreement_out_of_4": {
+    "frozen": 3,
+    "unlabelled": 2
+  },
+  "decoded": [
+    {
+      "id": "984796e36e273d1487512c65",
+      "coverage": {
+        "unlabelled": "partial",
+        "frozen": "partial",
+        "feedback": "partial",
+        "request": "absent"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled",
+          "frozen"
+        ],
+        [
+          "feedback"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "loss",
+        "unlabelled": "loss"
+      }
+    },
+    {
+      "id": "0d97ade0687d8766d606a16e",
+      "coverage": {
+        "request": "absent",
+        "frozen": "partial",
+        "feedback": "partial",
+        "unlabelled": "partial"
+      },
+      "quality_tiers": [
+        [
+          "frozen",
+          "feedback"
+        ],
+        [
+          "unlabelled"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "tie",
+        "unlabelled": "win"
+      }
+    },
+    {
+      "id": "fd7f9450ff190ff48ea32301",
+      "coverage": {
+        "feedback": "partial",
+        "frozen": "partial",
+        "request": "absent",
+        "unlabelled": "partial"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled"
+        ],
+        [
+          "feedback",
+          "frozen"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "tie",
+        "unlabelled": "loss"
+      }
+    },
+    {
+      "id": "ea982ac2f32e73e69f8b9ee8",
+      "coverage": {
+        "request": "absent",
+        "feedback": "partial",
+        "unlabelled": "partial",
+        "frozen": "partial"
+      },
+      "quality_tiers": [
+        [
+          "frozen"
+        ],
+        [
+          "feedback"
+        ],
+        [
+          "unlabelled"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "loss",
+        "unlabelled": "win"
+      }
+    },
+    {
+      "id": "60b5fee3ec380ed2f33e9a2a",
+      "coverage": {
+        "request": "absent",
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled"
+        ],
+        [
+          "frozen",
+          "feedback"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "tie",
+        "unlabelled": "loss"
+      }
+    },
+    {
+      "id": "a0055a92d458ff1d42ed1268",
+      "coverage": {
+        "request": "absent",
+        "feedback": "partial",
+        "unlabelled": "partial",
+        "frozen": "partial"
+      },
+      "quality_tiers": [
+        [
+          "feedback",
+          "unlabelled"
+        ],
+        [
+          "frozen"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "win",
+        "unlabelled": "tie"
+      }
+    },
+    {
+      "id": "a4ad44aa2a74987d4b951a2e",
+      "coverage": {
+        "request": "absent",
+        "feedback": "partial",
+        "frozen": "partial",
+        "unlabelled": "partial"
+      },
+      "quality_tiers": [
+        [
+          "frozen",
+          "unlabelled"
+        ],
+        [
+          "feedback"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "loss",
+        "unlabelled": "loss"
+      }
+    },
+    {
+      "id": "81bb9b507d1f7d570d3a8cca",
+      "coverage": {
+        "feedback": "partial",
+        "unlabelled": "partial",
+        "frozen": "partial",
+        "request": "absent"
+      },
+      "quality_tiers": [
+        [
+          "frozen",
+          "feedback"
+        ],
+        [
+          "unlabelled"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "tie",
+        "unlabelled": "win"
+      }
+    },
+    {
+      "id": "0b374d6c26956b171ee960bd",
+      "coverage": {
+        "request": "absent",
+        "unlabelled": "full",
+        "feedback": "full",
+        "frozen": "partial"
+      },
+      "quality_tiers": [
+        [
+          "unlabelled"
+        ],
+        [
+          "feedback"
+        ],
+        [
+          "frozen"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "win",
+        "unlabelled": "loss"
+      }
+    },
+    {
+      "id": "889b30439d7bbe52a97429fc",
+      "coverage": {
+        "frozen": "partial",
+        "feedback": "partial",
+        "unlabelled": "partial",
+        "request": "absent"
+      },
+      "quality_tiers": [
+        [
+          "frozen"
+        ],
+        [
+          "feedback",
+          "unlabelled"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "loss",
+        "unlabelled": "tie"
+      }
+    },
+    {
+      "id": "29b1de5b660fe91e6f34c755",
+      "coverage": {
+        "frozen": "partial",
+        "request": "absent",
+        "unlabelled": "partial",
+        "feedback": "partial"
+      },
+      "quality_tiers": [
+        [
+          "frozen",
+          "unlabelled",
+          "feedback"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "tie",
+        "unlabelled": "tie"
+      }
+    },
+    {
+      "id": "2cf0398c893f648c327f9ddb",
+      "coverage": {
+        "unlabelled": "partial",
+        "feedback": "full",
+        "frozen": "partial",
+        "request": "absent"
+      },
+      "quality_tiers": [
+        [
+          "feedback"
+        ],
+        [
+          "frozen"
+        ],
+        [
+          "unlabelled"
+        ],
+        [
+          "request"
+        ]
+      ],
+      "feedback_comparison": {
+        "frozen": "win",
+        "unlabelled": "win"
+      }
+    }
+  ]
+}

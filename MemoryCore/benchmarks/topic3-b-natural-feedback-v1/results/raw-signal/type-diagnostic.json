@@ -1,0 +1,38 @@
+{
+  "NEG_1": {
+    "negative": 32,
+    "nonnegative": 128,
+    "auc": {
+      "real_drop": 0.4638671875,
+      "control_drop": 0.398193359375,
+      "semantic_negative": 0.76513671875
+    }
+  },
+  "NEG_2": {
+    "negative": 25,
+    "nonnegative": 128,
+    "auc": {
+      "real_drop": 0.47625,
+      "control_drop": 0.48406250000000006,
+      "semantic_negative": 0.8490625
+    }
+  },
+  "NEG_3": {
+    "negative": 15,
+    "nonnegative": 128,
+    "auc": {
+      "real_drop": 0.4458333333333333,
+      "control_drop": 0.41041666666666665,
+      "semantic_negative": 0.9260416666666667
+    }
+  },
+  "NEG_4": {
+    "negative": 26,
+    "nonnegative": 128,
+    "auc": {
+      "real_drop": 0.42487980769230765,
+      "control_drop": 0.5204326923076923,
+      "semantic_negative": 0.8293269230769231
+    }
+  }
+}

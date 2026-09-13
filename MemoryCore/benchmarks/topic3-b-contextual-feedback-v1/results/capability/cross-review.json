@@ -1,0 +1,48 @@
+[
+  {
+    "id": "1be13d14321e093f497187fa",
+    "arms": {
+      "A": {
+        "target_content": "full",
+        "original_content_retained": "保留表面观察、内部测量及二者关联的统一健康评估；s5:t3/t5与s7:t3/t5直接支持。",
+        "scope_or_strength_errors": "所引用户消息ID均存在且支持相应表述。把早先surface-only限定到狭窄表面诊断任务合理；没有宣称旧要求全局撤销。把检查清单、生产风险、温度优先标为任务条件，避免无依据扩大。"
+      },
+      "B": {
+        "target_content": "full",
+        "original_content_retained": "明确包含surface and internal measurements及unified assessment，故目标覆盖完整，不因其他错误改判缺失。",
+        "scope_or_strength_errors": "同时说始终优先visible defects且不涉及non-surface factors，把s1表面诊断限定泛化到当前综合评估，与本输出要求内部测量存在实质张力；s5/s7明确扩到内部。numbered checklist来自s2检查、concise timing来自s3会议、risk-based insights来自s6生产规范，未说明当前适用条件。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A"
+      ],
+      [
+        "B"
+      ]
+    ],
+    "note": "reference三方向均有明确用户依据。A较优因避免表面专属范围误用和跨任务推广，不因引用格式或篇幅。助手语义意见，非officialgrader；未推断模型类型。"
+  },
+  {
+    "id": "66fa898caa65482b7d5855b7",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "original_content_retained": "保留简洁bullet points、不用动画及避免复杂转场；s2:t3/t5、s3:t3/t5支持。logical organization保留组织方向，但不是严格线性。",
+        "scope_or_strength_errors": "引用均为当前源文用户消息且归属正确。将Prezi反思停顿、Canvas离线访问和旧时长限定到原任务，范围表述审慎。没有从当前未要求推导为不允许。"
+      },
+      "B": {
+        "target_content": "partial",
+        "original_content_retained": "保留bullet points、无动画/复杂转场和logical flow；严格线性没有明确表达。",
+        "scope_or_strength_errors": "将Prezi的反思停顿直接概括为当前展示偏好，迁移有同类教学用途依据但范围不如A明确；开头consistently educational materials也比已见Google Slides限定更广。无明显反向内容；不把引用到s4/s5本身判错。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "B"
+      ]
+    ],
+    "note": "reference的严格linear progression强于可见原话的clear/logical flow；后者不排除分支或关联结构。两臂主要内容保留相当；B的停顿是合理但未明确必需的跨展示迁移，尚不足以判实质质量劣势，故并列。助手语义意见，非officialgrader；未推断模型类型。"
+  }
+]

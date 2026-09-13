@@ -1,0 +1,41 @@
+{
+  "protocol": "cupid-contextual-feedback-v1-preparation",
+  "dataset_revision": "f6e5fdae9b31f2b400d6ceb281a6a6760cc00309",
+  "source_commit": "a8560cab293ae98be4fe260689d58bddf96b51ef",
+  "parquet_sha256": "6d68af09f7fbe52df0a3bd621604104696d0f481f166be5c06dd65bbb089aaae",
+  "rows": 756,
+  "personas": 252,
+  "instance_types": {
+    "contrastive": 252,
+    "changing": 252,
+    "consistent": 252
+  },
+  "split_events": {
+    "development": 378,
+    "validation": 378
+  },
+  "development_personas": 126,
+  "validation_personas": 126,
+  "sessions_per_observation": {
+    "8": 756
+  },
+  "message_count_min_max": [
+    32,
+    129
+  ],
+  "message_roles_including_variant_reuse": {
+    "user": 23546,
+    "assistant": 17536
+  },
+  "unique_session_contents": 3024,
+  "cross_split_identical_sessions": 0,
+  "smoke_development_ids": [
+    "cf9bccf940830e1b46b5585b",
+    "b86d183e67193d0da3ef8a10",
+    "db69edb1fcdc395195edc070",
+    "8151189fd6201a45030cc36c",
+    "0c1367a83692ce6a457817c7",
+    "333e68be5a55f20315b32297"
+  ],
+  "scope": "Official public simulated/human-curated data; no model run, B quality or learning result."
+}

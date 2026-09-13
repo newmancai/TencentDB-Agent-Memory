@@ -1,0 +1,38 @@
+{"id": "dialog_1:2", "prediction": ["R1", "R2"], "text": "ACTIVE: [\"R1\", \"R2\"]", "inputTokens": 325, "outputTokens": 11, "elapsedMs": 614.4001691136509, "error": null}
+{"id": "dialog_1:3", "prediction": ["R1", "R2", "R3"], "text": "ACTIVE: [\"R1\", \"R2\", \"R3\"]", "inputTokens": 359, "outputTokens": 15, "elapsedMs": 428.00694494508207, "error": null}
+{"id": "dialog_1:4", "prediction": ["R3"], "text": "ACTIVE: [\"R3\"]", "inputTokens": 342, "outputTokens": 7, "elapsedMs": 211.00607910193503, "error": null}
+{"id": "dialog_1:6", "prediction": ["R5"], "text": "ACTIVE: [\"R5\"]", "inputTokens": 436, "outputTokens": 7, "elapsedMs": 223.58783008530736, "error": null}
+{"id": "dialog_1:7", "prediction": ["R5", "R6"], "text": "ACTIVE: [\"R5\", \"R6\"]", "inputTokens": 447, "outputTokens": 11, "elapsedMs": 325.7256750948727, "error": null}
+{"id": "dialog_1:8", "prediction": ["R6", "R7"], "text": "ACTIVE: [\"R6\", \"R7\"]", "inputTokens": 510, "outputTokens": 11, "elapsedMs": 332.45945000089705, "error": null}
+{"id": "dialog_1:10", "prediction": ["R6", "R8"], "text": "ACTIVE: [\"R6\", \"R8\"]", "inputTokens": 565, "outputTokens": 11, "elapsedMs": 350.67075304687023, "error": null}
+{"id": "dialog_1:11", "prediction": ["R3", "R6", "R8", "R9"], "text": "ACTIVE: [\"R3\", \"R6\", \"R8\", \"R9\"]", "inputTokens": 612, "outputTokens": 19, "elapsedMs": 560.3115980047733, "error": null}
+{"id": "dialog_1:12", "prediction": ["R10", "R3", "R6", "R8", "R9"], "text": "ACTIVE: [\"R3\", \"R6\", \"R8\", \"R9\", \"R10\"]", "inputTokens": 659, "outputTokens": 24, "elapsedMs": 694.350055186078, "error": null}
+{"id": "dialog_1:13", "prediction": ["R10", "R11", "R3", "R6", "R8"], "text": "ACTIVE: [\"R10\", \"R3\", \"R6\", \"R8\", \"R11\"]", "inputTokens": 711, "outputTokens": 25, "elapsedMs": 729.6259130816907, "error": null}
+{"id": "dialog_1:15", "prediction": ["R12", "R6", "R7"], "text": "ACTIVE: [\"R6\", \"R7\", \"R12\"]", "inputTokens": 735, "outputTokens": 16, "elapsedMs": 511.48628001101315, "error": null}
+{"id": "dialog_1:16", "prediction": ["R12", "R13", "R6"], "text": "ACTIVE: [\"R6\", \"R12\", \"R13\"]", "inputTokens": 783, "outputTokens": 17, "elapsedMs": 535.7962341513485, "error": null}
+{"id": "dialog_1:17", "prediction": ["R13", "R14"], "text": "ACTIVE: [\"R13\", \"R14\"]", "inputTokens": 822, "outputTokens": 13, "elapsedMs": 441.4658311288804, "error": null}
+{"id": "dialog_1:18", "prediction": ["R1", "R14"], "text": "ACTIVE: [\"R1\", \"R14\"]", "inputTokens": 842, "outputTokens": 12, "elapsedMs": 427.1746489685029, "error": null}
+{"id": "dialog_1:20", "prediction": ["R1", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9"], "text": "ACTIVE: [\"R1\", \"R2\", \"R3\", \"R4\", \"R5\", \"R6\", \"R7\", \"R8\", \"R9\", \"R10\", \"R11\", \"R12\", \"R13\", \"R14\", \"R15\", \"R16\"]", "inputTokens": 937, "outputTokens": 74, "elapsedMs": 1994.820527965203, "error": null}
+{"id": "dialog_1:21", "prediction": ["R10", "R11", "R15", "R16", "R17", "R3", "R6", "R8"], "text": "ACTIVE: [\"R10\", \"R11\", \"R15\", \"R16\", \"R3\", \"R6\", \"R8\", \"R17\"]", "inputTokens": 947, "outputTokens": 40, "elapsedMs": 1131.567263044417, "error": null}
+{"id": "dialog_1:22", "prediction": ["R10", "R11", "R15", "R16", "R17", "R3", "R6", "R8"], "text": "ACTIVE: [\"R10\", \"R11\", \"R15\", \"R16\", \"R17\", \"R3\", \"R6\", \"R8\"]", "inputTokens": 953, "outputTokens": 40, "elapsedMs": 1143.5274111572653, "error": null}
+{"id": "dialog_1:24", "prediction": ["R18", "R19"], "text": "ACTIVE: [\"R18\", \"R19\"]", "inputTokens": 1029, "outputTokens": 13, "elapsedMs": 489.74044201895595, "error": null}
+{"id": "dialog_1:25", "prediction": ["R18", "R19", "R20"], "text": "ACTIVE: [\"R18\", \"R19\", \"R20\"]", "inputTokens": 1052, "outputTokens": 18, "elapsedMs": 612.5562428496778, "error": null}
+{"id": "dialog_1:26", "prediction": ["R20"], "text": "ACTIVE: [\"R20\"]", "inputTokens": 1070, "outputTokens": 8, "elapsedMs": 359.4900269526988, "error": null}
+{"id": "dialog_1:28", "prediction": ["R21", "R22"], "text": "ACTIVE: [\"R21\", \"R22\"]", "inputTokens": 1182, "outputTokens": 13, "elapsedMs": 495.5515000037849, "error": null}
+{"id": "dialog_1:29", "prediction": ["R22"], "text": "ACTIVE: [\"R22\"]", "inputTokens": 1164, "outputTokens": 8, "elapsedMs": 360.4667920153588, "error": null}
+{"id": "dialog_1:30", "prediction": ["R17"], "text": "ACTIVE: [\"R17\"]", "inputTokens": 1131, "outputTokens": 8, "elapsedMs": 360.32563215121627, "error": null}
+{"id": "dialog_1:32", "prediction": ["R1", "R13", "R14", "R23", "R24"], "text": "ACTIVE: [\"R1\", \"R13\", \"R14\", \"R23\", \"R24\"]", "inputTokens": 1255, "outputTokens": 27, "elapsedMs": 862.7171039115638, "error": null}
+{"id": "dialog_1:33", "prediction": ["R1", "R13", "R14", "R23", "R24", "R25"], "text": "ACTIVE: [\"R1\", \"R13\", \"R14\", \"R23\", \"R24\", \"R25\"]", "inputTokens": 1314, "outputTokens": 32, "elapsedMs": 1012.7977861557156, "error": null}
+{"id": "dialog_1:34", "prediction": ["R1", "R13", "R14", "R24", "R25", "R26"], "text": "ACTIVE: [\"R1\", \"R13\", \"R14\", \"R24\", \"R25\", \"R26\"]", "inputTokens": 1342, "outputTokens": 32, "elapsedMs": 996.1498510092497, "error": null}
+{"id": "dialog_1:36", "prediction": ["R17", "R22"], "text": "ACTIVE: [\"R17\", \"R22\"]", "inputTokens": 1313, "outputTokens": 13, "elapsedMs": 529.0038860403001, "error": null}
+{"id": "dialog_1:37", "prediction": ["R17", "R22"], "text": "ACTIVE: [\"R17\", \"R22\"]", "inputTokens": 1311, "outputTokens": 13, "elapsedMs": 519.9669529683888, "error": null}
+{"id": "dialog_1:38", "prediction": ["R17", "R22", "R27"], "text": "ACTIVE: [\"R17\", \"R22\", \"R27\"]", "inputTokens": 1356, "outputTokens": 18, "elapsedMs": 642.5051530823112, "error": null}
+{"id": "dialog_1:40", "prediction": ["R28"], "text": "ACTIVE: [\"R28\"]", "inputTokens": 1375, "outputTokens": 8, "elapsedMs": 391.31079497747123, "error": null}
+{"id": "dialog_1:41", "prediction": ["R28", "R29"], "text": "ACTIVE: [\"R28\", \"R29\"]", "inputTokens": 1423, "outputTokens": 13, "elapsedMs": 526.7604170367122, "error": null}
+{"id": "dialog_1:42", "prediction": ["R28", "R29", "R30"], "text": "ACTIVE: [\"R28\", \"R29\", \"R30\"]", "inputTokens": 1459, "outputTokens": 18, "elapsedMs": 660.5847340542823, "error": null}
+{"id": "dialog_1:44", "prediction": ["R18", "R20", "R31", "R32"], "text": "ACTIVE: [\"R18\", \"R20\", \"R31\", \"R32\"]", "inputTokens": 1587, "outputTokens": 23, "elapsedMs": 808.4599301218987, "error": null}
+{"id": "dialog_1:45", "prediction": ["R20", "R31", "R32"], "text": "ACTIVE: [\"R20\", \"R31\", \"R32\"]", "inputTokens": 1582, "outputTokens": 18, "elapsedMs": 694.5386088918895, "error": null}
+{"id": "dialog_1:46", "prediction": ["R20", "R31", "R32", "R33"], "text": "ACTIVE: [\"R20\", \"R31\", \"R32\", \"R33\"]", "inputTokens": 1628, "outputTokens": 23, "elapsedMs": 808.5453610401601, "error": null}
+{"id": "dialog_1:48", "prediction": ["R17", "R28", "R29", "R30", "R34"], "text": "ACTIVE: [\"R17\", \"R28\", \"R29\", \"R30\", \"R34\"]", "inputTokens": 1630, "outputTokens": 28, "elapsedMs": 932.2384849656373, "error": null}
+{"id": "dialog_1:49", "prediction": ["R17", "R28", "R29", "R34", "R35"], "text": "ACTIVE: [\"R17\", \"R28\", \"R29\", \"R34\", \"R35\"]", "inputTokens": 1711, "outputTokens": 28, "elapsedMs": 967.9774229880422, "error": null}
+{"id": "dialog_1:50", "prediction": ["R17", "R28", "R29", "R34", "R35"], "text": "ACTIVE: [\"R17\", \"R28\", \"R29\", \"R34\", \"R35\"]", "inputTokens": 1708, "outputTokens": 28, "elapsedMs": 976.8892608117312, "error": null}

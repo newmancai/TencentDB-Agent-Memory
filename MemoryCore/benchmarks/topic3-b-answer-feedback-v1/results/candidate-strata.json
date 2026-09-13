@@ -1,0 +1,14 @@
+{
+  "uncapped": {
+    "tasks": 5,
+    "active_failure": 3,
+    "inactive_failure": 72,
+    "checker_unknown": 0
+  },
+  "capped": {
+    "tasks": 5,
+    "active_failure": 15,
+    "inactive_failure": 64,
+    "checker_unknown": 0
+  }
+}

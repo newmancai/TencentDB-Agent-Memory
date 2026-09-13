@@ -1,0 +1,28 @@
+{
+  "groups": [
+    "214+etymologist",
+    "26+nutritionist",
+    "103+professional_genealogist",
+    "248+physical_education_teacher"
+  ],
+  "excluded_personas": 14,
+  "ids": [
+    "a4ad44aa2a74987d4b951a2e",
+    "81bb9b507d1f7d570d3a8cca",
+    "984796e36e273d1487512c65",
+    "0d97ade0687d8766d606a16e",
+    "0b374d6c26956b171ee960bd",
+    "fd7f9450ff190ff48ea32301",
+    "ea982ac2f32e73e69f8b9ee8",
+    "889b30439d7bbe52a97429fc",
+    "29b1de5b660fe91e6f34c755",
+    "2cf0398c893f648c327f9ddb",
+    "60b5fee3ec380ed2f33e9a2a",
+    "a0055a92d458ff1d42ed1268"
+  ],
+  "training_ids": [
+    "b2f17518ddd41beab6ec6740",
+    "5c399dd70556b311c35d0413"
+  ],
+  "scope": "new development personas, validation not used"
+}

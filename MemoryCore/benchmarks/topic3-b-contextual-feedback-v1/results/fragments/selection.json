@@ -1,0 +1,28 @@
+{
+  "groups": [
+    "125+meteorologist",
+    "148+real_estate_developer",
+    "169+novelist",
+    "230+horticulturist"
+  ],
+  "excluded_personas": 18,
+  "ids": [
+    "a3f326f57861bd0ad5fdde98",
+    "6c24299f6b507d58e53ca08b",
+    "1235e61189c74407b5d9cfd9",
+    "b41b66bacc271eaabb6dae9c",
+    "37d27998519aa310c171f84d",
+    "33cd8e932f9d086ea26a6168",
+    "20b9fd1b2597b4f96c27368f",
+    "8d60876aa03d7d58833852b0",
+    "68f173fa0fae68377c0d1666",
+    "7979cd828318cc3aea5cc746",
+    "8b301f72d2c6c56175892c42",
+    "9ea51d20851d590aae8bcf4e"
+  ],
+  "training_ids": [
+    "b2f17518ddd41beab6ec6740",
+    "5c399dd70556b311c35d0413"
+  ],
+  "scope": "new development personas; no validation inference"
+}

@@ -1,0 +1,368 @@
+{
+  "four_arm_common_pairs": 174,
+  "arms": {
+    "detector_linked": {
+      "total": 200,
+      "covered": 200,
+      "tp": 5,
+      "fp": 56,
+      "fn": 45,
+      "tn": 94,
+      "precision": 0.08196721311475409,
+      "recall": 0.1,
+      "balanced_accuracy": 0.36333333333333334,
+      "categories": {
+        "1": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 10,
+          "fn": 0,
+          "tn": 40,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "2": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 42,
+          "fn": 0,
+          "tn": 8,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "4": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 4,
+          "fn": 0,
+          "tn": 46,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "5": {
+          "total": 50,
+          "covered": 50,
+          "tp": 5,
+          "fp": 0,
+          "fn": 45,
+          "tn": 0,
+          "precision": 1.0,
+          "recall": 0.1,
+          "balanced_accuracy": null
+        }
+      }
+    },
+    "detector_sessions": {
+      "total": 200,
+      "covered": 174,
+      "tp": 0,
+      "fp": 22,
+      "fn": 49,
+      "tn": 103,
+      "precision": 0.0,
+      "recall": 0.0,
+      "balanced_accuracy": 0.412,
+      "categories": {
+        "1": {
+          "total": 50,
+          "covered": 26,
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "tn": 24,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "2": {
+          "total": 50,
+          "covered": 49,
+          "tp": 0,
+          "fp": 20,
+          "fn": 0,
+          "tn": 29,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "4": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 50,
+          "precision": null,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "5": {
+          "total": 50,
+          "covered": 49,
+          "tp": 0,
+          "fp": 0,
+          "fn": 49,
+          "tn": 0,
+          "precision": null,
+          "recall": 0.0,
+          "balanced_accuracy": null
+        }
+      }
+    },
+    "semantic_linked": {
+      "total": 200,
+      "covered": 200,
+      "tp": 37,
+      "fp": 42,
+      "fn": 13,
+      "tn": 108,
+      "precision": 0.46835443037974683,
+      "recall": 0.74,
+      "balanced_accuracy": 0.73,
+      "categories": {
+        "1": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 10,
+          "fn": 0,
+          "tn": 40,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "2": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 25,
+          "fn": 0,
+          "tn": 25,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "4": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "tn": 43,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "5": {
+          "total": 50,
+          "covered": 50,
+          "tp": 37,
+          "fp": 0,
+          "fn": 13,
+          "tn": 0,
+          "precision": 1.0,
+          "recall": 0.74,
+          "balanced_accuracy": null
+        }
+      }
+    },
+    "semantic_sessions": {
+      "total": 200,
+      "covered": 174,
+      "tp": 41,
+      "fp": 37,
+      "fn": 8,
+      "tn": 88,
+      "precision": 0.5256410256410257,
+      "recall": 0.8367346938775511,
+      "balanced_accuracy": 0.7703673469387755,
+      "categories": {
+        "1": {
+          "total": 50,
+          "covered": 26,
+          "tp": 0,
+          "fp": 6,
+          "fn": 0,
+          "tn": 20,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "2": {
+          "total": 50,
+          "covered": 49,
+          "tp": 0,
+          "fp": 28,
+          "fn": 0,
+          "tn": 21,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "4": {
+          "total": 50,
+          "covered": 50,
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "tn": 47,
+          "precision": 0.0,
+          "recall": null,
+          "balanced_accuracy": null
+        },
+        "5": {
+          "total": 50,
+          "covered": 49,
+          "tp": 41,
+          "fp": 0,
+          "fn": 8,
+          "tn": 0,
+          "precision": 1.0,
+          "recall": 0.8367346938775511,
+          "balanced_accuracy": null
+        }
+      }
+    }
+  },
+  "common_arms": {
+    "detector_linked": {
+      "total": 174,
+      "covered": 174,
+      "tp": 5,
+      "fp": 50,
+      "fn": 44,
+      "tn": 75,
+      "precision": 0.09090909090909091,
+      "recall": 0.10204081632653061,
+      "balanced_accuracy": 0.3510204081632653
+    },
+    "detector_sessions": {
+      "total": 174,
+      "covered": 174,
+      "tp": 0,
+      "fp": 22,
+      "fn": 49,
+      "tn": 103,
+      "precision": 0.0,
+      "recall": 0.0,
+      "balanced_accuracy": 0.412
+    },
+    "semantic_linked": {
+      "total": 174,
+      "covered": 174,
+      "tp": 36,
+      "fp": 34,
+      "fn": 13,
+      "tn": 91,
+      "precision": 0.5142857142857142,
+      "recall": 0.7346938775510204,
+      "balanced_accuracy": 0.7313469387755103
+    },
+    "semantic_sessions": {
+      "total": 174,
+      "covered": 174,
+      "tp": 41,
+      "fp": 37,
+      "fn": 8,
+      "tn": 88,
+      "precision": 0.5256410256410257,
+      "recall": 0.8367346938775511,
+      "balanced_accuracy": 0.7703673469387755
+    }
+  },
+  "scope_common_arms": {
+    "detector_linked": {
+      "total": 200,
+      "covered": 200,
+      "tp": 5,
+      "fp": 56,
+      "fn": 45,
+      "tn": 94,
+      "precision": 0.08196721311475409,
+      "recall": 0.1,
+      "balanced_accuracy": 0.36333333333333334
+    },
+    "detector_sessions": {
+      "total": 174,
+      "covered": 174,
+      "tp": 0,
+      "fp": 22,
+      "fn": 49,
+      "tn": 103,
+      "precision": 0.0,
+      "recall": 0.0,
+      "balanced_accuracy": 0.412
+    },
+    "semantic_linked": {
+      "total": 200,
+      "covered": 200,
+      "tp": 37,
+      "fp": 42,
+      "fn": 13,
+      "tn": 108,
+      "precision": 0.46835443037974683,
+      "recall": 0.74,
+      "balanced_accuracy": 0.73
+    },
+    "semantic_sessions": {
+      "total": 174,
+      "covered": 174,
+      "tp": 41,
+      "fp": 37,
+      "fn": 8,
+      "tn": 88,
+      "precision": 0.5256410256410257,
+      "recall": 0.8367346938775511,
+      "balanced_accuracy": 0.7703673469387755
+    }
+  },
+  "cost": {
+    "detector_linked": {
+      "reused_from_previous_run": true,
+      "forwards": 200,
+      "tokens": 38707,
+      "seconds": 3.9423791526351124
+    },
+    "detector_sessions": {
+      "reused_from_previous_run": false,
+      "forwards": 174,
+      "tokens": 356763,
+      "seconds": 17.416846187552437
+    },
+    "semantic_linked": {
+      "reused_from_previous_run": false,
+      "forwards": 200,
+      "tokens": 62274,
+      "seconds": 11.563880742294714
+    },
+    "semantic_sessions": {
+      "reused_from_previous_run": false,
+      "forwards": 174,
+      "tokens": 390109,
+      "seconds": 58.90653718006797
+    }
+  },
+  "paired": {
+    "linked": {
+      "semantic_win": 58,
+      "semantic_loss": 12,
+      "tie": 130
+    },
+    "sessions": {
+      "semantic_win": 49,
+      "semantic_loss": 23,
+      "tie": 102
+    }
+  },
+  "semantic_letter_mass": {
+    "min": 0.2634386718273163,
+    "median": 0.9999783039093018,
+    "max": 1.0
+  }
+}

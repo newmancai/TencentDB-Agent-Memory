@@ -1,0 +1,41 @@
+{
+  "authority": "assistant_judgment_not_official",
+  "blinded": false,
+  "rows": [
+    {
+      "id": "conv-43:40::sessions",
+      "relation": "insufficient",
+      "evidence_ids": [
+        "D14:14",
+        "D14:16"
+      ],
+      "reason": "明确去了Smoky Mountains；将山脉地点映射到州需要额外地理知识。query含north carolina但搜索query不是参与者关于行程的陈述。来源允许范围不明，不能直接当模型错。"
+    },
+    {
+      "id": "conv-47:53::sessions",
+      "relation": "insufficient",
+      "evidence_ids": [
+        "D6:2",
+        "D27:2",
+        "D27:6"
+      ],
+      "reason": "April已创造virtual world，October首次发布游戏；约六个月是两次叙述间隔，并未明确开发开始时间或两作品完全相同，严格完成耗时仍不足。"
+    },
+    {
+      "id": "conv-48:50::sessions",
+      "relation": "supported",
+      "evidence_ids": [
+        "D13:17"
+      ],
+      "reason": "2023-06时间戳与约三年瑜伽经历支持约2020年开始；按普通年份级回答可接受，不代表精确日期证实。模型可能过度严格或时间推理失败。"
+    },
+    {
+      "id": "conv-44:59::sessions",
+      "relation": "insufficient",
+      "evidence_ids": [
+        "D12:1"
+      ],
+      "reason": "July新收养Toby到November约四个月可推；包内未证实Toby是first pet，也未精确收养日。若任务接受首次宠物与月份近似则答案合理，当前完整主张的范围合同需澄清。"
+    }
+  ]
+}
