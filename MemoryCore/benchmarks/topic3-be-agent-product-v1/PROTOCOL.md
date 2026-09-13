@@ -16,7 +16,9 @@ may or may not apply. Include both:
 Each manifest task supplies a separate workspace for every arm; all four are
 fresh disposable worktrees at the same base commit and dependency setup. A
 `.agent-benchmark-worktree` marker is mandatory in every workspace. Hidden
-checker commands and expected outputs never enter the agent prompt.
+checker commands and expected outputs never enter the agent prompt. The runner
+rejects tracked pre-run changes and records the base commit plus the agent's
+post-run porcelain status for every arm.
 
 ## Arms
 
@@ -38,8 +40,9 @@ scope. It must not contain hidden checks or final patches.
 ## Execution and scoring
 
 `agent_product_runner.py` runs one task per disposable workspace. It never uses a
-dangerous permission-bypass flag. After the agent exits or times out, it runs the
-manifest's argv-form checker and records:
+dangerous permission-bypass flag. Default arm order rotates by task to reduce
+sequence bias. After the agent exits or times out, it runs the manifest's
+argv-form checker and records:
 
 - agent/checker completion and return codes;
 - checker pass/fail and severe-regression flag;
@@ -47,6 +50,10 @@ manifest's argv-form checker and records:
 - reported cost when exposed;
 - agent and checker wall time;
 - mode, backend, model, task and whether memory context was injected.
+- base commit and agent-created workspace changes.
+
+Checker timeouts are explicit failures. Receipts are replaced atomically after
+every arm so interruption cannot leave a partially written JSONL file.
 
 Primary metric is paired checker utility: memory-arm wins minus losses inside
 each backend. Report success rate, severe regressions, p50/p95 latency and added
