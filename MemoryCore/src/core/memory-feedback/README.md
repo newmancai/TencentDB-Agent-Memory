@@ -97,6 +97,11 @@ with the same key and exact scope; other scopes remain intact. Historical querie
 and explicit retractions retain the original source, and retracting a replacement
 does not silently restore its predecessor.
 
+The selected view also includes `predecessorEvidence` for a bound update chain,
+explicitly marked historical. This preserves the referent of updates such as
+"everything else stays unchanged" without reactivating old defaults. A chain is
+one budget unit; broken lineage falls back with no partially selected IDs.
+
 This is an opt-in, single-writer, bounded state machine, not a semantic truth
 verifier. Quote, identity and lineage checks do not prove a model's scope or key
 judgment. Tool output cannot create normative constraints. The default capacity

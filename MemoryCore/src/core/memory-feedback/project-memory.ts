@@ -199,8 +199,25 @@ export class ProjectMemory {
       rules.sort((a, b) => b.order - a.order || a.id.localeCompare(b.id));
       const lines: string[] = [];
       for (const rule of rules) {
+        // "The other rules are unchanged" needs its predecessor to be readable.
+        // Preserve that source as historical evidence, never reactivate it.
+        const predecessors: { status: 'historical'; sourceId: string; order: number; userQuote: string }[] = [];
+        const seen = new Set([rule.id]);
+        let child = rule;
+        while (child.supersedes) {
+          const parent = state.constraints.find(item => item.id === child.supersedes);
+          if (!parent || seen.has(parent.id) || parent.order >= child.order
+            || parent.key !== child.key || !sameScope(parent.scope, child.scope)) {
+            throw Error('invalid project constraint lineage');
+          }
+          seen.add(parent.id);
+          predecessors.push({ status: 'historical', sourceId: parent.sourceId,
+            order: parent.order, userQuote: parent.quote });
+          child = parent;
+        }
         const line = JSON.stringify({ id: rule.id, key: rule.key, scope: rule.scope,
-          sourceId: rule.sourceId, order: rule.order, userQuote: rule.quote });
+          sourceId: rule.sourceId, order: rule.order, userQuote: rule.quote,
+          ...(predecessors.length ? { predecessorEvidence: predecessors.reverse() } : {}) });
         if (Buffer.byteLength([...lines, line].join('\n')) > budget) {
           result.omittedForBudget++;
           continue;
@@ -209,7 +226,8 @@ export class ProjectMemory {
       }
       return { ...result, text: lines.join('\n'), revision: state.revision, status: 'selected' as const };
     } catch (error) {
-      return { ...result, status: 'fallback' as const, reason: String(error) };
+      return { ...result, text: '', selectedIds: [], omittedForBudget: 0,
+        status: 'fallback' as const, reason: String(error) };
     }
   }
 }

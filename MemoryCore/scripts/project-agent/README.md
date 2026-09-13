@@ -40,6 +40,8 @@ python scripts/project-agent/project_agent.py \
 被拒绝时，保存原话供普通读取，不写入部分约束。它不把测试输出升格为用户命令，也不自动把
 “测试失败”解释成某条记忆应失效。读取 `context` 后可用 `retract CONSTRAINT_ID '撤销原因'`
 显式撤回某条约束，旧版本仍可在历史中查看。
+已绑定更新链的前任引文会标为 historical 一并供查阅，使“其余不变”有前文可追溯；
+它们不会重新变为当前有效规则。
 
 `record` 只保存原话，不调用模型，适合普通历史基线及无需结构化的消息。
 模型原始事件实时写入 `runs/.../agent/stdout.jsonl`，无需等任务结束才能查看。

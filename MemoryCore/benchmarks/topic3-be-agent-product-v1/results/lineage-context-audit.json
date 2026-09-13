@@ -1,0 +1,50 @@
+[
+  {
+    "project": "more-itertools",
+    "status": "selected",
+    "active_ids": [
+      "d1cd68edc7069f2f000b0d68a9c5940bbc17562c23b4d08215092447c90cb54f"
+    ],
+    "current_quote": "Correction for future edits in more_itertools/more.py: strict_chunked now defaults back to strict=False, replacing strict=True; the name does not mandate its default. strict_chunked_map delegates to strict_chunked. compatible_chunked and existing APIs are unchanged.",
+    "predecessor_evidence": [
+      {
+        "status": "historical",
+        "sourceId": "85d62fb566af46218c217e6ce972dee1",
+        "order": 1,
+        "userQuote": "For future edits in more_itertools/more.py, new strict_chunked and compatible_chunked wrappers both default to strict=False. They must delegate to chunked, remain lazy, require positive n and honor explicit strict overrides."
+      },
+      {
+        "status": "historical",
+        "sourceId": "158f832986af43678d8b1713bb4a37dd",
+        "order": 2,
+        "userQuote": "Correction for future edits in more_itertools/more.py: strict_chunked defaults to strict=True instead of False. compatible_chunked and existing chunked and sliced APIs must retain their previous defaults. This is a wrapper-specific change."
+      }
+    ],
+    "observation_count": 9,
+    "scope": "post-pilot read-only component audit; no new coding or quality score"
+  },
+  {
+    "project": "packaging",
+    "status": "selected",
+    "active_ids": [
+      "f7112e5e39fa3568c4a807d104f876b149c91dab25443d3de60536e6d0fe057a"
+    ],
+    "current_quote": "Correction for future edits in src/packaging/utils.py: project_version now defaults to strip_trailing_zero=True again; its InvalidVersion rejection rule remains in force. project_versions delegates to project_version. compat_version and canonicalize_version remain unchanged.",
+    "predecessor_evidence": [
+      {
+        "status": "historical",
+        "sourceId": "2f7739b627994b9fb943d4e0aad0793d",
+        "order": 1,
+        "userQuote": "For future edits in src/packaging/utils.py, project_version and compat_version both default to strip_trailing_zero=True and pass invalid strings through, matching canonicalize_version. Explicit False must be preserved."
+      },
+      {
+        "status": "historical",
+        "sourceId": "1aa8cac4dd424cd5ac469ef59590e02c",
+        "order": 2,
+        "userQuote": "Correction for future edits in src/packaging/utils.py: project_version defaults to strip_trailing_zero=False and must reject invalid strings with InvalidVersion. These replace its previous policies. compat_version and the existing canonicalize_version API retain their original policies."
+      }
+    ],
+    "observation_count": 9,
+    "scope": "post-pilot read-only component audit; no new coding or quality score"
+  }
+]
