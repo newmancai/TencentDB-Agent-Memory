@@ -1,0 +1,98 @@
+[
+  {
+    "id": "6c50c6b8631b2896ab4fc5c8",
+    "content_preserved": "partial",
+    "material_overreach": "yes",
+    "note": "保留不同水平和自主进度要求，但遗漏t5对案例/项目学习的明确肯定，并将改造这些活动改写为beyond case studies and project-based learning；t5未要求换用其他方法。tiered是模型提出的实现方式，不是用户指定。"
+  },
+  {
+    "id": "03ffd4ebbafe6b32c776036f",
+    "content_preserved": "yes",
+    "material_overreach": "yes",
+    "note": "t5对结构化、掌握基础后进阶和准备充分的肯定均保留，也正确说没有新修改要求；末句将用户肯定升级为framework integrity and pedagogical soundness的验证，prefix没有教学成效或独立质量证据。"
+  },
+  {
+    "id": "d388aa45ec4db2a604e9b385",
+    "content_preserved": "partial",
+    "material_overreach": "yes",
+    "note": "抓住t9继续传统化、特别检查宣传和收入措辞，但遗漏对已有术语改进的肯定。将performer/bulletin boards认作古典术语，并建议public notice等作为传统等价词，均非用户提供；without modern business or financial terminology比用户要求排除现代表达更宽，可能改变实质含义。"
+  },
+  {
+    "id": "ebbff0cf44fd0adcaf19e738",
+    "content_preserved": "partial",
+    "material_overreach": "no",
+    "note": "正确定位t5要求从编号条文改为连续叙事传统格式；遗漏编号结构是一步改进的部分肯定。关于传统真实性可理解为用户追求的风格目标，不能当已完成的历史语言验证；未臆造具体替代内容。"
+  },
+  {
+    "id": "1f3f1a4ac62726955bcf8947",
+    "content_preserved": "yes",
+    "material_overreach": "no",
+    "note": "保留t3对Copulationsregister/Birth Register的质疑及现代化但忠实原意的要求。likely marriage register是明确标为推测的解释，且t1/t2婚姻语境提供支持；不是用户直接给出的译词。末句not modern assumptions不应理解成撤回术语现代化要求。"
+  },
+  {
+    "id": "5fc638c4b2ec9db710a57d03",
+    "content_preserved": "partial",
+    "material_overreach": "no",
+    "note": "只重述t5此前脚注修改要求，忽略本事件最后t7已经肯定译文准确、忠实且无多余解释；t6已给编号脚注。将历史请求当当前尚需修改，丢失反馈阶段，但没有断言外部事实已核验。not asterisk比用户原话更具体。"
+  },
+  {
+    "id": "29bb0ac07daab3eac7abb15f",
+    "content_preserved": "yes",
+    "material_overreach": "no",
+    "note": "保留t3要求更具体指导视觉和数据准确性的核心，关联t1道路长度、宽度合理；未声称已有地图某处错误。需要验证的方向不是已经验证成功；实际地图缺失使精确错误位置仍不可定位。"
+  },
+  {
+    "id": "b0b820b2f33438ab66448d53",
+    "content_preserved": "partial",
+    "material_overreach": "yes",
+    "note": "保留标准合规目标，但把t9在缺少直接资料时寻求具体步骤/联系途径，缩成再次寻求已获认证的确认。no such validation exists把t6/t8未找到资料升级为客观不存在；外部咨询也不是唯一已证明路径，不能把助手说法当验证结论。"
+  },
+  {
+    "id": "19c2d6d1a921e2bbb25ad203",
+    "content_preserved": "partial",
+    "material_overreach": "no",
+    "note": "保留t5把时间与天气明确对齐的要求，也使用t1真实时间。遗漏用户对天气已纳入分析的肯定。rain triggering shelter-seeking带因果措辞，但明确归于助手此前分析，并未采信t4新增植被地形为事实；本次不据此判实质事实越界。"
+  },
+  {
+    "id": "58a40460d3e26fbe84f48b7e",
+    "content_preserved": "yes",
+    "material_overreach": "no",
+    "note": "t7要求一致间隔和稳定流程完整保留；t6确实存在不等间隔。没有臆定15/30分钟或删除应急预案，也明确排除已验证的生物准确性；repeatable operations仅是目的概括。"
+  },
+  {
+    "id": "061c6b707854f9c0e9f689e8",
+    "content_preserved": "partial",
+    "material_overreach": "yes",
+    "note": "保留先运营困难后预算的次序，但将t5的认可重新叙述成请求，未清楚保留对不提财务建议的肯定。without proposing solutions扩大了absence of financial recommendations的范围；builds credibility、root causes并非用户给出的结论，尤其不能把运营困难认作削减预算的已证原因。"
+  },
+  {
+    "id": "a11c24a00f4806f443b2378a",
+    "content_preserved": "partial",
+    "material_overreach": "yes",
+    "note": "保留排除长期影响及明确范围，但遗漏t3对即时减额计算的肯定。先说next fiscal year又说strictly current fiscal year，与t1下一财政年度的任务边界不一致；即时人员/服务调整仅能是分析举例，不能当将发生的事实。"
+  },
+  {
+    "id": "f521dd11c269e3951c396aa4",
+    "content_preserved": "yes",
+    "material_overreach": "no",
+    "note": "保留t3对全面结构、专家咨询及先收集信息后决定的认可，且正确说无修改要求。全文以The user affirms开头、以plan is accepted收束，按用户接受判断解读，不据validates单词判客观认证；若下游将其变成协议合规真值则越界，prefix没有协议全文。"
+  },
+  {
+    "id": "258224e01ccdfc818cb40bb3",
+    "content_preserved": "partial",
+    "material_overreach": "no",
+    "note": "保留t3引用此前讨论/协议的要求，未编造任何具体协议内容；遗漏对现有专业语气的肯定。continuations rather than new initiatives偏强，应仅理解为衔接已有工作目的；也未提醒此前讨论内容在prefix缺失。"
+  },
+  {
+    "id": "d9f733f5face630815a1ba1c",
+    "content_preserved": "yes",
+    "material_overreach": "no",
+    "note": "保留t5对结构、关键细节及文化背景丰富性的认可，t1支持所举金属墨/印刷细节。The user confirms与The user’s view限定为用户判断，没有声称实际写入或软件字段经过验证；validates inclusion是认可纳入方式，不是外部事实认证。"
+  },
+  {
+    "id": "1ea2ca4f7f18f2f6c851478a",
+    "content_preserved": "partial",
+    "material_overreach": "no",
+    "note": "提取视觉/交互优先的内容基本有依据，但将最后t5对扩展方案的肯定写成新请求，遗漏时间与视觉平衡的认可。t4是助手方案而非用户请求，t3才是改变方向依据；没有说游戏/模拟器已经实现，不据建议内容本身判臆造能力。"
+  }
+]

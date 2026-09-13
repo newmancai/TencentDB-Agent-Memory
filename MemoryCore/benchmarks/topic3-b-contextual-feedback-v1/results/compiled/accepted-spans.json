@@ -1,0 +1,30 @@
+[
+  {
+    "id": "b2f17518ddd41beab6ec6740",
+    "decision": "accept",
+    "selection_source": "controlled teacher selection by assistant reviewer; not automatic semantic ground truth",
+    "quote": "The year-end summary should therefore present data with clear, precise facts while incorporating a compelling, evidence-based narrative that reflects the journey of discovery, aligning with user feedback on storytelling as a strength, not an optional addition.",
+    "start_char": 381,
+    "end_char": 641,
+    "supporting_user_message_ids": [
+      "s6:t3",
+      "s6:t5",
+      "s8:t3",
+      "s8:t5"
+    ],
+    "omissions_and_limits": "保留当前摘要必须结合精确事实与叙事、叙事非可选的核心；省略历史变化解释及原输出一般报告限定。片段自身未带消息ID，支持ID是审查者另附的定位，不是模型成功引用。"
+  },
+  {
+    "id": "5c399dd70556b311c35d0413",
+    "decision": "accept",
+    "selection_source": "controlled teacher selection by assistant reviewer; not automatic semantic ground truth",
+    "quote": "For the booth, focus should be on clear, inviting, and taste-driven messaging that resonates with customers, using familiar terms and emphasizing sensory experience—without technical farming language.",
+    "start_char": 435,
+    "end_char": 635,
+    "supporting_user_message_ids": [
+      "s4:t3",
+      "s7:t3"
+    ],
+    "omissions_and_limits": "保留味道、熟悉用语和排除技术农业语言；但熟悉用语未明确限为日常烹饪术语，因此不宣称该片段单独完整覆盖参考所有措辞。省略具体味道例子和适用性/受众未知的过强断言。片段自身没有引用，支持ID由审查者另附。"
+  }
+]

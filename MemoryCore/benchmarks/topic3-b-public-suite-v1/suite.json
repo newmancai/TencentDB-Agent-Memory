@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "asOf": "2026-09-13",
+  "protocol": "topic3-b-public-suite-v1",
+  "primary": "feedback-driven memory decisions for long coding tasks",
+  "outcomeRole": "E supplies verifier receipts; it is not a substitute objective",
+  "datasets": [
+    {
+      "id": "h6-failure-gate",
+      "status": "adapted",
+      "role": "primary_timing_and_repeated_failure",
+      "source": "https://huggingface.co/datasets/joshuaswarren/h6-failure-gate-tasks",
+      "revision": "20017969711c7c72c649d9e4d70a8df730ec6176",
+      "snapshotDate": "2026-08-13",
+      "license": "MIT",
+      "size": {"tasks": 30, "variants": 90, "pilotTasks": 12, "mainTasks": 18},
+      "independentRun": "checker_smoke_only"
+    },
+    {
+      "id": "agent-memory-bench",
+      "status": "adapted",
+      "role": "primary_execution_and_lifecycle",
+      "source": "https://github.com/GiulioDER/agent-memory-bench",
+      "revision": "e0859d1ca757f65747b4d32e21f158d55c595879",
+      "snapshotDate": "2026-09-12",
+      "corpus": {
+        "source": "https://huggingface.co/datasets/Gde05/agent-memory-bench-corpus",
+        "revision": "9599460b5a5fcf690a0b3758f570d9fdaf091224"
+      },
+      "license": "Apache-2.0",
+      "size": {"tasks": 34, "corpusSessions": 196, "failedApproachTasks": 1},
+      "independentRun": "one_task_four_arm_plus_observed_failure_replay"
+    },
+    {
+      "id": "validmem",
+      "status": "evaluated_method_validation",
+      "role": "lifecycle_current_history_supersession_expiry",
+      "source": "https://huggingface.co/datasets/Zhou11Alex/ValidMem",
+      "revision": "786d5cd9f18e65bff6172d81fcb7c9009350a400",
+      "snapshotDate": "2026-08-26",
+      "license": "CC-BY-4.0",
+      "size": {"cases": 466, "memories": 1393},
+      "independentRun": "codex_development_and_406_case_holdout_complete",
+      "result": "type-aware 387/406 vs plain 374/406; 15W/2L/389T"
+    },
+    {
+      "id": "automemorybench",
+      "status": "audit_before_use",
+      "role": "large_state_contract_stress",
+      "source": "https://huggingface.co/datasets/Multilingual-Multimodal-NLP/AutoMemoryBench",
+      "revision": "1c73d437904c116235c1421977b5d2cad47aa8fd",
+      "snapshotDate": "2026-08-20",
+      "license": "not_declared_in_hf_metadata",
+      "size": {"cases": 5760, "probes": 120960},
+      "independentRun": "not_run"
+    },
+    {
+      "id": "isetrace-memory-queries",
+      "status": "later",
+      "role": "exact_span_extraction_and_cross_project_generalization",
+      "source": "https://huggingface.co/datasets/HazeLocus/ISETrace-Memory-Queries",
+      "revision": "3130aeeaeb2b8d292c29f4c8e23303be7463732c",
+      "snapshotDate": "2026-08-25",
+      "license": "CC-BY-4.0",
+      "size": {"queries": 6597},
+      "independentRun": "not_run"
+    },
+    {
+      "id": "agent-memory-trigger-bench",
+      "status": "evaluated_method_validation",
+      "role": "trigger_and_memory_misuse_safety",
+      "source": "https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench",
+      "revision": "f64b921474c9d84d073a588ed13568e917275a1c",
+      "snapshotDate": "2026-08-30",
+      "license": "CC-BY-4.0 data; MIT code",
+      "size": {"microcases": 172},
+      "independentRun": "codex_development_and_140_case_memorycore_host_holdout_complete",
+      "result": "trigger-policy-v3 130/140 vs base-tools 112/140 full pass; 21W/3L/116T"
+    },
+    {
+      "id": "agent-artifact-corpus",
+      "status": "training_or_analysis_only",
+      "role": "bounded_rule_candidate_induction",
+      "source": "https://huggingface.co/datasets/searchsim/AgentArtifactCorpus",
+      "revision": "1d7892fc6dddc8a29bd8f8f31027580630453c59",
+      "snapshotDate": "2026-08-24",
+      "license": "CC-BY-4.0",
+      "independentRun": "not_run"
+    }
+  ]
+}

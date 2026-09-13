@@ -1,0 +1,252 @@
+{
+  "authority": "assistant judgment; not official gold",
+  "input_scope": "packets.json only; text, speaker and supplied neighbor dates; no external facts, images, mappings or other reviews",
+  "interpretation": "Labels assess the complete question-answer relationship; partial explicitly lists only supported subclaims. Unmentioned facts are not false. Ten source-stratified cases do not estimate population noise.",
+  "counts": {
+    "candidate_only": {
+      "full": 0,
+      "partial": 5,
+      "none": 5,
+      "conflict": 0
+    },
+    "with_neighbors": {
+      "full": 1,
+      "partial": 5,
+      "none": 4,
+      "conflict": 0
+    }
+  },
+  "judgments": [
+    {
+      "id": "audit-01",
+      "candidate_only": {
+        "label": "none",
+        "dia_ids": [
+          "D17:12"
+        ],
+        "supported_subclaims": [],
+        "rationale": "Melanie说上周画了一幅画，未建立Caroline与亲友导师见面的事件或日期。"
+      },
+      "with_neighbors": {
+        "label": "none",
+        "dia_ids": [
+          "D17:11",
+          "D17:12",
+          "D17:13"
+        ],
+        "supported_subclaims": [],
+        "rationale": "邻句仍讨论两人的绘画；2023年10月13日这个日期锚只涉及此对话及画作，不支持所问6月见面。不同事件的日期不是反驳证据。"
+      }
+    },
+    {
+      "id": "audit-02",
+      "candidate_only": {
+        "label": "partial",
+        "dia_ids": [
+          "D9:10"
+        ],
+        "supported_subclaims": [
+          "Gina有一个舞蹈比赛奖杯。"
+        ],
+        "rationale": "支持Gina在舞蹈比赛中获奖这一背景部分；未说明团队、第一名或舞蹈作品Finding Freedom。"
+      },
+      "with_neighbors": {
+        "label": "partial",
+        "dia_ids": [
+          "D9:9",
+          "D9:10",
+          "D9:11"
+        ],
+        "supported_subclaims": [
+          "Gina有一个舞蹈比赛奖杯。"
+        ],
+        "rationale": "邻句赞赏奖杯及讨论舞蹈，没有补齐作品名称、团队或名次。"
+      }
+    },
+    {
+      "id": "audit-03",
+      "candidate_only": {
+        "label": "none",
+        "dia_ids": [
+          "D18:5"
+        ],
+        "supported_subclaims": [],
+        "rationale": "这是Maria自己的登顶徒步体验，不能移接为John与同事做过的活动。"
+      },
+      "with_neighbors": {
+        "label": "partial",
+        "dia_ids": [
+          "D18:4"
+        ],
+        "supported_subclaims": [
+          "John说自己与未指明身份的同行者到达了顶部，并感到艰难而美好。"
+        ],
+        "rationale": "John的we made it to the top提供户外登高相关部分，但没有指明同行者为同事，也没有明确列出John的hiking和mountaineering两种活动；Maria的徒步仍不能转给John。"
+      }
+    },
+    {
+      "id": "audit-04",
+      "candidate_only": {
+        "label": "none",
+        "dia_ids": [
+          "D22:21"
+        ],
+        "supported_subclaims": [],
+        "rationale": "Joanna谈自己及另一人的DIY爱好，未建立Nate游戏室或灯光颜色。"
+      },
+      "with_neighbors": {
+        "label": "none",
+        "dia_ids": [
+          "D22:20",
+          "D22:21",
+          "D22:22"
+        ],
+        "supported_subclaims": [],
+        "rationale": "邻句将DIY具体化为书签，仍未涉及游戏室灯光。"
+      }
+    },
+    {
+      "id": "audit-05",
+      "candidate_only": {
+        "label": "partial",
+        "dia_ids": [
+          "D9:10"
+        ],
+        "supported_subclaims": [
+          "John称NYC有丰富文化、美食，值得游览且不会后悔。"
+        ],
+        "rationale": "候选原文完整支持答案引述及John对NYC的推荐，但单句没有明确受话人为Tim，故完整人物关系尚缺一环。"
+      },
+      "with_neighbors": {
+        "label": "full",
+        "dia_ids": [
+          "D9:9",
+          "D9:10",
+          "D9:11"
+        ],
+        "supported_subclaims": [
+          "John向Tim推荐NYC的文化和美食，表示旅行不会让他后悔。"
+        ],
+        "rationale": "Tim前后谈想去NYC，John中间直接作出答案所引推荐，人物、地点和劝游关系均可建立。"
+      }
+    },
+    {
+      "id": "audit-06",
+      "candidate_only": {
+        "label": "none",
+        "dia_ids": [
+          "D22:12"
+        ],
+        "supported_subclaims": [],
+        "rationale": "Andrew称赞的是对方的hard work，没有陈述自己工作带来的压力，更没有biggest的比较。"
+      },
+      "with_neighbors": {
+        "label": "none",
+        "dia_ids": [
+          "D22:11",
+          "D22:12",
+          "D22:13"
+        ],
+        "supported_subclaims": [],
+        "rationale": "邻句说明是在鼓励Audrey适应处境和帮助他人，不能转成Andrew最大压力来自工作的证据。"
+      }
+    },
+    {
+      "id": "audit-07",
+      "candidate_only": {
+        "label": "none",
+        "dia_ids": [
+          "D16:13"
+        ],
+        "supported_subclaims": [],
+        "rationale": "James计划7月20日返程，与John已和姐姐及狗相处的事件不同，计划也不是完成记录。"
+      },
+      "with_neighbors": {
+        "label": "none",
+        "dia_ids": [
+          "D16:12",
+          "D16:13",
+          "D16:14"
+        ],
+        "supported_subclaims": [],
+        "rationale": "邻句明确John询问James返程；日期可锚定2022年，但不能补出John在7月21日与姐姐和狗相处。"
+      }
+    },
+    {
+      "id": "audit-08",
+      "candidate_only": {
+        "label": "partial",
+        "dia_ids": [
+          "D15:11"
+        ],
+        "supported_subclaims": [
+          "Deborah跑步。",
+          "Deborah组织正念和自我照顾的工作坊及活动。"
+        ],
+        "rationale": "明确支持复合答案中的running和组织相关workshops，未提供骑车、艺术展、冲浪、园艺。"
+      },
+      "with_neighbors": {
+        "label": "partial",
+        "dia_ids": [
+          "D15:10",
+          "D15:11",
+          "D15:12"
+        ],
+        "supported_subclaims": [
+          "Deborah跑步。",
+          "Deborah组织正念和自我照顾的工作坊及活动。"
+        ],
+        "rationale": "邻句只是问共同活动及工作坊内容，没有新增其余四项活动的事实。"
+      }
+    },
+    {
+      "id": "audit-09",
+      "candidate_only": {
+        "label": "partial",
+        "dia_ids": [
+          "D1:4"
+        ],
+        "supported_subclaims": [
+          "Evan的旧Prius坏了；他决定修好后出售。"
+        ],
+        "rationale": "只支持old Prius坏过，未陈述new Prius也坏了。"
+      },
+      "with_neighbors": {
+        "label": "partial",
+        "dia_ids": [
+          "D1:3",
+          "D1:4",
+          "D1:5"
+        ],
+        "supported_subclaims": [
+          "Evan的旧Prius坏了；他决定修好后出售。"
+        ],
+        "rationale": "Sam询问旧车及旅行，没有新Prius损坏信息；不把未提及新车损坏当反驳。"
+      }
+    },
+    {
+      "id": "audit-10",
+      "candidate_only": {
+        "label": "partial",
+        "dia_ids": [
+          "D13:14"
+        ],
+        "supported_subclaims": [
+          "Calvin认为Dave在所做事情中表现出努力和热情。"
+        ],
+        "rationale": "提供Dave hard work这部分，未支持Calvin也如此、两人determination或完整共同达成目标的关系。"
+      },
+      "with_neighbors": {
+        "label": "partial",
+        "dia_ids": [
+          "D13:14",
+          "D13:15"
+        ],
+        "supported_subclaims": [
+          "Dave在创作中努力，并表示会继续努力制作新东西。"
+        ],
+        "rationale": "Dave自述加强了他的努力与创作联系，但Calvin达成目标的方法以及两人的determination仍缺证。"
+      }
+    }
+  ]
+}

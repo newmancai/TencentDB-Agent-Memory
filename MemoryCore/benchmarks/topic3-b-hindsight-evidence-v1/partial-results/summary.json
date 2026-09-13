@@ -1,0 +1,25 @@
+{
+  "mode": "partial_feedback_representation_v1",
+  "tasks": 20,
+  "arms": {
+    "ordinary": {
+      "valid": 20,
+      "errors": {},
+      "actual_generations": 20,
+      "input_tokens": 6534,
+      "output_tokens": 1286,
+      "generation_seconds": 34.55514272977598
+    },
+    "parts": {
+      "valid": 11,
+      "errors": {
+        "invalid_output": 9
+      },
+      "actual_generations": 20,
+      "input_tokens": 7734,
+      "output_tokens": 1060,
+      "generation_seconds": 28.177077185129747
+    }
+  },
+  "common_valid": 11
+}

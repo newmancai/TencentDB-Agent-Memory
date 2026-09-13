@@ -1,0 +1,65 @@
+{
+  "source": "root assistant target-content audit on 4 preselected IDs and matching-session user evidence; not exhaustive all-source attribution audit or official grader",
+  "rows": [
+    {
+      "id": "a3f326f57861bd0ad5fdde98",
+      "coverage": {
+        "frozen": "partial",
+        "unlabelled": "full",
+        "feedback": "full",
+        "reviewed": "full"
+      },
+      "reviewed_comparison": {
+        "frozen": "win",
+        "unlabelled": "tie",
+        "feedback": "tie"
+      },
+      "note": "s6:t3/t5优先完整性与详细环境记录；frozen强调minimal documentation较弱，其他组保留精确环境数据，仍有其他场景效率要求迁移，未全面审查这些附加项。"
+    },
+    {
+      "id": "6c24299f6b507d58e53ca08b",
+      "coverage": {
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial",
+        "reviewed": "partial"
+      },
+      "reviewed_comparison": {
+        "frozen": "tie",
+        "unlabelled": "tie",
+        "feedback": "tie"
+      },
+      "note": "四组均有学术/来源严谨，但未明确保留不论受众和formal documentation；s3:t9支持一般与专业读者均可接受严谨，不等逐字声明全场景规则。"
+    },
+    {
+      "id": "1235e61189c74407b5d9cfd9",
+      "coverage": {
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial",
+        "reviewed": "partial"
+      },
+      "reviewed_comparison": {
+        "frozen": "win",
+        "unlabelled": "tie",
+        "feedback": "win"
+      },
+      "note": "s6:t3/t5和s7:t3新要求创新与当代观众；reviewed至少提innovation balance，unlabelled末尾有modern relevance，但均被历史传统画像主导；frozen将创新未知化，feedback无明确创新重点。"
+    },
+    {
+      "id": "37d27998519aa310c171f84d",
+      "coverage": {
+        "frozen": "partial",
+        "unlabelled": "partial",
+        "feedback": "partial",
+        "reviewed": "partial"
+      },
+      "reviewed_comparison": {
+        "frozen": "unclear",
+        "unlabelled": "unclear",
+        "feedback": "unclear"
+      },
+      "note": "s3:t3/s5:t3当前News A强调风险影响和科学细节，四组均被旧中性要求主导；reviewed有影响实例但也更强地限定strictly factual，净优劣未决。"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "source": "dialog_1:10",
+    "verified_anchor": 1
+  },
+  {
+    "source": "dialog_1:15",
+    "verified_anchor": 5
+  },
+  {
+    "source": "dialog_1:20",
+    "verified_anchor": 1
+  },
+  {
+    "source": "dialog_1:30",
+    "verified_anchor": 27
+  }
+]

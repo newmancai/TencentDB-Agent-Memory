@@ -1,0 +1,11 @@
+{
+  "negative_questions": 446,
+  "negative_with_matches": 428,
+  "edges": 436,
+  "selected_pairs": 30,
+  "admitted_pairs": 29,
+  "excluded": {
+    "previous_probe_endpoint": 80,
+    "identical_question_opposite_labels": 1
+  }
+}

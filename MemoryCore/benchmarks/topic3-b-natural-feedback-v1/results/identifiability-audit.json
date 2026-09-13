@@ -1,0 +1,48 @@
+{
+  "scope": "Four selected development errors; assistant audit, not replacement gold or accuracy estimate",
+  "selection": "First frozen error per NEG label in LMSYS source order",
+  "events": 4,
+  "conversations": 3,
+  "cases": [
+    {
+      "id": "bad7d5d7d0b7adc83a58c146",
+      "case": "case1",
+      "gold": "NEG_2",
+      "frozen": "NEG_1",
+      "blind_primary": "NEG_1",
+      "full_primary": "NEG_1",
+      "assessment": "category_definition_ambiguity",
+      "primary_changed": false
+    },
+    {
+      "id": "73a937aa8cc616bd16ea4f1e",
+      "case": "case2",
+      "gold": "NEG_1",
+      "frozen": "NEU",
+      "blind_primary": "NEG_1",
+      "full_primary": "NEG_1",
+      "assessment": "supported_model_error_with_residual_definition_ambiguity",
+      "primary_changed": false
+    },
+    {
+      "id": "aeb8dfd01d37abce8e9126fa",
+      "case": "case3",
+      "gold": "NEG_3",
+      "frozen": "NEG_2",
+      "blind_primary": "NEG_3",
+      "full_primary": "NEG_3",
+      "assessment": "clear_behavioral_model_error_under_supplied_definitions",
+      "primary_changed": false
+    },
+    {
+      "id": "8279459f54c115d9618d1467",
+      "case": "case4",
+      "gold": "NEG_4",
+      "frozen": "POS",
+      "blind_primary": "NEG_4",
+      "full_primary": "NEG_4",
+      "assessment": "clear_POS_error_with_residual_negative_vs_neutral_ambiguity",
+      "primary_changed": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "protocol": "topic3-b-stale-candidate-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "calls": 16,
+  "completed": 16,
+  "overall": { "correct": 15, "total": 16 },
+  "positive_candidate_recall": { "correct": 8, "total": 8 },
+  "t1_positive_recall": { "correct": 4, "total": 4 },
+  "t2_positive_recall": { "correct": 4, "total": 4 },
+  "negative_retention": { "correct": 7, "total": 8 },
+  "predictions": { "affected": 9, "unaffected": 7 },
+  "invalid_active_path_quotes": 0,
+  "baselines": {
+    "always_affected": { "correct": 8, "total": 16 },
+    "always_unaffected": { "correct": 8, "total": 16 },
+    "surface_any_content_token_overlap": { "correct": 10, "total": 16 }
+  },
+  "usage": {
+    "input_tokens": 228302,
+    "cached_input_tokens": 127488,
+    "output_tokens": 2458,
+    "reasoning_output_tokens": 630
+  },
+  "wall_seconds": { "sum": 171.740917946212, "p50": 10.596400755573995, "p95": 14.447326440596953 },
+  "pass": true,
+  "scope": "Fresh STALE component holdout; candidate nomination only, not invalidation, persistence, or downstream answer quality."
+}

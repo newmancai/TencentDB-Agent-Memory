@@ -1,0 +1,28 @@
+{
+  "groups": [
+    "156+international_relations_data_analyst",
+    "73+singer-songwriter",
+    "76+high_school_physics_teacher",
+    "238+historian"
+  ],
+  "excluded_personas": 26,
+  "ids": [
+    "c8e3913da310c8d74761b896",
+    "aeb6e229116a2ddbba3d4823",
+    "3f77b3db7cf890406c50df1d",
+    "db3e2c8e4dcf812feeaa1ad7",
+    "e800e24ce0f36c1d9e732a70",
+    "744937764731fe8a9f0cb42d",
+    "7f95a258f70e47764733a11d",
+    "055d4f2fdb6d1d04b1625581",
+    "c346a97a638249d5c543f653",
+    "35b1dacfcc96b3c7dde88bcc",
+    "16e066c079dcc86756b374cf",
+    "9b542303382813e23597c954"
+  ],
+  "training_ids": [
+    "b2f17518ddd41beab6ec6740",
+    "5c399dd70556b311c35d0413"
+  ],
+  "scope": "new development personas, fixed 4B inference, validation not tuned"
+}

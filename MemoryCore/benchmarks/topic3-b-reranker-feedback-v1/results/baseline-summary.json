@@ -1,0 +1,33 @@
+{
+  "n": 100,
+  "unknown": [],
+  "metrics": {
+    "dense": {
+      "any": 81,
+      "all": 66,
+      "macro_recall": 0.7306666666666666
+    },
+    "rerank20": {
+      "any": 84,
+      "all": 71,
+      "macro_recall": 0.7756666666666666
+    },
+    "rerank25": {
+      "any": 85,
+      "all": 72,
+      "macro_recall": 0.7866666666666667
+    }
+  },
+  "paired": {
+    "rerank20_vs_dense": {
+      "win": 5,
+      "loss": 0,
+      "tie": 95
+    },
+    "rerank25_vs_dense": {
+      "win": 6,
+      "loss": 0,
+      "tie": 94
+    }
+  }
+}

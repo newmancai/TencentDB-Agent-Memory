@@ -1,0 +1,242 @@
+[
+  {
+    "id": "a3f326f57861bd0ad5fdde98",
+    "arms": {
+      "A": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "s6:t3/t5支持完整性高于速度，s1及s8支持环境记录；所列用户ID均存在。将s4/s5快速大量采集的极简偏好迁入当前有范围风险；“严格排除叙事”没有用户明确依据。"
+      },
+      "B": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "优先级及详细环境上下文保留；s6:t3和s8:t3/t5/t9引用正确。s4:t5/s5:t5仅针对快速采集，不能据此无条件要求当前极简；这里仍明确速度次于完整性，未颠倒核心目标。"
+      },
+      "C": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "完整性优先保留，但反复要求minimal documentation弱化s6:t3明确要求详细、保持精度的环境记录；极简来自s4/s5快速采集而非当前natural state目标。"
+      },
+      "D": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "完整性高于速度和具体环境信息均保留。极简来自快速采集场景，但加了不损数据质量的条件，减轻迁移问题；GPS与时间有s8支持。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "B",
+        "D"
+      ],
+      [
+        "C"
+      ]
+    ],
+    "note": "核心原话s6:t3/t5支持reference强度。前三者均有局部极简泛化风险但主要求完整，无足够实质依据细分名次。",
+    "review_status": "assistant semantic opinion, not official grader",
+    "output_status": {
+      "A": null,
+      "B": null,
+      "C": null,
+      "D": null
+    },
+    "reading_contract": "Only supplied output text judged; no missing continuation inferred. output_status null treated as no supplied status assertion, not proof of completion."
+  },
+  {
+    "id": "6c24299f6b507d58e53ca08b",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "学术严谨与具体引用保留；未明确不论受众都用同一标准。列举文献/学者在s1、s3中可找到用户提及，不能由提及证明史料真实可靠；将可信度概括为高于纯叙事略强于原话的平衡表述。"
+      },
+      "B": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "原始资料、学术引用和严谨性保留，未保留无条件跨受众标准。s3:t9支持兼顾可读性，不应将这种兼顾判成违反历史真实性。"
+      },
+      "C": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "学术引用与历史依据明确，跨所有受众的无条件强度缺失。列举资料来自s1、学者来自s3；具体史料真实性未在本审查核验，不作外部事实背书。"
+      },
+      "D": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "清晰学术引用和严谨性保留，限于历史小说出版而未表达所有受众均如此。文化互联有s2、偏见分析有s6支持，不是reference外错误。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    ],
+    "note": "reference的“regardless of target audience”强于可见反馈：s3:t9赞赏学术与可读性并存，s5:t7绑定出版社受众；未见面向任意受众的绝对规则。四输出主内容相当。",
+    "review_status": "assistant semantic opinion, not official grader",
+    "output_status": {
+      "A": null,
+      "B": null,
+      "C": null,
+      "D": null
+    },
+    "reading_contract": "Only supplied output text judged; no missing continuation inferred. output_status null treated as no supplied status assertion, not proof of completion."
+  },
+  {
+    "id": "b41b66bacc271eaabb6dae9c",
+    "arms": {
+      "A": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "自然融入故事、避免脱离叙事的说明与真实性均保留，s6:t3/t5/t7和s7:t3支持。结尾“does not seek technical dissection”若泛指全部任务会过强，s5恰要求史料分析；限当前小说呈现较合理。"
+      },
+      "B": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "历史真实性与学术引用充分，未保留s6:t5明确要求把说明重写成自然故事、保持沉浸的方向；叙事优先被弱化为学术准确与可读性。"
+      },
+      "C": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "自然叙事、避免破坏沉浸的说明以及真实历史三方向可读；学术内容有s2/s4/s5支持，并非新要求。将最终范围说成需要scholarly validation稍压低新增叙事重点，但没有反向要求。"
+      },
+      "D": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "生动、无缝叙事及真实性明确，s6/s7支持。对最终稿引用显隐标不确定可以接受，但s2/s4早有明确引用要求，不能将它当已撤销。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "C",
+        "D"
+      ],
+      [
+        "B"
+      ]
+    ],
+    "note": "reference的叙事方向有直接s6:t5、s7:t3支持；这并不证明旧学术引用要求被全面撤销。三完整输出仍有细小范围边界，未据字数排名。",
+    "review_status": "assistant semantic opinion, not official grader",
+    "output_status": {
+      "A": null,
+      "B": null,
+      "C": null,
+      "D": null
+    },
+    "reading_contract": "Only supplied output text judged; no missing continuation inferred. output_status null treated as no supplied status assertion, not proof of completion."
+  },
+  {
+    "id": "68f173fa0fae68377c0d1666",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "历史参考和严谨性保留，但正式引用/文档要求较间接，未含无条件跨受众。强调可信度高于纯故事比s2:t9的平衡赞赏稍强；生动可读有历史依据。"
+      },
+      "B": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "原始资料、学术背景和既往引用需求保留，但当前正式引用义务表达较弱，无跨所有受众规则。避免romanticization为合理审慎推断而非明确用户禁令。"
+      },
+      "C": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "具体引用和学术严谨明确，未保留不论受众的绝对范围。s2:t7和s4:t5/t7支持学术引用；不把其他会话的可读性自动当作反证。"
+      },
+      "D": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "具体引用、原始材料与严谨性明确，跨出版社/学术评审受众有界，但仍非所有受众。文化互联及偏见分析分别有s1、s5支持。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "C",
+        "D"
+      ],
+      [
+        "A",
+        "B"
+      ]
+    ],
+    "note": "reference无条件受众范围强于原话，尤其s6/s7的Modern Literature Society材料明确赞赏不使读者负担过重；这种差异不等于放弃准确性。C/D更直接保留正式引用需求。",
+    "review_status": "assistant semantic opinion, not official grader",
+    "output_status": {
+      "A": null,
+      "B": null,
+      "C": null,
+      "D": null
+    },
+    "reading_contract": "Only supplied output text judged; no missing continuation inferred. output_status null treated as no supplied status assertion, not proof of completion."
+  },
+  {
+    "id": "7979cd828318cc3aea5cc746",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "最少接触及高效文档保留，缺少s6:t3“迅速处理以防降解”的具体方向。完整性并非错误，但不能用笼统完整性代替快速处理机制。"
+      },
+      "B": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "最少接触及高效工具保留；“避免速度高于保护/精度高于效率”来自旧s4，而未吸收s6:t3快速处理本身为了保护样本。明确排除叙事无用户依据；环境depth未见用户要求，不当成已确认偏好。"
+      },
+      "C": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "少接触、简化文档有s6:t5、s7:t5/t7支持；快速处理防降解仍缺失。列举ID在当前包存在且对应内容可支持；“GPS和环境传感器以外无明确工具偏好”忽略s7:t7明确认可dropdown/pre-filled fields。"
+      },
+      "D": {
+        "target_content": "partial",
+        "source_scope_or_strength_errors": "最少接触及简化文档保留，快速处理防降解缺失；沿用旧完整性高于速度却未解释新反馈中速度与完整性同向。无叙事偏好的断言没有明确用户依据。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A"
+      ],
+      [
+        "C"
+      ],
+      [
+        "B",
+        "D"
+      ]
+    ],
+    "note": "s6:t3/t5/t7与s7:t5/t7直接支持reference。旧s4并未被明言撤销，故“完整性高于速度”不是直接矛盾；问题在遗漏保护样本所需的及时处理并过度概括旧优先级。",
+    "review_status": "assistant semantic opinion, not official grader",
+    "output_status": {
+      "A": null,
+      "B": null,
+      "C": null,
+      "D": null
+    },
+    "reading_contract": "Only supplied output text judged; no missing continuation inferred. output_status null treated as no supplied status assertion, not proof of completion."
+  },
+  {
+    "id": "9ea51d20851d590aae8bcf4e",
+    "arms": {
+      "A": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "完整性/可靠性高于速度以及具体环境记录均保留；s1:t3/s5:t3/s8:t3引用真实相关。“未提field conditions”若指没有任何环境信息则过强，原文明确温湿度；具体现场数值确实未知。无叙事偏好并非用户已明确表态。"
+      },
+      "B": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "完整性高于速度及全面环境记录保留。显微镜精度与门禁日志出自s2/s4，作为记录精确性的参照尚可，但不是当前采集必须照搬的标准；“避免技术术语”没有用户明确依据。"
+      },
+      "C": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "integrity-first与详细环境信息整体保留核心优先级；所引s1:t5/s5:t5/s8:t3/t5/t9均真实相关。跨格式引用/冗余来自s3研究笔记，不能当每次采集步骤的强制要求；“无歧义”只宜限定核心方向。"
+      },
+      "D": {
+        "target_content": "full",
+        "source_scope_or_strength_errors": "完整性和准确性高于速度、详细环境记录明确，s5:t3/t5支持。说用户不喜欢叙事或解释没有明确依据，不能把未表达偏好当负向偏好。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "C",
+        "D"
+      ],
+      [
+        "B"
+      ]
+    ],
+    "note": "reference核心强度有s5:t3明确原话支持。四臂均完整；B额外指定避免技术术语可能实质改变技术训练指南表达，因此略低，非因篇幅或引文格式。",
+    "review_status": "assistant semantic opinion, not official grader",
+    "output_status": {
+      "A": null,
+      "B": null,
+      "C": null,
+      "D": null
+    },
+    "reading_contract": "Only supplied output text judged; no missing continuation inferred. output_status null treated as no supplied status assertion, not proof of completion."
+  }
+]

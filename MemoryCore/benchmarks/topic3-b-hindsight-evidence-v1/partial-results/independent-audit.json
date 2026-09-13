@@ -1,0 +1,131 @@
+{
+  "authority": "assistant semantic judgment; not official gold",
+  "input_scope": "Only audit-packets.json; no mapping or other results read. Schema reveals the output format, so this is anonymous but not fully blinded.",
+  "sampling_scope": "Six fixed-hash jointly valid cases; excludes invalid outputs by design and is not a population quality estimate.",
+  "judgments": [
+    {
+      "id": "pair-01",
+      "preference": "X_better",
+      "dia_ids": [
+        "D13:14",
+        "D13:15",
+        "D13:16"
+      ],
+      "supported_answer_components": [],
+      "X": {
+        "assessment": "correct_insufficiency",
+        "rationale": "正确指出只谈颜色编码、进度和动力，未建立Jon/Gina经营热爱事业的关系。"
+      },
+      "Y": {
+        "assessment": "over_support_wrong_event",
+        "rationale": "把回答另一问题“是否使用不同颜色”的Yes，挪作创业问题的支持；missing_relations并不能撤销这个错误支持项。"
+      },
+      "rationale": "X保持问题—答案归属，Y仅词面命中Yes。"
+    },
+    {
+      "id": "pair-02",
+      "preference": "tie",
+      "dia_ids": [
+        "D22:16",
+        "D22:17",
+        "D22:18"
+      ],
+      "supported_answer_components": [],
+      "X": {
+        "assessment": "correct_insufficiency",
+        "rationale": "解释正确识别对话涉及未读物品而非脚踝伤或日期。"
+      },
+      "Y": {
+        "assessment": "correct_insufficiency",
+        "rationale": "空支持列表及缺少脚踝伤事件与原文一致。"
+      },
+      "rationale": "两者均正确拒绝缺证回答；新字段未增加语义内容。"
+    },
+    {
+      "id": "pair-03",
+      "preference": "Y_better",
+      "dia_ids": [
+        "D5:13",
+        "D5:14",
+        "D5:15"
+      ],
+      "supported_answer_components": [],
+      "X": {
+        "assessment": "unsupported_part_and_wrong_speaker",
+        "rationale": "D5:14是Sam说寻找动力，不是Evan建议找教练；没有trainer或举重防伤证据，仍列完整答案为支持项。"
+      },
+      "Y": {
+        "assessment": "correct_missing_link_but_wrong_conflict_label",
+        "rationale": "解释正确辨认Sam发言、trainer未提及及举重关系缺失，但conflict过强：没有明确反驳，应为insufficient。"
+      },
+      "rationale": "Y解释的归属与缺证判断更好；两者均有实质错误，Y偏好不代表其最终标签正确。"
+    },
+    {
+      "id": "pair-04",
+      "preference": "tie",
+      "dia_ids": [
+        "D14:2",
+        "D14:3",
+        "D14:4"
+      ],
+      "supported_answer_components": [],
+      "X": {
+        "assessment": "correct_insufficiency",
+        "rationale": "给定消息没有读书或一月阅读事件，说明准确。"
+      },
+      "Y": {
+        "assessment": "correct_insufficiency",
+        "rationale": "空支持列表正确；missing_relations虽把书名少写一个字母，但未作新的事实支持断言。"
+      },
+      "rationale": "两者都发现事件和时间关系无证据，未因表达形式评优。"
+    },
+    {
+      "id": "pair-05",
+      "preference": "X_better",
+      "dia_ids": [
+        "D24:4",
+        "D24:5",
+        "D24:6"
+      ],
+      "supported_answer_components": [
+        "James的想法来源包括书、电影和梦。",
+        "James曾因一个梦产生创意。"
+      ],
+      "X": {
+        "assessment": "correct_complete_support",
+        "rationale": "D24:4明确列三类来源，D24:6给出梦产生创意的实例；解释已包含两项支持。"
+      },
+      "Y": {
+        "assessment": "correct_parts_but_spurious_missing_requirement",
+        "rationale": "两支持项均正确但dreams与整列表重叠，不能算多一个独立收益。所称缺少具体例子不是本问题所需关系，而且D24:6已提供一次梦产生创意的概括实例。"
+      },
+      "rationale": "X正确界定足够回答所需证据；Y没有新增正确答案成分，反而把未要求的细节当作缺失项。"
+    },
+    {
+      "id": "pair-06",
+      "preference": "tie",
+      "dia_ids": [
+        "D24:13",
+        "D24:14",
+        "D24:15"
+      ],
+      "supported_answer_components": [
+        "Joanna面对一次拒绝表示不会停步，打算继续努力前进。"
+      ],
+      "X": {
+        "assessment": "useful_support_with_unchecked_event_qualifier",
+        "rationale": "普通解释已正确提取Joanna的回应，但supported未限定本包没有证明production company这一拒绝来源；只能证明收到拒绝后的表态，不是后续行动已完成。"
+      },
+      "Y": {
+        "assessment": "same_useful_support_with_unchecked_event_qualifier",
+        "rationale": "支持项同样提取这句表态，并未比普通解释多建立关系。它遗漏production company的证据缺口，转而要求本题未要求的具体行动细节。"
+      },
+      "rationale": "两者给出相同有用成分，也都未完整处理拒绝事件的来源限定；不因精确span字段判Y优，也不将局部表态当全问答已证真。"
+    }
+  ],
+  "counts": {
+    "X_better": 2,
+    "Y_better": 1,
+    "tie": 3
+  }
+}

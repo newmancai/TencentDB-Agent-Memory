@@ -1,0 +1,60 @@
+{
+  "events": 226,
+  "unknown": 0,
+  "capped": 0,
+  "layers": {
+    "all": {
+      "n": 226,
+      "negative": 98,
+      "auc": {
+        "prior_nll": 0.5220822704081634,
+        "hindsight_nll": 0.5122767857142858,
+        "real_drop": 0.453922193877551,
+        "control_drop": 0.4544005102040817,
+        "semantic_negative": 0.8282047193877551
+      }
+    },
+    "uncapped": {
+      "n": 226,
+      "negative": 98,
+      "auc": {
+        "prior_nll": 0.5220822704081634,
+        "hindsight_nll": 0.5122767857142858,
+        "real_drop": 0.453922193877551,
+        "control_drop": 0.4544005102040817,
+        "semantic_negative": 0.8282047193877551
+      }
+    }
+  },
+  "descriptive_group_bootstrap_real_auc_minus_95": {
+    "control_drop": [
+      -0.06762842104927078,
+      0.06684280126362747
+    ],
+    "hindsight_nll": [
+      -0.1859679941669534,
+      0.07166460454613058
+    ],
+    "semantic_negative": [
+      -0.4560576073247332,
+      -0.27966567139769355
+    ]
+  },
+  "cost": {
+    "prior": {
+      "forwards": 226,
+      "processed_tokens": 44839,
+      "seconds": 10.966075255768374
+    },
+    "real": {
+      "forwards": 226,
+      "processed_tokens": 56473,
+      "seconds": 11.57486144057475
+    },
+    "control": {
+      "forwards": 226,
+      "processed_tokens": 56473,
+      "seconds": 11.562952331034467
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "model": "gpt-5.6-sol",
+  "modes": [
+    {
+      "answerSha256": "c91cba918ae41fdf11c3e70bffa5c2f6974e8f5b9b63bbe75b441c304b880859",
+      "finalRecordCount": 1,
+      "latencyMs": 13899.305206956342,
+      "mode": "enabled",
+      "pass": true,
+      "returnCode": 0,
+      "storeUnchanged": true,
+      "successfulToolCalls": 1,
+      "timedOut": false,
+      "toolCalls": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 35712,
+        "input_tokens": 45490,
+        "output_tokens": 154,
+        "reasoning_output_tokens": 22
+      }
+    },
+    {
+      "answerSha256": "f738413a87dab1a0b1e8573a4549684acb4f17b76aa18c240b311492fdd2e348",
+      "finalRecordCount": 1,
+      "latencyMs": 17684.399188961834,
+      "mode": "disabled",
+      "pass": true,
+      "returnCode": 0,
+      "storeUnchanged": true,
+      "successfulToolCalls": 0,
+      "timedOut": false,
+      "toolCalls": 0,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 39552,
+        "input_tokens": 44121,
+        "output_tokens": 376,
+        "reasoning_output_tokens": 59
+      }
+    },
+    {
+      "answerSha256": "3b5c834f9bccfae98da69bdf04ea78f8ac3e8ccea78ffbcdf9b25832817325ca",
+      "finalRecordCount": 1,
+      "latencyMs": 14286.908657988533,
+      "mode": "forced_failure",
+      "pass": true,
+      "returnCode": 0,
+      "storeUnchanged": true,
+      "successfulToolCalls": 0,
+      "timedOut": false,
+      "toolCalls": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 35712,
+        "input_tokens": 45340,
+        "output_tokens": 177,
+        "reasoning_output_tokens": 49
+      }
+    }
+  ],
+  "protocol": "trigger-memorycore-runtime-contract-v1",
+  "reasoningEffort": "medium",
+  "schema": 1,
+  "scope": "Three isolated Codex turns. Disabled omits MCP registration; forced failure returns a tool error. All stores are local fixtures and remain unchanged outside the enabled read path.",
+  "status": "passed"
+}

@@ -1,0 +1,137 @@
+{
+  "scope": "known LME development checkpoints; assistant-silver reference pairs only",
+  "writes": 8747,
+  "tasks": 54,
+  "not_applicable": 6,
+  "arms": {
+    "fts": {
+      "selected": 432,
+      "reference_reached": 39,
+      "thresholds": {
+        "0.5": {
+          "alarms": 53,
+          "reference_alarms": 5,
+          "unlabeled_other_alarms": 48,
+          "unknown": 1
+        },
+        "0.7": {
+          "alarms": 34,
+          "reference_alarms": 3,
+          "unlabeled_other_alarms": 31,
+          "unknown": 1
+        }
+      }
+    },
+    "recent": {
+      "selected": 432,
+      "reference_reached": 26,
+      "thresholds": {
+        "0.5": {
+          "alarms": 23,
+          "reference_alarms": 1,
+          "unlabeled_other_alarms": 22,
+          "unknown": 4
+        },
+        "0.7": {
+          "alarms": 11,
+          "reference_alarms": 1,
+          "unlabeled_other_alarms": 10,
+          "unknown": 4
+        }
+      }
+    }
+  },
+  "reviews": {
+    "source-review.json": {
+      "changed": {
+        "n": 20,
+        "fts_reference_reached": 20,
+        "recent_reference_reached": 0,
+        "oracle_alarm_0.5": 4,
+        "fts_reference_alarm_0.5": 4,
+        "recent_reference_alarm_0.5": 0,
+        "oracle_alarm_0.7": 2,
+        "fts_reference_alarm_0.7": 2,
+        "recent_reference_alarm_0.7": 0
+      },
+      "same": {
+        "n": 30,
+        "fts_reference_reached": 15,
+        "recent_reference_reached": 26,
+        "oracle_alarm_0.5": 2,
+        "fts_reference_alarm_0.5": 1,
+        "recent_reference_alarm_0.5": 1,
+        "oracle_alarm_0.7": 2,
+        "fts_reference_alarm_0.7": 1,
+        "recent_reference_alarm_0.7": 1
+      },
+      "unknown": {
+        "n": 4,
+        "fts_reference_reached": 4,
+        "recent_reference_reached": 0,
+        "oracle_alarm_0.5": 0,
+        "fts_reference_alarm_0.5": 0,
+        "recent_reference_alarm_0.5": 0,
+        "oracle_alarm_0.7": 0,
+        "fts_reference_alarm_0.7": 0,
+        "recent_reference_alarm_0.7": 0
+      }
+    },
+    "source-review-second.json": {
+      "changed": {
+        "n": 17,
+        "fts_reference_reached": 17,
+        "recent_reference_reached": 0,
+        "oracle_alarm_0.5": 4,
+        "fts_reference_alarm_0.5": 4,
+        "recent_reference_alarm_0.5": 0,
+        "oracle_alarm_0.7": 2,
+        "fts_reference_alarm_0.7": 2,
+        "recent_reference_alarm_0.7": 0
+      },
+      "same": {
+        "n": 30,
+        "fts_reference_reached": 15,
+        "recent_reference_reached": 26,
+        "oracle_alarm_0.5": 2,
+        "fts_reference_alarm_0.5": 1,
+        "recent_reference_alarm_0.5": 1,
+        "oracle_alarm_0.7": 2,
+        "fts_reference_alarm_0.7": 1,
+        "recent_reference_alarm_0.7": 1
+      },
+      "unknown": {
+        "n": 7,
+        "fts_reference_reached": 7,
+        "recent_reference_reached": 0,
+        "oracle_alarm_0.5": 0,
+        "fts_reference_alarm_0.5": 0,
+        "recent_reference_alarm_0.5": 0,
+        "oracle_alarm_0.7": 0,
+        "fts_reference_alarm_0.7": 0,
+        "recent_reference_alarm_0.7": 0
+      }
+    }
+  },
+  "costs": {
+    "online_union": {
+      "requests": 800,
+      "executed": 795,
+      "inputTokens": 96266,
+      "overLimit": 5,
+      "forwardMs": 8081.714518601075
+    },
+    "oracle_extra": {
+      "requests": 1,
+      "executed": 1,
+      "inputTokens": 106,
+      "overLimit": 0,
+      "forwardMs": 8.41050990857184
+    }
+  },
+  "fts_latency": {
+    "p50": 5.275670999999875,
+    "p95": 9.51421900000014,
+    "sumMs": 309.27468099999703
+  }
+}

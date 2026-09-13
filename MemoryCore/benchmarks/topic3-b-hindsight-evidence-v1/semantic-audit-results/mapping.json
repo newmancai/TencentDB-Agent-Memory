@@ -1,0 +1,62 @@
+[
+  {
+    "id": "audit-01",
+    "task_id": "conv-26:9",
+    "candidate_id": "D17:12",
+    "listed_reference": false
+  },
+  {
+    "id": "audit-02",
+    "task_id": "conv-30:42",
+    "candidate_id": "D9:10",
+    "listed_reference": false
+  },
+  {
+    "id": "audit-03",
+    "task_id": "conv-41:32",
+    "candidate_id": "D18:5",
+    "listed_reference": false
+  },
+  {
+    "id": "audit-04",
+    "task_id": "conv-42:92",
+    "candidate_id": "D22:21",
+    "listed_reference": false
+  },
+  {
+    "id": "audit-05",
+    "task_id": "conv-43:102",
+    "candidate_id": "D9:10",
+    "listed_reference": true
+  },
+  {
+    "id": "audit-06",
+    "task_id": "conv-44:26",
+    "candidate_id": "D22:12",
+    "listed_reference": false
+  },
+  {
+    "id": "audit-07",
+    "task_id": "conv-47:37",
+    "candidate_id": "D16:13",
+    "listed_reference": false
+  },
+  {
+    "id": "audit-08",
+    "task_id": "conv-48:88",
+    "candidate_id": "D15:11",
+    "listed_reference": true
+  },
+  {
+    "id": "audit-09",
+    "task_id": "conv-49:1",
+    "candidate_id": "D1:4",
+    "listed_reference": true
+  },
+  {
+    "id": "audit-10",
+    "task_id": "conv-50:118",
+    "candidate_id": "D13:14",
+    "listed_reference": false
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "mode": "ordinary_local_feedback",
+  "examples": 16,
+  "load_seconds": 2.7466827400494367,
+  "input_tokens": 15758,
+  "output_tokens": 1448,
+  "generation_ms": 40336.060154950246,
+  "errors": [],
+  "scope": "No quality grading or feedback learning; development examples only. No input truncation/retry."
+}

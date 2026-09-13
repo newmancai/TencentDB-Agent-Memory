@@ -1,0 +1,10 @@
+{
+  "protocol": "cupid-rule-compilation-v1",
+  "calls": 2,
+  "model": "/data1/edarace/tdai-memory/models/Qwen3-4B-Instruct-2507",
+  "load_seconds": 2.6978209370281547,
+  "input_tokens": 12100,
+  "output_tokens": 238,
+  "generation_ms": 8755.348132923245,
+  "scope": "training-only one-shot candidates, no new-persona evaluation or accepted B gain"
+}

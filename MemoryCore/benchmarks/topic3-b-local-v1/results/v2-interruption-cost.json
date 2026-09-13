@@ -1,0 +1,9 @@
+{
+  "status": "terminated_wrong_task",
+  "completed_cases": 105,
+  "recorded_calls": 210,
+  "inputTokens": 77098,
+  "outputTokens": 3719,
+  "serviceMs": 104930.57441245764,
+  "unrecorded_inflight_calls_upper_bound": 2
+}

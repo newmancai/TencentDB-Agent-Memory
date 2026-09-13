@@ -1,0 +1,138 @@
+{
+  "review_type": "independent assistant opinion; not official gold",
+  "input_scope": "Only raw-only-review.jsonl user utterances; no prefixes, model summaries, or previous reviews read.",
+  "rubric": {
+    "feedback_kind": "support = endorsement without requested change; mixed = endorsement plus requested refinement; request_change = requested addition/refinement without substantive endorsement; unclear = indeterminate.",
+    "specific_target_named": "Whether the utterance names a concrete task/object type; yes does not imply the exact artifact is available. partial identifies only a generic artifact/workflow or incompletely specifies the task.",
+    "content_explicit": "Whether specific endorsed/requested directions are stated in the utterance; this does not verify their factual correctness."
+  },
+  "reviews": [
+    {
+      "id": "6c50c6b8631b2896ab4fc5c8",
+      "feedback_kind": "mixed",
+      "specific_target_named": "yes",
+      "missing_context": "缺少课程主题、学生技能分层和现有案例/项目安排，不能直接指定适配方案。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "03ffd4ebbafe6b32c776036f",
+      "feedback_kind": "support",
+      "specific_target_named": "yes",
+      "missing_context": "缺少具体攀登项目、准备标准和当前分级方案，但认可循序准备的方向明确。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "d388aa45ec4db2a604e9b385",
+      "feedback_kind": "mixed",
+      "specific_target_named": "yes",
+      "missing_context": "缺少法律文本全文及残留现代措辞的位置，无法据此完成逐处修改。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "ebbff0cf44fd0adcaf19e738",
+      "feedback_kind": "mixed",
+      "specific_target_named": "yes",
+      "missing_context": "缺少法律协议正文和期望参照的传统版式，无法确定具体重排内容。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "1f3f1a4ac62726955bcf8947",
+      "feedback_kind": "request_change",
+      "specific_target_named": "yes",
+      "missing_context": "缺少原始上下文和其他术语，不能仅凭此原话核验译义或全部一致性。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "5fc638c4b2ec9db710a57d03",
+      "feedback_kind": "support",
+      "specific_target_named": "yes",
+      "missing_context": "缺少被翻译的原文及译文，无法核验精确性；忠实且不添加解释的认可明确。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "29bb0ac07daab3eac7abb15f",
+      "feedback_kind": "request_change",
+      "specific_target_named": "yes",
+      "missing_context": "缺少地图类型、数据来源、视觉元素及精度指标，不能给出针对性校核步骤。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "b0b820b2f33438ab66448d53",
+      "feedback_kind": "request_change",
+      "specific_target_named": "partial",
+      "missing_context": "缺少工作流的具体任务和该部门标准的内容；原话只明确要求标准对齐的方法或联系途径。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "19c2d6d1a921e2bbb25ad203",
+      "feedback_kind": "mixed",
+      "specific_target_named": "yes",
+      "missing_context": "缺少观测对象、每次时间和天气记录，无法执行对应关系分析。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "58a40460d3e26fbe84f48b7e",
+      "feedback_kind": "request_change",
+      "specific_target_named": "partial",
+      "missing_context": "缺少活动类型、现有时间表和协议要求，不能辨认具体任务或设定间隔长度。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "061c6b707854f9c0e9f689e8",
+      "feedback_kind": "support",
+      "specific_target_named": "partial",
+      "missing_context": "缺少修订文本、业务场景和具体运营挑战；优先处理运营问题且不提供财务建议的方向明确。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "a11c24a00f4806f443b2378a",
+      "feedback_kind": "mixed",
+      "specific_target_named": "yes",
+      "missing_context": "缺少预算削减计算和财年边界，无法定位需删除或改写的长期含义。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "f521dd11c269e3951c396aa4",
+      "feedback_kind": "support",
+      "specific_target_named": "partial",
+      "missing_context": "缺少研究主题、计划正文和协议内容，不能确定具体研究任务，但认可专家咨询及先收集信息后决策。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "258224e01ccdfc818cb40bb3",
+      "feedback_kind": "mixed",
+      "specific_target_named": "partial",
+      "missing_context": "缺少草稿用途、建议内容及与Dr. Watson既往讨论或协议，不能辨认具体任务或填入真实引用。",
+      "content_explicit": "yes"
+    },
+    {
+      "id": "d9f733f5face630815a1ba1c",
+      "feedback_kind": "support",
+      "specific_target_named": "partial",
+      "missing_context": "缺少文档类型、字段和条目内容，无法确定被认可的具体细节或结构。",
+      "content_explicit": "partial"
+    },
+    {
+      "id": "1ea2ca4f7f18f2f6c851478a",
+      "feedback_kind": "support",
+      "specific_target_named": "yes",
+      "missing_context": "缺少导览主题和计划细节，无法核验安排；认可互动、近景演示与时间安排的方向明确。",
+      "content_explicit": "yes"
+    }
+  ],
+  "counts": {
+    "feedback_kind": {
+      "mixed": 6,
+      "support": 6,
+      "request_change": 4
+    },
+    "specific_target_named": {
+      "yes": 10,
+      "partial": 6
+    },
+    "content_explicit": {
+      "yes": 15,
+      "partial": 1
+    }
+  }
+}

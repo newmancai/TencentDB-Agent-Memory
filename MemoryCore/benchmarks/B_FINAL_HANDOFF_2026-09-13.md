@@ -1,0 +1,102 @@
+# B任务复盘与交接（含恢复后增量）
+
+**2026-09-13用户曾停止整个长期任务，随后又明确恢复有界推进及初版交付后的研究优化。本文记录完整状态，是最高优先级交接入口。**
+
+> **公开集组合路线已启动并完成首轮复盘优化：** 用户要求把近期公开资源结合起来，但继续以B为主线、E只作闭环。新入口是 [topic3-b-public-suite-v1](topic3-b-public-suite-v1/README.md)。已固定 H6 revision `20017969711c7c72c649d9e4d70a8df730ec6176`，完成30任务/90 variant 适配、标签隔离和六类 checker 烟测；同时固定 AMB revision `e0859d1ca757f65747b4d32e21f158d55c595879`，完成34任务/196 session适配及关键合同核验。`fa-dedup-key`实际失败回执形成的B候选在同任务重放由失败变通过，但仍是n=1。最新ValidMem v1.1全量466例完成固定开发/一次性留出Codex评测：开发60例选择type-aware TTL后，406例留出从普通374/406提高到387/406，15胜2负389平，case级`p=0.00235`；26个batch聚类bootstrap区间`[+0.25,+7.39]pp`，batch符号检验`p=0.125`，输入token+0.59%、时延+14.01%。这是正向生命周期方法验证，不是自然反馈学习、原生MemoryCore状态机或高置信产品收益，留出不再调参。Agent Memory Trigger Bench全量172例已适配但未运行，作为下一外部安全轴。详见[ValidMem结果](topic3-b-public-suite-v1/VALIDMEM_RESULTS.md)与[数据集选择复盘](topic3-b-public-suite-v1/DATASET_SELECTION_REVIEW.md)。本授权不恢复旧30B、本地旧模型、旧题prompt追分或production写入。
+
+> **初版交付后的恢复与最新研究：** 用户在五项初版交付完成后明确要求继续复盘并优化研究问题。新路线没有恢复30B、本地旧模型、旧题prompt追分或production，而是用公开STALE验证跨交互时态依赖。直接最终绑定13/16失败；提议+裁决仍13/16失败且成本约翻倍；全新留出集的candidate-only提议15/16通过（正例8/8、T2 4/4、负例7/8）。另200行候选池审计显示，真实新会话用户文本BM25找旧会话recall@8为96%、T2 94%，归一化M_new仅61%/53%。因此新增接口只提名待检索/核验ID，明确无写句柄、不接Gateway；下一步可在raw-session top-8上做端到端对照。完整边界见 [B_STALE_RESEARCH_REVIEW_2026-09-13.md](B_STALE_RESEARCH_REVIEW_2026-09-13.md)。这些组件结果不把原公开长对话负收益改写为正，也不构成商用完成。
+
+> **编码代理产品口径：** 用户进一步明确最终目标是对标Codex和Claude Code。当前只满足初版B+E研究交付，不满足编码代理产品完成。新增 [B_E_PRODUCT_READINESS_2026-09-13.md](B_E_PRODUCT_READINESS_2026-09-13.md) 及 `topic3-be-agent-product-v1` 四臂runner：Codex/Claude各自clean与MemoryCore对照，独立工作树、隐藏checker、usage/时延/严重回归均结构化记录。协议和汇总测试已完成，至少12个新顺序编码任务尚未构造与实跑，不得报告产品对标成绩。
+
+> **停止后的有界更新：** 用户随后明确授权继续一次、但不再作为长期任务。已完成一个新开发persona/三题/四臂的12次独立Codex诊断并再次停止；结果见 [CODEX_BOUNDED_RESULTS.md](topic3-b-contextual-feedback-v1/CODEX_BOUNDED_RESULTS.md)。`rules_feedback`对frozen为1胜1负1平、对无纠正规则2胜1负、对直接反馈1胜2负，没有稳定净收益。该授权不恢复30B、本地模型、持续研究或旧历史“下一步”。
+
+> **停止后的研究复盘更新：** 用户又明确要求对B既有工作、直接相关开源与相邻领域做一次有终点的调研复盘。已形成 [B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md](B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md)：结论是把B收缩为带决策轨迹、对象/范围/权威分离、双时态状态和可估计对照的记忆动作学习问题；首个判伪实验应先测oracle attribution，而不是恢复旧30B或继续调画像/规则。本次仅调研与设计，未启动新模型、下载或评测，完成后再次停止。
+
+> **持久任务恢复与本阶段结论：** 用户明确要求“开启持久任务，推进”后，Phase 0本地host闭环、oracle attribution、精确scope、target binding、assertion update和自然原话candidate gate均完成。最后一个instrumented批次在4个新合成项目上走通真实SQLite stale recall、实际Codex回答、反馈candidate、完整span/propensity和客观文件checker：初答0/4、candidate include 4/4、omit 0/4，4胜0负，12条decision全部可学习回放。见 [topic3-b-instrumented-loop-v1/RESULTS.md](topic3-b-instrumented-loop-v1/RESULTS.md)。按预定退出条件，本精确配置/当前交互域停止训练learned gate：确定性显式纠正规则已4/4，无可测headroom。更广B仍缺自然memory-cause与持久化收益，不能报商用达成；重启gate须换成更大、非平凡scope/target且结果独立核验的instrumented来源。不恢复30B、不回旧题调prompt、不触碰production或他人GPU。
+
+> **验收口径补齐：** 按用户给出的五项交付要求，现有证据已整理为 [topic3-b-delivery-v1](topic3-b-delivery-v1/README.md)。新增统一公开长对话评估JSON（数据revision/SHA、规模、hash抽样、粒度、片段—标签对齐、p50/p95及token）、薄运行时适配层与`k/辅助路径/fallback/信号/耗时`日志，并实跑关闭、成功、强制异常和超`k`四项回退。交付包状态是`pass_with_negative_public_gain`：公开CUPID反馈臂对冻结基座仍为3胜4负5平，成本为3.434倍输入、1.620倍生成时间；交付完整不等于方法收益转正。
+
+所有早于上述“持久任务恢复”的历史“下一步”“goal active”“继续下载/评测”均不构成当前路线；当前恢复授权只覆盖这里记录的新路线，不恢复旧30B/旧prompt实验。停止不等于研究目标达成，不把合成证据误报为稳定商用B收益。
+
+## 1. 当前结论
+
+已形成可审阅的研究PR、公开数据适配与实验脚本、有界反馈状态及失败路线知识库。**尚未证明稳定且可观的B反馈学习净收益，不建议商业默认启用。** 原题允许负结果，因此研究交付有价值；它不能替代用户原先要求的正收益目标，也不能证明所有B方法达到上限。
+
+B的核心问题是从交互证据形成可用监督：反馈说了什么、针对哪个对象、在当前用途下是否适用、支持多强的结论，以及这些监督是否改善后续未见任务。E只负责必要的处理/恢复。下游QA或生命周期指标无需每步必然改善，但最终不能只凭结构合法或模型自评宣称B可信。
+
+## 2. 已有交付与入口
+
+| 内容 | 入口 | 实际边界 |
+|---|---|---|
+| 近期公开集组合主线 | [topic3-b-public-suite-v1/README.md](topic3-b-public-suite-v1/README.md) | H6/AMB/ValidMem/Trigger已适配；AMB同任务实际回执重放1/1改善；ValidMem一次性留出type-aware 387/406对普通374/406，为正向生命周期方法验证；Trigger尚未运行，仍无自然反馈跨任务产品收益 |
+| 五项交付验收包 | [topic3-b-delivery-v1/README.md](topic3-b-delivery-v1/README.md) | 统一runner/JSON、指标、off/fallback、适配与移植；公开反馈增益仍明确fail |
+| Instrumented临时纠正闭环 | [topic3-b-instrumented-loop-v1/RESULTS.md](topic3-b-instrumented-loop-v1/RESULTS.md) | SQLite+Codex+trace+checker，include 4/4、omit 0/4；脚本oracle、仅当前交互 |
+| 自然原话候选与运行时gate | [topic3-b-natural-assertion-v1/RESULTS.md](topic3-b-natural-assertion-v1/RESULTS.md) | 预审14/14、2候选/12拒绝；仅当前交互candidate，无memory cause/持久化收益 |
+| 因果归因数据就绪审计 | [topic3-b-natural-assertion-v1/DATA_READINESS.md](topic3-b-natural-assertion-v1/DATA_READINESS.md) | 旧anchor真实工具回执可作负基线，但缺自然反馈/propensity/精确span，不能训练新gate |
+| 新架构合成holdout端到端 | [topic3-b-end-to-end-v1/RESULTS.md](topic3-b-end-to-end-v1/RESULTS.md) | target/update/adaptive/scope safety均4/4；oracle候选、4项目，非自然或production收益 |
+| Target binding与拒绝 | [topic3-b-target-binding-v1/RESULTS.md](topic3-b-target-binding-v1/RESULTS.md) | 合成8/8可绑定、4/4拒绝；旧native只能绑定answer，不能绑定memory cause |
+| 精确scope强基线 | [topic3-b-scope-baseline-v1/RESULTS.md](topic3-b-scope-baseline-v1/RESULTS.md) | match/conflict/missing各8/8；自由文本scope仍unknown |
+| Oracle attribution信息干预 | [topic3-b-oracle-attribution-v1/RESULTS.md](topic3-b-oracle-attribution-v1/RESULTS.md) | include 8/8、omit 0/8；oracle合成开发sanity check，非自动学习收益 |
+| B Phase 0反馈轨迹合同 | [topic3-b-feedback-trace-v1/RESULTS.md](topic3-b-feedback-trace-v1/RESULTS.md) | 四类schema、local ledger及隔离host-path闭环已实现；自然host/production和B收益未完成 |
+| B问题深度复盘与收敛方案 | [B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md](B_DEEP_RESEARCH_RETROSPECTIVE_2026-09-13.md) | 研究综合与建议路线；未实施新实验，不构成自动重启授权 |
+| 总体实现/原题交付映射 | [B_DELIVERY_REVIEW.md](B_DELIVERY_REVIEW.md) | 研究可审阅，不是商业验收完成 |
+| 各路线证据与重启条件 | [B_RESEARCH_LEDGER.md](B_RESEARCH_LEDGER.md) | 历史建议不自动执行 |
+| B运行时旁路 | [memory-feedback README](../src/core/memory-feedback/README.md) | selectAnswerFeedback面向checker失败候选；自然认可/纠正不能伪造成checker失败 |
+| 内部移植边界 | [PORTABILITY_REVIEW.md](topic3-b-answer-feedback-v1/PORTABILITY_REVIEW.md) | 内部需提供真实观察、候选和判定依据，不复制公开集gold当内部真值 |
+| 当前公开长对话主线 | [CUPID README](topic3-b-contextual-feedback-v1/README.md) | 公开模拟/人工筛选数据，非真实自然用户或内部编程业务验证 |
+| 停止本地扩展、Codex替代建议 | [CODEX_BASELINE_SWITCH.md](topic3-b-contextual-feedback-v1/CODEX_BASELINE_SWITCH.md) | 历史切换说明；后续一次有界Codex诊断已完成 |
+| 停止后一次有界Codex诊断 | [CODEX_BOUNDED_RESULTS.md](topic3-b-contextual-feedback-v1/CODEX_BOUNDED_RESULTS.md) | 1开发persona/3题/12调用，已再次停止；非稳定收益证明 |
+
+运行时既有修订曾通过17项B/生命周期合同检查、独立类型检查和插件构建；原生保存回执复放有10开发/80评估一致证据。最新交付验收追加薄适配器后，`memory-feedback`及recall bridge定向回归为9文件51项通过，本轮文件定向TypeScript检查、Python编译、统一评估重算、运行时harness、插件构建和`git diff --check`均通过。一次扩大到harness依赖图的独立`tsc`被仓库可选`node-llama-cpp`类型未安装阻断，插件构建实际通过；不把旧176测试/108回退移植成当前全部能力验收，也不称已跑全库。
+
+## 3. 最有决定性的结果
+
+以下胜/负/平均按相应报告定义，不跨协议拼接。语义审查多为独立助手意见，不是官方grader或人类gold。
+
+| 路线 | 结果 | 可得结论 |
+|---|---|---|
+| 自然反馈分类学习 | LMSYS226→WildChat205，macro-F1 39.77%→42.61%，17胜12负，区间跨零 | 有参数更新，稳定增益未证实；校准收益多数可由温度缩放解释 |
+| 后见反馈关联迁移 | 610旧反馈→821后续问题，基线命中393，缓存/反馈别名均364 | 本题答案提供信息，不等于跨题可迁移学习 |
+| 检索/重排反馈 | 100开发题dense66、rerank25为72、反馈更新70 | 普通组件变强，不能计为B学习收益 |
+| CUPID两例纠正ICL | 新4persona/12题，反馈对冻结3胜4负5平，对无纠正4胜5负3平 | 当前旧草稿+纠正配置无稳定净收益，成本增加 |
+| CUPID审查片段ICL | 另4persona/12题，对冻结5/4/3、对无标签4/4/4、对旧纠正4/3/5；1硬截断 | 示例局部正确不保证迁移效用，不能只用full覆盖数包装领先 |
+| 独立助手能力诊断 | 新2persona/6题，助手对本地4B为5胜0负1平；交叉2题排序一致 | 原证据仍可被更好利用；不同计算预算，非B学习证明 |
+| 共享规则编译 | 两次4B调用，12100输入/238输出、8.755s；每组3规则 | 纠正改变了候选内容，仍偏领域写作建议；未证明通用反馈归属/范围处理 |
+
+详见 [LEARNING_RESULTS](topic3-b-contextual-feedback-v1/LEARNING_RESULTS.md)、[FRAGMENT_RESULTS](topic3-b-contextual-feedback-v1/FRAGMENT_RESULTS.md)、[CAPABILITY_RESULTS](topic3-b-contextual-feedback-v1/CAPABILITY_RESULTS.md)、[RULE_COMPILATION_RESULTS](topic3-b-contextual-feedback-v1/RULE_COMPILATION_RESULTS.md)。更早E/工具状态实验和所有负结果保留在ledger链接中。
+
+## 4. 复盘与知识沉淀
+
+1. **监督对象多次混淆。** 用户不满、任务失败、参考覆盖不足、历史要求未列入新答案，分别都不等同记忆故障。适用性、记忆归责、最终收益需要不同证据。应允许直接学习用户提出的要求，不强迫每条反馈先证明一个E错误。
+2. **来源与作用范围比格式更难。** 原文引用正确、消息ID合法，只能证明出处；不能证明整句都被用户认可、旧任务偏好能迁移，或局部修改代表永久排他要求。CUPID同factor不自动成立反馈适用gold；不同factor也可能部分适用。
+3. **原话是必须保留的强基线。** 旧16例原话719token，生成摘要1432token，且摘要可能丢失限定。结构化/压缩本身不能算贡献；具体方案对象缺失也不总妨碍理解用户的修改方向。
+4. **参考答案存在边界。** 四题六个参考限定被标为可能强于可见原话，但不删除任务或改gold。敏感性诊断其余8题仍无优势，故不能把负结果全部归咎评测。source判断和reference覆盖分开，未知保留。
+5. **纠正内容不等于可迁移规则。** 两例画像ICL、局部审查片段、共享规则分别是不同配置。当前结果只支持关闭已测的无净收益配置；不能证明所有ICL/GEPA/ACE无效。规则编译需与无纠正编译及直接读取同反馈对照，且计入学习成本。
+6. **执行偏差应承担。** 过多转向E、接口/格式诊断，以及本地大模型下载和反复等待，稀释了B主线。用现成Codex接口作强参照是合理选择；可计量不要求对照一定是本地模型。后续研究应以一次能区分机制的实验推进，而非不断添文档/守卫/小切片。
+7. **公平控制不能省，但应务实。** 相同目标证据、无答案泄漏、按persona隔离、保留失败和所有成本是核心；不同模型不强求同算力。评B增量时，应尽量固定同一模型与推理配置，避免把强模型自身能力记到B上。
+
+## 5. 精确停止点
+
+- 30B下载：PID3007948，session33671，INT后TERM，最终exit143，已查无进程。部分文件保留在`/data1/edarace/tdai-memory/models/Qwen3-30B-A3B-Instruct-2507`。不恢复/重下。传输累计字节不等于已完成可用权重字节；30B从未推断。
+- 4B普通强基线：新2persona/6题已完整，13561输入/771输出、21.967s；未与30B完成质量对比，不重复此臂。
+- 4B规则迁移：计划新4persona/12题/48调用；用户停止时已保存3完整题/12调用，另1调用已开始无完整回执。PID3045888/session31781 exit130，已查无进程。保存部分成本50245输入/1640输出、52.284s，未包含中断调用全部成本。**不作为12题质量结果，也不因前三题好坏筛结果。**
+- 规则迁移原始文件：`.local-evidence/topic3-b-cupid-v1/rule-transfer/`；结构化停止证据：[STOPPED.json](topic3-b-contextual-feedback-v1/results/rule-transfer-stopped/STOPPED.json)。未完成运行不续跑，除非用户重新授权并明确协议。
+- 自有模型/下载均已停止，未触碰他人GPU进程，无production Memory操作。本次仅文档与本地成果归档。
+
+## 6. 数据暴露与代码状态
+
+CUPID固定HF revision `f6e5fdae9b31f2b400d6ceb281a6a6760cc00309`，源码`a8560cab293ae98be4fe260689d58bddf96b51ef`；756实例/252persona，126开发/126最终验证。此前30个开发persona已进入准备或研究（含中断规则迁移四个），不可只排除旧24/26。最终验证未用于模型/提示调参，但做过全来源聚合结构审计，不称所有标签完全未见。
+
+重建已用集合：smoke_development_ids对应group，events/audit-inputs.jsonl，以及views、scope-audit、learning、fragments、capability、strong-baseline、rule-transfer各selection.json。LoCoMo/LongMemEval历史已暴露；不得作为未见新来源包装。完整数据与含原文状态在`.local-evidence/`，模型不入Git。
+
+独立交付树：`/home/edarace/Tencent-Memory-2/topic3-be-delivery`，分支`delivery/topic3-be-v1`。PR：[newmancai/TencentDB-Agent-Memory#2](https://github.com/newmancai/TencentDB-Agent-Memory/pull/2)，OPEN/draft，目标`feat/anchor-memory`。五项验收包、最新sidecar与负结果已同步；精确head以PR实时元数据为准。
+
+保留未追踪`topic3-be-v9/{.gitignore,PROTOCOL.md,native.ts,prepare.py,rewrite.py}`及`MemoryCore/node_modules`链接，未清理/纳入本次提交。原项目树与PR1历史保留。
+
+## 7. 仅供重新授权后参考
+
+首先读本文及B_DELIVERY_REVIEW，不从任一旧“下一步”启动。无需继续30B下载或本地弱模型实验。停止后已按一次明确的非长期授权完成真实Codex接口有界诊断，详见CODEX_BOUNDED_RESULTS；这不自动授权继续。若用户另行恢复新实验，Codex仍应逐题独立输入，隔离当前对话/其他变体/参考答案；保存提示、模型配置、事件、输出和可得usage，不声称控制了所有隐藏计算。
+
+较有信息价值的问题是：同一Codex配置下，受控反馈更新的规则是否胜过普通同信息处理及无纠正规则？先固定训练来源、规则容量和一次新persona协议，避免以Codex生成的答案又由同一上下文自行认证。已有规则可作候选，不预判有效。若只有成本优势，需要计编译、选择、失败与服务成本并检验质量代价。
+
+距离商用默认仍缺稳定独立收益、自然反馈接入与误归责验证、最终所选策略的完整MemoryCore开关/强制失败回退，以及内部编程场景适用性验证。负结果研究PR不要求伪造这些结论。**本轮到此停止，不自动执行本节。**

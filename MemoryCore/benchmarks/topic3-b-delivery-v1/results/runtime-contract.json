@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "suite": "topic3-b-runtime-contract-v1",
+  "status": "pass",
+  "cases": [
+    {
+      "id": "feature_off",
+      "status": "pass",
+      "expected": {
+        "status": "off",
+        "auxiliaryPathUsed": false,
+        "useBaseline": true
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "baseline",
+        "status": "off",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 8,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 0,
+        "auxiliaryPathUsed": false,
+        "fallback": false,
+        "fallbackReason": null,
+        "useBaseline": true,
+        "elapsedMs": 0.010401000000001659
+      }
+    },
+    {
+      "id": "enabled_selection",
+      "status": "pass",
+      "expected": {
+        "status": "selected",
+        "auxiliaryPathUsed": true,
+        "useBaseline": false
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "enabled",
+        "status": "selected",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 1,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 1,
+        "auxiliaryPathUsed": true,
+        "fallback": false,
+        "fallbackReason": null,
+        "useBaseline": false,
+        "elapsedMs": 0.3407139999999913
+      }
+    },
+    {
+      "id": "forced_failure_fallback",
+      "status": "pass",
+      "expected": {
+        "status": "fallback",
+        "fallbackReason": "selector_failed",
+        "useBaseline": true
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "enabled",
+        "status": "fallback",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 8,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 0,
+        "auxiliaryPathUsed": true,
+        "fallback": true,
+        "fallbackReason": "selector_failed",
+        "useBaseline": true,
+        "elapsedMs": 0.17807600000003276
+      }
+    },
+    {
+      "id": "over_k_fallback",
+      "status": "pass",
+      "expected": {
+        "status": "fallback",
+        "fallbackReason": "invalid_selection",
+        "useBaseline": true
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "enabled",
+        "status": "fallback",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 1,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 0,
+        "auxiliaryPathUsed": true,
+        "fallback": true,
+        "fallbackReason": "invalid_selection",
+        "useBaseline": true,
+        "elapsedMs": 0.0568890000000124
+      }
+    }
+  ],
+  "bounds": {
+    "maxCandidates": 256,
+    "defaultSelectedK": 8,
+    "allowedSelectedK": [
+      1,
+      32
+    ],
+    "defaultTimeoutMs": 30000,
+    "maxTimeoutMs": 30000,
+    "persistentWrites": false
+  },
+  "scope": "Host-neutral temporary answer-feedback adapter; no Gateway hook, model call, memory mutation, or production traffic."
+}

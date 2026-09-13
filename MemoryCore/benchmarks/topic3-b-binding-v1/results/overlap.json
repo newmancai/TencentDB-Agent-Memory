@@ -1,0 +1,20 @@
+[
+  {
+    "a": 1,
+    "b": 4,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 1,
+    "b": 5,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  },
+  {
+    "a": 4,
+    "b": 5,
+    "shared_exact_user_strings": 0,
+    "shared_construction_topics": 0
+  }
+]

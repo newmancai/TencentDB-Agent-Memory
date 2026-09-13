@@ -1,0 +1,60 @@
+{"id": "conv-26:155::X", "error": null, "candidates": [{"from": "Melanie", "to": "Caroline", "question": "Why did Caroline choose the adoption agency?", "id": "conv-26:155::X::swap0"}]}
+{"id": "conv-26:155::Y", "error": null, "candidates": [{"from": "Caroline", "to": "Melanie", "question": "Why did Melanie choose the adoption agency?", "id": "conv-26:155::Y::swap0"}]}
+{"id": "conv-26:168::X", "error": null, "candidates": [{"from": "Caroline", "to": "Melanie", "question": "What are the new shoes that Melanie got used for?", "id": "conv-26:168::X::swap0"}]}
+{"id": "conv-26:168::Y", "error": null, "candidates": [{"from": "Melanie", "to": "Caroline", "question": "What are the new shoes that Caroline got used for?", "id": "conv-26:168::Y::swap0"}]}
+{"id": "conv-26:158::X", "error": null, "candidates": [{"from": "Melanie", "to": "Caroline", "question": "What country is Caroline's grandma from?", "id": "conv-26:158::X::swap0"}]}
+{"id": "conv-26:158::Y", "error": null, "candidates": [{"from": "Caroline", "to": "Melanie", "question": "What country is Melanie's grandma from?", "id": "conv-26:158::Y::swap0"}]}
+{"id": "conv-30:86::X", "error": null, "candidates": [{"from": "Jon", "to": "Gina", "question": "What kind of flooring is Gina looking for in his dance studio?", "id": "conv-30:86::X::swap0"}]}
+{"id": "conv-30:86::Y", "error": null, "candidates": [{"from": "Gina", "to": "Jon", "question": "What kind of flooring is Jon looking for in her dance studio?", "id": "conv-30:86::Y::swap0"}]}
+{"id": "conv-30:97::X", "error": null, "candidates": [{"from": "Gina", "to": "Jon", "question": "Where is Jon's HR internship?", "id": "conv-30:97::X::swap0"}]}
+{"id": "conv-30:97::Y", "error": null, "candidates": [{"from": "Gina", "to": "Jon", "question": "Where is Jon's fashion internship?", "id": "conv-30:97::Y::swap0"}]}
+{"id": "conv-30:88::X", "error": null, "candidates": [{"from": "Jon", "to": "Gina", "question": "What did Gina design for his store?", "id": "conv-30:88::X::swap0"}]}
+{"id": "conv-30:88::Y", "error": null, "candidates": [{"from": "Gina", "to": "Jon", "question": "What did Jon design for her store?", "id": "conv-30:88::Y::swap0"}]}
+{"id": "conv-41:172::X", "error": null, "candidates": [{"from": "Maria", "to": "John", "question": "What important values does John want to teach her kids through adopting a rescue dog?", "id": "conv-41:172::X::swap0"}]}
+{"id": "conv-41:172::Y", "error": null, "candidates": [{"from": "John", "to": "Maria", "question": "What important values does Maria want to teach his kids through adopting a rescue dog?", "id": "conv-41:172::Y::swap0"}]}
+{"id": "conv-41:158::X", "error": null, "candidates": [{"from": "John", "to": "Maria", "question": "How often does Maria take his kids to the library?", "id": "conv-41:158::X::swap0"}]}
+{"id": "conv-41:158::Y", "error": null, "candidates": [{"from": "John", "to": "Maria", "question": "How often does Maria take his kids to the park?", "id": "conv-41:158::Y::swap0"}]}
+{"id": "conv-41:168::X", "error": null, "candidates": [{"from": "Maria", "to": "John", "question": "What did John do to feel closer to a community and her faith?", "id": "conv-41:168::X::swap0"}]}
+{"id": "conv-41:168::Y", "error": null, "candidates": [{"from": "John", "to": "Maria", "question": "What did Maria do to feel closer to a community and his faith?", "id": "conv-41:168::Y::swap0"}]}
+{"id": "conv-42:209::X", "error": null, "candidates": [{"from": "Nate", "to": "Joanna", "question": "What did Joanna think of the caramel ice cream he made?", "id": "conv-42:209::X::swap0"}]}
+{"id": "conv-42:209::Y", "error": null, "candidates": [{"from": "Nate", "to": "Joanna", "question": "What did Joanna think of the coconut milk ice cream he made?", "id": "conv-42:209::Y::swap0"}]}
+{"id": "conv-42:237::X", "error": null, "candidates": [{"from": "Joanna", "to": "Nate", "question": "What did Nate make for one of the ladies at her writing club?", "id": "conv-42:237::X::swap0"}]}
+{"id": "conv-42:237::Y", "error": null, "candidates": [{"from": "Nate", "to": "Joanna", "question": "What did Joanna make for one of the ladies at his writing club?", "id": "conv-42:237::Y::swap0"}]}
+{"id": "conv-42:207::X", "error": null, "candidates": [{"from": "Nate", "to": "Joanna", "question": "What are Joanna's plans for his finished screenplay in January 2022?", "id": "conv-42:207::X::swap0"}]}
+{"id": "conv-42:207::Y", "error": null, "candidates": [{"from": "Joanna", "to": "Nate", "question": "What are Nate's plans for her finished screenplay in January 2022?", "id": "conv-42:207::Y::swap0"}]}
+{"id": "conv-43:204::X", "error": null, "candidates": [{"from": "John", "to": "Tim", "question": "What does Tim want to do after his basketball career?", "id": "conv-43:204::X::swap0"}]}
+{"id": "conv-43:204::Y", "error": null, "candidates": [{"from": "Tim", "to": "John", "question": "What does John want to do after his basketball career?", "id": "conv-43:204::Y::swap0"}]}
+{"id": "conv-43:184::X", "error": null, "candidates": [{"from": "John", "to": "Tim", "question": "What kind of deals did Tim sign with Nike and Gatorade?", "id": "conv-43:184::X::swap0"}]}
+{"id": "conv-43:184::Y", "error": null, "candidates": [{"from": "Tim", "to": "John", "question": "What kind of deals did John sign with Nike and Gatorade?", "id": "conv-43:184::Y::swap0"}]}
+{"id": "conv-43:200::X", "error": null, "candidates": [{"from": "John", "to": "Tim", "question": "How was Tim's experience in New York City?", "id": "conv-43:200::X::swap0"}]}
+{"id": "conv-43:200::Y", "error": null, "candidates": [{"from": "Tim", "to": "John", "question": "How was John's experience in New York City?", "id": "conv-43:200::Y::swap0"}]}
+{"id": "conv-44:149::X", "error": null, "candidates": [{"from": "Audrey", "to": "Andrew", "question": "What type of games do Andrew's dogs like to play at the park?", "id": "conv-44:149::X::swap0"}]}
+{"id": "conv-44:149::Y", "error": null, "candidates": [{"from": "Andrew", "to": "Audrey", "question": "What type of games do Audrey's dogs like to play at the park?", "id": "conv-44:149::Y::swap0"}]}
+{"id": "conv-44:140::X", "error": null, "candidates": [{"from": "Andrew", "to": "Audrey", "question": "What did Audrey do to give his dogs extra comfort as the weather cooled down?", "id": "conv-44:140::X::swap0"}]}
+{"id": "conv-44:140::Y", "error": null, "candidates": [{"from": "Audrey", "to": "Andrew", "question": "What did Andrew do to give her dogs extra comfort as the weather cooled down?", "id": "conv-44:140::Y::swap0"}]}
+{"id": "conv-44:136::X", "error": null, "candidates": [{"from": "Audrey", "to": "Andrew", "question": "What are some of the personalities of Andrew's four fur babies?", "id": "conv-44:136::X::swap0"}]}
+{"id": "conv-44:136::Y", "error": null, "candidates": [{"from": "Andrew", "to": "Audrey", "question": "What are some of the personalities of Audrey's four fur babies?", "id": "conv-44:136::Y::swap0"}]}
+{"id": "conv-47:160::X", "error": null, "candidates": [{"from": "John", "to": "James", "question": "What is Max good at doing according to James?", "id": "conv-47:160::X::swap0"}]}
+{"id": "conv-47:160::Y", "error": null, "candidates": [{"from": "James", "to": "John", "question": "What is Max good at doing according to John?", "id": "conv-47:160::Y::swap0"}]}
+{"id": "conv-47:167::X", "error": null, "candidates": [{"from": "James", "to": "John", "question": "What happened to John's kitten during the recent visit to the clinic?", "id": "conv-47:167::X::swap0"}]}
+{"id": "conv-47:167::Y", "error": null, "candidates": [{"from": "James", "to": "John", "question": "What happened to John's puppy during the recent visit to the clinic?", "id": "conv-47:167::Y::swap0"}]}
+{"id": "conv-47:150::X", "error": null, "candidates": [{"from": "John", "to": "James", "question": "What did James adopt in April 2022?", "id": "conv-47:150::X::swap0"}]}
+{"id": "conv-47:150::Y", "error": null, "candidates": [{"from": "James", "to": "John", "question": "What did John adopt in April 2022?", "id": "conv-47:150::Y::swap0"}]}
+{"id": "conv-48:213::X", "error": null, "candidates": [{"from": "Jolene", "to": "Deborah", "question": "What made being part of the running group easy for Deborah to stay motivated?", "id": "conv-48:213::X::swap0"}]}
+{"id": "conv-48:213::Y", "error": null, "candidates": [{"from": "Deborah", "to": "Jolene", "question": "What made being part of the running group easy for Jolene to stay motivated?", "id": "conv-48:213::Y::swap0"}]}
+{"id": "conv-48:222::X", "error": null, "candidates": [{"from": "Jolene", "to": "Deborah", "question": "How did Deborah feel after receiving positive feedback at the virtual conference?", "id": "conv-48:222::X::swap0"}]}
+{"id": "conv-48:222::Y", "error": null, "candidates": [{"from": "Deborah", "to": "Jolene", "question": "How did Jolene feel after receiving positive feedback at the virtual conference?", "id": "conv-48:222::Y::swap0"}]}
+{"id": "conv-48:232::X", "error": null, "candidates": [{"from": "Deborah", "to": "Jolene", "question": "Where did Jolene and her partner travel for a few weeks in September 2023?", "id": "conv-48:232::X::swap0"}]}
+{"id": "conv-48:232::Y", "error": null, "candidates": [{"from": "Jolene", "to": "Deborah", "question": "Where did Deborah and her partner travel for a few weeks in September 2023?", "id": "conv-48:232::Y::swap0"}]}
+{"id": "conv-49:158::X", "error": null, "candidates": [{"from": "Sam", "to": "Evan", "question": "What did Evan start doing a few years back as a stress-buster?", "id": "conv-49:158::X::swap0"}]}
+{"id": "conv-49:158::Y", "error": null, "candidates": [{"from": "Evan", "to": "Sam", "question": "What did Sam start doing a few years back as a stress-buster?", "id": "conv-49:158::Y::swap0"}]}
+{"id": "conv-49:176::X", "error": null, "candidates": [{"from": "Sam", "to": "Evan", "question": "What electronics issue has been frustrating Evan lately?", "id": "conv-49:176::X::swap0"}]}
+{"id": "conv-49:176::Y", "error": null, "candidates": [{"from": "Evan", "to": "Sam", "question": "What electronics issue has been frustrating Sam lately?", "id": "conv-49:176::Y::swap0"}]}
+{"id": "conv-49:157::X", "error": null, "candidates": [{"from": "Evan", "to": "Sam", "question": "How did Sam get into watercolor painting?", "id": "conv-49:157::X::swap0"}]}
+{"id": "conv-49:157::Y", "error": null, "candidates": [{"from": "Sam", "to": "Evan", "question": "How did Evan get into watercolor painting?", "id": "conv-49:157::Y::swap0"}]}
+{"id": "conv-50:203::X", "error": null, "candidates": [{"from": "Dave", "to": "Calvin", "question": "Where did Calvin take a stunning photo of a waterfall?", "id": "conv-50:203::X::swap0"}]}
+{"id": "conv-50:203::Y", "error": null, "candidates": [{"from": "Calvin", "to": "Dave", "question": "Where did Dave take a stunning photo of a waterfall?", "id": "conv-50:203::Y::swap0"}]}
+{"id": "conv-50:187::X", "error": null, "candidates": [{"from": "Calvin", "to": "Dave", "question": "Who headlined the music festival that Dave attended in October?", "id": "conv-50:187::X::swap0"}]}
+{"id": "conv-50:187::Y", "error": null, "candidates": [{"from": "Dave", "to": "Calvin", "question": "Who headlined the music festival that Calvin attended in October?", "id": "conv-50:187::Y::swap0"}]}
+{"id": "conv-50:194::X", "error": null, "candidates": [{"from": "Dave", "to": "Calvin", "question": "What did Calvin recently start a blog about?", "id": "conv-50:194::X::swap0"}]}
+{"id": "conv-50:194::Y", "error": null, "candidates": [{"from": "Calvin", "to": "Dave", "question": "What did Dave recently start a blog about?", "id": "conv-50:194::Y::swap0"}]}

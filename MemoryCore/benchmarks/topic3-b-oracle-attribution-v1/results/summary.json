@@ -1,0 +1,38 @@
+{
+  "protocol": "topic3-b-oracle-attribution-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "cli_version": "codex-cli 0.153.4",
+  "tasks": 8,
+  "planned_calls": 16,
+  "completed_calls": 16,
+  "include_success": 8,
+  "omit_success": 0,
+  "paired": {
+    "wins": 8,
+    "losses": 0,
+    "ties": 0
+  },
+  "threshold": {
+    "include_success_required": 7,
+    "paired_net_wins_required": 6
+  },
+  "advance_to_scope": true,
+  "wall_seconds": 127.77209158660844,
+  "usage": {
+    "input_tokens": 226733,
+    "cached_input_tokens": 59776,
+    "output_tokens": 424,
+    "reasoning_output_tokens": 0
+  },
+  "trace": {
+    "ok": true,
+    "decision_trace": 24,
+    "feedback_claim": 8,
+    "memory_assertion": 8,
+    "outcome": 24,
+    "learning_samples": 24,
+    "pending_decisions": 0
+  },
+  "scope": "Oracle target/scope/authority and synthetic development tasks. Exact JSON checker; no LLM judge. Not automatic feedback learning or production gain."
+}

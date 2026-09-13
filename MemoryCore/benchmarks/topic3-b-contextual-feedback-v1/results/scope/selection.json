@@ -1,0 +1,30 @@
+{
+  "groups": [
+    "138+high_school_chemistry_teacher",
+    "189+acquisitions_editor"
+  ],
+  "excluded_personas": 12,
+  "observation_ids": [
+    "d14d41fc1da597100bc0f0c2",
+    "b4c5fdad50b376b7e3eaec40"
+  ],
+  "packet_ids": [
+    "d14d41fc1da597100bc0f0c2:s1",
+    "d14d41fc1da597100bc0f0c2:s2",
+    "d14d41fc1da597100bc0f0c2:s3",
+    "d14d41fc1da597100bc0f0c2:s4",
+    "d14d41fc1da597100bc0f0c2:s5",
+    "d14d41fc1da597100bc0f0c2:s6",
+    "d14d41fc1da597100bc0f0c2:s7",
+    "d14d41fc1da597100bc0f0c2:s8",
+    "b4c5fdad50b376b7e3eaec40:s1",
+    "b4c5fdad50b376b7e3eaec40:s2",
+    "b4c5fdad50b376b7e3eaec40:s3",
+    "b4c5fdad50b376b7e3eaec40:s4",
+    "b4c5fdad50b376b7e3eaec40:s5",
+    "b4c5fdad50b376b7e3eaec40:s6",
+    "b4c5fdad50b376b7e3eaec40:s7",
+    "b4c5fdad50b376b7e3eaec40:s8"
+  ],
+  "scope": "development source-label applicability audit, no model training"
+}

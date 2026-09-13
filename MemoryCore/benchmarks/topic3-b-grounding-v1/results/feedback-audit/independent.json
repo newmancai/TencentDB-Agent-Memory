@@ -1,0 +1,91 @@
+{
+  "authority": "assistant judgment; not official gold",
+  "input": "blind.jsonl only",
+  "scope": "Given-context review; no selection, gold, old predictions or full-history access. Fixed stratified eight cases are not a population noise estimate. Questions are targets, not evidence; unsupported entity/event substitution is insufficient absent an explicit incompatible claim.",
+  "counts": {
+    "supported": 1,
+    "contradicted": 0,
+    "insufficient": 7
+  },
+  "judgments": [
+    {
+      "id": "conv-43:40::sessions",
+      "label": "insufficient",
+      "dia_ids": [
+        "D14:14",
+        "D14:16"
+      ],
+      "rationale": "D14:16明确Tim去过Smoky Mountains；州归属没有在发言中说明。D14:14的图片query含north carolina，但检索词不是经核实的本人旅行地点。若引入外部地理知识可支持Yes，本次只依据给定事实不足以补齐这一桥接。"
+    },
+    {
+      "id": "conv-47:53::sessions",
+      "label": "insufficient",
+      "dia_ids": [
+        "D6:2",
+        "D6:4",
+        "D27:2",
+        "D27:6"
+      ],
+      "rationale": "4月20日谈到上周合作创造Witcher启发的世界，10月13日说最近发布首款游戏。两次谈话相隔近半年，但没有明确开发起点、完成日期及两个项目严格同一性，不能据会话间隔断定制作耗时六个月。"
+    },
+    {
+      "id": "conv-48:50::sessions",
+      "label": "supported",
+      "dia_ids": [
+        "D13:16",
+        "D13:17"
+      ],
+      "rationale": "在2023年6月6日，D13:17回答练习多久时称约3年，支持起始年份约2020。年份答案是相应精度的近似推断，不是精确开始日期。"
+    },
+    {
+      "id": "conv-44:59::sessions",
+      "label": "insufficient",
+      "dia_ids": [
+        "D12:1"
+      ],
+      "rationale": "2023年7月11日介绍新领回的Toby，支持到11月约四个月这一近似时间差；但本包既没有准确领养日期，也没有Toby是Andrew第一只宠物的陈述。问题中的first不能充当证据，完整关系仅部分受支持。"
+    },
+    {
+      "id": "conv-41:165::sessions",
+      "label": "insufficient",
+      "dia_ids": [
+        "D13:3",
+        "D13:6",
+        "D13:7",
+        "D13:8",
+        "D13:20"
+      ],
+      "rationale": "Three times a week是John回答Maria提问时描述自己和家人的频率，D13:8亦明确You and your family。Maria只提一般自我照顾和锻炼，未给她与家人的锻炼频率；不能移接人物，也未明确否定Maria可能同频率。"
+    },
+    {
+      "id": "conv-26:185::sessions",
+      "label": "insufficient",
+      "dia_ids": [
+        "D15:23",
+        "D15:25",
+        "D15:26",
+        "D15:27",
+        "D15:28"
+      ],
+      "rationale": "Bach和Mozart出现在Melanie的D15:28，承接Caroline问她喜欢哪些曲目。Caroline只明确谈Brave及吉他，不能把Melanie的偏好归给Caroline；现有内容也没有否定Caroline可能喜欢这两人。"
+    },
+    {
+      "id": "conv-30:101::sessions",
+      "label": "insufficient",
+      "dia_ids": [
+        "D15:1"
+      ],
+      "rationale": "D15:1支持Jon去Rome是为了clear my mind，不支持问题指定的Barcelona旅行。不能借问句补出Barcelona事件，也不能仅凭一次Rome旅行就断言他从未去过Barcelona；候选所需事件—目的关系缺证。"
+    },
+    {
+      "id": "conv-47:189::sessions",
+      "label": "insufficient",
+      "dia_ids": [
+        "D31:20",
+        "D31:21",
+        "D31:22"
+      ],
+      "rationale": "John在D31:20介绍my cousin的狗，D31:22回答James说它叫Luna。支持John表亲的狗名，不支持James表亲的狗名；没有James表亲另一名字或两人亲属关系的证据，故缺证而非严格逻辑冲突。"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "kind": "source_and_label_audit_not_model_evaluation",
+  "feedback_revision": "5339f4d77871636030bf4e43ff26b0756cb1fb2d",
+  "feedback": {
+    "rows": 108,
+    "sources": {
+      "lmsys": {
+        "conversations": 74,
+        "labels": {
+          "NEU": 121,
+          "NEG_2": 25,
+          "NEG_1": 32,
+          "NEG_3": 15,
+          "NEG_4": 26,
+          "POS": 8
+        },
+        "messages": {
+          "min": 4,
+          "median": 6,
+          "max": 56,
+          "at_least_20": 1
+        },
+        "user_turns": {
+          "min": 2,
+          "median": 3,
+          "max": 28,
+          "at_least_20": 1
+        }
+      },
+      "wildchat": {
+        "conversations": 34,
+        "labels": {
+          "NEG_4": 42,
+          "NEG_3": 32,
+          "NEU": 37,
+          "NEG_2": 29,
+          "NEG_1": 64,
+          "POS": 2
+        },
+        "messages": {
+          "min": 8,
+          "median": 14,
+          "max": 24,
+          "at_least_20": 8
+        },
+        "user_turns": {
+          "min": 4,
+          "median": 7,
+          "max": 12,
+          "at_least_20": 0
+        }
+      }
+    },
+    "alignment_errors": [
+      {
+        "id": "0e6cdf6abb0342da88e16e078aaf6800",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_5"
+        ]
+      },
+      {
+        "id": "140bbf0ee5c747e8a5408cd15386b320",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_1"
+        ]
+      },
+      {
+        "id": "20f58a3157894a73ab382b3a56019886",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_2"
+        ]
+      },
+      {
+        "id": "334eefc7e3914ebcb30dce09028143d1",
+        "errors": [
+          "label_count_mismatch"
+        ]
+      },
+      {
+        "id": "38a02596b2634bfea5c1b7dfedc523ef",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_1"
+        ]
+      },
+      {
+        "id": "4f64e8d1c983485e8e8f027d8fd469de",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_1"
+        ]
+      },
+      {
+        "id": "5c0b415f440d4532babbfc037b38e693",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_5"
+        ]
+      },
+      {
+        "id": "8f846e5806b4432e905d43f313028805",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_2",
+          "non_neutral_text_mismatch_at_user_4"
+        ]
+      },
+      {
+        "id": "98a4981ff0014c2daf0a5b15f1cdb9eb",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_2"
+        ]
+      },
+      {
+        "id": "a061178dd8fe48c49f946ea0d8cd2476",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_3"
+        ]
+      },
+      {
+        "id": "d1025d4b9c1f47c2a94c505badfd168b",
+        "errors": [
+          "non_neutral_text_mismatch_at_user_1",
+          "non_neutral_text_mismatch_at_user_2",
+          "non_neutral_text_mismatch_at_user_3"
+        ]
+      },
+      {
+        "id": "1f463a670c68a32c845f765ef52c1525",
+        "errors": [
+          "label_count_mismatch"
+        ]
+      },
+      {
+        "id": "994952c3956d60b10fbe840d31fafc8a",
+        "errors": [
+          "label_count_mismatch"
+        ]
+      }
+    ],
+    "blank_neutral_texts": 157,
+    "partial_unique_text_alignment": [
+      {
+        "id": "1f463a670c68a32c845f765ef52c1525",
+        "user_indices": [
+          1,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "unlabeled_user_indices": [
+          2,
+          3
+        ]
+      }
+    ],
+    "duplicate_source_ids": 0
+  },
+  "decode": {
+    "sha256": "084aab98652a04ce4a78c1a63d91575f5ab416a0c474b962ca1f4508a56b7484",
+    "splits": {
+      "train": {
+        "rows": 27184,
+        "messages": {
+          "min": 3,
+          "median": 9,
+          "max": 18,
+          "at_least_20": 0
+        },
+        "contradictions": 13592,
+        "evidence_errors": [],
+        "unique_base_conversation_ids": 22335
+      },
+      "dev": {
+        "rows": 4026,
+        "messages": {
+          "min": 3,
+          "median": 8,
+          "max": 17,
+          "at_least_20": 0
+        },
+        "contradictions": 2013,
+        "evidence_errors": [],
+        "unique_base_conversation_ids": 3216
+      },
+      "test": {
+        "rows": 4216,
+        "messages": {
+          "min": 3,
+          "median": 8,
+          "max": 18,
+          "at_least_20": 0
+        },
+        "contradictions": 2108,
+        "evidence_errors": [],
+        "unique_base_conversation_ids": 3292
+      },
+      "human-bot": {
+        "rows": 764,
+        "messages": {
+          "min": 2,
+          "median": 8,
+          "max": 28,
+          "at_least_20": 9
+        },
+        "contradictions": 382,
+        "evidence_errors": [],
+        "unique_base_conversation_ids": 764
+      },
+      "a2t": {
+        "rows": 2079,
+        "messages": {
+          "min": 7,
+          "median": 11,
+          "max": 20,
+          "at_least_20": 2
+        },
+        "contradictions": 2079,
+        "evidence_errors": [],
+        "unique_base_conversation_ids": 2079
+      },
+      "rct": {
+        "rows": 2011,
+        "messages": {
+          "min": 4,
+          "median": 7,
+          "max": 16,
+          "at_least_20": 0
+        },
+        "contradictions": 0,
+        "evidence_errors": [],
+        "unique_base_conversation_ids": 2011
+      }
+    },
+    "base_id_overlap": {
+      "train/dev": 0,
+      "train/test": 0,
+      "dev/test": 194,
+      "test/a2t": 2079,
+      "test/rct": 2011
+    }
+  }
+}

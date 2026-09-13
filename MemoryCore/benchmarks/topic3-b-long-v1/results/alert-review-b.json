@@ -1,0 +1,172 @@
+[
+  {
+    "id": "85cc77c09163e0c67ce5:78f0d92540860c45877a",
+    "label": "unsupported",
+    "rationale": "旧句想把mini-garden sculpture送给sister；新句为mom考虑skincare set。收礼对象和礼物均不同，没有替代关系。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:7da38d39cb6a1ce87c10",
+    "label": "unsupported",
+    "rationale": "旧句想养成morning meditation；新句说明搬到closer to work的新公寓。没有相同属性被否定或更新。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:d87084e653bc28e5fb9c",
+    "label": "unsupported",
+    "rationale": "旧句与Christine和解并计划咖啡见面；新句与朋友搬家花5 hours。可以同时成立。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:c1723aa788b5ed487878",
+    "label": "unsupported",
+    "rationale": "旧句struggling to find a new job不表示没有现职；新句closer to work不证明已找到新工作。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:0dccc2c6a3af3fe302e4",
+    "label": "unsupported",
+    "rationale": "旧句考虑October去Hawaii；新句搬入靠近工作的新公寓。两项安排可并存。"
+  },
+  {
+    "id": "1702d49d6e0b330d61f4:920e188d076d6b39805a",
+    "label": "unsupported",
+    "rationale": "旧句周末烤cookies并寻求口味建议；新句询问rice搭配Japanese-style dishes。不是相同菜肴方案的明确替换。"
+  },
+  {
+    "id": "978f3daab8921e18d37d:801bc54be06717074633",
+    "label": "unsupported",
+    "rationale": "旧句考虑Boston weekend getaway；新句考虑再次去Hawaii。没有说明取消或替换同一次旅行。"
+  },
+  {
+    "id": "978f3daab8921e18d37d:2072e5f0fcc9f6cb4108",
+    "label": "unsupported",
+    "rationale": "旧句已第五次去NYC并考虑再去；新句上月去过Hawaii且想再去。多次不同目的地旅行不冲突。"
+  },
+  {
+    "id": "1d9373be442c3e887807:ba2a4350f5bc567e2acb",
+    "label": "unsupported",
+    "rationale": "旧句希望gym和yoga有rest days；新句晚饭和yoga后每周二四学语言。未给出违反旧计划的明确运动频率，也未宣告替换。"
+  },
+  {
+    "id": "1d9373be442c3e887807:312509788933cf67cb0f",
+    "label": "unsupported",
+    "rationale": "旧句想学photography且限制social media为每天1小时；新句每周二四学语言1小时。不同学习活动和计时对象。"
+  },
+  {
+    "id": "cd1de079cb554ad06341:82f80e21d4c9f971b6e7",
+    "label": "unsupported",
+    "rationale": "旧句准备花园土壤并移动vegetable bed；新句询问BBQ ribs和熏肉木材。不同对象。"
+  },
+  {
+    "id": "cd1de079cb554ad06341:978f18613b8175b0b9b9",
+    "label": "unsupported",
+    "rationale": "旧句考虑drip irrigation timer；新句考虑BBQ ribs和smoking meats。不同对象。"
+  },
+  {
+    "id": "ea0a0f6161766eefc237:bb1645d966582a005bec",
+    "label": "uncertain",
+    "rationale": "旧句City View Rooftop与5 engineers plus manager，新句group hike、6-person group且自己lead five engineers。可能改变同一团建方案，也可能是另一场活动；仅这两句无法确认活动身份或成员替换。"
+  },
+  {
+    "id": "ea0a0f6161766eefc237:c4bfc3b74131d3b3a605",
+    "label": "uncertain",
+    "rationale": "旧句分享experiences as a freelancer，新句当前Senior Software Engineer并lead five engineers。可能职业状态变化，但freelancer experiences可为过去或兼职经历；没有明确退出自由职业。"
+  },
+  {
+    "id": "f6df42c684256c85985b:c217761e45123950d05d",
+    "label": "unsupported",
+    "rationale": "旧句考虑机场Hilton及Thanksgiving去Miami用Delta；新句考虑Europe的Spain/Italy。无证据是同一次行程或互斥选择。"
+  },
+  {
+    "id": "f6c7f677eb590cd20e2b:5d936aa59e3ac36a9e04",
+    "label": "supported_update",
+    "rationale": "同一个Corey Schafer系列的completed videos从20变为30；新句明确已完成的当前累计进度，旧20条仍可为历史事实。"
+  },
+  {
+    "id": "f6c7f677eb590cd20e2b:a8d36ff2f31e576d5cb8",
+    "label": "unsupported",
+    "rationale": "旧句选Azul棋盘游戏并问玩家数；新句完成Corey系列30视频且计划DataCamp。学习与游戏选择无替代关系。"
+  },
+  {
+    "id": "08593f7f397c3ffb39a2:ee850e58bf35edf4fb79",
+    "label": "supported_update",
+    "rationale": "同一只猫Luna的已饲养时长由about 6 months更新为about 9 months；这是当前时长推进，不是历史6个月说法错误。新句未确认microchip是否已完成。"
+  },
+  {
+    "id": "8b0aa1b89031819b9489:a5394aa8c216541e8727",
+    "label": "unsupported",
+    "rationale": "旧句库存为goat milk并想制cheese；新句库存20 dozen eggs。冰箱中可以同时有奶和蛋。"
+  },
+  {
+    "id": "8b0aa1b89031819b9489:84ae2e3017201ccc1aea",
+    "label": "unsupported",
+    "rationale": "旧句准备制作fresh chevre，新句想做spinach and feta variation并询问存蛋。没有明确说放弃或替换旧制奶酪项目。"
+  },
+  {
+    "id": "12b12296433be4a16458:4d8e60c3002f15e66f6f",
+    "label": "unsupported",
+    "rationale": "旧句计划Europe旅行并回顾Chicago；新句周末逛H&M/Sephora。不同活动可以并存。"
+  },
+  {
+    "id": "12b12296433be4a16458:1edafe5862116eabb60d",
+    "label": "unsupported",
+    "rationale": "旧句询问Luxembourg Gardens，新句询问商场促销。话题转换不支持旧属性过时。"
+  },
+  {
+    "id": "12b12296433be4a16458:f3582b990f34ac2541b7",
+    "label": "unsupported",
+    "rationale": "旧句考虑Saturday kayaking和早餐，新句计划weekend逛mall。周末可安排多件事，未明确取消划艇。"
+  },
+  {
+    "id": "e7a521348d3b85555c6c:49078dd53c3ac0042d28",
+    "label": "supported_update",
+    "rationale": "同一Crash Course观看进度旧为finished 10 videos in the past few weeks，新为watched 15 videos in the past few weeks；支持当前近期观看数量更新，不能据此称旧时点的10条错误。"
+  },
+  {
+    "id": "a8cc64c2140ebc4e8301:1cd5fbe0ad4e50fa8e90",
+    "label": "unsupported",
+    "rationale": "旧句考虑stamp show，新句询问sports memorabilia auctions并新增autographed baseballs。可同时有两类收藏。"
+  },
+  {
+    "id": "3a7123abbeb0922c1843:f550b51e91f78986969f",
+    "label": "unsupported",
+    "rationale": "旧句改进craft fair产品陈列并卖candles/scarves；新句计划jogging/tennis。不同活动。"
+  },
+  {
+    "id": "3a7123abbeb0922c1843:59c210faa3bbcf774917",
+    "label": "unsupported",
+    "rationale": "旧句计划Chicago并已退San Francisco酒店；新句周末jogging和Sunday tennis。没有共享日期或明确取消旅行。"
+  },
+  {
+    "id": "3a7123abbeb0922c1843:31bfb1cd65ba15181517",
+    "label": "unsupported",
+    "rationale": "旧句计划May 20th在Las Vegas concert并住Bellagio；新句this Sunday打tennis。没有可比具体日期或否定旧行程。"
+  },
+  {
+    "id": "930e64943d2ca3f6c4d3:9fd742e885360a0a6914",
+    "label": "unsupported",
+    "rationale": "旧句doll collection有37件，新句每天coding两小时。不同属性，不冲突。"
+  },
+  {
+    "id": "df02939b22ab027c3fea:a33ffbeb673e31958891",
+    "label": "uncertain",
+    "rationale": "旧句Europe next spring，新句Europe in November。可能更改同一次欧洲行日期，也可能另一次行程；没有明确same trip或改期措辞，无法确认替代。"
+  },
+  {
+    "id": "df02939b22ab027c3fea:db1f00925d9fc5cbc213",
+    "label": "unsupported",
+    "rationale": "旧句考虑Hilton Lake Las Vegas Resort，新句有Hilton两晚积分且可能用于separate trip to Las Vegas。新信息补充支付选择，没有否定酒店或行程。"
+  },
+  {
+    "id": "82f50d88fae74bc23507:b3b5a549766caa1eda63",
+    "label": "unsupported",
+    "rationale": "旧句计划fishing且买tackle box；新句painting已完成5th project。不同兴趣活动。"
+  },
+  {
+    "id": "c7a84732ffd3a2e938c6:7a2be0e41764779fa7b8",
+    "label": "unsupported",
+    "rationale": "旧句grandparents live in Orlando并计划探访；新句从Illinois的Waukegan harbor钓鱼。祖父母住址不是用户当前住址，出发地也不否定探访计划。"
+  },
+  {
+    "id": "d78642da8917a62d250d:a676c1e9a2383d82c05b",
+    "label": "unsupported",
+    "rationale": "旧句准备亲属graduation甜品并说current year is 2022；新句Zion摄影及Canon EOS 80D已随行five trips。没有提供新年份或取消毕业活动的证据。"
+  }
+]

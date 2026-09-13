@@ -1,0 +1,102 @@
+{
+  "groups": 150,
+  "layers": {
+    "all": {
+      "total": 889,
+      "covered": 889,
+      "unknown_positive": 0,
+      "response_covered": {
+        "tp": 377,
+        "fp": 2,
+        "fn": 14,
+        "precision": 0.9947229551451188,
+        "recall": 0.9641943734015346,
+        "f1": 0.9792207792207792
+      },
+      "character_covered": {
+        "tp": 35705,
+        "fp": 3441,
+        "fn": 2062,
+        "precision": 0.9120982986767486,
+        "recall": 0.9454020705907273,
+        "f1": 0.9284516271631583
+      },
+      "gold_character_coverage_all_queue": 0.9454020705907273
+    },
+    "Data2txt": {
+      "total": 300,
+      "covered": 300,
+      "unknown_positive": 0,
+      "response_covered": {
+        "tp": 206,
+        "fp": 2,
+        "fn": 5,
+        "precision": 0.9903846153846154,
+        "recall": 0.976303317535545,
+        "f1": 0.9832935560859188
+      },
+      "character_covered": {
+        "tp": 13385,
+        "fp": 2468,
+        "fn": 1378,
+        "precision": 0.8443196871254652,
+        "recall": 0.9066585382374857,
+        "f1": 0.8743794094591063
+      },
+      "gold_character_coverage_all_queue": 0.9066585382374857
+    },
+    "QA": {
+      "total": 290,
+      "covered": 290,
+      "unknown_positive": 0,
+      "response_covered": {
+        "tp": 85,
+        "fp": 0,
+        "fn": 5,
+        "precision": 1.0,
+        "recall": 0.9444444444444444,
+        "f1": 0.9714285714285714
+      },
+      "character_covered": {
+        "tp": 17026,
+        "fp": 593,
+        "fn": 303,
+        "precision": 0.96634315227879,
+        "recall": 0.9825148594841018,
+        "f1": 0.9743619091221243
+      },
+      "gold_character_coverage_all_queue": 0.9825148594841018
+    },
+    "Summary": {
+      "total": 299,
+      "covered": 299,
+      "unknown_positive": 0,
+      "response_covered": {
+        "tp": 86,
+        "fp": 0,
+        "fn": 4,
+        "precision": 1.0,
+        "recall": 0.9555555555555556,
+        "f1": 0.9772727272727273
+      },
+      "character_covered": {
+        "tp": 5294,
+        "fp": 380,
+        "fn": 381,
+        "precision": 0.9330278463165316,
+        "recall": 0.932863436123348,
+        "f1": 0.9329456339765618
+      },
+      "gold_character_coverage_all_queue": 0.932863436123348
+    }
+  },
+  "cost": {
+    "forwards": 889,
+    "processed_tokens": 705920,
+    "seconds": 23.970461290562525,
+    "forward_ms_p50_p95": [
+      20.49697400070727,
+      53.36362961679693
+    ]
+  }
+}

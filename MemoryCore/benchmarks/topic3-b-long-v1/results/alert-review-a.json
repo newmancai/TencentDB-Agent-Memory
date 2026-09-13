@@ -1,0 +1,172 @@
+[
+  {
+    "id": "85cc77c09163e0c67ce5:78f0d92540860c45877a",
+    "label": "unsupported",
+    "rationale": "旧句是给姐姐的“ceramic sculpture”生日礼物；新句是给妈妈的“Skincare Set”。收礼对象和物品不同，没有替代关系。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:7da38d39cb6a1ce87c10",
+    "label": "unsupported",
+    "rationale": "旧句担心坚持“meditation”；新句说搬家“closer to work”。新证据未涉及冥想习惯。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:d87084e653bc28e5fb9c",
+    "label": "unsupported",
+    "rationale": "旧句与“Christine”修复关系并计划咖啡见面；新句与朋友搬家。未否认和好或见面计划。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:c1723aa788b5ed487878",
+    "label": "unsupported",
+    "rationale": "“struggling to find a new one”可指在职找新工作；“closer to work”不证明已经找到新职位，没有明确更新。"
+  },
+  {
+    "id": "d5bdf239db724c10b415:0dccc2c6a3af3fe302e4",
+    "label": "unsupported",
+    "rationale": "旧句计划“Hawaii in October”；新句搬入“new apartment”。搬家与旅行计划可以并存。"
+  },
+  {
+    "id": "1702d49d6e0b330d61f4:920e188d076d6b39805a",
+    "label": "unsupported",
+    "rationale": "旧句想做“cookies”；新句想做“Japanese-style dishes”。不同菜式选择没有互斥或替代证据。"
+  },
+  {
+    "id": "978f3daab8921e18d37d:801bc54be06717074633",
+    "label": "unsupported",
+    "rationale": "旧句考虑“weekend getaway to Boston”；新句考虑“going back to Hawaii”。未指定为同一次旅行，也未撤销波士顿计划。"
+  },
+  {
+    "id": "978f3daab8921e18d37d:2072e5f0fcc9f6cb4108",
+    "label": "unsupported",
+    "rationale": "旧句记录“五次纽约旅行”并考虑再去；新句考虑再去夏威夷。不同旅行记录和计划可并存。"
+  },
+  {
+    "id": "1d9373be442c3e887807:ba2a4350f5bc567e2acb",
+    "label": "unsupported",
+    "rationale": "旧句请规划“gym and yoga sessions”；新句补充晚间瑜伽与周二周四语言学习。没有给出冲突的旧时间安排，也未说停止健身。"
+  },
+  {
+    "id": "1d9373be442c3e887807:312509788933cf67cb0f",
+    "label": "unsupported",
+    "rationale": "旧句想学“photography”并限制“social media”；新句介绍语言学习时段。学习科目和社交媒体限时并不互斥。"
+  },
+  {
+    "id": "cd1de079cb554ad06341:82f80e21d4c9f971b6e7",
+    "label": "unsupported",
+    "rationale": "旧句花园土壤与“vegetable bed”；新句“BBQ ribs”与熏肉木材。没有相同对象属性的变化证据。"
+  },
+  {
+    "id": "cd1de079cb554ad06341:978f18613b8175b0b9b9",
+    "label": "unsupported",
+    "rationale": "旧句考虑“drip irrigation system”；新句考虑“BBQ ribs”。两个购买或烹饪计划无替代关系。"
+  },
+  {
+    "id": "ea0a0f6161766eefc237:bb1645d966582a005bec",
+    "label": "uncertain",
+    "rationale": "旧句倾向“City View Rooftop”并邀经理，合计“5 engineers and a manager”；新句选“group hike”并说自己“now lead a team of five engineers”。可能是同一次团队活动改选，也可能是另一活动；仅两段不能确定活动同一性或职位是否替代。"
+  },
+  {
+    "id": "ea0a0f6161766eefc237:c4bfc3b74131d3b3a605",
+    "label": "unsupported",
+    "rationale": "旧句要分享“experiences ... as a freelancer”；新句现为“Senior Software Engineer”带团队。可有兼职或既往自由职业经验，没有明确终止自由职业身份。"
+  },
+  {
+    "id": "f6df42c684256c85985b:c217761e45123950d05d",
+    "label": "unsupported",
+    "rationale": "旧句考虑机场酒店和感恩节“Miami”；新句考虑“Spain or Italy”并询问素食餐厅。未绑定同一旅行，未替代旧计划。"
+  },
+  {
+    "id": "f6c7f677eb590cd20e2b:5d936aa59e3ac36a9e04",
+    "label": "supported_update",
+    "rationale": "同一“Corey”Python系列已完成量由“20 videos so far”到“30 videos so far”。后续明确提供较新的学习进度，旧20仍可作为历史记录。"
+  },
+  {
+    "id": "f6c7f677eb590cd20e2b:a8d36ff2f31e576d5cb8",
+    "label": "unsupported",
+    "rationale": "旧句选择棋盘游戏“Azul”；新句选择“DataCamp course”并记录视频进度。不同活动的选择没有冲突。"
+  },
+  {
+    "id": "08593f7f397c3ffb39a2:ee850e58bf35edf4fb79",
+    "label": "supported_update",
+    "rationale": "同一猫“Luna”的当前养育时长由“about 6 months”变为“about 9 months”。新陈述更新现时长度，是正常时间推移；不能据此判旧句错误或认定芯片预约已完成。"
+  },
+  {
+    "id": "8b0aa1b89031819b9489:a5394aa8c216541e8727",
+    "label": "unsupported",
+    "rationale": "旧句冰箱库存是“milk”；新句“20 dozen”是“eggs”。物品不同，两类库存可以同时存在。"
+  },
+  {
+    "id": "8b0aa1b89031819b9489:84ae2e3017201ccc1aea",
+    "label": "unsupported",
+    "rationale": "旧句选择制作“fresh chevre”；新句选择“spinach and feta variation”并讨论鸡蛋。未说明取代同一次奶酪制作计划。"
+  },
+  {
+    "id": "12b12296433be4a16458:4d8e60c3002f15e66f6f",
+    "label": "unsupported",
+    "rationale": "旧句“Europe next spring”和历史芝加哥旅行；新句本周末逛商场及H&M上衣。没有同一对象属性的替代证据。"
+  },
+  {
+    "id": "12b12296433be4a16458:1edafe5862116eabb60d",
+    "label": "unsupported",
+    "rationale": "旧句询问“Luxembourg Gardens”；新句询问“H&M or Sephora”促销。话题变化不构成旧知识失效。"
+  },
+  {
+    "id": "12b12296433be4a16458:f3582b990f34ac2541b7",
+    "label": "unsupported",
+    "rationale": "旧句“kayaking this Saturday”与早餐；新句“mall this weekend”。周末可安排多项活动，且未证明两句指同一周末，没有取消或时间重叠证据。"
+  },
+  {
+    "id": "e7a521348d3b85555c6c:49078dd53c3ac0042d28",
+    "label": "supported_update",
+    "rationale": "同一“Crash Course videos”近期学习计数从“10 videos in the past few weeks”到“15 ... in the past few weeks”。可更新当前自报的近期进度；滚动时间窗口不证明同区间矛盾，也不据此精确推算新增5个。"
+  },
+  {
+    "id": "a8cc64c2140ebc4e8301:1cd5fbe0ad4e50fa8e90",
+    "label": "unsupported",
+    "rationale": "旧句考虑“stamp show”；新句询问“sports memorabilia auctions”并新增棒球。可同时收藏邮票和棒球，没有放弃旧兴趣或计划的证据。"
+  },
+  {
+    "id": "3a7123abbeb0922c1843:f550b51e91f78986969f",
+    "label": "unsupported",
+    "rationale": "旧句讨论“product displays”及历史手工艺集市；新句慢跑和周日网球。不同活动，不否定历史销售或展示需求。"
+  },
+  {
+    "id": "3a7123abbeb0922c1843:59c210faa3bbcf774917",
+    "label": "unsupported",
+    "rationale": "旧句计划“Chicago”并已退房旧金山酒店；新句问家附近慢跑和周日网球。没有确定的旅行日期或同日位置冲突。"
+  },
+  {
+    "id": "3a7123abbeb0922c1843:31bfb1cd65ba15181517",
+    "label": "unsupported",
+    "rationale": "旧句“Las Vegas ... May 20th”；新句“tennis ... this Sunday”。缺少日期对应和互斥时间安排，不能推断取消旅行。"
+  },
+  {
+    "id": "930e64943d2ca3f6c4d3:9fd742e885360a0a6914",
+    "label": "unsupported",
+    "rationale": "旧句“doll collection ... 37 pieces”；新句每天“两小时”编程练习。不同属性的数量不构成矛盾。"
+  },
+  {
+    "id": "df02939b22ab027c3fea:a33ffbeb673e31958891",
+    "label": "uncertain",
+    "rationale": "旧句“Europe next spring”含巴黎、罗马、巴塞罗那；新句“Europe in November”找巴黎酒店。可能改期，也可能另一次欧洲旅行；缺少同一旅行标识与明确改期说明。"
+  },
+  {
+    "id": "df02939b22ab027c3fea:db1f00925d9fc5cbc213",
+    "label": "unsupported",
+    "rationale": "旧句拉斯维加斯考虑“Hilton Lake Las Vegas Resort”；新句积分可用于“separate trip to Las Vegas”。希尔顿积分补充付款选项，与先前酒店计划兼容。"
+  },
+  {
+    "id": "82f50d88fae74bc23507:b3b5a549766caa1eda63",
+    "label": "unsupported",
+    "rationale": "旧句“fishing trip”与新渔具盒；新句“painting project”已完成5个。不同爱好和物品，没有失效依据。"
+  },
+  {
+    "id": "c7a84732ffd3a2e938c6:7a2be0e41764779fa7b8",
+    "label": "unsupported",
+    "rationale": "旧句祖父母居住“Orlando, Florida”；新句自己计划从“Illinois”钓鱼。人物和地点用途不同，不是同一人的住所冲突。"
+  },
+  {
+    "id": "d78642da8917a62d250d:a676c1e9a2383d82c05b",
+    "label": "unsupported",
+    "rationale": "旧句毕业典礼甜点与“current year is 2022”；新句Zion摄影及相机已随行“五次”。没有新的年份陈述，也未否定典礼安排。"
+  }
+]

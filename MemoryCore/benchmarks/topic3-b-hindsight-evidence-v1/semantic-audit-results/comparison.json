@@ -1,0 +1,18 @@
+{
+  "candidate_only": {
+    "agreement": 8,
+    "total": 10,
+    "disagreement_ids": [
+      "audit-02",
+      "audit-05"
+    ]
+  },
+  "with_neighbors": {
+    "agreement": 8,
+    "total": 10,
+    "disagreement_ids": [
+      "audit-02",
+      "audit-03"
+    ]
+  }
+}

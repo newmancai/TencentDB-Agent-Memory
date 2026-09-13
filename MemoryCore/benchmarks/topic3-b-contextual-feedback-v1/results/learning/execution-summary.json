@@ -1,0 +1,125 @@
+{
+  "evaluation_tasks": 12,
+  "learning_examples": 2,
+  "calls": 48,
+  "word_count_definition": "Python str.split whitespace words",
+  "over_100_words": {
+    "request": 0,
+    "frozen": 1,
+    "unlabelled": 9,
+    "feedback": 12
+  },
+  "word_counts": [
+    {
+      "id": "a4ad44aa2a74987d4b951a2e",
+      "words": {
+        "request": 63,
+        "frozen": 97,
+        "unlabelled": 95,
+        "feedback": 105
+      }
+    },
+    {
+      "id": "81bb9b507d1f7d570d3a8cca",
+      "words": {
+        "frozen": 59,
+        "unlabelled": 113,
+        "feedback": 123,
+        "request": 64
+      }
+    },
+    {
+      "id": "984796e36e273d1487512c65",
+      "words": {
+        "unlabelled": 112,
+        "feedback": 109,
+        "request": 67,
+        "frozen": 102
+      }
+    },
+    {
+      "id": "0d97ade0687d8766d606a16e",
+      "words": {
+        "feedback": 158,
+        "request": 63,
+        "frozen": 88,
+        "unlabelled": 131
+      }
+    },
+    {
+      "id": "0b374d6c26956b171ee960bd",
+      "words": {
+        "request": 64,
+        "frozen": 91,
+        "unlabelled": 108,
+        "feedback": 109
+      }
+    },
+    {
+      "id": "fd7f9450ff190ff48ea32301",
+      "words": {
+        "frozen": 98,
+        "unlabelled": 136,
+        "feedback": 141,
+        "request": 63
+      }
+    },
+    {
+      "id": "ea982ac2f32e73e69f8b9ee8",
+      "words": {
+        "unlabelled": 108,
+        "feedback": 104,
+        "request": 67,
+        "frozen": 80
+      }
+    },
+    {
+      "id": "889b30439d7bbe52a97429fc",
+      "words": {
+        "feedback": 128,
+        "request": 64,
+        "frozen": 64,
+        "unlabelled": 105
+      }
+    },
+    {
+      "id": "29b1de5b660fe91e6f34c755",
+      "words": {
+        "request": 63,
+        "frozen": 93,
+        "unlabelled": 105,
+        "feedback": 105
+      }
+    },
+    {
+      "id": "2cf0398c893f648c327f9ddb",
+      "words": {
+        "frozen": 83,
+        "unlabelled": 100,
+        "feedback": 111,
+        "request": 63
+      }
+    },
+    {
+      "id": "60b5fee3ec380ed2f33e9a2a",
+      "words": {
+        "unlabelled": 84,
+        "feedback": 125,
+        "request": 63,
+        "frozen": 88
+      }
+    },
+    {
+      "id": "a0055a92d458ff1d42ed1268",
+      "words": {
+        "feedback": 115,
+        "request": 67,
+        "frozen": 78,
+        "unlabelled": 112
+      }
+    }
+  ],
+  "total_input_tokens": 235461,
+  "total_output_tokens": 6220,
+  "total_generation_seconds": 198.74197766697034
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "b2f17518ddd41beab6ec6740",
+    "feedback": {
+      "source": "controlled offline reference and independent assistant review, not natural user truth",
+      "reference_requirement": "Content must incorporate narrative elements while maintaining scientific rigor, using storytelling to enhance data presentation.",
+      "review": {
+        "target_content": "partial",
+        "notes": [
+          "既提科学精确也提叙事增强摘要，较能区分伦理提案与摘要；然而最后把当前摘要的叙事写成optional，与参考要求及s6/s8用户反馈不符。",
+          "将平衡主要解释为技术/公众受众差异缺少当前摘要受众变化的证据；这里可见的是同类摘要反馈已改变，而不是必须猜受众。"
+        ]
+      }
+    },
+    "prior_draft": "The user prefers clear, factual presentations of data with minimal interpretive or narrative language, as evidenced by repeated requests to remove subjective terms (e.g., \"potential trends,\" \"comprehensive understanding\") in summaries. However, they also value engaging narratives that connect scientific data to broader discovery stories, especially when discussing species or ecosystems. Preferences are balanced: factual precision is prioritized in formal reports (e.g., ethics proposals), while narrative elements enhance accessibility and engagement in summaries. Uncertainty: the balance between neutrality and storytelling may vary by audience (e.g., technical vs. public-facing). Scope: current request (year-end summary) likely requires a factual foundation with optional narrative elements."
+  },
+  {
+    "id": "5c399dd70556b311c35d0413",
+    "feedback": {
+      "source": "controlled offline reference and independent assistant review, not natural user truth",
+      "reference_requirement": "Communications must use everyday cooking terms and focus on taste descriptions while completely avoiding technical farming terminology.",
+      "review": {
+        "target_content": "partial",
+        "notes": [
+          "风味、质地与直观、少术语的表述有s4:t3和s7:t3支持；仍把排除术语弱化成偏向直观，不明确日常烹饪用语。",
+          "生长日程缓冲有来源但不是展位设计的明确偏好；没有流量数据是合理未知，不构成目标命中。"
+        ]
+      }
+    },
+    "prior_draft": "The user values clear, practical, and customer-focused design—evident in their preference for simple, engaging market signage (e.g., purple cauliflower descriptions) and recipe cards. They prioritize usability, visual appeal, and alignment with customer experience, as seen in their emphasis on flavor, texture, and accessibility. They also appreciate structured, actionable plans with built-in flexibility (e.g., buffers in growing schedules). This indicates a preference for intuitive, real-world solutions over technical jargon. Scope: booth design for a farmers market. Uncertainty: no specific audience or traffic data provided."
+  }
+]

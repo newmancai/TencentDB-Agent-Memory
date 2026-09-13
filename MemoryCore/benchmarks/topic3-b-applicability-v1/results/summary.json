@@ -1,0 +1,25 @@
+{
+  "applicability": {
+    "n": 10,
+    "exact": 0,
+    "tp": 22,
+    "fp": 94,
+    "fn": 6
+  },
+  "feedback": {
+    "n": 10,
+    "exact": 0,
+    "tp": 14,
+    "fp": 73,
+    "fn": 4,
+    "unknown": 0
+  },
+  "paired_vs_saved_compact": {
+    "tie": 10
+  },
+  "cost": {
+    "inputTokens": 24893,
+    "outputTokens": 566,
+    "elapsedMs": 18647.975116036832
+  }
+}

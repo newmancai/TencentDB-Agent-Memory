@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "protocol": "topic3-b-public-suite-v1",
+  "mode": "adapter_and_checker_smoke",
+  "status": "pass",
+  "source": {
+    "dataset": "joshuaswarren/h6-failure-gate-tasks",
+    "revision": "20017969711c7c72c649d9e4d70a8df730ec6176",
+    "datasetJsonSha256": "0757c8ede7248ebb233234bedda7d81ac2a4a8a2cd2f9abdb6a79bb0e39d39bf",
+    "declaredInventoryHash": "687615b5f7ff46977d268a03e30018070f7d0bec9d01e04da2d0c723e59a5b27"
+  },
+  "adaptation": {
+    "tasks": 30,
+    "cases": 90,
+    "pilotTasks": 12,
+    "mainTasks": 18,
+    "selectionSeed": 81,
+    "evaluationUnit": "task_variant_seed_arm",
+    "variantsPerTask": 3,
+    "trapClasses": 6,
+    "tasksJsonSha256": "3be443bb1d4db7ef441b8936f25ea71606bf91086fe0ada46652723c1900a643",
+    "goldJsonSha256": "82b34071926a46f84813eed2798e6a32274e785ba8b4a915471b284cd04c526e",
+    "labelsSeparated": true,
+    "labelLeakScan": "pass"
+  },
+  "checkerSmoke": {
+    "sampling": "lexicographically first task in each trap class, variant 1",
+    "sampledTasks": 6,
+    "checks": 24,
+    "receiptSha256": "76a5e9a60ae5ccd60b4f0b8088618d366334aa0e259c36df5681b70845ad9222",
+    "expectedAndObserved": {
+      "baselineNonzero": 6,
+      "badStrategyNonzero": 6,
+      "goodStrategyZero": 6,
+      "noTrapZero": 6
+    },
+    "trapClasses": [
+      "config-shadowing",
+      "flaky-looking-test",
+      "hidden-invariant",
+      "misleading-error-message",
+      "stale-cache-illusion",
+      "wrong-layer-fix"
+    ]
+  },
+  "tests": {"unittestCases": 2, "passed": 2, "failed": 0},
+  "modelCalls": 0,
+  "independentOutcomeComparison": "not_run",
+  "claim": "The pinned public corpus is adapter-ready and its sampled checker states are internally consistent; no MemoryCore quality gain has been measured."
+}

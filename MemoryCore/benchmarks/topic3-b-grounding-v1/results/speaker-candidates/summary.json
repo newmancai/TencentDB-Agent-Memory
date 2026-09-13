@@ -1,0 +1,33 @@
+{
+  "arms": {
+    "baseline": {
+      "tp": 24,
+      "tn": 29,
+      "fn": 5
+    },
+    "with_comparison": {
+      "tp": 26,
+      "tn": 28,
+      "fn": 3,
+      "fp": 1
+    }
+  },
+  "paired": {
+    "tie": 55,
+    "loss": 1,
+    "win": 2,
+    "unknown": 2
+  },
+  "reused_alternatives": 36,
+  "new_forwards": 22,
+  "new_tokens": 40231,
+  "new_seconds": 6.204225303372368,
+  "operational_alternative_forwards": 58,
+  "operational_alternative_tokens": 118821,
+  "operational_alternative_seconds": 18.142588574672118,
+  "candidate_audit": {
+    "pairs": 30,
+    "negative_with_candidate": 30,
+    "positive_question_recovered": 19
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "protocol": "cupid-correction-compilation-v1",
+  "development_examples": 2,
+  "load_seconds": 3.0253085820004344,
+  "input_tokens": 6266,
+  "output_tokens": 241,
+  "generation_ms": 7891.909154132009,
+  "errors": 0,
+  "scope": "Development demonstration generation only; not accepted policy or new-task improvement"
+}

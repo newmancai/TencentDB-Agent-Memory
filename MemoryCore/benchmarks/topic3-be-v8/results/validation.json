@@ -1,0 +1,9 @@
+{
+  "native_records": 33,
+  "scope": "recorded-context native contract and isolated selector only, not Gateway failure replay",
+  "selector_checks": {
+    "disabled": 33,
+    "corrupt_state": 33,
+    "failed_score": 33
+  }
+}

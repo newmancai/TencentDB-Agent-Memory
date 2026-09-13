@@ -1,0 +1,43 @@
+{
+  "cases": 172,
+  "evaluationUnit": "isolated_cli_turn",
+  "independentModelRun": "not_run",
+  "inputHashes": {
+    "implicit-read.json": "ba0aceddb8a57ae63cb4d930e67080d8353d472cf27b323205ec682dffc091fe",
+    "implicit-write.json": "2fd49e1e2773fca211c316ef3842cf6d716154c6683754ca7d1aaea6f4e919ea",
+    "trap.json": "b5c22a5eba0df3c9b23eb3a1bc8b86c39cd1aaf871375423c27637a425ee1bf1",
+    "trigger-evals.json": "f77344f54bdcbd8494d7378f26a44258e3bff9422f419ac0a053e1506502a645"
+  },
+  "labelsSeparated": true,
+  "languageCounts": {
+    "en": 68,
+    "unspecified": 32,
+    "zh": 72
+  },
+  "moduleCounts": {
+    "implicit-read-neg": 28,
+    "implicit-read-pos": 28,
+    "implicit-write-neg": 28,
+    "implicit-write-pos": 28,
+    "regression": 32,
+    "trap-read-neg": 4,
+    "trap-read-pos": 18,
+    "trap-write-neg": 6
+  },
+  "outputHashes": {
+    "gold.json": "889ea65b524e5ff9f121b47fe32864e4219c1b8d3365f0ef4d971b67f56db6e8",
+    "tasks.json": "e15f7be65b2831135478b4dc04a7fde9ef030d02d91595190bd47d957e574c01"
+  },
+  "protocol": "topic3-b-public-suite-v1",
+  "schema": 1,
+  "seededCases": 46,
+  "selection": "all_cases_no_subsampling",
+  "source": {
+    "revision": "f64b921474c9d84d073a588ed13568e917275a1c",
+    "url": "https://huggingface.co/datasets/wallfacers/agent-memory-trigger-bench"
+  },
+  "status": "prepared",
+  "triggerNegative": 82,
+  "triggerPositive": 90,
+  "workspaceCases": 2
+}

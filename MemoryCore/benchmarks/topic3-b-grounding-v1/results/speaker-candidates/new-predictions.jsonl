@@ -1,0 +1,24 @@
+{"id": "conv-30:86::X::swap0", "tokens": 1476, "elapsed_ms": 454.0971650276333, "logits": [20.875, 42.5, 27.75], "letter_mass": 0.9998413920402527, "error": null}
+{"id": "conv-30:86::Y::swap0", "tokens": 1476, "elapsed_ms": 228.1037289649248, "logits": [48.75, 26.125, 27.25], "letter_mass": 1.0, "error": null}
+{"id": "conv-30:97::X::swap0", "tokens": 1545, "elapsed_ms": 244.13448595441878, "logits": [23.375, 42.0, 36.25], "letter_mass": 0.9988341331481934, "error": null}
+{"id": "conv-30:97::Y::swap0", "tokens": 1545, "elapsed_ms": 243.99456102401018, "logits": [22.875, 41.0, 34.75], "letter_mass": 0.9985007047653198, "error": null}
+{"id": "conv-30:88::X::swap0", "tokens": 1378, "elapsed_ms": 213.0936321336776, "logits": [38.5, 29.375, 35.5], "letter_mass": 0.954717218875885, "error": null}
+{"id": "conv-30:88::Y::swap0", "tokens": 1378, "elapsed_ms": 213.15988805145025, "logits": [31.375, 33.75, 36.75], "letter_mass": 0.9781074523925781, "error": null}
+{"id": "conv-41:172::X::swap0", "tokens": 1403, "elapsed_ms": 212.49940199777484, "logits": [49.75, 24.0, 27.875], "letter_mass": 1.0, "error": null}
+{"id": "conv-41:172::Y::swap0", "tokens": 1403, "elapsed_ms": 211.56744984909892, "logits": [41.25, 29.25, 33.0], "letter_mass": 0.9988262057304382, "error": null}
+{"id": "conv-41:158::X::swap0", "tokens": 2508, "elapsed_ms": 374.80514007620513, "logits": [25.25, 41.75, 46.25], "letter_mass": 0.999995231628418, "error": null}
+{"id": "conv-41:158::Y::swap0", "tokens": 2508, "elapsed_ms": 369.3711180239916, "logits": [22.0, 42.75, 33.75], "letter_mass": 0.9996641874313354, "error": null}
+{"id": "conv-41:168::X::swap0", "tokens": 2086, "elapsed_ms": 305.8376591652632, "logits": [20.875, 41.75, 29.625], "letter_mass": 0.9980728626251221, "error": null}
+{"id": "conv-41:168::Y::swap0", "tokens": 2086, "elapsed_ms": 306.79558007977903, "logits": [47.5, 25.125, 30.375], "letter_mass": 0.9999998211860657, "error": null}
+{"id": "conv-42:209::X::swap0", "tokens": 1839, "elapsed_ms": 259.4661330804229, "logits": [22.875, 43.75, 33.25], "letter_mass": 0.999290406703949, "error": null}
+{"id": "conv-42:209::Y::swap0", "tokens": 1840, "elapsed_ms": 259.2038030270487, "logits": [21.75, 41.5, 28.875], "letter_mass": 0.9820135235786438, "error": null}
+{"id": "conv-42:237::X::swap0", "tokens": 2116, "elapsed_ms": 310.37436914630234, "logits": [47.0, 22.875, 27.125], "letter_mass": 0.9999971389770508, "error": null}
+{"id": "conv-42:237::Y::swap0", "tokens": 2116, "elapsed_ms": 311.53783993795514, "logits": [29.875, 32.75, 36.5], "letter_mass": 0.5681993961334229, "error": null}
+{"id": "conv-42:207::X::swap0", "tokens": 2276, "elapsed_ms": 331.17932896129787, "logits": [47.0, 23.375, 29.125], "letter_mass": 0.9999982118606567, "error": null}
+{"id": "conv-42:207::Y::swap0", "tokens": 2276, "elapsed_ms": 330.825325101614, "logits": [47.25, 21.625, 26.0], "letter_mass": 0.9999991655349731, "error": null}
+{"id": "conv-44:140::X::swap0", "tokens": 1974, "elapsed_ms": 282.26702893152833, "logits": [51.75, 23.625, 29.125], "letter_mass": 1.0, "error": null}
+{"id": "conv-44:140::Y::swap0", "tokens": 1974, "elapsed_ms": 282.2068769019097, "logits": [42.75, 30.875, 31.125], "letter_mass": 0.9997960329055786, "error": null}
+{"id": "conv-47:167::X::swap0", "tokens": 1514, "elapsed_ms": 230.2815830335021, "logits": [22.75, 43.25, 37.0], "letter_mass": 0.9997969269752502, "error": null}
+{"id": "conv-47:167::Y::swap0", "tokens": 1514, "elapsed_ms": 229.42320490255952, "logits": [23.0, 43.0, 30.125], "letter_mass": 0.999088704586029, "error": null}
+{"id": "conv-50:194::X::swap0", "tokens": 0, "elapsed_ms": 0, "logits": null, "letter_mass": null, "error": "shared_evidence_limit"}
+{"id": "conv-50:194::Y::swap0", "tokens": 0, "elapsed_ms": 0, "logits": null, "letter_mass": null, "error": "shared_evidence_limit"}

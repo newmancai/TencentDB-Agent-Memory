@@ -1,0 +1,7 @@
+{
+  "status": "excluded from capability comparison",
+  "reason": "Single assistant received six tasks together, exposing same-persona alternate histories. Local model calls were isolated.",
+  "original_output": "assistant-batch-receipts-not-isolated.jsonl",
+  "cost": "unmetered assistant cost retained, not zero",
+  "replacement": "one fresh agent per row; local model not rerun"
+}

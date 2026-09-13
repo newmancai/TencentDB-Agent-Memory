@@ -1,0 +1,43 @@
+{
+  "source": "Post-hoc recorded independent assistant review, not official annotation replacement",
+  "records": [
+    {
+      "id": "33cd8e932f9d086ea26a6168",
+      "review_source": "../fragments/blind-0.json",
+      "flagged_requirements": [
+        "formal honorifics",
+        "avoid any contemporary cultural references"
+      ],
+      "status": "explicit strength not established by visible user feedback; not proven false",
+      "training_use": "Do not turn these missing-reference clauses alone into certain corrective feedback. Other source-grounded errors remain eligible for separate review."
+    },
+    {
+      "id": "8d60876aa03d7d58833852b0",
+      "review_source": "../fragments/blind-0.json",
+      "flagged_requirements": [
+        "formal honorifics",
+        "avoid any contemporary cultural references"
+      ],
+      "status": "explicit strength not established by visible user feedback; not proven false",
+      "training_use": "Do not turn these missing-reference clauses alone into certain corrective feedback. Other source-grounded errors remain eligible for separate review."
+    },
+    {
+      "id": "6c24299f6b507d58e53ca08b",
+      "review_source": "../fragments/blind-1.json",
+      "flagged_requirements": [
+        "regardless of the target audience"
+      ],
+      "status": "unconditional audience scope not established by visible user feedback; not proven false",
+      "training_use": "Preserve citation/rigor evidence in the actual publishing context; do not teach an unconditional cross-audience rule from the missing-reference grade alone."
+    },
+    {
+      "id": "68f173fa0fae68377c0d1666",
+      "review_source": "../fragments/blind-1.json",
+      "flagged_requirements": [
+        "regardless of the target audience"
+      ],
+      "status": "unconditional audience scope not established by visible user feedback; not proven false",
+      "training_use": "Preserve citation/rigor evidence in the actual publishing context; do not teach an unconditional cross-audience rule from the missing-reference grade alone."
+    }
+  ]
+}

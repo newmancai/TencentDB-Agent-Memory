@@ -1,0 +1,269 @@
+[
+  {
+    "id": "6c50c6b8631b2896ab4fc5c8",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "认可通过案例研究和项目学习整合基础技能"
+    ],
+    "requested_change": [
+      "使这些活动适应不同技能水平，支持学生按自身进度学习"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t3",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "不能说所有活动已支持个体进度，也不能由职业分组补入未在本例说明的攀岩技能。"
+  },
+  {
+    "id": "03ffd4ebbafe6b32c776036f",
+    "feedback_kind": "support",
+    "supported_content": [
+      "认可先充分准备和掌握基础再进入进阶挑战",
+      "认可结构化、逐步建立信心的教学方式"
+    ],
+    "requested_change": [],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t3",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "认可教学方案不证明学生已掌握技能或安全效果已验证，也不等于认可每项细节。"
+  },
+  {
+    "id": "d388aa45ec4db2a604e9b385",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "认可术语调整比此前更接近古典风格"
+    ],
+    "requested_change": [
+      "再次检查全文的传统法律措辞，尤其宣传活动和收入相关的现代表达"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t7",
+      "t8",
+      "t9"
+    ],
+    "overreach_to_avoid": "用户评价是风格反馈，不证明文本真属古典韩国法律语言或合同条款真实有效；未要求改收入比例等实质条件。"
+  },
+  {
+    "id": "ebbff0cf44fd0adcaf19e738",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "认可编号条文的结构是改进方向，但仅部分认可"
+    ],
+    "requested_change": [
+      "改用更连续的叙事体，呈现前数字时代传统法律文件风格"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t3",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "不能将部分肯定记成继续保留编号格式的最终要求；未要求取消合同内容或改变权利义务。"
+  },
+  {
+    "id": "1f3f1a4ac62726955bcf8947",
+    "feedback_kind": "request_change",
+    "supported_content": [],
+    "requested_change": [
+      "复核将Copulationsregister译成Birth Register的错误",
+      "术语应一致采用现代说法，同时忠实原意"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t2",
+      "t3"
+    ],
+    "overreach_to_avoid": "用户指出了特定译词问题，但未给出确切替代译文；不能扩成整份译文皆错或声称全部其他术语已核实。"
+  },
+  {
+    "id": "5fc638c4b2ec9db710a57d03",
+    "feedback_kind": "support",
+    "supported_content": [
+      "认可译文精准、忠实原文且未增添不必要解释",
+      "认可这种保持文件完整性的处理方式"
+    ],
+    "requested_change": [],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t5",
+      "t6",
+      "t7"
+    ],
+    "overreach_to_avoid": "末条未再要求修改；不能把认可忠实性当独立语言学核验，也不能据此删除此前要求保留的SHAEF脚注。"
+  },
+  {
+    "id": "29bb0ac07daab3eac7abb15f",
+    "feedback_kind": "request_change",
+    "supported_content": [],
+    "requested_change": [
+      "补充如何确保地图视觉元素与数据呈现准确、精确的具体指导"
+    ],
+    "target_identifiable": "partial",
+    "evidence_ids": [
+      "t1",
+      "t2",
+      "t3"
+    ],
+    "overreach_to_avoid": "对象可定位为这份交通地图文档及其视觉呈现，但未给实际地图或指定错误元素；不能断言已有地图错误或推断指定配色、比例尺规范。"
+  },
+  {
+    "id": "b0b820b2f33438ab66448d53",
+    "feedback_kind": "request_change",
+    "supported_content": [],
+    "requested_change": [
+      "在缺少直接验证资料的情况下，提供对齐National Geographic Department标准的具体步骤或联系途径"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t5",
+      "t6",
+      "t7",
+      "t8",
+      "t9"
+    ],
+    "overreach_to_avoid": "条件式提问不证明资料绝对不存在，也不证明替代机构标准等价、工作流获认证或用户认可了此前QGIS技术说法。"
+  },
+  {
+    "id": "19c2d6d1a921e2bbb25ad203",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "认可天气条件已纳入分析"
+    ],
+    "requested_change": [
+      "更明确使用每条观察的具体时间，将天气条件与这些时间对齐"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t3",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "认可天气分析不验证t4虚构的藤蔓邻近性、地形或因果结论；不能把地理要求视为被时间要求撤销。"
+  },
+  {
+    "id": "58a40460d3e26fbe84f48b7e",
+    "feedback_kind": "request_change",
+    "supported_content": [],
+    "requested_change": [
+      "进一步把活动时间线调整为一致间隔，以保持稳定工作节奏"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t3",
+      "t5",
+      "t6",
+      "t7"
+    ],
+    "overreach_to_avoid": "t6时间点确有不等间隔，但用户未指定15或30分钟；不能因本次聚焦时间就删除应急预案，或假定蝴蝶按计划出现。"
+  },
+  {
+    "id": "061c6b707854f9c0e9f689e8",
+    "feedback_kind": "support",
+    "supported_content": [
+      "认可先呈现部门运营挑战的次序",
+      "认可未提出财务建议，使当前讨论先聚焦这些问题"
+    ],
+    "requested_change": [],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t3",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "不能外推为永久禁止预算分析或删除所有预算信息；也不能把早先助手所写预算削减原因当用户确认的因果事实。"
+  },
+  {
+    "id": "a11c24a00f4806f443b2378a",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "认可即时预算削减金额的计算有帮助且切题"
+    ],
+    "requested_change": [
+      "将分析限定在眼前财政年度，避免超出该时段的影响推断",
+      "明确写明长期影响不在分析范围"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t2",
+      "t3"
+    ],
+    "overreach_to_avoid": "t2未明确谈长期，故修改要求不等于已经证明其越界；不能外推用户永久拒绝长期分析或认为所有影响结论都正确。"
+  },
+  {
+    "id": "f521dd11c269e3951c396aa4",
+    "feedback_kind": "support",
+    "supported_content": [
+      "认可研究计划全面且结构清楚",
+      "认可咨询多领域专家，以及在收集相关信息后再作决定的顺序"
+    ],
+    "requested_change": [],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t2",
+      "t3"
+    ],
+    "overreach_to_avoid": "这是用户对方案的认可；没有实际协议全文，不能据此独立证明全部必需步骤已齐、协议完全合规或研究已经执行。"
+  },
+  {
+    "id": "258224e01ccdfc818cb40bb3",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "认可邮件语气专业、成熟"
+    ],
+    "requested_change": [
+      "在邮件中引用与Watson博士此前讨论或协议，使修改建议衔接既有工作"
+    ],
+    "target_identifiable": "partial",
+    "evidence_ids": [
+      "t1",
+      "t2",
+      "t3"
+    ],
+    "overreach_to_avoid": "邮件修改对象明确，但prefix未提供既往讨论或协议内容，不能编造它们；也不能认为附件、研究完成或协议已获接受。"
+  },
+  {
+    "id": "d9f733f5face630815a1ba1c",
+    "feedback_kind": "support",
+    "supported_content": [
+      "认可新增字段及条目结构清楚、覆盖关键细节",
+      "认可记录兼顾准确性与文化背景信息"
+    ],
+    "requested_change": [],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t3",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "不能由用户认可推断ArchivePro确实支持新增字段、数据已写入或每项历史事实获外部验证。"
+  },
+  {
+    "id": "1ea2ca4f7f18f2f6c851478a",
+    "feedback_kind": "support",
+    "supported_content": [
+      "认可时间安排与视觉呈现的平衡",
+      "认可新增交互元素和特写演示，认为有助于信息传达与吸引观众"
+    ],
+    "requested_change": [],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t3",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "这是对拟议方案的肯定，不证明新增游戏、模拟器或360度能力已实现，也不证明实际观众效果。"
+  }
+]

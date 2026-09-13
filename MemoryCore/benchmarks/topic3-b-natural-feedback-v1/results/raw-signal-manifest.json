@@ -1,0 +1,13 @@
+{
+  "events": 226,
+  "groups": 73,
+  "labels_in_tasks": false,
+  "wildchat_in_tasks": false,
+  "control_same_group": 0,
+  "control_unique_donors": 226,
+  "control_log_character_length_gap_p50_p95": [
+    0.0,
+    0.17573793042112995
+  ],
+  "scope": "Development signal diagnostic only; original logged answers, not new agent actions. Donor text is not an actual response to the recipient answer."
+}

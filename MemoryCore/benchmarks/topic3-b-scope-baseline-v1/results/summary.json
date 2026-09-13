@@ -1,0 +1,13 @@
+{
+  "protocol": "topic3-b-exact-scope-baseline-v1",
+  "cases": 8,
+  "decisions": 24,
+  "correct": 24,
+  "by_variant": {
+    "match": "8/8",
+    "conflict": "8/8",
+    "missing": "8/8"
+  },
+  "replay_ok": true,
+  "scope": "Synthetic exact scalar predicates; no model. Not natural-language scope extraction or downstream gain."
+}

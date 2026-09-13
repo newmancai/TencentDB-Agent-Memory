@@ -1,0 +1,466 @@
+[
+  {
+    "id": "Locomo-0:28",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D8:9",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "like",
+    "observed_actions": [
+      "like"
+    ],
+    "answers": 1,
+    "feedback_receipts": 1,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:6",
+    "coverage": "none",
+    "references": [
+      {
+        "memory_id": "D2:7",
+        "exact_text_present": false
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  },
+  {
+    "id": "Locomo-0:70",
+    "coverage": "partial",
+    "references": [
+      {
+        "memory_id": "D17:19",
+        "exact_text_present": false
+      },
+      {
+        "memory_id": "D15:13",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 2
+  },
+  {
+    "id": "Locomo-0:62",
+    "coverage": "none",
+    "references": [
+      {
+        "memory_id": "D15:2",
+        "exact_text_present": false
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:57",
+    "coverage": "none",
+    "references": [
+      {
+        "memory_id": "D14:1",
+        "exact_text_present": false
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:35",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D9:1",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  },
+  {
+    "id": "Locomo-0:26",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D7:8",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:173",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D9:16",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  },
+  {
+    "id": "Locomo-0:139",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D17:18",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "like",
+    "observed_actions": [
+      "like"
+    ],
+    "answers": 1,
+    "feedback_receipts": 1,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:22",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D6:9",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  },
+  {
+    "id": "Locomo-0:151",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D18:17",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:108",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D7:24",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  },
+  {
+    "id": "Locomo-0:8",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D3:1",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 2
+  },
+  {
+    "id": "Locomo-0:7",
+    "coverage": "partial",
+    "references": [
+      {
+        "memory_id": "D3:13",
+        "exact_text_present": true
+      },
+      {
+        "memory_id": "D2:14",
+        "exact_text_present": false
+      }
+    ],
+    "first_action": "like",
+    "observed_actions": [
+      "like"
+    ],
+    "answers": 1,
+    "feedback_receipts": 1,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:23",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D7:8",
+        "exact_text_present": true
+      },
+      {
+        "memory_id": "D6:10",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 2
+  },
+  {
+    "id": "Locomo-0:55",
+    "coverage": "partial",
+    "references": [
+      {
+        "memory_id": "D14:5",
+        "exact_text_present": false
+      },
+      {
+        "memory_id": "D8:6",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  },
+  {
+    "id": "Locomo-0:59",
+    "coverage": "partial",
+    "references": [
+      {
+        "memory_id": "D14:19",
+        "exact_text_present": false
+      },
+      {
+        "memory_id": "D12:1",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  },
+  {
+    "id": "Locomo-0:154",
+    "coverage": "none",
+    "references": [
+      {
+        "memory_id": "D2:12",
+        "exact_text_present": false
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 2
+  },
+  {
+    "id": "Locomo-0:196",
+    "coverage": "none",
+    "references": [
+      {
+        "memory_id": "D18:5",
+        "exact_text_present": false
+      }
+    ],
+    "first_action": "like",
+    "observed_actions": [
+      "like"
+    ],
+    "answers": 1,
+    "feedback_receipts": 1,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [],
+    "unique_answers": 1
+  },
+  {
+    "id": "Locomo-0:50",
+    "coverage": "complete",
+    "references": [
+      {
+        "memory_id": "D12:1",
+        "exact_text_present": true
+      }
+    ],
+    "first_action": "dislike",
+    "observed_actions": [
+      "dislike",
+      "dislike"
+    ],
+    "answers": 3,
+    "feedback_receipts": 2,
+    "initial_prompt_identical": true,
+    "additional_user_messages": [
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?",
+      "That doesn't seem quite right. Could you please try again and provide a more accurate answer?"
+    ],
+    "unique_answers": 3
+  }
+]

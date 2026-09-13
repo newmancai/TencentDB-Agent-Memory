@@ -1,0 +1,33 @@
+[
+  {
+    "id": "dialog_1:5",
+    "gold_families": [
+      "startwith"
+    ],
+    "old_predicted": 12,
+    "new_predicted": 4,
+    "old_tp": 1,
+    "old_fp": 11,
+    "new_tp": 1,
+    "new_fp": 3,
+    "new_fn": 0,
+    "exact": false
+  },
+  {
+    "id": "dialog_1:10",
+    "gold_families": [
+      "countableItems",
+      "forbidden",
+      "format",
+      "reader_age"
+    ],
+    "old_predicted": 11,
+    "new_predicted": 4,
+    "old_tp": 3,
+    "old_fp": 8,
+    "new_tp": 2,
+    "new_fp": 2,
+    "new_fn": 2,
+    "exact": false
+  }
+]

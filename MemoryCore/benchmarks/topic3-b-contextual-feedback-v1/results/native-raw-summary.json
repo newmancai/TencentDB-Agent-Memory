@@ -1,0 +1,136 @@
+{
+  "mode": "native_raw_provenance_roundtrip",
+  "events": 16,
+  "writes": 82,
+  "receipts": [
+    {
+      "id": "6c50c6b8631b2896ab4fc5c8",
+      "writes": 5,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "6c50c6b8631b2896ab4fc5c8:t5",
+      "responseRecordId": "6c50c6b8631b2896ab4fc5c8:t4",
+      "readsUnchanged": true
+    },
+    {
+      "id": "03ffd4ebbafe6b32c776036f",
+      "writes": 5,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "03ffd4ebbafe6b32c776036f:t5",
+      "responseRecordId": "03ffd4ebbafe6b32c776036f:t4",
+      "readsUnchanged": true
+    },
+    {
+      "id": "d388aa45ec4db2a604e9b385",
+      "writes": 9,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "d388aa45ec4db2a604e9b385:t9",
+      "responseRecordId": "d388aa45ec4db2a604e9b385:t8",
+      "readsUnchanged": true
+    },
+    {
+      "id": "ebbff0cf44fd0adcaf19e738",
+      "writes": 5,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "ebbff0cf44fd0adcaf19e738:t5",
+      "responseRecordId": "ebbff0cf44fd0adcaf19e738:t4",
+      "readsUnchanged": true
+    },
+    {
+      "id": "1f3f1a4ac62726955bcf8947",
+      "writes": 3,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "1f3f1a4ac62726955bcf8947:t3",
+      "responseRecordId": "1f3f1a4ac62726955bcf8947:t2",
+      "readsUnchanged": true
+    },
+    {
+      "id": "5fc638c4b2ec9db710a57d03",
+      "writes": 7,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "5fc638c4b2ec9db710a57d03:t7",
+      "responseRecordId": "5fc638c4b2ec9db710a57d03:t6",
+      "readsUnchanged": true
+    },
+    {
+      "id": "29bb0ac07daab3eac7abb15f",
+      "writes": 3,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "29bb0ac07daab3eac7abb15f:t3",
+      "responseRecordId": "29bb0ac07daab3eac7abb15f:t2",
+      "readsUnchanged": true
+    },
+    {
+      "id": "b0b820b2f33438ab66448d53",
+      "writes": 9,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "b0b820b2f33438ab66448d53:t9",
+      "responseRecordId": "b0b820b2f33438ab66448d53:t8",
+      "readsUnchanged": true
+    },
+    {
+      "id": "19c2d6d1a921e2bbb25ad203",
+      "writes": 5,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "19c2d6d1a921e2bbb25ad203:t5",
+      "responseRecordId": "19c2d6d1a921e2bbb25ad203:t4",
+      "readsUnchanged": true
+    },
+    {
+      "id": "58a40460d3e26fbe84f48b7e",
+      "writes": 7,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "58a40460d3e26fbe84f48b7e:t7",
+      "responseRecordId": "58a40460d3e26fbe84f48b7e:t6",
+      "readsUnchanged": true
+    },
+    {
+      "id": "061c6b707854f9c0e9f689e8",
+      "writes": 5,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "061c6b707854f9c0e9f689e8:t5",
+      "responseRecordId": "061c6b707854f9c0e9f689e8:t4",
+      "readsUnchanged": true
+    },
+    {
+      "id": "a11c24a00f4806f443b2378a",
+      "writes": 3,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "a11c24a00f4806f443b2378a:t3",
+      "responseRecordId": "a11c24a00f4806f443b2378a:t2",
+      "readsUnchanged": true
+    },
+    {
+      "id": "f521dd11c269e3951c396aa4",
+      "writes": 3,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "f521dd11c269e3951c396aa4:t3",
+      "responseRecordId": "f521dd11c269e3951c396aa4:t2",
+      "readsUnchanged": true
+    },
+    {
+      "id": "258224e01ccdfc818cb40bb3",
+      "writes": 3,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "258224e01ccdfc818cb40bb3:t3",
+      "responseRecordId": "258224e01ccdfc818cb40bb3:t2",
+      "readsUnchanged": true
+    },
+    {
+      "id": "d9f733f5face630815a1ba1c",
+      "writes": 5,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "d9f733f5face630815a1ba1c:t5",
+      "responseRecordId": "d9f733f5face630815a1ba1c:t4",
+      "readsUnchanged": true
+    },
+    {
+      "id": "1ea2ca4f7f18f2f6c851478a",
+      "writes": 5,
+      "textRoleSessionEqual": true,
+      "feedbackRecordId": "1ea2ca4f7f18f2f6c851478a:t5",
+      "responseRecordId": "1ea2ca4f7f18f2f6c851478a:t4",
+      "readsUnchanged": true
+    }
+  ],
+  "scope": "Real isolated L0 write/read. Host carries observed reply order; not a persisted reply-to schema, retrieval ranking test, adaptive off/fallback test, semantic truth, or feedback-learning gain."
+}

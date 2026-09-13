@@ -1,0 +1,26 @@
+{
+  "1be13d14321e093f497187fa": {
+    "A": "assistant",
+    "B": "local"
+  },
+  "073ca63303e325ab55060737": {
+    "A": "assistant",
+    "B": "local"
+  },
+  "932f3e74eb9a7ea49b5d8dda": {
+    "A": "local",
+    "B": "assistant"
+  },
+  "66fa898caa65482b7d5855b7": {
+    "A": "assistant",
+    "B": "local"
+  },
+  "227c678221f3dfa8f8d033b8": {
+    "A": "local",
+    "B": "assistant"
+  },
+  "2ae96446c29106cf519399ee": {
+    "A": "assistant",
+    "B": "local"
+  }
+}

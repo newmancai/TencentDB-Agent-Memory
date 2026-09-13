@@ -1,0 +1,122 @@
+[
+  {
+    "id": "b2f17518ddd41beab6ec6740",
+    "judgment_source": "assistant semantic review; not official grader",
+    "X": {
+      "target_content": "partial",
+      "notes": [
+        "提到科学严谨及叙事可增强理解，但主轴仍是删除叙事、正式报告事实优先，未恢复当前Monthly Research Summary应加入故事的要求。",
+        "s6:t3/t5与s8:t3/t5在同一摘要场景明确要求并认可叙事；X把s4/s5旧要求及s7伦理提案要求泛化为当前优先级。引用要求在s7有据，但不自动是本摘要核心要求。"
+      ]
+    },
+    "Y": {
+      "target_content": "partial",
+      "notes": [
+        "既提科学精确也提叙事增强摘要，较能区分伦理提案与摘要；然而最后把当前摘要的叙事写成optional，与参考要求及s6/s8用户反馈不符。",
+        "将平衡主要解释为技术/公众受众差异缺少当前摘要受众变化的证据；这里可见的是同类摘要反馈已改变，而不是必须猜受众。"
+      ]
+    },
+    "preference": "tie",
+    "reason": "两者均保留严谨和叙事关联，却都未把叙事恢复成当前应做要求；Y有更好的场景区分，但optional明确削弱目标，不据文风判胜。"
+  },
+  {
+    "id": "0add0784ec2826129ef02504",
+    "judgment_source": "assistant semantic review; not official grader",
+    "X": {
+      "target_content": "partial",
+      "notes": [
+        "明确覆盖可持续农业教育、认证细节和方法解释，贴近s7:t3/t5、s8:t3/t5；仍未明确把科学种植方法作为当前展位沟通的重点，科学准确不等于突出科学原理。",
+        "强调simplicity来自s4/s6较早市场反馈；可与科学教育共存，但不应盖过后续要求。ROCB合规查询源于s2，不应默认占据展位主题。"
+      ]
+    },
+    "Y": {
+      "target_content": "partial",
+      "notes": [
+        "覆盖可持续性、有机认证以及味道质地，但科学种植方法与教育作用被淡化成一般透明度和实用性，核心覆盖弱于X。",
+        "s7/s8已在同一市场受众要求详细解释方法科学与认证；输出仍以此前味道、简单实用画像为主。布局未知的提示本身合理，不是错误。"
+      ]
+    },
+    "preference": "X",
+    "reason": "X明确提出教育价值、可持续方法说明和认证细节，较Y的一般顾客画像更接近当前核心；仍不足完整覆盖。"
+  },
+  {
+    "id": "5c399dd70556b311c35d0413",
+    "judgment_source": "assistant semantic review; not official grader",
+    "X": {
+      "target_content": "partial",
+      "notes": [
+        "提到风味、简单易懂和不过度技术化，部分覆盖味道与可读性；未明确日常烹饪用语，也未保留完全避免技术农业术语的否定约束。",
+        "生长日程的缓冲和灵活性有s8:t3/t7来源，但将其混入展位偏好缺少当前相关性；ROCB是另一文书场景。"
+      ]
+    },
+    "Y": {
+      "target_content": "partial",
+      "notes": [
+        "风味、质地与直观、少术语的表述有s4:t3和s7:t3支持；仍把排除术语弱化成偏向直观，不明确日常烹饪用语。",
+        "生长日程缓冲有来源但不是展位设计的明确偏好；没有流量数据是合理未知，不构成目标命中。"
+      ]
+    },
+    "preference": "tie",
+    "reason": "两者均抓到感官吸引和通俗性，但遗漏同样的烹饪语言与严格排除要求；Y更简洁不作为语义胜出依据。"
+  },
+  {
+    "id": "3893c05db0150225d92157df",
+    "judgment_source": "assistant semantic review; not official grader",
+    "X": {
+      "target_content": "partial",
+      "notes": [
+        "有删除解释性/主观语言和方法信息，但没有保留只含定量结果与方法、排除全部创意的完整限制。",
+        "把这一偏好说成也适用于public engagement，并认为叙事不确定，混淆s4/s5摘要与s6/s8博客；后者明确肯定叙事及情绪。"
+      ]
+    },
+    "Y": {
+      "target_content": "partial",
+      "notes": [
+        "明确量化、方法和避免主观语言，并区分摘要与公众博客对故事的不同态度；仍未恢复solely numbers、排除创意的严格范围。",
+        "consistent across...public engagement过宽，与s6:t3/t5、s8:t3/t5叙事反馈不符；末尾场景区分有所修正，不能视为完全无混淆。"
+      ]
+    },
+    "preference": "Y",
+    "reason": "Y直接提量化重点且把故事容忍放回公众博客，较X更少误导当前摘要；两者均仅部分覆盖。"
+  },
+  {
+    "id": "75d987ca0fff48d2ae914c5e",
+    "judgment_source": "assistant semantic review; not official grader",
+    "X": {
+      "target_content": "partial",
+      "notes": [
+        "有避免技术术语、风味及烹饪方法，接近s5:t3、s7:t3的市场偏好；未明确日常烹饪术语及完全排除农业技术术语。",
+        "有机标准和田间检查的时间效率有其他历史来源，但不是当前市场沟通的核心，不应并列为强要求。"
+      ]
+    },
+    "Y": {
+      "target_content": "partial",
+      "notes": [
+        "有风味、质地与通俗语言，部分覆盖；avoiding jargon unless it adds credibility直接为目标的完全避免技术术语添加例外。",
+        "术语增加可信度来自餐厅批发s1:t3和s8:t3；未限定其作用域就迁移到当前市场展位。用户对两种受众的区别在历史中明确可见。"
+      ]
+    },
+    "preference": "X",
+    "reason": "X至少保留避免术语的方向，Y把批发场景的技术可信度作为例外带进市场场景，造成实质边界错误。"
+  },
+  {
+    "id": "27179c3d7822ed4484cdd5a2",
+    "judgment_source": "assistant semantic review; not official grader",
+    "X": {
+      "target_content": "partial",
+      "notes": [
+        "明确提删除解释性/主观/比喻表达、定量和方法，且s4:t3、s5:t3等引用确有支持；仍说preference for quantitative focus而非仅含定量结果与方法，未完整保留排他范围。",
+        "将这一取向概括为包括logs在内的一贯偏好偏宽：s7:t3/t5明确要求感官描写和个人情绪，不能与摘要要求混同。"
+      ]
+    },
+    "Y": {
+      "target_content": "partial",
+      "notes": [
+        "有可测数据、方法和中立性，但minimizing interpretive language弱化了s5:t3不加解释/描写语言的要求，未排除全部创意。",
+        "把中立性迁移到sensory observation logs，与s7:t3/t5冲突；novel techniques的不确定性也不能盖过s6:t3/t5/t7对创新方法的明确肯定。引文要求在s8有据，不自动是当前核心。"
+      ]
+    },
+    "preference": "X",
+    "reason": "X保留删除而非仅减少解释性语言，并更明确量化重点；Y的宽泛画像混入更多不同场景内容，两者仍未完整恢复排他要求。"
+  }
+]

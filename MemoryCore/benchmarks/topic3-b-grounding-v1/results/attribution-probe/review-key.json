@@ -1,0 +1,30 @@
+[
+  {
+    "id": "conv-43:194",
+    "arms": {
+      "A": "attribution",
+      "B": "direct"
+    }
+  },
+  {
+    "id": "conv-47:90",
+    "arms": {
+      "A": "direct",
+      "B": "attribution"
+    }
+  },
+  {
+    "id": "conv-42:16",
+    "arms": {
+      "A": "direct",
+      "B": "attribution"
+    }
+  },
+  {
+    "id": "conv-43:13",
+    "arms": {
+      "A": "direct",
+      "B": "attribution"
+    }
+  }
+]

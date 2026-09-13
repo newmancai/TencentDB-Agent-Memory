@@ -1,0 +1,31 @@
+{
+  "protocol": "cupid-reviewed-fragments-v1",
+  "examples": 12,
+  "load_seconds": 2.630110085941851,
+  "arms": {
+    "frozen": {
+      "input_tokens": 29037,
+      "output_tokens": 1533,
+      "generation_ms": 44229.9314099364,
+      "errors": 0
+    },
+    "unlabelled": {
+      "input_tokens": 99129,
+      "output_tokens": 1706,
+      "generation_ms": 59400.30475333333,
+      "errors": 0
+    },
+    "feedback": {
+      "input_tokens": 102297,
+      "output_tokens": 1826,
+      "generation_ms": 62963.97984097712,
+      "errors": 0
+    },
+    "reviewed": {
+      "input_tokens": 99669,
+      "output_tokens": 2037,
+      "generation_ms": 67825.94158221036,
+      "errors": 1
+    }
+  }
+}

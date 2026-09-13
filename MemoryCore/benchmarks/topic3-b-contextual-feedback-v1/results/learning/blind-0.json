@@ -1,0 +1,214 @@
+[
+  {
+    "id": "984796e36e273d1487512c65",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "notes": "承认研究笔记欢迎推测，但always contextualized with...verifiable evidence及整体可验证性优先，未保留s1:t3无需立即验证、s7:t3灵活探索的核心自由度。正式报告s2/s6的要求被混入笔记。"
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "有speculative exploration及exploratory限定，但仍以验证和证据为主，遗漏不必即时核验。s1:t5确实支持暂定想法，s4:t5为档案验证计划，s8:t5为公开报告实用性，不能共同推出当前笔记须验证。"
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "有开放研究问题和推测，但factual precision is prioritized弱化自由探索。s2:t3/s6:t3属正式报告；s8:t3实际要求实际应用及通俗化，不支持所引用的speculative connections。"
+      },
+      "D": {
+        "target_content": "absent",
+        "notes": "未提自由表达、推测连接或暂定假说；仅概括请求和未知。其无历史声明不能替代本题历史中的偏好证据，但不把未知声明判成事实反驳。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "A",
+        "B"
+      ],
+      [
+        "C"
+      ],
+      [
+        "D"
+      ]
+    ],
+    "note": "A/B均仅部分命中且错混核验要求；C另有明确引用内容错配。D没有目标内容。"
+  },
+  {
+    "id": "0d97ade0687d8766d606a16e",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "absent",
+        "notes": "仅复述题目、个人文献与历史准确性，没有明确个人叙事、情感优先或少引用；可用原料不等于推断出目标偏好。"
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "覆盖叙事与情感，但强调来源、脚注和学术严谨，遗漏少引用。s5:t5、s6:t3已对同Wellington新风格赞许不过多引用及无学术干扰；对家族关系待核实的提醒有s1:t11来源，不判该提醒本身错误。"
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "覆盖个人故事和情感，却把clear sourcing and citation作为一致需求，未按s5/s6新风格保留最少引用。将Wellington推作公众受众只作推断尚可，但不能用受众不明掩盖已见新风格。"
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "叙事与情感命中，但precise citations and footnotes以及叙事是否应优先仍未知，忽视s5:t5、s6:t3当前同机构转向；正式结构、家谱等其他场景要求没有自动成为此书引言的必要条件。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "B",
+        "C"
+      ],
+      [
+        "D"
+      ],
+      [
+        "A"
+      ]
+    ],
+    "note": "B/C仍有引用范围错误；D更明确维持脚注优先并对已支持的叙事重点表示未知。三者都不完整，A缺目标。"
+  },
+  {
+    "id": "fd7f9450ff190ff48ea32301",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "partial",
+        "notes": "提正式结构、脚注和来源验证，但没有每条主张都经脚注追溯至原始来源。把s2/s7 Modern Genealogy的故事优先迁移为当前Wellington必需human elements，混淆机构语境；s3/s5才对应严格格式。"
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "有原始来源和脚注，但遗漏严格格式与每条主张完整追溯；vivid history over dry analysis来自茶会/Modern Genealogy等场景，不能取代s3:t5及s5:t3/t5的当前要求。"
+      },
+      "C": {
+        "target_content": "absent",
+        "notes": "只概括当前题目和原始材料；没有严格学术格式、全面脚注或逐项追溯要求。未因没有推断而额外认定反驳。"
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "明确正式学术结构、原始来源及详细脚注，覆盖多于一般well-sourced；仍遗漏每条甚至一般陈述须追溯（s5:t5）。把compelling storytelling写成当前引言必需，可能搬入s2/s7另一机构的要求，额外叙事本身并非自动禁止。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "D"
+      ],
+      [
+        "A",
+        "B"
+      ],
+      [
+        "C"
+      ]
+    ],
+    "note": "D对目标格式和来源要求更具体，虽仍漏全称约束并混入叙事；A/B叙事优先更重且核心覆盖较弱。"
+  },
+  {
+    "id": "ea982ac2f32e73e69f8b9ee8",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "absent",
+        "notes": "仅复述请求和未知，未提无需立即验证或允许暂定假说。"
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "保留推测为探索及避免过度断言，与s1:t5相容；但未保留s1:t3无需立即验证，且把验证与严谨列为主要求。hypotheses to be tested不等于要求立即测试，不能夸大成明确反对推测。"
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "承认探索灵活性，但explicit verification steps及documented evidence框架容易把s4档案验证计划放到当前笔记；未保留无需即时验证，混合画像压过s1/s7直接证据。"
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "明确flexibility in speculative connections especially exploratory research，较贴近s1:t3/t5、s7:t3；仍没有无需立即验证，证据整合和应用来自别的任务，不应成为附加门槛。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "D"
+      ],
+      [
+        "B"
+      ],
+      [
+        "C"
+      ],
+      [
+        "A"
+      ]
+    ],
+    "note": "D最明确保留探索自由；B允许假说但重点偏验证；C更强添加验证步骤。均未完整保留免即时核验。"
+  },
+  {
+    "id": "60b5fee3ec380ed2f33e9a2a",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "absent",
+        "notes": "没有严格格式、完整脚注和逐条原始来源追溯要求；只是概括历史主题。"
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "有正式结构、原始证据和脚注，但缺每条主张的全面要求。昵称有s4:t7、礼貌邮件有s6:t3/t5来源，却不是当前Wellington引言必要要求；家族关系不确定有s1支持。"
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "明确学术结构、原始来源和footnoted claims，贴近s2:t5、s5:t3/t5；未保留every claim的全称与全面脚注。把当前书称public-facing是未证实推断，不由机构名必然推出。"
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "s1:t11/t13、s2:t5、s5:t9的核验/结构引用吻合，s4:t7昵称也确有原文；但将数据库昵称、茶会故事、来访者温暖综合为当前引言essential human elements，扩大范围。仍漏每条主张脚注追溯。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "C"
+      ],
+      [
+        "B",
+        "D"
+      ],
+      [
+        "A"
+      ]
+    ],
+    "note": "C最集中于学术格式和来源核心；B/D含更多有历史出处但错搬用途的要求，二者不足区分。"
+  },
+  {
+    "id": "a0055a92d458ff1d42ed1268",
+    "judgment_source": "assistant semantic opinion, not official grader",
+    "arms": {
+      "A": {
+        "target_content": "absent",
+        "notes": "未提置信度分类或所需证据类型；仅概括当前姓氏研究请求。"
+      },
+      "B": {
+        "target_content": "partial",
+        "notes": "明确prioritize hypotheses by likelihood及specify required evidence，抓住s6:t3/t5、s7:t3/t5的两个核心方向；但排序不等于每个假说立即标注置信等级，未保留all/immediately及逐假说标签。未声称假说已被证实。"
+      },
+      "C": {
+        "target_content": "partial",
+        "notes": "同样抓住按可能性优先和所需证据，与s6/s7用户反馈一致；仍弱化为一般组织偏好，未保留立即、所有、每个假说配证据标签。应用和可访问性有s8来源，不是当前必需条件。"
+      },
+      "D": {
+        "target_content": "partial",
+        "notes": "提假说优先及具体证据类型，但未明确置信等级这一排序维度，更未保留立即逐个分类标记。cautious language只表示不确定性，不替代置信度等级及证据标签。"
+      }
+    },
+    "quality_tiers": [
+      [
+        "B",
+        "C"
+      ],
+      [
+        "D"
+      ],
+      [
+        "A"
+      ]
+    ],
+    "note": "B/C明确两个学习目标方向但缺强度；D只有较泛的优先级/证据画像。A缺目标。"
+  }
+]

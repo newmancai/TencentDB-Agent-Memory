@@ -1,0 +1,10 @@
+{
+  "requested": 50,
+  "observed": 50,
+  "unobserved": 0,
+  "capped": 18,
+  "input_limit": 0,
+  "inputTokens": 406027,
+  "outputTokens": 15993,
+  "elapsedMs": 500092.4375047907
+}

@@ -1,0 +1,38 @@
+{
+  "protocol": "topic3-b-end-to-end-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "holdout_cases": 4,
+  "calls": 20,
+  "completed": 20,
+  "stages": {
+    "target": "4/4",
+    "update": "4/4",
+    "matched_adaptive": "4/4",
+    "matched_frozen": "0/4",
+    "mismatch_adaptive": "4/4"
+  },
+  "matched_pair": {
+    "wins": 4,
+    "losses": 0,
+    "ties": 0
+  },
+  "pass": true,
+  "wall_seconds": 149.5752019584179,
+  "usage": {
+    "input_tokens": 284883,
+    "cached_input_tokens": 77696,
+    "output_tokens": 521,
+    "reasoning_output_tokens": 0
+  },
+  "trace": {
+    "ok": true,
+    "decision_trace": 24,
+    "feedback_claim": 4,
+    "memory_assertion": 16,
+    "outcome": 24,
+    "learning_samples": 24,
+    "pending": 0
+  },
+  "scope": "Synthetic holdout with oracle candidate construction, explicit corrections, deterministic scope and exact checkers. Not natural or production B."
+}

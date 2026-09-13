@@ -1,0 +1,419 @@
+{
+  "arms": {
+    "direct": {
+      "n": 20,
+      "unknown": 5,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 1,
+      "exact": 1,
+      "unknown_or_invalid": 5,
+      "tp": 16,
+      "fp": 168,
+      "fn": 6,
+      "answer_capped_n": 6,
+      "answer_capped_exact": 1,
+      "inputTokens": 53744,
+      "outputTokens": 1191,
+      "elapsedMs": 39393.7649296131,
+      "precision": 0.08695652173913043,
+      "recall": 0.7272727272727273,
+      "cost": {
+        "calls": 20,
+        "inputTokens": 53744,
+        "outputTokens": 1191,
+        "elapsedMs": 39393.7649296131,
+        "generation_p50_ms": 1880.5724850390106,
+        "generation_p95_ms": 3376.624530239497
+      }
+    },
+    "unlabelled": {
+      "n": 20,
+      "unknown": 7,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 1,
+      "exact": 1,
+      "tp": 10,
+      "fp": 133,
+      "fn": 12,
+      "answer_capped_n": 6,
+      "answer_capped_exact": 1,
+      "inputTokens": 98064,
+      "outputTokens": 1451,
+      "elapsedMs": 52739.18251157738,
+      "unknown_or_invalid": 7,
+      "precision": 0.06993006993006994,
+      "recall": 0.45454545454545453,
+      "cost": {
+        "calls": 20,
+        "inputTokens": 98064,
+        "outputTokens": 1451,
+        "elapsedMs": 52739.18251157738,
+        "generation_p50_ms": 2652.408708934672,
+        "generation_p95_ms": 4117.929542262573
+      }
+    },
+    "prose": {
+      "n": 20,
+      "unknown": 5,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 1,
+      "exact": 1,
+      "tp": 13,
+      "fp": 140,
+      "fn": 9,
+      "answer_capped_n": 6,
+      "answer_capped_exact": 1,
+      "inputTokens": 101204,
+      "outputTokens": 1277,
+      "elapsedMs": 48706.50012581609,
+      "unknown_or_invalid": 5,
+      "precision": 0.08496732026143791,
+      "recall": 0.5909090909090909,
+      "cost": {
+        "calls": 20,
+        "inputTokens": 101204,
+        "outputTokens": 1277,
+        "elapsedMs": 48706.50012581609,
+        "generation_p50_ms": 2284.308481030166,
+        "generation_p95_ms": 4222.77665088186
+      }
+    },
+    "structured": {
+      "n": 20,
+      "unknown": 5,
+      "active_checker_unknown_tasks": 0,
+      "observable_subset_exact": 1,
+      "exact": 1,
+      "tp": 14,
+      "fp": 162,
+      "fn": 8,
+      "answer_capped_n": 6,
+      "answer_capped_exact": 1,
+      "inputTokens": 99444,
+      "outputTokens": 1359,
+      "elapsedMs": 50493.15836280584,
+      "unknown_or_invalid": 5,
+      "precision": 0.07954545454545454,
+      "recall": 0.6363636363636364,
+      "cost": {
+        "calls": 20,
+        "inputTokens": 99444,
+        "outputTokens": 1359,
+        "elapsedMs": 50493.15836280584,
+        "generation_p50_ms": 2414.103656541556,
+        "generation_p95_ms": 4191.609545319807
+      }
+    }
+  },
+  "all_failures": {
+    "n": 20,
+    "exact": 1,
+    "tp": 22,
+    "fp": 274,
+    "fn": 0
+  },
+  "oracle_current_plus_checker": {
+    "n": 20,
+    "exact": 20,
+    "active_checker_unknown_tasks": 0,
+    "note": "Definition upper bound, not independent validation or deployable B."
+  },
+  "paired": {
+    "structured_vs_prose": {
+      "tie": 20
+    },
+    "structured_vs_unlabelled": {
+      "tie": 20
+    },
+    "structured_vs_direct": {
+      "win": 1,
+      "loss": 1,
+      "tie": 18
+    }
+  },
+  "by_dialog": {
+    "eval9": {
+      "arms": {
+        "direct": {
+          "n": 10,
+          "unknown": 4,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 1,
+          "exact": 1,
+          "unknown_or_invalid": 4,
+          "tp": 7,
+          "fp": 34,
+          "fn": 6,
+          "answer_capped_n": 5,
+          "answer_capped_exact": 1,
+          "inputTokens": 27545,
+          "outputTokens": 451,
+          "elapsedMs": 16001.094797626138
+        },
+        "unlabelled": {
+          "n": 10,
+          "unknown": 5,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 1,
+          "exact": 1,
+          "tp": 4,
+          "fp": 31,
+          "fn": 9,
+          "answer_capped_n": 5,
+          "answer_capped_exact": 1,
+          "inputTokens": 49705,
+          "outputTokens": 709,
+          "elapsedMs": 26022.5085595157,
+          "unknown_or_invalid": 5
+        },
+        "prose": {
+          "n": 10,
+          "unknown": 3,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 1,
+          "exact": 1,
+          "tp": 8,
+          "fp": 53,
+          "fn": 5,
+          "answer_capped_n": 5,
+          "answer_capped_exact": 1,
+          "inputTokens": 51275,
+          "outputTokens": 634,
+          "elapsedMs": 24387.382808839902,
+          "unknown_or_invalid": 3
+        },
+        "structured": {
+          "n": 10,
+          "unknown": 2,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 1,
+          "exact": 1,
+          "tp": 10,
+          "fp": 71,
+          "fn": 3,
+          "answer_capped_n": 5,
+          "answer_capped_exact": 1,
+          "inputTokens": 50395,
+          "outputTokens": 643,
+          "elapsedMs": 24631.40155095607,
+          "unknown_or_invalid": 2
+        }
+      },
+      "all_failures": {
+        "n": 10,
+        "exact": 1,
+        "tp": 13,
+        "fp": 126,
+        "fn": 0
+      },
+      "oracle_current_plus_checker": {
+        "n": 10,
+        "exact": 10,
+        "active_checker_unknown_tasks": 0,
+        "note": "Definition upper bound, not independent validation or deployable B."
+      },
+      "paired": {
+        "structured_vs_prose": {
+          "tie": 10
+        },
+        "structured_vs_unlabelled": {
+          "tie": 10
+        },
+        "structured_vs_direct": {
+          "win": 1,
+          "loss": 1,
+          "tie": 8
+        }
+      }
+    },
+    "eval10": {
+      "arms": {
+        "direct": {
+          "n": 10,
+          "unknown": 1,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 0,
+          "exact": 0,
+          "tp": 9,
+          "fp": 134,
+          "fn": 0,
+          "answer_capped_n": 1,
+          "answer_capped_exact": 0,
+          "inputTokens": 26199,
+          "outputTokens": 740,
+          "elapsedMs": 23392.67013198696,
+          "unknown_or_invalid": 1
+        },
+        "unlabelled": {
+          "n": 10,
+          "unknown": 2,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 0,
+          "exact": 0,
+          "tp": 6,
+          "fp": 102,
+          "fn": 3,
+          "answer_capped_n": 1,
+          "answer_capped_exact": 0,
+          "inputTokens": 48359,
+          "outputTokens": 742,
+          "elapsedMs": 26716.673952061683,
+          "unknown_or_invalid": 2
+        },
+        "prose": {
+          "n": 10,
+          "unknown": 2,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 0,
+          "exact": 0,
+          "tp": 5,
+          "fp": 87,
+          "fn": 4,
+          "answer_capped_n": 1,
+          "answer_capped_exact": 0,
+          "inputTokens": 49929,
+          "outputTokens": 643,
+          "elapsedMs": 24319.11731697619,
+          "unknown_or_invalid": 2
+        },
+        "structured": {
+          "n": 10,
+          "unknown": 3,
+          "active_checker_unknown_tasks": 0,
+          "observable_subset_exact": 0,
+          "exact": 0,
+          "tp": 4,
+          "fp": 91,
+          "fn": 5,
+          "answer_capped_n": 1,
+          "answer_capped_exact": 0,
+          "inputTokens": 49049,
+          "outputTokens": 716,
+          "elapsedMs": 25861.756811849773,
+          "unknown_or_invalid": 3
+        }
+      },
+      "all_failures": {
+        "n": 10,
+        "exact": 0,
+        "tp": 9,
+        "fp": 148,
+        "fn": 0
+      },
+      "oracle_current_plus_checker": {
+        "n": 10,
+        "exact": 10,
+        "active_checker_unknown_tasks": 0,
+        "note": "Definition upper bound, not independent validation or deployable B."
+      },
+      "paired": {
+        "structured_vs_prose": {
+          "tie": 10
+        },
+        "structured_vs_unlabelled": {
+          "tie": 10
+        },
+        "structured_vs_direct": {
+          "tie": 10
+        }
+      }
+    }
+  },
+  "candidate_changes": {
+    "structured_vs_prose": {
+      "tp_gain": 0,
+      "tp_loss": 0,
+      "fp_removed": 3,
+      "fp_added": 16,
+      "jointly_readable_tasks": 13,
+      "other_tasks": 7
+    },
+    "structured_vs_unlabelled": {
+      "tp_gain": 0,
+      "tp_loss": 0,
+      "fp_removed": 6,
+      "fp_added": 0,
+      "jointly_readable_tasks": 12,
+      "other_tasks": 8
+    },
+    "structured_vs_direct": {
+      "tp_gain": 1,
+      "tp_loss": 2,
+      "fp_removed": 6,
+      "fp_added": 20,
+      "jointly_readable_tasks": 10,
+      "other_tasks": 10
+    }
+  },
+  "model_cost_by_stage": {
+    "development_answers": {
+      "calls": 50,
+      "inputTokens": 612674,
+      "outputTokens": 22574,
+      "elapsedMs": 806225.2960547339,
+      "generation_p50_ms": 15905.581793980673,
+      "generation_p95_ms": 23257.714485481843
+    },
+    "development_reasoned": {
+      "calls": 10,
+      "inputTokens": 32678,
+      "outputTokens": 4624,
+      "elapsedMs": 126930.81579776481,
+      "generation_p50_ms": 13839.474641950801,
+      "generation_p95_ms": 14803.530405624768
+    },
+    "development_compact": {
+      "calls": 10,
+      "inputTokens": 32648,
+      "outputTokens": 752,
+      "elapsedMs": 28125.613312469795,
+      "generation_p50_ms": 2785.142829059623,
+      "generation_p95_ms": 4229.57698260434
+    },
+    "eval9_answers": {
+      "calls": 50,
+      "inputTokens": 406027,
+      "outputTokens": 15993,
+      "elapsedMs": 500092.4375047907,
+      "generation_p50_ms": 10301.74008756876,
+      "generation_p95_ms": 17825.83700962132
+    },
+    "eval9_feedback": {
+      "calls": 40,
+      "inputTokens": 178920,
+      "outputTokens": 2437,
+      "elapsedMs": 91042.38771693781,
+      "generation_p50_ms": 2098.8451490411535,
+      "generation_p95_ms": 4613.6114826309495
+    },
+    "eval10_answers": {
+      "calls": 50,
+      "inputTokens": 349847,
+      "outputTokens": 12370,
+      "elapsedMs": 381591.5868743323,
+      "generation_p50_ms": 7803.682285011746,
+      "generation_p95_ms": 12471.894688741302
+    },
+    "eval10_feedback": {
+      "calls": 40,
+      "inputTokens": 173536,
+      "outputTokens": 2841,
+      "elapsedMs": 100290.2182128746,
+      "generation_p50_ms": 2350.665333564393,
+      "generation_p95_ms": 3915.2746457606554
+    }
+  },
+  "model_cost_total": {
+    "calls": 250,
+    "inputTokens": 1786330,
+    "outputTokens": 61591,
+    "elapsedMs": 2034298.355473904
+  },
+  "limits": [
+    "Two evaluation dialogue streams do not provide independent-checkpoint statistical generalization.",
+    "Latency is model generation time, excluding loading, tokenization, checker and end-to-end service time.",
+    "Candidate-change diagnostics require jointly readable predictions; all-task main results retain unknowns.",
+    "Oracle historical rule-value candidates; no autonomous extraction or source-instance attribution.",
+    "Feedback-set quality does not establish memory-fault causality or downstream answer improvement."
+  ]
+}

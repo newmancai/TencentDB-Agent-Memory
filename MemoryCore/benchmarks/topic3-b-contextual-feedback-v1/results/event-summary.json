@@ -1,0 +1,30 @@
+{
+  "protocol": "cupid-local-feedback-events-v1",
+  "development_unique_sessions": 1512,
+  "events": 4301,
+  "boundary_counts": {
+    "assistant->user": 4301
+  },
+  "selected_events": 16,
+  "selected_personas": 8,
+  "overlap_previous_smoke_personas": 0,
+  "selected_ids": [
+    "6c50c6b8631b2896ab4fc5c8",
+    "03ffd4ebbafe6b32c776036f",
+    "d388aa45ec4db2a604e9b385",
+    "ebbff0cf44fd0adcaf19e738",
+    "1f3f1a4ac62726955bcf8947",
+    "5fc638c4b2ec9db710a57d03",
+    "29bb0ac07daab3eac7abb15f",
+    "b0b820b2f33438ab66448d53",
+    "19c2d6d1a921e2bbb25ad203",
+    "58a40460d3e26fbe84f48b7e",
+    "061c6b707854f9c0e9f689e8",
+    "a11c24a00f4806f443b2378a",
+    "f521dd11c269e3951c396aa4",
+    "258224e01ccdfc818cb40bb3",
+    "d9f733f5face630815a1ba1c",
+    "1ea2ca4f7f18f2f6c851478a"
+  ],
+  "scope": "Reply adjacency only, not endorsement or correction gold. Full causal prefix; no future turns, session preference or current hidden labels. No model/annotation run."
+}

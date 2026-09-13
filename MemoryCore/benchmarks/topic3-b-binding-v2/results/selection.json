@@ -1,0 +1,8 @@
+{
+  "dialogs": [
+    7,
+    8
+  ],
+  "revision": "47115ae2af4830948f3f15697221a1acca6078a7",
+  "reason": "first two available numeric IDs above previously used 1..5; 6 is absent from pinned tree"
+}

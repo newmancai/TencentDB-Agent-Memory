@@ -1,0 +1,113 @@
+{
+  "protocol": "fixed-label-confidence-selection-diagnostic-v1",
+  "events": 205,
+  "groups": 34,
+  "fixed_correct": 80,
+  "temperature": 9.999951850078517,
+  "methods": {
+    "frozen": {
+      "aurc": 0.45150525171388944,
+      "unique_confidence_scores": 205,
+      "correctness_auroc": 0.6685999999999999,
+      "coverage_points": [
+        {
+          "retained": 52,
+          "coverage": 0.25365853658536586,
+          "errors": 17,
+          "risk": 0.3269230769230769
+        },
+        {
+          "retained": 103,
+          "coverage": 0.5024390243902439,
+          "errors": 51,
+          "risk": 0.49514563106796117
+        },
+        {
+          "retained": 154,
+          "coverage": 0.751219512195122,
+          "errors": 91,
+          "risk": 0.5909090909090909
+        },
+        {
+          "retained": 205,
+          "coverage": 1.0,
+          "errors": 125,
+          "risk": 0.6097560975609756
+        }
+      ]
+    },
+    "temperature": {
+      "aurc": 0.450197377350626,
+      "unique_confidence_scores": 205,
+      "correctness_auroc": 0.6738999999999999,
+      "coverage_points": [
+        {
+          "retained": 52,
+          "coverage": 0.25365853658536586,
+          "errors": 19,
+          "risk": 0.36538461538461536
+        },
+        {
+          "retained": 103,
+          "coverage": 0.5024390243902439,
+          "errors": 50,
+          "risk": 0.4854368932038835
+        },
+        {
+          "retained": 154,
+          "coverage": 0.751219512195122,
+          "errors": 88,
+          "risk": 0.5714285714285714
+        },
+        {
+          "retained": 205,
+          "coverage": 1.0,
+          "errors": 125,
+          "risk": 0.6097560975609756
+        }
+      ]
+    },
+    "learned": {
+      "aurc": 0.4523651149195763,
+      "unique_confidence_scores": 205,
+      "correctness_auroc": 0.7112,
+      "coverage_points": [
+        {
+          "retained": 52,
+          "coverage": 0.25365853658536586,
+          "errors": 17,
+          "risk": 0.3269230769230769
+        },
+        {
+          "retained": 103,
+          "coverage": 0.5024390243902439,
+          "errors": 49,
+          "risk": 0.47572815533980584
+        },
+        {
+          "retained": 154,
+          "coverage": 0.751219512195122,
+          "errors": 83,
+          "risk": 0.538961038961039
+        },
+        {
+          "retained": 205,
+          "coverage": 1.0,
+          "errors": 125,
+          "risk": 0.6097560975609756
+        }
+      ]
+    }
+  },
+  "paired_group_bootstrap_aurc_delta_learned_minus_reference_95": {
+    "frozen": [
+      -0.07199171664558539,
+      0.08309950875935038
+    ],
+    "temperature": [
+      -0.06617822186258875,
+      0.07879403663691631
+    ]
+  },
+  "scope": "Historical WildChat reuse, post-hoc diagnostic. All labels fixed to prior frozen predictions. No fitted threshold, new training, model calls, or generalization claim. Lower AURC better. Feedback behavior correctness only; no memory-fault truth."
+}

@@ -1,0 +1,196 @@
+{
+  "locomo": {
+    "sha256": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4",
+    "conversations": 10,
+    "turns_per_conversation": [
+      419,
+      369,
+      663,
+      629,
+      680,
+      675,
+      689,
+      681,
+      509,
+      568
+    ],
+    "counts": {
+      "duplicate_dialog_ids": 0,
+      "questions": 1986,
+      "with_evidence": 1982,
+      "without_evidence": 4,
+      "references": 2815,
+      "exact_resolved_references": 2806,
+      "questions_with_unresolved_reference": 9
+    },
+    "categories": {
+      "2": 321,
+      "3": 96,
+      "1": 282,
+      "4": 841,
+      "5": 446
+    },
+    "evidence_by_category": {
+      "2": {
+        "questions": 321,
+        "with_evidence": 321,
+        "with_answer_field": 321,
+        "with_adversarial_answer_field": 0
+      },
+      "3": {
+        "questions": 96,
+        "with_evidence": 92,
+        "with_answer_field": 96,
+        "with_adversarial_answer_field": 0
+      },
+      "1": {
+        "questions": 282,
+        "with_evidence": 282,
+        "with_answer_field": 282,
+        "with_adversarial_answer_field": 0
+      },
+      "4": {
+        "questions": 841,
+        "with_evidence": 841,
+        "with_answer_field": 841,
+        "with_adversarial_answer_field": 0
+      },
+      "5": {
+        "questions": 446,
+        "with_evidence": 446,
+        "with_answer_field": 2,
+        "with_adversarial_answer_field": 446
+      }
+    },
+    "unresolved": [
+      {
+        "sample_id": "conv-26",
+        "question_index": 37,
+        "unresolved": [
+          "D8:6; D9:17"
+        ]
+      },
+      {
+        "sample_id": "conv-42",
+        "question_index": 58,
+        "unresolved": [
+          "D10:19"
+        ]
+      },
+      {
+        "sample_id": "conv-42",
+        "question_index": 88,
+        "unresolved": [
+          "D"
+        ]
+      },
+      {
+        "sample_id": "conv-43",
+        "question_index": 18,
+        "unresolved": [
+          "D:11:26"
+        ]
+      },
+      {
+        "sample_id": "conv-47",
+        "question_index": 38,
+        "unresolved": [
+          "D4:36"
+        ]
+      },
+      {
+        "sample_id": "conv-49",
+        "question_index": 31,
+        "unresolved": [
+          "D9:1 D4:4 D4:6"
+        ]
+      },
+      {
+        "sample_id": "conv-49",
+        "question_index": 38,
+        "unresolved": [
+          "D22:1 D22:2 D9:10 D9:11"
+        ]
+      },
+      {
+        "sample_id": "conv-49",
+        "question_index": 46,
+        "unresolved": [
+          "D21:18 D21:22 D11:15 D11:19"
+        ]
+      },
+      {
+        "sample_id": "conv-50",
+        "question_index": 69,
+        "unresolved": [
+          "D30:05"
+        ]
+      }
+    ],
+    "negative_label_contract": "unlisted messages are unlabeled, not unsupported or refuted",
+    "span_labels_available": false,
+    "category_warning": "category 5 evidence is not support for adversarial_answer; category 3 allows open-domain inference"
+  },
+  "dialfact": {
+    "valid": {
+      "sha256": "bb70710942ef1b3db31509a1c5a460a94178422f47522dc076e68b28e5ead431",
+      "rows": 10436,
+      "contexts": 3565,
+      "history_turn_counts": {
+        "1": 1367,
+        "2": 1277,
+        "3": 1304,
+        "4": 1257,
+        "5": 1399,
+        "6": 1214,
+        "7": 1312,
+        "8": 680,
+        "9": 611,
+        "10": 15
+      },
+      "response_labels": {
+        "SUPPORTS": 3342,
+        "REFUTES": 3363,
+        "NOT ENOUGH INFO": 3731
+      },
+      "type_labels": {
+        "factual": 8691,
+        "personal": 1745
+      },
+      "empty_evidence": 0,
+      "evidence_with_extra_metadata": 2649
+    },
+    "test": {
+      "sha256": "2dbe7e00453eecc3320b69a81ebd67562d71b4fb40c9405b2a3a7c68c102bf00",
+      "rows": 11809,
+      "contexts": 3760,
+      "history_turn_counts": {
+        "0": 398,
+        "1": 1630,
+        "2": 1436,
+        "3": 1580,
+        "4": 1287,
+        "5": 1444,
+        "6": 1270,
+        "7": 1452,
+        "8": 644,
+        "9": 657,
+        "10": 11
+      },
+      "response_labels": {
+        "SUPPORTS": 3939,
+        "REFUTES": 3935,
+        "NOT ENOUGH INFO": 3935
+      },
+      "type_labels": {
+        "factual": 10420,
+        "personal": 1389
+      },
+      "empty_evidence": 0,
+      "evidence_with_extra_metadata": 2025
+    },
+    "context_id_overlap": 1637,
+    "exact_context_text_overlap": 1,
+    "span_labels_available": false
+  }
+}

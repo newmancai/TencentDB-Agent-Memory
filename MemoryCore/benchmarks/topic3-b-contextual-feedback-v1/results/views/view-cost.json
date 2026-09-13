@@ -1,0 +1,20 @@
+{
+  "protocol": "cupid-feedback-views-v1",
+  "examples": 6,
+  "load_seconds": 2.7326690731570125,
+  "arms": {
+    "full": {
+      "input_tokens": 63053,
+      "output_tokens": 889,
+      "generation_ms": 33992.80147626996,
+      "errors": 0
+    },
+    "users": {
+      "input_tokens": 16866,
+      "output_tokens": 733,
+      "generation_ms": 21154.298207955435,
+      "errors": 0
+    }
+  },
+  "scope": "Same available source and output cap, different exposed input information/token cost. Fixed representations, no learned policy or quality scoring."
+}

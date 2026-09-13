@@ -1,0 +1,28 @@
+{
+  "protocol": "topic3-b-stale-binding-v1",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "calls": 16,
+  "completed": 16,
+  "overall": { "correct": 13, "total": 16 },
+  "positive_supersession": { "correct": 5, "total": 8 },
+  "t1_positive": { "correct": 4, "total": 4 },
+  "t2_propagated_positive": { "correct": 1, "total": 4 },
+  "negative_retention": { "correct": 8, "total": 8 },
+  "predictions": { "ask": 1, "retain": 10, "supersede": 5 },
+  "exact_span_failures_on_predicted_positive": 0,
+  "baselines": {
+    "always_supersede": { "correct": 8, "total": 16 },
+    "always_retain": { "correct": 8, "total": 16 },
+    "surface_any_content_token_overlap": { "correct": 9, "total": 16 }
+  },
+  "usage": {
+    "input_tokens": 226825,
+    "cached_input_tokens": 69760,
+    "output_tokens": 1171,
+    "reasoning_output_tokens": 267
+  },
+  "wall_seconds": { "sum": 138.8387845926918, "p50": 7.98535799945239, "p95": 11.591197771485895 },
+  "pass": false,
+  "scope": "Expert-reviewed synthetic STALE positives plus pre-call audited cross-attribute negatives; component binding only, not downstream answer quality or durable promotion."
+}

@@ -1,0 +1,209 @@
+{
+  "mode": "source_contract_audit",
+  "locomo": {
+    "eligible_qa": 1444,
+    "aligned_qa": 1438,
+    "aligned_positive_references": 2132,
+    "excluded_category_3": 96,
+    "alignment_unknown": 6,
+    "excluded_category_5": 446
+  },
+  "locomo_unique_positive_messages": 1342,
+  "locomo_messages_referenced_by_multiple_eligible_qa": 518,
+  "locomo_unresolved": [
+    {
+      "source": "conv-26",
+      "question_index": 37,
+      "references": [
+        "D8:6; D9:17"
+      ]
+    },
+    {
+      "source": "conv-42",
+      "question_index": 58,
+      "references": [
+        "D2:14",
+        "D9:12",
+        "D9:14",
+        "D10:11",
+        "D19:17",
+        "D27:23",
+        "D10:19"
+      ]
+    },
+    {
+      "source": "conv-42",
+      "question_index": 88,
+      "references": [
+        "D1:18",
+        "D",
+        "D1:20"
+      ]
+    },
+    {
+      "source": "conv-43",
+      "question_index": 18,
+      "references": [
+        "D1:14",
+        "D2:7",
+        "D4:7",
+        "D5:15",
+        "D:11:26",
+        "D20:21",
+        "D26:36"
+      ]
+    },
+    {
+      "source": "conv-47",
+      "question_index": 38,
+      "references": [
+        "D4:36",
+        "D18:1",
+        "D18:7"
+      ]
+    },
+    {
+      "source": "conv-50",
+      "question_index": 69,
+      "references": [
+        "D30:05"
+      ]
+    }
+  ],
+  "longmemeval": {
+    "questions": 500,
+    "questions_with_duplicate_session_ids": 13,
+    "duplicate_session_id_instances": 13,
+    "missing_target_session_ids": 0,
+    "session_instances": 23867,
+    "turn_instances": 246750,
+    "positive_turn_instances": 896,
+    "positive_role_user": 842,
+    "positive_role_assistant": 54,
+    "target_session_instances": 948,
+    "target_sessions_without_marked_turn": 94,
+    "answerable_target_sessions_without_marked_turn": 45,
+    "abstention_target_sessions_without_marked_turn": 49
+  },
+  "longmemeval_turn_keys": {
+    "role": 246750,
+    "content": 246750,
+    "has_answer": 10960
+  },
+  "longmemeval_alignment_exceptions": [
+    {
+      "question_id": "58bf7951",
+      "duplicate_session_ids": [
+        "07b7a667_1"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "1e043500",
+      "duplicate_session_ids": [
+        "d5d1f9c4"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "001be529",
+      "duplicate_session_ids": [
+        "sharegpt_SYbLHTK_0"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "d23cf73b",
+      "duplicate_session_ids": [
+        "334ab2f1"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "caf03d32",
+      "duplicate_session_ids": [
+        "sharegpt_YCfhENU_0"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "91b15a6e",
+      "duplicate_session_ids": [
+        "sharegpt_fgnzLtE_0"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "078150f1",
+      "duplicate_session_ids": [
+        "sharegpt_z7Ogy29_0"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "gpt4_4929293b",
+      "duplicate_session_ids": [
+        "sharegpt_81riySf_0"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "gpt4_76048e76",
+      "duplicate_session_ids": [
+        "8fcaf3a9_2"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "gpt4_c27434e8_abs",
+      "duplicate_session_ids": [
+        "8c64ce26_3"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "18bc8abd",
+      "duplicate_session_ids": [
+        "sharegpt_vyHqfrX_0"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "c7dc5443",
+      "duplicate_session_ids": [
+        "6b8e8bb3_1"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    },
+    {
+      "question_id": "1d4da289",
+      "duplicate_session_ids": [
+        "sharegpt_qktLFWS_21"
+      ],
+      "missing_session_ids": [],
+      "marked_outside_target": []
+    }
+  ],
+  "files": {
+    ".local-evidence/anchor-b-public-20260908/upstream/locomo10.json": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4",
+    ".local-evidence/anchor-b-public-20260908/upstream/longmemeval_s_cleaned.json": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
+  },
+  "interpretation": {
+    "unlisted_evidence": "unlabeled, not negative",
+    "accepted_answer": "controlled oracle observation, not natural feedback",
+    "qa_order": "not a timestamped user feedback stream",
+    "longmemeval_ids_and_has_answer": "label-bearing; replace IDs and remove markers before model input"
+  }
+}

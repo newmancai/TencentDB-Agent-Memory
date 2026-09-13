@@ -1,0 +1,30 @@
+{
+  "identical_rankings": 2816,
+  "scope": "CPU query transform+normalization+dot products+sorting; excludes model encoding, state load and document matrix construction",
+  "arms": {
+    "base": {
+      "returned_words": 207034,
+      "total_ms": 161.78156528621912,
+      "p50_ms": 0.2470144536346197,
+      "p95_ms": 0.2872381708584726
+    },
+    "mean": {
+      "returned_words": 205585,
+      "total_ms": 160.65194946713746,
+      "p50_ms": 0.2456395886838436,
+      "p95_ms": 0.2831511781550944
+    },
+    "learned": {
+      "returned_words": 207619,
+      "total_ms": 434.1727723367512,
+      "p50_ms": 0.6407250184565783,
+      "p95_ms": 0.6938612670637667
+    },
+    "shuffled": {
+      "returned_words": 206271,
+      "total_ms": 443.6921263113618,
+      "p50_ms": 0.6519419839605689,
+      "p95_ms": 0.7146061514504254
+    }
+  }
+}

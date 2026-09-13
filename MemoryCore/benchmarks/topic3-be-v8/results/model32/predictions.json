@@ -1,0 +1,596 @@
+[
+  {
+    "id": "5d76c69ccc4cfa16b37a",
+    "group": "locomo_locomo-1",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 6.224144577666775e-11,
+      "insufficiency": 0.9890128243387284,
+      "feedback": 0.9930140806917576
+    },
+    "learned": {
+      "score": 0.9930140806917576,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "92c11427f7ad61a40167",
+    "group": "locomo_locomo-1",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "non-memory",
+    "scores": {
+      "direct": 1.493094675876069e-10,
+      "insufficiency": 2.2603203189660305e-06,
+      "feedback": 0.26104093246921267
+    },
+    "learned": {
+      "score": 0.26104093246921267,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "d3af9af59ff7f9dc5439",
+    "group": "locomo_locomo-1",
+    "split": "fit",
+    "direct": "response",
+    "factorized": "memory",
+    "scores": {
+      "direct": 5.216389531509848e-06,
+      "insufficiency": 0.6790848555005884,
+      "feedback": 0.561162509986593
+    },
+    "learned": {
+      "score": 0.561162509986593,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "e8b91aeac56071dc6d36",
+    "group": "locomo_locomo-1",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 1.7603432132817366e-06,
+      "insufficiency": 0.26894142133230126,
+      "feedback": 1.0927235917832985
+    },
+    "learned": {
+      "score": 1.0927235917832985,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "ca7a6ff72c9fbb156fd9",
+    "group": "locomo_locomo-10",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 9.888843040314105e-07,
+      "insufficiency": 0.11920288078208416,
+      "feedback": 0.7703548419389765
+    },
+    "learned": {
+      "score": 0.7703548419389765,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "461968b3d56c270185a9",
+    "group": "locomo_locomo-10",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "non-memory",
+    "scores": {
+      "direct": 7.991959879426891e-11,
+      "insufficiency": 7.889239689324315e-06,
+      "feedback": 0.3184584252726529
+    },
+    "learned": {
+      "score": 0.3184584252726529,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "68a751e57f6b2c815c64",
+    "group": "locomo_locomo-10",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.0066928509216573505,
+      "insufficiency": 0.4999999993383566,
+      "feedback": 1.0746519435100867
+    },
+    "learned": {
+      "score": 1.0746519435100867,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "7a78a48ebfe56f679749",
+    "group": "locomo_locomo-10",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "non-memory",
+    "scores": {
+      "direct": 1.1861120009684463e-08,
+      "insufficiency": 0.004062327497553017,
+      "feedback": 0.4155935404053154
+    },
+    "learned": {
+      "score": 0.4155935404053154,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "4c7c4bb1e10c59560158",
+    "group": "locomo_locomo-2",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.0019267336931307775,
+      "insufficiency": 0.9985699099085252,
+      "feedback": 0.6631715385755811
+    },
+    "learned": {
+      "score": 0.6631715385755811,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "b12538dc2cc368ba7d4b",
+    "group": "locomo_locomo-2",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 9.736200296124174e-10,
+      "insufficiency": 0.002704246240273691,
+      "feedback": 0.6074703627763218
+    },
+    "learned": {
+      "score": 0.6074703627763218,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "9143fbdf6ce401271c6a",
+    "group": "locomo_locomo-5",
+    "split": "fit",
+    "direct": "memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.6281288624947368,
+      "insufficiency": 0.6224592817938825,
+      "feedback": 0.7491329402046893
+    },
+    "learned": {
+      "score": 0.7491329402046893,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "0c1ea92c326fb9d3a3eb",
+    "group": "locomo_locomo-5",
+    "split": "fit",
+    "direct": "response",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 7.080432215561353e-05,
+      "insufficiency": 0.437823294446739,
+      "feedback": 0.6626148389204323
+    },
+    "learned": {
+      "score": 0.6626148389204323,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "dbc337aeaf3a4bee1a10",
+    "group": "locomo_locomo-5",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.006692850920696067,
+      "insufficiency": 0.9046505349439907,
+      "feedback": 1.0779820489241927
+    },
+    "learned": {
+      "score": 1.0779820489241927,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "1dc39a1d60dfb65eebf1",
+    "group": "locomo_locomo-5",
+    "split": "fit",
+    "direct": "response",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.002472621536551959,
+      "insufficiency": 0.9046504633749383,
+      "feedback": 0.6902064965891712
+    },
+    "learned": {
+      "score": 0.6902064965891712,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "77b55d7fc10ade916b13",
+    "group": "locomo_locomo-5",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "non-memory",
+    "scores": {
+      "direct": 4.139919856360429e-08,
+      "insufficiency": 0.17317911418273074,
+      "feedback": 0.42787982902816846
+    },
+    "learned": {
+      "score": 0.42787982902816846,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "c13f4a6177dc8dcedc5c",
+    "group": "locomo_locomo-5",
+    "split": "fit",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 6.143793064991849e-06,
+      "insufficiency": 0.7771769460281429,
+      "feedback": 0.6345420789235494
+    },
+    "learned": {
+      "score": 0.6345420789235494,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "7688ce879edd09fd420f",
+    "group": "realmem_realmem-Adeleke_Okonjo",
+    "split": "eval",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 8.187585966939197e-05,
+      "insufficiency": 0.4954626425778431,
+      "feedback": 0.5390067809399224
+    },
+    "learned": {
+      "score": 0.5390067809399224,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "00547101fb5b955d889c",
+    "group": "realmem_realmem-Adeleke_Okonjo",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.00407013337227675,
+      "insufficiency": 0.6169812133141169,
+      "feedback": 0.36923355681701925
+    },
+    "learned": {
+      "score": 0.36923355681701925,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "aa3a2ef6784deec66d64",
+    "group": "realmem_realmem-Adeleke_Okonjo",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "response",
+    "scores": {
+      "direct": 3.535624819240939e-05,
+      "insufficiency": 0.02246126902303474,
+      "feedback": 0.19046462199848335
+    },
+    "learned": {
+      "score": 0.19046462199848335,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "eb0f5b59e3369a20be9f",
+    "group": "realmem_realmem-Adeleke_Okonjo",
+    "split": "eval",
+    "direct": "memory",
+    "factorized": "response",
+    "scores": {
+      "direct": 0.9933066443586079,
+      "insufficiency": 0.004600734283960385,
+      "feedback": 0.2614115091480596
+    },
+    "learned": {
+      "score": 0.2614115091480596,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "d1471938f9f94102ea5c",
+    "group": "realmem_realmem-Adeleke_Okonjo",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "memory",
+    "scores": {
+      "direct": 9.609310082387785e-05,
+      "insufficiency": 0.6791784665281141,
+      "feedback": 0.7447708463835713
+    },
+    "learned": {
+      "score": 0.7447708463835713,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "939277b1bf0f94a19ea4",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.0002033982007093636,
+      "insufficiency": 0.9706877682091175,
+      "feedback": 0.971704804025408
+    },
+    "learned": {
+      "score": 0.971704804025408,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "ba27e4486a6b38912c4f",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 0.01096006481798772,
+      "insufficiency": 0.14626966267757346,
+      "feedback": 0.37853845087318155
+    },
+    "learned": {
+      "score": 0.37853845087318155,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "158300a5c8225ccfe964",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 0.4323780825648678,
+      "insufficiency": 0.6224593214728473,
+      "feedback": 0.9166776091064608
+    },
+    "learned": {
+      "score": 0.9166776091064608,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "b628d06ca7359a11b5d2",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 0.037326418792533386,
+      "insufficiency": 0.4378223213368901,
+      "feedback": 0.7350022657299855
+    },
+    "learned": {
+      "score": 0.7350022657299855,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "2de832600580ee80f603",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "response",
+    "scores": {
+      "direct": 3.927853105010982e-07,
+      "insufficiency": 1.8553890373623833e-07,
+      "feedback": 0.07203043757217176
+    },
+    "learned": {
+      "score": 0.07203043757217176,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "db0c6b3c4cd95e29406d",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "non-memory",
+    "factorized": "memory",
+    "scores": {
+      "direct": 3.9278567555414335e-07,
+      "insufficiency": 0.6218773598648037,
+      "feedback": 0.6612204505427253
+    },
+    "learned": {
+      "score": 0.6612204505427253,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "5959790f918d90a0b693",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 0.0040234073895547276,
+      "insufficiency": 0.26894139295996217,
+      "feedback": 0.8754369359925817
+    },
+    "learned": {
+      "score": 0.8754369359925817,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "d2f9feadac56a0b4338b",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 4.785054330903408e-06,
+      "insufficiency": 0.00857730304772084,
+      "feedback": 0.6302844764009287
+    },
+    "learned": {
+      "score": 0.6302844764009287,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "e2f1860264f5d19dc5ec",
+    "group": "realmem_realmem-Ethan_Hunt",
+    "split": "eval",
+    "direct": "non-memory",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 6.144034237004622e-06,
+      "insufficiency": 0.07585815857636005,
+      "feedback": 0.8901470517964125
+    },
+    "learned": {
+      "score": 0.8901470517964125,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "c2e46badb32ad1cb0ed1",
+    "group": "realmem_realmem-Liam_O_Connor",
+    "split": "eval",
+    "direct": "non-memory",
+    "factorized": "non-memory",
+    "scores": {
+      "direct": 1.0129924676491295e-05,
+      "insufficiency": 0.10036756468345168,
+      "feedback": 0.5244418023380556
+    },
+    "learned": {
+      "score": 0.5244418023380556,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "4eac97cf18eb103e10e6",
+    "group": "realmem_realmem-Liam_O_Connor",
+    "split": "eval",
+    "direct": "response",
+    "factorized": "response",
+    "scores": {
+      "direct": 1.186104675144626e-08,
+      "insufficiency": 2.382362185556685e-07,
+      "feedback": -0.008513189528850384
+    },
+    "learned": {
+      "score": -0.008513189528850384,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  },
+  {
+    "id": "a1417166f339f765e4bb",
+    "group": "realmem_realmem-Liam_O_Connor",
+    "split": "eval",
+    "direct": "non-memory",
+    "factorized": "unknown",
+    "scores": {
+      "direct": 0.004958507054641145,
+      "insufficiency": 0.11920067043433832,
+      "feedback": 0.7096697968996756
+    },
+    "learned": {
+      "score": 0.7096697968996756,
+      "fallback": false,
+      "mode": "feedback",
+      "reason": "fitted"
+    }
+  }
+]

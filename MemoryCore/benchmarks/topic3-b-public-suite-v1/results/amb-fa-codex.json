@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "protocol": "topic3-b-public-suite-v1:amb-fa",
+  "runId": "amb-fa-codex-v2",
+  "status": "pass_as_one_task_method_smoke",
+  "method": "four-arm information intervention with a hidden execution checker",
+  "data": {
+    "dataset": "GiulioDER/agent-memory-bench",
+    "revision": "e0859d1ca757f65747b4d32e21f158d55c595879",
+    "taskId": "fa-dedup-key",
+    "taskCount": 1,
+    "sampleSelection": "the only failed-approach task in the pinned snapshot",
+    "workspaceInputDigest": "4af8318086d85df7824c248f92d719ee3c6ed8c747bd300de2e449c8bce56297",
+    "evaluationGrain": "one isolated coding task per arm"
+  },
+  "backend": {
+    "agent": "Codex exec",
+    "model": "gpt-5.6-sol",
+    "reasoningEffort": "medium",
+    "cliVersion": "codex-cli 0.153.4",
+    "modelSeed": "not_exposed",
+    "repetitionsPerArm": 1
+  },
+  "arms": [
+    {
+      "arm": "clean",
+      "mode": "baseline",
+      "memoryInjected": false,
+      "memoryCharacters": 0,
+      "checkerPass": false,
+      "checkerVerdict": "2 real order(s) were dropped, at order_id(s) [1001, 1002]: two supplier files reuse an id range, so order_id alone is not an identity",
+      "inputTokens": 91692,
+      "cachedInputTokens": 84992,
+      "outputTokens": 1202,
+      "reasoningOutputTokens": 191,
+      "agentLatencyMs": 38344.811,
+      "checkerLatencyMs": 124.154,
+      "artifactSha256": "701816978036e67a89361fa738401643b22757b177fcc8487c7ccda574c2dbc0",
+      "promptSha256": "c6510ace1351d38b738df31752cc77941b259add7db1e2af537faa05c62b5c7b"
+    },
+    {
+      "arm": "irrelevant_control",
+      "mode": "enabled_irrelevant_memory_control",
+      "memoryInjected": true,
+      "memorySourceId": "corpus/distractors/d151.jsonl",
+      "memoryCharacters": 680,
+      "checkerPass": false,
+      "checkerVerdict": "2 real order(s) were dropped, at order_id(s) [1001, 1002]: two supplier files reuse an id range, so order_id alone is not an identity",
+      "inputTokens": 76047,
+      "cachedInputTokens": 69760,
+      "outputTokens": 1139,
+      "reasoningOutputTokens": 276,
+      "agentLatencyMs": 44177.966,
+      "checkerLatencyMs": 70.162,
+      "artifactSha256": "04f2015da4224236a1ca77d1e9a3b1ce306105a0c25ffaa6274c040487f93aad",
+      "promptSha256": "e426ab51e4b868327391c9b140aa3f139593f517294830a0c07d79f2b76ed7c6"
+    },
+    {
+      "arm": "raw_feedback",
+      "mode": "enabled_oracle_selected_raw_failure_feedback",
+      "memoryInjected": true,
+      "memorySourceId": "corpus/sessions/fa-dedup-key/p01.jsonl#final-user",
+      "memoryCharacters": 579,
+      "checkerPass": true,
+      "checkerVerdict": "7 distinct orders, 7 expected, order preserved",
+      "inputTokens": 168477,
+      "cachedInputTokens": 158208,
+      "outputTokens": 3645,
+      "reasoningOutputTokens": 1785,
+      "agentLatencyMs": 89261.545,
+      "checkerLatencyMs": 70.125,
+      "artifactSha256": "0d213c58ab8ad0909e2b30a07a680d6f129d3679003600c562cd06c08bfb8789",
+      "promptSha256": "86266b3309a09bb54e6866f4703e2f9ac636179dc28eb5ab07befe4dbb6423ce"
+    },
+    {
+      "arm": "compiled_failure",
+      "mode": "enabled_oracle_selected_structured_failure_memory",
+      "memoryInjected": true,
+      "memorySourceId": "corpus/sessions/fa-dedup-key/p01.jsonl#final-user",
+      "memoryCharacters": 476,
+      "checkerPass": true,
+      "checkerVerdict": "7 distinct orders, 7 expected, order preserved",
+      "inputTokens": 113419,
+      "cachedInputTokens": 105344,
+      "outputTokens": 1730,
+      "reasoningOutputTokens": 583,
+      "agentLatencyMs": 50334.532,
+      "checkerLatencyMs": 70.323,
+      "artifactSha256": "83009c508acf306247159c841233f8589183aaa55c4f3de15741ee8b3a6d9c2a",
+      "promptSha256": "5fae8ade5eceb8dc064abfee5a4e68643e1b95637ca10c0a713e4c9eb1938a96"
+    }
+  ],
+  "metrics": {
+    "checkerPassByArm": {
+      "clean": "0/1",
+      "irrelevant_control": "0/1",
+      "raw_feedback": "1/1",
+      "compiled_failure": "1/1"
+    },
+    "pairedAgainstClean": {
+      "irrelevant_control": "tie",
+      "raw_feedback": "win",
+      "compiled_failure": "win"
+    },
+    "compiledVersusRawDescriptiveDelta": {
+      "memoryCharacters": -103,
+      "memoryCharactersPercent": -17.789,
+      "inputTokens": -55058,
+      "inputTokensPercent": -32.680,
+      "outputTokens": -1915,
+      "outputTokensPercent": -52.538,
+      "reasoningOutputTokens": -1202,
+      "reasoningOutputTokensPercent": -67.339,
+      "agentLatencyMs": -38927.013,
+      "agentLatencyPercent": -43.610
+    },
+    "v2Total": {
+      "calls": 4,
+      "inputTokens": 449635,
+      "cachedInputTokens": 418304,
+      "outputTokens": 7716,
+      "reasoningOutputTokens": 2835,
+      "agentLatencyMs": 222118.854,
+      "checkerLatencyMs": 334.764
+    }
+  },
+  "discardedAttempts": [
+    {
+      "runId": "amb-fa-codex-v1",
+      "arm": "clean",
+      "reason": "runner could not import the pinned checker dependency after the agent returned",
+      "checkerScored": false,
+      "includedInComparison": false,
+      "inputTokens": 160191,
+      "cachedInputTokens": 145280,
+      "outputTokens": 2114,
+      "reasoningOutputTokens": 505,
+      "eventsSha256": "4fbad726a73c32aca3aed306b17c879c6bfde8b890d65a4d2c2417e39ea20303"
+    }
+  ],
+  "allCallsIncludingDiscarded": {
+    "calls": 5,
+    "inputTokens": 609826,
+    "cachedInputTokens": 563584,
+    "outputTokens": 9830,
+    "reasoningOutputTokens": 3340
+  },
+  "confidence": {
+    "checkerOutcome": "high for this fixed task contract: the property checker accepts multiple valid solutions and rejected both order_id-only artifacts",
+    "memoryEffect": "low: one task, one non-seeded repetition per arm; relevant-source selection and structured compilation are evaluator-oracle controls",
+    "costComparison": "descriptive only: paired inputs but non-deterministic agent trajectories and n=1"
+  },
+  "evidence": {
+    "v2ReceiptsSha256": "97c3c26406c915efc86e38589aa258379f7fd56a2ce0dbac1817a16626e84f7e",
+    "v2SummarySha256": "d64b21bb84eb2f0d544a3a3011057894f720956d34ddee2e14bcc862544ec2e5",
+    "agentInputsContainGold": false,
+    "checkerAppliedAfterAgent": true
+  },
+  "claim": "On this one public method case, relevant failure evidence prevented a repeated failed approach while an irrelevant memory did not. This validates the information intervention and B-to-E wiring, not autonomous memory formation, generalization, or stable net benefit."
+}

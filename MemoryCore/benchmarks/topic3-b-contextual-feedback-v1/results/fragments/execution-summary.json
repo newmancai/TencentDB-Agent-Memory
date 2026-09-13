@@ -1,0 +1,151 @@
+{
+  "evaluation_tasks": 12,
+  "learning_examples": 2,
+  "calls": 48,
+  "over_100_words": {
+    "frozen": 1,
+    "unlabelled": 7,
+    "feedback": 9,
+    "reviewed": 8
+  },
+  "word_count_definition": "Python whitespace str.split",
+  "word_counts": [
+    {
+      "id": "a3f326f57861bd0ad5fdde98",
+      "words": {
+        "frozen": 81,
+        "unlabelled": 88,
+        "feedback": 103,
+        "reviewed": 81
+      }
+    },
+    {
+      "id": "6c24299f6b507d58e53ca08b",
+      "words": {
+        "unlabelled": 95,
+        "feedback": 127,
+        "reviewed": 110,
+        "frozen": 84
+      }
+    },
+    {
+      "id": "1235e61189c74407b5d9cfd9",
+      "words": {
+        "feedback": 107,
+        "reviewed": 108,
+        "frozen": 81,
+        "unlabelled": 120
+      }
+    },
+    {
+      "id": "b41b66bacc271eaabb6dae9c",
+      "words": {
+        "reviewed": 142,
+        "frozen": 87,
+        "unlabelled": 107,
+        "feedback": 116
+      }
+    },
+    {
+      "id": "37d27998519aa310c171f84d",
+      "words": {
+        "frozen": 92,
+        "unlabelled": 118,
+        "feedback": 108,
+        "reviewed": 113
+      }
+    },
+    {
+      "id": "33cd8e932f9d086ea26a6168",
+      "words": {
+        "unlabelled": 132,
+        "feedback": 145,
+        "reviewed": 114,
+        "frozen": 91
+      }
+    },
+    {
+      "id": "20b9fd1b2597b4f96c27368f",
+      "words": {
+        "feedback": 108,
+        "reviewed": 95,
+        "frozen": 96,
+        "unlabelled": 104
+      }
+    },
+    {
+      "id": "8d60876aa03d7d58833852b0",
+      "words": {
+        "reviewed": 172,
+        "frozen": 65,
+        "unlabelled": 129,
+        "feedback": 91
+      }
+    },
+    {
+      "id": "68f173fa0fae68377c0d1666",
+      "words": {
+        "frozen": 91,
+        "unlabelled": 104,
+        "feedback": 117,
+        "reviewed": 96
+      }
+    },
+    {
+      "id": "7979cd828318cc3aea5cc746",
+      "words": {
+        "unlabelled": 85,
+        "feedback": 88,
+        "reviewed": 100,
+        "frozen": 90
+      }
+    },
+    {
+      "id": "8b301f72d2c6c56175892c42",
+      "words": {
+        "feedback": 119,
+        "reviewed": 113,
+        "frozen": 102,
+        "unlabelled": 95
+      }
+    },
+    {
+      "id": "9ea51d20851d590aae8bcf4e",
+      "words": {
+        "reviewed": 109,
+        "frozen": 74,
+        "unlabelled": 80,
+        "feedback": 93
+      }
+    }
+  ],
+  "total_input_tokens": 330132,
+  "total_output_tokens": 7102,
+  "total_generation_seconds": 234.4201575864572,
+  "failures": [
+    {
+      "id": "8d60876aa03d7d58833852b0",
+      "arm": "reviewed",
+      "error": "output_limit"
+    }
+  ],
+  "generation_latency_ms": {
+    "frozen": {
+      "p50": 3677.804152481258,
+      "p95": 4350.9825196815655
+    },
+    "unlabelled": {
+      "p50": 4999.75339404773,
+      "p95": 5646.737667405978
+    },
+    "feedback": {
+      "p50": 5238.065447541885,
+      "p95": 6301.405605301261
+    },
+    "reviewed": {
+      "p50": 5441.548342583701,
+      "p95": 7220.707752741873
+    }
+  },
+  "latency_definition": "Model generate incl CUDA synchronization, all 12 tasks including output-limit failure; inclusive linear sample quantiles, not end-to-end"
+}

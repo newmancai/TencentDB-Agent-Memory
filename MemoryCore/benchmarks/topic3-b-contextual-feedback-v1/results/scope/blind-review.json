@@ -1,0 +1,218 @@
+{
+  "status": "assistant independent review; not official gold",
+  "input_scope": "Only scope-audit/packets.jsonl; complete historical sessions and current requests. No reference, selection, or other new results read. No model inference executed.",
+  "rubric": {
+    "purpose_match": "same means same practical educational/delivery purpose and compatible audience, not identical topic; different means a concrete purpose/audience change.",
+    "feedback_transfer": "supported means at least one bounded feedback direction has a visible bridge to the current request; it does not approve all historical feedback or certify assistant claims. unsupported means feedback remains tied to a clearly absent task/audience; unclear means plausible overlap but insufficient visible bridge."
+  },
+  "reviews": [
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s1",
+      "purpose_match": "different",
+      "feedback_transfer": "unsupported",
+      "user_message_ids": [
+        "s1:t1",
+        "s1:t3"
+      ],
+      "explanation": "历史是向文学代理机构拒稿并维持投稿关系；当前是面向初次作者的会议指南。正式且鼓励创新的认可明确绑定该拒稿邮件，没有可见依据要求会议指南沿用这种语气。",
+      "disputed_boundary": "专业语气可能适合多场景，但此包不能证明用户要跨场景沿用。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s2",
+      "purpose_match": "same",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s2:t1",
+        "s2:t3",
+        "s2:t7",
+        "s2:t9"
+      ],
+      "explanation": "两者均为First-Time Authors Collective提供写作学习材料。历史明确认可成功作品实例的解释作用，当前也直接要求写作实例/案例；可迁移此实例使用方向。",
+      "disputed_boundary": "会议指南范围更广，不能把单次对话真实性工作坊的严格排他主题限制迁移为整份指南只讲真实性。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s3",
+      "purpose_match": "same",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s3:t1",
+        "s3:t5",
+        "s3:t9",
+        "s3:t11"
+      ],
+      "explanation": "同一作者集体的写作指南用途对应；旧反馈要求实例准确服务正在解释的写作技法，当前要求具体写作实例，可据此保持实例与说明点对齐。",
+      "disputed_boundary": "不能把仅讲场景结构、排除其他写作内容的局部要求扩为会议指南全局限制。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s4",
+      "purpose_match": "different",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s4:t1",
+        "s4:t3",
+        "s4:t5"
+      ],
+      "explanation": "历史是销售数据分析，当前是作者会议指南，用途不同。但旧反馈明确要求通过作者/图书个案解释出版趋势，当前直接要求出版案例，存在可见的有限迁移依据。",
+      "disputed_boundary": "只迁移出版趋势用具体个案说明的方法；不把助手举例的书名和业绩视为已核验事实，也不自动复制旧季度数据。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s5",
+      "purpose_match": "different",
+      "feedback_transfer": "unclear",
+      "user_message_ids": [
+        "s5:t1",
+        "s5:t3",
+        "s5:t5"
+      ],
+      "explanation": "历史是特定跨类型书稿的营销编辑协调会议，当前是初次作者会议指南。创意与营销结合可成为出版案例，但当前未指定该书稿或非常规创作主题，尚难确认其局部战略权重应迁移。",
+      "disputed_boundary": "可以把它作为候选案例思路；这与用户已要求整份指南强调非传统元素并非一回事。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s6",
+      "purpose_match": "different",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s6:t1",
+        "s6:t3",
+        "s6:t5"
+      ],
+      "explanation": "历史是向资深编辑讨论特定YA书稿，当前是作者教育会议指南。旧反馈具体要求成功作品比较来解释写作创新，当前明确要求写作案例，因此可有限迁移以成功作品比较提供背景的说明方式。",
+      "disputed_boundary": "不据此强制全指南先传统后创新，也不要求只选YA或照搬助手未经核验的书目事实；此有限跨用途迁移边界可有争议。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s7",
+      "purpose_match": "different",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s7:t1",
+        "s7:t3",
+        "s7:t5"
+      ],
+      "explanation": "历史交付是拒稿模板，当前是会议指南，功能不同。旧反馈明确以具体写作例子帮助作者理解优点、给出可操作修订建议；当前同样面向作者且要求写作例子，至少实例化写作指导有可见依据。",
+      "disputed_boundary": "不能把拒稿措辞或一律先优点后不足的评价结构推广为全指南格式。"
+    },
+    {
+      "id": "d14d41fc1da597100bc0f0c2:s8",
+      "purpose_match": "different",
+      "feedback_transfer": "unclear",
+      "user_message_ids": [
+        "s8:t1",
+        "s8:t3",
+        "s8:t5"
+      ],
+      "explanation": "历史是科幻稿件评估框架，当前是作者会议指南。将非常规写作特征与市场机会相连可能适于某个出版案例，但当前没有指明科幻、稿件评审或创新营销主题，不能确认这项局部要求适用。",
+      "disputed_boundary": "主题交集可产生候选，不足以把偏重非常规元素确认为当前要求。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s1",
+      "purpose_match": "different",
+      "feedback_transfer": "unclear",
+      "user_message_ids": [
+        "s1:t1",
+        "s1:t3",
+        "s1:t5",
+        "s1:t9"
+      ],
+      "explanation": "历史要学生在实验中记住安全规则，当前是常规课核化学概念教学。旧反馈的图像、简短押韵与真实后果都绑定安全规则记忆；可设想教学用途，但未见核化学课也要这些方式的明确桥接。",
+      "disputed_boundary": "学生受众有重叠，生动实例可能有用；不能仅据一般教学常识判定押韵规则应迁移。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s2",
+      "purpose_match": "same",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s2:t1",
+        "s2:t3",
+        "s2:t5",
+        "s2:t7"
+      ],
+      "explanation": "两次均为regular chemistry class制作教学幻灯片。旧反馈明确要求动态视觉和默认隐藏、可访问的详细随页笔记以服务缺课学生，可适用于当前同类课件。",
+      "disputed_boundary": "旧放热反应知识点不迁移；也不把助手软件实现描述当作已核验功能。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s3",
+      "purpose_match": "same",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s3:t1",
+        "s3:t3",
+        "s3:t5",
+        "s3:t7",
+        "s3:t9"
+      ],
+      "explanation": "同为常规化学课幻灯片；历史对动画展示及缺课学生可用的隐藏文本笔记有明确要求，存在同交付物、同受众、同教学用途的迁移依据。",
+      "disputed_boundary": "不迁移VSEPR特定分子内容或助手未核验的软件操作步骤。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s4",
+      "purpose_match": "different",
+      "feedback_transfer": "unsupported",
+      "user_message_ids": [
+        "s4:t1",
+        "s4:t3"
+      ],
+      "explanation": "旧反馈明确把体育比喻的成功限定于varsity track team及训练经验；当前是regular chemistry class，没有该运动员受众依据，不能推广为必须使用田径例子。",
+      "disputed_boundary": "举例这一泛化教学办法可能合适，但本条没有对常规班使用体育情境的可见支持。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s5",
+      "purpose_match": "different",
+      "feedback_transfer": "unsupported",
+      "user_message_ids": [
+        "s5:t1",
+        "s5:t3",
+        "s5:t5"
+      ],
+      "explanation": "历史是库存管理，反馈要求柜内具体货架位置以便寻物；当前是核化学教学课件，不涉及库存查找，未见该精确位置要求的适用对象。",
+      "disputed_boundary": "不能将库存定位细致抽象为所有任务都需同样细节的偏好。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s6",
+      "purpose_match": "different",
+      "feedback_transfer": "unsupported",
+      "user_message_ids": [
+        "s6:t1",
+        "s6:t3",
+        "s6:t5"
+      ],
+      "explanation": "旧反馈把高阶术语、理论深度和不转向实际例子联系于Science Olympiad高级热力学；当前常规核化学课且明确列医学应用和环境影响，不能将该理论限定推广。",
+      "disputed_boundary": "科学准确性仍重要，但不是从此包证明用户要对常规班沿用高阶竞赛呈现风格。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s7",
+      "purpose_match": "different",
+      "feedback_transfer": "unsupported",
+      "user_message_ids": [
+        "s7:t1",
+        "s7:t3",
+        "s7:t5"
+      ],
+      "explanation": "历史是供家长理解的学生进度报告，亲切措辞与日常类比明确服务家长；当前是学生的常规化学教学幻灯片，没有家长报告场景。",
+      "disputed_boundary": "日常类比可能适合学生，但仅凭此包不能认定家长沟通反馈已适用当前课件。"
+    },
+    {
+      "id": "b4c5fdad50b376b7e3eaec40:s8",
+      "purpose_match": "same",
+      "feedback_transfer": "supported",
+      "user_message_ids": [
+        "s8:t1",
+        "s8:t3",
+        "s8:t5",
+        "s8:t7"
+      ],
+      "explanation": "两者均为化学教学组织视觉内容。历史明确提出拆成更小视觉步骤以避免观众负担，当前是教学幻灯片序列，可有限迁移逐步呈现的组织方式。",
+      "disputed_boundary": "历史未明说regular class，受众同一性较弱；只支持视觉步骤分解，不迁移每次一两个官能团或ChemDraw工具要求，也不核验助手化学结构内容。"
+    }
+  ],
+  "counts": {
+    "purpose_match": {
+      "different": 11,
+      "same": 5
+    },
+    "feedback_transfer": {
+      "unsupported": 5,
+      "supported": 8,
+      "unclear": 3
+    }
+  }
+}

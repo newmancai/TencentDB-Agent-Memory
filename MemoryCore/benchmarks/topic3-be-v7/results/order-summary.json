@@ -1,0 +1,60 @@
+{
+  "reviews": {
+    "source-review": {
+      "n": 54,
+      "agreement": 36,
+      "pred_changed_targets": 27,
+      "matched_changed_targets": 13,
+      "unknown_pairs": 14,
+      "pred_changed_pairs": 20,
+      "errors": 0,
+      "not_run": 6,
+      "vs_original": {
+        "ties": 37,
+        "losses": 5,
+        "wins": 12
+      },
+      "target_transitions": {
+        "changed->same": 36,
+        "changed->changed": 25,
+        "changed->unknown": 28,
+        "same->same": 39,
+        "unknown->same": 6,
+        "unknown->unknown": 6,
+        "same->unknown": 2,
+        "same->changed": 2
+      }
+    },
+    "source-review-second": {
+      "n": 54,
+      "agreement": 35,
+      "pred_changed_targets": 27,
+      "matched_changed_targets": 11,
+      "unknown_pairs": 14,
+      "pred_changed_pairs": 20,
+      "errors": 0,
+      "not_run": 6,
+      "vs_original": {
+        "ties": 37,
+        "losses": 4,
+        "wins": 13
+      },
+      "target_transitions": {
+        "changed->same": 36,
+        "changed->changed": 25,
+        "changed->unknown": 28,
+        "same->same": 39,
+        "unknown->same": 6,
+        "unknown->unknown": 6,
+        "same->unknown": 2,
+        "same->changed": 2
+      }
+    }
+  },
+  "costs": {
+    "calls": 144,
+    "inputTokens": 207392,
+    "outputTokens": 288,
+    "elapsedMs": 38279.258525697514
+  }
+}

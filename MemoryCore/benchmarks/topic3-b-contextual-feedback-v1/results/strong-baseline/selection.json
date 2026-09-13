@@ -1,0 +1,16 @@
+{
+  "groups": [
+    "218+astrophysicist",
+    "96+science_communicator"
+  ],
+  "excluded_personas": 24,
+  "ids": [
+    "648a6a2e4c164a5ddc60492f",
+    "079e1cd5244883787afdf266",
+    "97267efbf3326ab9f273e3bd",
+    "a32a9de8e8cba3006f98a4a2",
+    "eb3d386d64e0e46a1c40c43c",
+    "6f5d6b2119fb105d9b4eb8b3"
+  ],
+  "scope": "new development personas; fixed ordinary inference, not B learning or matched compute"
+}

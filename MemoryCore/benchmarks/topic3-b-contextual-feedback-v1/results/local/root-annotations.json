@@ -1,0 +1,68 @@
+[
+  {
+    "id": "6c50c6b8631b2896ab4fc5c8",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "通过案例和项目学习整合基础技能"
+    ],
+    "requested_change": [
+      "使这些活动适应不同技能水平并允许学生按自己的速度进步"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "未认可上一回复所有方法；未指定具体分层方案，也未否定原有活动。"
+  },
+  {
+    "id": "1f3f1a4ac62726955bcf8947",
+    "feedback_kind": "request_change",
+    "supported_content": [],
+    "requested_change": [
+      "重新核对Copulationsregister被译为Birth Register的问题",
+      "术语一致地现代化，同时保持原意"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t2",
+      "t3"
+    ],
+    "overreach_to_avoid": "用户质疑提供可靠的问题定位，但没有明确给出正确译法，不能冒充已核实译文。"
+  },
+  {
+    "id": "19c2d6d1a921e2bbb25ad203",
+    "feedback_kind": "mixed",
+    "supported_content": [
+      "用户认为天气条件已得到较好考虑"
+    ],
+    "requested_change": [
+      "更明确使用每次观察的时间，将天气与具体时刻对齐"
+    ],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t4",
+      "t5"
+    ],
+    "overreach_to_avoid": "满意天气呈现不证明助手关于生态/地理/因果的推测属实，也不等于否定地理维度。"
+  },
+  {
+    "id": "f521dd11c269e3951c396aa4",
+    "feedback_kind": "support",
+    "supported_content": [
+      "研究步骤全面且先收集信息再推进",
+      "咨询多类专家",
+      "用户认为上述流程符合协议优先事项"
+    ],
+    "requested_change": [],
+    "target_identifiable": "yes",
+    "evidence_ids": [
+      "t1",
+      "t2",
+      "t3"
+    ],
+    "overreach_to_avoid": "用户认可该流程不证明专家步骤实际足够、真实协议已完整满足或器物已有任何事实结论。"
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "paired_model_vs_new_family": {
+    "win": 0,
+    "loss": 16,
+    "tie": 22
+  },
+  "baseline_failures": [
+    {
+      "id": "dialog_1:18",
+      "previous": [
+        "R13",
+        "R14",
+        "R6"
+      ],
+      "new_family": [
+        "R13",
+        "R14",
+        "R6"
+      ],
+      "gold": [
+        "R1",
+        "R13",
+        "R14"
+      ],
+      "model": [
+        "R1",
+        "R14"
+      ],
+      "message": "Would you mind tweaking that earlier request? Instead of needing the response in neat, well-formed HTML, can you make it in valid CSV instead—with consistently organized columns and nicely quoted entries? I just think CSV fits a bit better here (but I could be wrong!)."
+    },
+    {
+      "id": "dialog_1:30",
+      "previous": [
+        "R22"
+      ],
+      "new_family": [
+        "R22"
+      ],
+      "gold": [
+        "R17",
+        "R22"
+      ],
+      "model": [
+        "R17"
+      ],
+      "message": "could you make sure everything’s in all lowercase? just want to keep things super mellow and un-fancy, you know?"
+    }
+  ]
+}

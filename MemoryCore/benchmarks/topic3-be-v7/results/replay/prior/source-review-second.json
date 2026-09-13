@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "id": "21ebe1a2d04e74c976b7",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "45fa9d649816b028a33a",
+      "relation": "changed",
+      "changed_target_ids": [
+        "o2"
+      ]
+    },
+    {
+      "id": "8c6c28f99c60f8d20ed4",
+      "relation": "changed",
+      "changed_target_ids": [
+        "o1"
+      ]
+    },
+    {
+      "id": "6002d8e97f32c3fb9eaf",
+      "relation": "changed",
+      "changed_target_ids": [
+        "o3"
+      ]
+    },
+    {
+      "id": "02be113376b22280ebd7",
+      "relation": "changed",
+      "changed_target_ids": [
+        "o2"
+      ]
+    },
+    {
+      "id": "735a6fde8d4053406e40",
+      "relation": "changed",
+      "changed_target_ids": [
+        "o0"
+      ]
+    },
+    {
+      "id": "797682d96b83baea669c",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "74f6153cbfdd1dc70adb",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "5699d41c64035127fe28",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "1e5f02723d027df3028d",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "0c1432f5ab182298e796",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "d56081477e1da5deca07",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "31f66dbcd660d2ed235a",
+      "relation": "same",
+      "changed_target_ids": []
+    },
+    {
+      "id": "e1d83233903262cc0def",
+      "relation": "same",
+      "changed_target_ids": []
+    }
+  ]
+}

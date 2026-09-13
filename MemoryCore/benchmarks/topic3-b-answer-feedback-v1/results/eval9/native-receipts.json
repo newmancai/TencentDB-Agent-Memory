@@ -1,0 +1,905 @@
+[
+  {
+    "id": "dialog_9:5",
+    "writes": 5,
+    "records": [
+      "dialog_9:5:turn1",
+      "dialog_9:5:turn2",
+      "dialog_9:5:turn3",
+      "dialog_9:5:turn4",
+      "dialog_9:5:turn5"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "direct": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 1.020729000000017
+      },
+      "unlabelled": {
+        "feedback": [
+          "R2"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.2152290000000221
+      },
+      "prose": {
+        "feedback": [
+          "R2"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.057366000000001804
+      },
+      "structured": {
+        "feedback": [
+          "R2"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.03827400000000125
+      }
+    }
+  },
+  {
+    "id": "dialog_9:10",
+    "writes": 10,
+    "records": [
+      "dialog_9:10:turn1",
+      "dialog_9:10:turn2",
+      "dialog_9:10:turn3",
+      "dialog_9:10:turn4",
+      "dialog_9:10:turn5",
+      "dialog_9:10:turn6",
+      "dialog_9:10:turn7",
+      "dialog_9:10:turn8",
+      "dialog_9:10:turn9",
+      "dialog_9:10:turn10"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "unlabelled": {
+        "feedback": [
+          "R2",
+          "R7"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.0906180000000063
+      },
+      "prose": {
+        "feedback": [
+          "R2",
+          "R7"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.048879999999996926
+      },
+      "structured": {
+        "feedback": [
+          "R2",
+          "R7"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.04054300000001376
+      },
+      "direct": {
+        "feedback": [
+          "R7"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 2.5679460000000063
+      }
+    }
+  },
+  {
+    "id": "dialog_9:15",
+    "writes": 15,
+    "records": [
+      "dialog_9:15:turn1",
+      "dialog_9:15:turn2",
+      "dialog_9:15:turn3",
+      "dialog_9:15:turn4",
+      "dialog_9:15:turn5",
+      "dialog_9:15:turn6",
+      "dialog_9:15:turn7",
+      "dialog_9:15:turn8",
+      "dialog_9:15:turn9",
+      "dialog_9:15:turn10",
+      "dialog_9:15:turn11",
+      "dialog_9:15:turn12",
+      "dialog_9:15:turn13",
+      "dialog_9:15:turn14",
+      "dialog_9:15:turn15"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "prose": {
+        "feedback": [
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.1019539999999779
+      },
+      "structured": {
+        "feedback": [
+          "R1",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.060776999999973214
+      },
+      "direct": {
+        "feedback": [
+          "R1",
+          "R10",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.042578999999989264
+      },
+      "unlabelled": {
+        "feedback": [
+          "R1",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.031831000000011045
+      }
+    }
+  },
+  {
+    "id": "dialog_9:20",
+    "writes": 20,
+    "records": [
+      "dialog_9:20:turn1",
+      "dialog_9:20:turn2",
+      "dialog_9:20:turn3",
+      "dialog_9:20:turn4",
+      "dialog_9:20:turn5",
+      "dialog_9:20:turn6",
+      "dialog_9:20:turn7",
+      "dialog_9:20:turn8",
+      "dialog_9:20:turn9",
+      "dialog_9:20:turn10",
+      "dialog_9:20:turn11",
+      "dialog_9:20:turn12",
+      "dialog_9:20:turn13",
+      "dialog_9:20:turn14",
+      "dialog_9:20:turn15",
+      "dialog_9:20:turn16",
+      "dialog_9:20:turn17",
+      "dialog_9:20:turn18",
+      "dialog_9:20:turn19",
+      "dialog_9:20:turn20"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "structured": {
+        "feedback": [
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.10760500000003503
+      },
+      "direct": {
+        "feedback": [
+          "R1",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R4",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.05786000000000513
+      },
+      "unlabelled": {
+        "feedback": [
+          "R1",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.04536500000006072
+      },
+      "prose": {
+        "feedback": [
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.046573000000080356
+      }
+    }
+  },
+  {
+    "id": "dialog_9:25",
+    "writes": 25,
+    "records": [
+      "dialog_9:25:turn1",
+      "dialog_9:25:turn2",
+      "dialog_9:25:turn3",
+      "dialog_9:25:turn4",
+      "dialog_9:25:turn5",
+      "dialog_9:25:turn6",
+      "dialog_9:25:turn7",
+      "dialog_9:25:turn8",
+      "dialog_9:25:turn9",
+      "dialog_9:25:turn10",
+      "dialog_9:25:turn11",
+      "dialog_9:25:turn12",
+      "dialog_9:25:turn13",
+      "dialog_9:25:turn14",
+      "dialog_9:25:turn15",
+      "dialog_9:25:turn16",
+      "dialog_9:25:turn17",
+      "dialog_9:25:turn18",
+      "dialog_9:25:turn19",
+      "dialog_9:25:turn20",
+      "dialog_9:25:turn21",
+      "dialog_9:25:turn22",
+      "dialog_9:25:turn23",
+      "dialog_9:25:turn24",
+      "dialog_9:25:turn25"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "direct": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.11109099999998762
+      },
+      "unlabelled": {
+        "feedback": [
+          "R1",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.06460999999990236
+      },
+      "prose": {
+        "feedback": [
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R2",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.04755599999998594
+      },
+      "structured": {
+        "feedback": [
+          "R1",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.04229099999997743
+      }
+    }
+  },
+  {
+    "id": "dialog_9:30",
+    "writes": 30,
+    "records": [
+      "dialog_9:30:turn1",
+      "dialog_9:30:turn2",
+      "dialog_9:30:turn3",
+      "dialog_9:30:turn4",
+      "dialog_9:30:turn5",
+      "dialog_9:30:turn6",
+      "dialog_9:30:turn7",
+      "dialog_9:30:turn8",
+      "dialog_9:30:turn9",
+      "dialog_9:30:turn10",
+      "dialog_9:30:turn11",
+      "dialog_9:30:turn12",
+      "dialog_9:30:turn13",
+      "dialog_9:30:turn14",
+      "dialog_9:30:turn15",
+      "dialog_9:30:turn16",
+      "dialog_9:30:turn17",
+      "dialog_9:30:turn18",
+      "dialog_9:30:turn19",
+      "dialog_9:30:turn20",
+      "dialog_9:30:turn21",
+      "dialog_9:30:turn22",
+      "dialog_9:30:turn23",
+      "dialog_9:30:turn24",
+      "dialog_9:30:turn25",
+      "dialog_9:30:turn26",
+      "dialog_9:30:turn27",
+      "dialog_9:30:turn28",
+      "dialog_9:30:turn29",
+      "dialog_9:30:turn30"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "unlabelled": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.12553199999990738
+      },
+      "prose": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.06083300000000236
+      },
+      "structured": {
+        "feedback": [
+          "R1",
+          "R11",
+          "R12",
+          "R13",
+          "R15",
+          "R16",
+          "R17",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.05206300000008923
+      },
+      "direct": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.06404700000007324
+      }
+    }
+  },
+  {
+    "id": "dialog_9:35",
+    "writes": 35,
+    "records": [
+      "dialog_9:35:turn1",
+      "dialog_9:35:turn2",
+      "dialog_9:35:turn3",
+      "dialog_9:35:turn4",
+      "dialog_9:35:turn5",
+      "dialog_9:35:turn6",
+      "dialog_9:35:turn7",
+      "dialog_9:35:turn8",
+      "dialog_9:35:turn9",
+      "dialog_9:35:turn10",
+      "dialog_9:35:turn11",
+      "dialog_9:35:turn12",
+      "dialog_9:35:turn13",
+      "dialog_9:35:turn14",
+      "dialog_9:35:turn15",
+      "dialog_9:35:turn16",
+      "dialog_9:35:turn17",
+      "dialog_9:35:turn18",
+      "dialog_9:35:turn19",
+      "dialog_9:35:turn20",
+      "dialog_9:35:turn21",
+      "dialog_9:35:turn22",
+      "dialog_9:35:turn23",
+      "dialog_9:35:turn24",
+      "dialog_9:35:turn25",
+      "dialog_9:35:turn26",
+      "dialog_9:35:turn27",
+      "dialog_9:35:turn28",
+      "dialog_9:35:turn29",
+      "dialog_9:35:turn30",
+      "dialog_9:35:turn31",
+      "dialog_9:35:turn32",
+      "dialog_9:35:turn33",
+      "dialog_9:35:turn34",
+      "dialog_9:35:turn35"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "prose": {
+        "feedback": [
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16",
+          "R17",
+          "R19",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.11792100000002392
+      },
+      "structured": {
+        "feedback": [
+          "R1",
+          "R13",
+          "R14",
+          "R15",
+          "R16",
+          "R17",
+          "R18",
+          "R19",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.06014900000002399
+      },
+      "direct": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.04421700000000328
+      },
+      "unlabelled": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.04259999999999309
+      }
+    }
+  },
+  {
+    "id": "dialog_9:40",
+    "writes": 40,
+    "records": [
+      "dialog_9:40:turn1",
+      "dialog_9:40:turn2",
+      "dialog_9:40:turn3",
+      "dialog_9:40:turn4",
+      "dialog_9:40:turn5",
+      "dialog_9:40:turn6",
+      "dialog_9:40:turn7",
+      "dialog_9:40:turn8",
+      "dialog_9:40:turn9",
+      "dialog_9:40:turn10",
+      "dialog_9:40:turn11",
+      "dialog_9:40:turn12",
+      "dialog_9:40:turn13",
+      "dialog_9:40:turn14",
+      "dialog_9:40:turn15",
+      "dialog_9:40:turn16",
+      "dialog_9:40:turn17",
+      "dialog_9:40:turn18",
+      "dialog_9:40:turn19",
+      "dialog_9:40:turn20",
+      "dialog_9:40:turn21",
+      "dialog_9:40:turn22",
+      "dialog_9:40:turn23",
+      "dialog_9:40:turn24",
+      "dialog_9:40:turn25",
+      "dialog_9:40:turn26",
+      "dialog_9:40:turn27",
+      "dialog_9:40:turn28",
+      "dialog_9:40:turn29",
+      "dialog_9:40:turn30",
+      "dialog_9:40:turn31",
+      "dialog_9:40:turn32",
+      "dialog_9:40:turn33",
+      "dialog_9:40:turn34",
+      "dialog_9:40:turn35",
+      "dialog_9:40:turn36",
+      "dialog_9:40:turn37",
+      "dialog_9:40:turn38",
+      "dialog_9:40:turn39",
+      "dialog_9:40:turn40"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "structured": {
+        "feedback": [
+          "R1",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16",
+          "R17",
+          "R18",
+          "R19",
+          "R2",
+          "R22",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.14131099999997332
+      },
+      "direct": {
+        "feedback": [
+          "R12",
+          "R2",
+          "R22"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.059308999999984735
+      },
+      "unlabelled": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.06472800000005918
+      },
+      "prose": {
+        "feedback": [
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16",
+          "R17",
+          "R19",
+          "R2",
+          "R22",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.14730800000006639
+      }
+    }
+  },
+  {
+    "id": "dialog_9:45",
+    "writes": 45,
+    "records": [
+      "dialog_9:45:turn1",
+      "dialog_9:45:turn2",
+      "dialog_9:45:turn3",
+      "dialog_9:45:turn4",
+      "dialog_9:45:turn5",
+      "dialog_9:45:turn6",
+      "dialog_9:45:turn7",
+      "dialog_9:45:turn8",
+      "dialog_9:45:turn9",
+      "dialog_9:45:turn10",
+      "dialog_9:45:turn11",
+      "dialog_9:45:turn12",
+      "dialog_9:45:turn13",
+      "dialog_9:45:turn14",
+      "dialog_9:45:turn15",
+      "dialog_9:45:turn16",
+      "dialog_9:45:turn17",
+      "dialog_9:45:turn18",
+      "dialog_9:45:turn19",
+      "dialog_9:45:turn20",
+      "dialog_9:45:turn21",
+      "dialog_9:45:turn22",
+      "dialog_9:45:turn23",
+      "dialog_9:45:turn24",
+      "dialog_9:45:turn25",
+      "dialog_9:45:turn26",
+      "dialog_9:45:turn27",
+      "dialog_9:45:turn28",
+      "dialog_9:45:turn29",
+      "dialog_9:45:turn30",
+      "dialog_9:45:turn31",
+      "dialog_9:45:turn32",
+      "dialog_9:45:turn33",
+      "dialog_9:45:turn34",
+      "dialog_9:45:turn35",
+      "dialog_9:45:turn36",
+      "dialog_9:45:turn37",
+      "dialog_9:45:turn38",
+      "dialog_9:45:turn39",
+      "dialog_9:45:turn40",
+      "dialog_9:45:turn41",
+      "dialog_9:45:turn42",
+      "dialog_9:45:turn43",
+      "dialog_9:45:turn44",
+      "dialog_9:45:turn45"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "direct": {
+        "feedback": [
+          "R1",
+          "R11",
+          "R12",
+          "R14",
+          "R15",
+          "R2",
+          "R21",
+          "R22",
+          "R23",
+          "R24",
+          "R6"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.11329399999999623
+      },
+      "unlabelled": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.11283899999989444
+      },
+      "prose": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.05096200000002682
+      },
+      "structured": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.04769999999996344
+      }
+    }
+  },
+  {
+    "id": "dialog_9:50",
+    "writes": 50,
+    "records": [
+      "dialog_9:50:turn1",
+      "dialog_9:50:turn2",
+      "dialog_9:50:turn3",
+      "dialog_9:50:turn4",
+      "dialog_9:50:turn5",
+      "dialog_9:50:turn6",
+      "dialog_9:50:turn7",
+      "dialog_9:50:turn8",
+      "dialog_9:50:turn9",
+      "dialog_9:50:turn10",
+      "dialog_9:50:turn11",
+      "dialog_9:50:turn12",
+      "dialog_9:50:turn13",
+      "dialog_9:50:turn14",
+      "dialog_9:50:turn15",
+      "dialog_9:50:turn16",
+      "dialog_9:50:turn17",
+      "dialog_9:50:turn18",
+      "dialog_9:50:turn19",
+      "dialog_9:50:turn20",
+      "dialog_9:50:turn21",
+      "dialog_9:50:turn22",
+      "dialog_9:50:turn23",
+      "dialog_9:50:turn24",
+      "dialog_9:50:turn25",
+      "dialog_9:50:turn26",
+      "dialog_9:50:turn27",
+      "dialog_9:50:turn28",
+      "dialog_9:50:turn29",
+      "dialog_9:50:turn30",
+      "dialog_9:50:turn31",
+      "dialog_9:50:turn32",
+      "dialog_9:50:turn33",
+      "dialog_9:50:turn34",
+      "dialog_9:50:turn35",
+      "dialog_9:50:turn36",
+      "dialog_9:50:turn37",
+      "dialog_9:50:turn38",
+      "dialog_9:50:turn39",
+      "dialog_9:50:turn40",
+      "dialog_9:50:turn41",
+      "dialog_9:50:turn42",
+      "dialog_9:50:turn43",
+      "dialog_9:50:turn44",
+      "dialog_9:50:turn45",
+      "dialog_9:50:turn46",
+      "dialog_9:50:turn47",
+      "dialog_9:50:turn48",
+      "dialog_9:50:turn49",
+      "dialog_9:50:turn50"
+    ],
+    "readbackEqual": true,
+    "recordsUnchanged": true,
+    "searchUnchanged": true,
+    "off": "off",
+    "forcedFailure": "fallback",
+    "arms": {
+      "unlabelled": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.15806399999996756
+      },
+      "prose": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.13050299999997605
+      },
+      "structured": {
+        "feedback": [],
+        "useBaseline": true,
+        "status": "fallback",
+        "reason": "invalid_selection",
+        "elapsedMs": 0.060541000000057466
+      },
+      "direct": {
+        "feedback": [
+          "R1",
+          "R11",
+          "R12",
+          "R2",
+          "R21",
+          "R23",
+          "R28"
+        ],
+        "useBaseline": false,
+        "status": "selected",
+        "elapsedMs": 0.05500399999993988
+      }
+    }
+  }
+]

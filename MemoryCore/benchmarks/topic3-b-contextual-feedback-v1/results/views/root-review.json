@@ -1,0 +1,16 @@
+[
+  {
+    "id": "b2f17518ddd41beab6ec6740",
+    "full": "partial",
+    "users": "partial",
+    "preference": "tie",
+    "note": "两臂仍强调事实优先、叙事可选/情境不明，未充分保持同一Monthly Research Summary在s6:t3与s8:t3的新增叙事要求；内容方向部分存在。"
+  },
+  {
+    "id": "27179c3d7822ed4484cdd5a2",
+    "full": "partial",
+    "users": "full",
+    "preference": "users",
+    "note": "users明确remove解释/主观/比喻，保留数据及方法；full弱化为minimizing且扩到不同文档总体，仍有主要内容但严格排除强度不足。两臂都有场景泛化。"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "speaker_context": {
+    "version": 1,
+    "threshold": 0.55,
+    "feedback_count": 64,
+    "arm": "speaker_context"
+  },
+  "pairs": {
+    "version": 1,
+    "threshold": 0.7,
+    "feedback_count": 64,
+    "arm": "pairs"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "status": "assistant semantic review, not official grader or official gold",
+  "input_scope": "Only learning/review-1.jsonl. Read all six outputs and all user source messages; source extraction did not access another review group, map, receipts, costs, or root review. No model run.",
+  "rubric": {
+    "target_content": "full=all material target directions semantically retained; partial=some retained but direction/granularity/strength missing; absent=no usable target direction. This is separate from whether reference strength itself is warranted by visible user text.",
+    "quality_tiers": "best to worst based on content retained and material scope/strength errors; tied when evidence does not justify finer ordering. Extra historically supported content is not wrong merely because reference omits it."
+  },
+  "reviews": [
+    {
+      "id": "a4ad44aa2a74987d4b951a2e",
+      "outputs": {
+        "A": {
+          "target_content": "absent",
+          "source_scope_or_strength_review": "声称没有任何既往安全伦理上下文，与s4:t3/t5/t7、s5:t3/t5/t7直接冲突。"
+        },
+        "B": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "保留具体伦理标准和逐步风险控制，但遗漏成功获批先例及具体条款对应每个研究组成部分。s4:t5、s5:t5、s6:t9均真实且相关；“优先于叙事/解释”无明确用户依据。主动性并非完全未指定：s6:t3说preemptively。"
+        },
+        "C": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "保留既往获批研究和分阶段保障，未清楚保留具体条款逐项关联；s4/s5/s6归属正确。限制透明另有s8:t3支持，不因reference未列而扣错。"
+        },
+        "D": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "保留获批先例且比C更具体，标准/先例方向正确；仍弱化“具体条款支持每个组成部分”。“优先于叙事/解释”无明确依据，非直接矛盾。"
+        }
+      },
+      "quality_tiers": [
+        [
+          "C",
+          "D"
+        ],
+        [
+          "B"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "note": "核心源文s4:t3/t5/t7及s5:t3/t5/t7。C与D均保留先例，互有细节得失，未据长度强行排序。"
+    },
+    {
+      "id": "81bb9b507d1f7d570d3a8cca",
+      "outputs": {
+        "A": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "严肃、成就、个人最佳保留；以竞争和团队成功代替明确获胜目标，赢的强度减弱。“不牺牲竞争严谨性”的无条件限制未在适配反馈中表达。"
+        },
+        "B": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "保留个人最佳及竞争，但未明确严肃语气和获胜重点；专业且激励不完全等于严肃。无器材适配比s6:t3/t7“使用现有资源、不增加额外器材”更强。"
+        },
+        "C": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "严肃、成就、个人最佳和团队成功保留，获胜未明确。所引s1:t3、s3:t7、s6:t5、s5:t5、s8:t5均存在且与相应内容相关；器材轻量属合理概括。"
+        },
+        "D": {
+          "target_content": "absent",
+          "source_scope_or_strength_review": "否认体育历史与s1:t1/t3、s3:t3/t9/t11直接冲突。"
+        }
+      },
+      "quality_tiers": [
+        [
+          "C",
+          "A"
+        ],
+        [
+          "B"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "note": "s1:t3与s3:t9明确winners/overall wins；不能只把competitive自动算完整winning。协作可对应当前peer support，不把合作历史存在本身判为污染。"
+    },
+    {
+      "id": "0b374d6c26956b171ee960bd",
+      "outputs": {
+        "A": {
+          "target_content": "absent",
+          "source_scope_or_strength_review": "否认既往体育和学习目标历史，与s4:t3/t5/t7/t9及s8:t3/t5直接冲突。"
+        },
+        "B": {
+          "target_content": "full",
+          "source_scope_or_strength_review": "努力认可、技能发展/学习、个人提升与保留竞争均有覆盖。泛称time limits源于s7感官角，迁入整单元未说明适用条件；不据此判与目标冲突。"
+        },
+        "C": {
+          "target_content": "full",
+          "source_scope_or_strength_review": "四方向均覆盖，s4:t7、s8:t3支持努力和学习，s1:t1/s3:t9支持指标与竞争，s6:t5支持适配。称严格表现追踪“优先”而成长仅“留空间”弱化新增努力学习要求；无显式优先级源文。high school在s1:t1有依据，不能说全历史未提年龄。"
+        },
+        "D": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "技能发展、个人提升和竞争明确；努力仅作为连接团队成功的手段，未充分保留s4:t3不论结果也认可努力、s8:t3对坚持/困难的重视。严肃成就语气有旧s3支持，并非凭空，但可能压过本次新增平衡要求。"
+        }
+      },
+      "quality_tiers": [
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "D"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "note": "新增实践与自评反馈s4、s8是强依据；旧严肃竞争要求未被明确撤销，保留它本身不算错。"
+    },
+    {
+      "id": "889b30439d7bbe52a97429fc",
+      "outputs": {
+        "A": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "严肃、成就、个人最佳保留，团队成功概括了部分竞争但未明确获胜。s1/s3/s5/s8均真实并分别支持指标、竞争语气、适配和追踪；没有明显错引。"
+        },
+        "B": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "保留严肃成就、个人最佳和排名，但获胜仍未明确。avoiding sentimentality来自s7:t3 Adaptive Sports Day公告，当前竞技单元未明确要求；“无既往assessment criteria”也忽略s1:t1确定赢家准则，至少表述过强。"
+        },
+        "C": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "保留严肃、成就与个人最佳，竞争获胜方向比A/B更弱。包容与实际适配有s5、s6依据，不因reference没列而判错；高压力福祉平衡标为不确定并非捏造事实。"
+        },
+        "D": {
+          "target_content": "absent",
+          "source_scope_or_strength_review": "无历史断言与s1和s3明确竞技偏好直接冲突。"
+        }
+      },
+      "quality_tiers": [
+        [
+          "A"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "note": "B比C竞争内容更具体但多了跨公告的语气推广与不准确未知判断，故并列。"
+    },
+    {
+      "id": "29b1de5b660fe91e6f34c755",
+      "outputs": {
+        "A": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "福利及主动风险控制均明确且有s6:t3/t5、s8:t3/t5支持；未表达二者高于所有其他考虑。既往先例和伦理引用有s4/s5支持，不是参考外错误。"
+        },
+        "B": {
+          "target_content": "absent",
+          "source_scope_or_strength_review": "否认安全伦理历史，与s4至s8多个用户反馈直接冲突。"
+        },
+        "C": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "福利、主动风险控制、监测频率、实施细节均有可见依据；未保留“高于一切其他考虑”的绝对优先强度。"
+        },
+        "D": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "福利和主动风险控制保留，但绝对优先强度未保留。每周评估及24/7联系方式在当前s6:t5明确获用户认可，不能当助手凭空或其他场景复制。"
+        }
+      },
+      "quality_tiers": [
+        [
+          "A",
+          "C",
+          "D"
+        ],
+        [
+          "B"
+        ]
+      ],
+      "note": "reference的“above all other considerations”比可见用户原话更绝对；三输出缺这一强度，但不据此称违背源文。三者无足够实质差距拆名次。"
+    },
+    {
+      "id": "2cf0398c893f648c327f9ddb",
+      "outputs": {
+        "A": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "提先例与具体伦理标准，但未明确具体条款逐组成部分对应。“innovation is always contextualized within ethical and regulatory standards”把s1/s8创新反馈与伦理会话合为无条件偏好，范围过强。"
+        },
+        "B": {
+          "target_content": "full",
+          "source_scope_or_strength_review": "获批先例、相关具体条款、逐协议步骤保障和伦理对齐三方向整体可读为覆盖；虽条款到每一步的绑定不如源文s6:t7直接，语义足够。rather than narrative/general statements无明确用户偏好依据。"
+        },
+        "C": {
+          "target_content": "partial",
+          "source_scope_or_strength_review": "先例及组成部分对应特定伦理标准保留，但具体条款粒度不明确。s5:t5/s6:t5/s7:t9/s8:t3均是真实用户消息，分别支持伦理条款、风险管理、创新；“创新不损合规”是组合推断，非s8:t3原话。"
+        },
+        "D": {
+          "target_content": "absent",
+          "source_scope_or_strength_review": "无历史断言与s5:t3/t5/t7及s6:t3/t5/t7直接矛盾。"
+        }
+      },
+      "quality_tiers": [
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "A"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "note": "B的full是语义整体判断且绑定表达存在边界，不要求原词复读；A“always”跨场景泛化比C更强。"
+    }
+  ]
+}

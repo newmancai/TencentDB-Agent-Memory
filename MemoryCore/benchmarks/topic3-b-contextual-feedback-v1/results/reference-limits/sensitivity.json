@@ -1,0 +1,98 @@
+{
+  "protocol": "cupid-reference-strength-sensitivity-v1",
+  "selection": "post-hoc independent-review flags, not a new evaluation split",
+  "gold_changed": false,
+  "rankings_changed": false,
+  "training_implication": "A reference coverage gap alone is not a verified contradiction of observed user feedback; flags are clause-level, not whole-task exclusion rules.",
+  "cohorts": {
+    "primary_unchanged": {
+      "tasks": 12,
+      "ids": [
+        "1235e61189c74407b5d9cfd9",
+        "37d27998519aa310c171f84d",
+        "33cd8e932f9d086ea26a6168",
+        "20b9fd1b2597b4f96c27368f",
+        "8d60876aa03d7d58833852b0",
+        "8b301f72d2c6c56175892c42",
+        "a3f326f57861bd0ad5fdde98",
+        "6c24299f6b507d58e53ca08b",
+        "b41b66bacc271eaabb6dae9c",
+        "68f173fa0fae68377c0d1666",
+        "7979cd828318cc3aea5cc746",
+        "9ea51d20851d590aae8bcf4e"
+      ],
+      "reviewed_comparison": {
+        "frozen": {
+          "win": 5,
+          "tie": 3,
+          "loss": 4
+        },
+        "unlabelled": {
+          "tie": 4,
+          "win": 4,
+          "loss": 4
+        },
+        "feedback": {
+          "win": 4,
+          "loss": 3,
+          "tie": 5
+        }
+      }
+    },
+    "flagged_reference_strength": {
+      "tasks": 4,
+      "ids": [
+        "33cd8e932f9d086ea26a6168",
+        "8d60876aa03d7d58833852b0",
+        "6c24299f6b507d58e53ca08b",
+        "68f173fa0fae68377c0d1666"
+      ],
+      "reviewed_comparison": {
+        "frozen": {
+          "win": 1,
+          "tie": 2,
+          "loss": 1
+        },
+        "unlabelled": {
+          "win": 2,
+          "tie": 1,
+          "loss": 1
+        },
+        "feedback": {
+          "win": 2,
+          "tie": 2
+        }
+      }
+    },
+    "other_tasks_diagnostic_only": {
+      "tasks": 8,
+      "ids": [
+        "1235e61189c74407b5d9cfd9",
+        "37d27998519aa310c171f84d",
+        "20b9fd1b2597b4f96c27368f",
+        "8b301f72d2c6c56175892c42",
+        "a3f326f57861bd0ad5fdde98",
+        "b41b66bacc271eaabb6dae9c",
+        "7979cd828318cc3aea5cc746",
+        "9ea51d20851d590aae8bcf4e"
+      ],
+      "reviewed_comparison": {
+        "frozen": {
+          "win": 4,
+          "tie": 1,
+          "loss": 3
+        },
+        "unlabelled": {
+          "tie": 3,
+          "win": 2,
+          "loss": 3
+        },
+        "feedback": {
+          "win": 2,
+          "loss": 3,
+          "tie": 3
+        }
+      }
+    }
+  }
+}

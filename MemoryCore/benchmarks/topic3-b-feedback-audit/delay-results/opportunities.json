@@ -1,0 +1,85 @@
+{
+  "scope": "observation opportunities, not confirmed feedback",
+  "conversations": 108,
+  "windows": 330,
+  "by_source": {
+    "wildchat": {
+      "conversations": 34,
+      "events": 207,
+      "terminal_without_observed_followup": 34,
+      "has_later_user_observation": 173,
+      "history_at_least_20_messages": 2
+    },
+    "lmsys": {
+      "conversations": 74,
+      "events": 231,
+      "terminal_without_observed_followup": 74,
+      "has_later_user_observation": 157,
+      "history_at_least_20_messages": 17
+    }
+  },
+  "review_selection": [
+    {
+      "group": "wildchat:00740651c5cbbca83811bdb5b2d74b72",
+      "proposal_event": "800196f85886eef3b2b9eed1",
+      "later_event": "1e6354a391b6a7f3b0c80295"
+    },
+    {
+      "group": "wildchat:021dc7f1e607c2ec71a7c61a31b55dbe",
+      "proposal_event": "345d10ba985edfbc5714cf89",
+      "later_event": "1c8cc44e0b5ce64329b64da2"
+    },
+    {
+      "group": "wildchat:0a4570a4224442a55fd497d698cd742f",
+      "proposal_event": "e99ea8b2590e8f699dc5bbaf",
+      "later_event": "6484022454b31b8a4c6321f8"
+    },
+    {
+      "group": "wildchat:0b958d336703b7c938a0c36f0dc259ca",
+      "proposal_event": "1005d42330c3ac0302dc3e35",
+      "later_event": "eb133687e7b7fac526257caf"
+    },
+    {
+      "group": "wildchat:0bdb8893d3c2e5933c83e64901982be8",
+      "proposal_event": "8b80ffea79670ecd7ce3274a",
+      "later_event": "5a1fc81ff2691fd69edb83c1"
+    },
+    {
+      "group": "wildchat:0e542ea91fa69e6278acb7195b7a2c0e",
+      "proposal_event": "b60c6118d9ae9f1832746fcb",
+      "later_event": "5a1070f92a33cd010e804ff6"
+    },
+    {
+      "group": "wildchat:11d5e0aecc86ef412b1d7b726e8490f4",
+      "proposal_event": "9e69599c4a4c5d01e48d6e55",
+      "later_event": "7cf9b2ba5d86a9aa0cb545f8"
+    },
+    {
+      "group": "wildchat:1f463a670c68a32c845f765ef52c1525",
+      "proposal_event": "3028c26480369b018cc3573d",
+      "later_event": "297ef9bd33b1f57370c39ef0"
+    },
+    {
+      "group": "wildchat:2ec88a70ef543ef6710a33b5bd88c69a",
+      "proposal_event": "2028fd44150939af9ad0ce39",
+      "later_event": "45c5add007a6ce3437d3a963"
+    },
+    {
+      "group": "wildchat:42d33eed098d6a4ddf66485c73a518c4",
+      "proposal_event": "631bd74ae32507f59e8234cd",
+      "later_event": "4cbea51ed0825313ebb76ba0"
+    },
+    {
+      "group": "wildchat:4d062bada0bfcfcdbbc314848908959a",
+      "proposal_event": "0e8be15be4ba3183d2e0a9b9",
+      "later_event": "63e011351017715f665cae97"
+    },
+    {
+      "group": "wildchat:61d779a997d64156219a0ec63889ff6a",
+      "proposal_event": "34d7b9467b66573c858f2f32",
+      "later_event": "8d820334af8734b6cdb2bd65"
+    }
+  ],
+  "selection_rule": "first 12 source-order groups with >=3 events; second to third event",
+  "warning": "Later observations are not truth labels. No memory attribution gold."
+}
