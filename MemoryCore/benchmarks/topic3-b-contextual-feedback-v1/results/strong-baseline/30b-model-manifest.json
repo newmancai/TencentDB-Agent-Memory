@@ -1,0 +1,102 @@
+{
+  "repo": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+  "revision": "0d7cf23991f47feeb3a57ecb4c9cee8ea4a17bfe",
+  "files": [
+    {
+      "name": "README.md",
+      "size": 15418
+    },
+    {
+      "name": "config.json",
+      "size": 963
+    },
+    {
+      "name": "config_1m.json",
+      "size": 77313
+    },
+    {
+      "name": "generation_config.json",
+      "size": 239
+    },
+    {
+      "name": "model-00001-of-00016.safetensors",
+      "size": 3998893112
+    },
+    {
+      "name": "model-00002-of-00016.safetensors",
+      "size": 3999974192
+    },
+    {
+      "name": "model-00003-of-00016.safetensors",
+      "size": 3997360832
+    },
+    {
+      "name": "model-00004-of-00016.safetensors",
+      "size": 3999975056
+    },
+    {
+      "name": "model-00005-of-00016.safetensors",
+      "size": 3999975400
+    },
+    {
+      "name": "model-00006-of-00016.safetensors",
+      "size": 3999975400
+    },
+    {
+      "name": "model-00007-of-00016.safetensors",
+      "size": 3999975472
+    },
+    {
+      "name": "model-00008-of-00016.safetensors",
+      "size": 3997362064
+    },
+    {
+      "name": "model-00009-of-00016.safetensors",
+      "size": 3999975408
+    },
+    {
+      "name": "model-00010-of-00016.safetensors",
+      "size": 3999975400
+    },
+    {
+      "name": "model-00011-of-00016.safetensors",
+      "size": 3999975408
+    },
+    {
+      "name": "model-00012-of-00016.safetensors",
+      "size": 3987924896
+    },
+    {
+      "name": "model-00013-of-00016.safetensors",
+      "size": 3999975088
+    },
+    {
+      "name": "model-00014-of-00016.safetensors",
+      "size": 3999975400
+    },
+    {
+      "name": "model-00015-of-00016.safetensors",
+      "size": 3999975400
+    },
+    {
+      "name": "model-00016-of-00016.safetensors",
+      "size": 1085307128
+    },
+    {
+      "name": "model.safetensors.index.json",
+      "size": 1699758
+    },
+    {
+      "name": "tokenizer.json",
+      "size": 11422654
+    },
+    {
+      "name": "tokenizer_config.json",
+      "size": 9377
+    },
+    {
+      "name": "vocab.json",
+      "size": 2776833
+    }
+  ]
+}

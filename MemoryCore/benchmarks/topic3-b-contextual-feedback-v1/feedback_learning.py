@@ -60,7 +60,7 @@ def context(state, arm):
     return examples
 
 
-def run(folder, model_path, *, reviewed=False, arms_override=None):
+def run(folder, model_path, *, reviewed=False, arms_override=None, shard_gpus=False, protocol=None):
     import torch
     from transformers import AutoTokenizer, AutoModelForCausalLM
     state=json.loads((folder/'state.json').read_text())
@@ -69,8 +69,17 @@ def run(folder, model_path, *, reviewed=False, arms_override=None):
     if output.exists():raise FileExistsError(output)
     tok=AutoTokenizer.from_pretrained(model_path,local_files_only=True)
     t=time.perf_counter()
-    model=AutoModelForCausalLM.from_pretrained(model_path,local_files_only=True,torch_dtype=torch.bfloat16,attn_implementation='sdpa').to('cuda:0').eval()
-    torch.cuda.synchronize(); load=time.perf_counter()-t
+    placement={'device_map':'auto','max_memory':{i:'20GiB' for i in range(torch.cuda.device_count())}} if shard_gpus else {}
+    model=AutoModelForCausalLM.from_pretrained(model_path,local_files_only=True,torch_dtype=torch.bfloat16,attn_implementation='sdpa',**placement)
+    if not shard_gpus:model=model.to('cuda:0')
+    model.eval()
+    device_map=getattr(model,'hf_device_map',{'':'cuda:0'})
+    if shard_gpus and any(str(d) in {'cpu','disk'} for d in device_map.values()):
+        raise RuntimeError('GPU-only baseline does not permit silent CPU/disk offload')
+    input_device=model.get_input_embeddings().weight.device
+    def synchronize():
+        for i in range(torch.cuda.device_count() if shard_gpus else 1):torch.cuda.synchronize(i)
+    synchronize(); load=time.perf_counter()-t
     arms=['frozen','unlabelled','feedback','reviewed'] if reviewed else ['request','frozen','unlabelled','feedback']
     if arms_override is not None:
         if not arms_override or not set(arms_override)<=set(arms):raise ValueError('Invalid diagnostic arms')
@@ -93,13 +102,13 @@ def run(folder, model_path, *, reviewed=False, arms_override=None):
                 messages.append({'role':'user','content':json.dumps(observation,ensure_ascii=False)})
                 prompt=tok.apply_chat_template(messages,tokenize=False,add_generation_prompt=True)
                 inputs.write(json.dumps({'id':row['id'],'arm':arm,'prompt':prompt},ensure_ascii=False)+'\n');inputs.flush()
-                enc=tok(prompt,return_tensors='pt').to('cuda:0');n=enc['input_ids'].shape[1]
+                enc=tok(prompt,return_tensors='pt').to(input_device);n=enc['input_ids'].shape[1]
                 receipt={'input_tokens':n,'output_tokens':0,'generation_ms':0,'text':'','error':None}
                 if n>24000:receipt['error']='input_limit'
                 else:
-                    torch.cuda.synchronize();start=time.perf_counter()
+                    synchronize();start=time.perf_counter()
                     with torch.inference_mode():generated=model.generate(**enc,do_sample=False,max_new_tokens=256,pad_token_id=tok.eos_token_id)
-                    torch.cuda.synchronize();receipt['generation_ms']=(time.perf_counter()-start)*1000
+                    synchronize();receipt['generation_ms']=(time.perf_counter()-start)*1000
                     answer=generated[0,n:];receipt['output_tokens']=len(answer);receipt['text']=tok.decode(answer,skip_special_tokens=True)
                     eos=model.generation_config.eos_token_id;eos=[eos] if isinstance(eos,int) else eos
                     if len(answer)==256 and int(answer[-1]) not in (eos or []):receipt['error']='output_limit'
@@ -107,7 +116,7 @@ def run(folder, model_path, *, reviewed=False, arms_override=None):
                 costs[arm]['errors']+=int(receipt['error'] is not None);result[arm]=receipt
                 print(row['id'],arm,n,receipt['output_tokens'],receipt['error'],flush=True)
             stream.write(json.dumps({'id':row['id'],'arms':result},ensure_ascii=False)+'\n');stream.flush()
-    (folder/'cost.json').write_text(json.dumps({'protocol':'cupid-reviewed-fragments-v1' if reviewed else 'cupid-feedback-learning-v1','examples':len(tasks),'load_seconds':load,'arms':costs},indent=2)+'\n')
+    (folder/'cost.json').write_text(json.dumps({'protocol':protocol or ('cupid-reviewed-fragments-v1' if reviewed else 'cupid-feedback-learning-v1'),'examples':len(tasks),'load_seconds':load,'model_path':str(model_path),'device_map':device_map,'arms':costs},indent=2)+'\n')
 
 
 if __name__=='__main__':
