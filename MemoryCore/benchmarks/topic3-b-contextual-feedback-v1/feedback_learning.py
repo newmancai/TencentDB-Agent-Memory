@@ -49,6 +49,8 @@ def prepare(root, out):
 
 def context(state, arm):
     if arm in {'request','frozen'}:return []
+    if arm in {'rules_unlabelled','rules_feedback'}:
+        return [{'compiled_rules':state['rule_candidates'][arm.removeprefix('rules_')]['text']}]
     if arm=='reviewed':
         return [{'observation':e['observation'],'reviewed_requirement_fragment':e['reviewed_evidence']}
                 for e in state['reviewed_examples']]
@@ -60,11 +62,15 @@ def context(state, arm):
     return examples
 
 
-def run(folder, model_path, *, reviewed=False, arms_override=None, shard_gpus=False, protocol=None):
+def run(folder, model_path, *, reviewed=False, arms_override=None, shard_gpus=False, protocol=None, rules=False):
     import torch
     from transformers import AutoTokenizer, AutoModelForCausalLM
     state=json.loads((folder/'state.json').read_text())
     assert state['version']==1 and len(state['examples'])<=state['capacity']==2
+    if rules:
+        if reviewed:raise ValueError('Separate rule and reviewed-fragment protocols')
+        assert set(state['rule_candidates'])=={'unlabelled','feedback'}
+        assert all(not r['error'] and r['text'] for r in state['rule_candidates'].values())
     tasks=rows(folder/'tasks.jsonl'); output=folder/'receipts.jsonl'
     if output.exists():raise FileExistsError(output)
     tok=AutoTokenizer.from_pretrained(model_path,local_files_only=True)
@@ -81,6 +87,7 @@ def run(folder, model_path, *, reviewed=False, arms_override=None, shard_gpus=Fa
         for i in range(torch.cuda.device_count() if shard_gpus else 1):torch.cuda.synchronize(i)
     synchronize(); load=time.perf_counter()-t
     arms=['frozen','unlabelled','feedback','reviewed'] if reviewed else ['request','frozen','unlabelled','feedback']
+    if rules:arms=['frozen','rules_unlabelled','rules_feedback','feedback']
     if arms_override is not None:
         if not arms_override or not set(arms_override)<=set(arms):raise ValueError('Invalid diagnostic arms')
         arms=list(arms_override)
@@ -97,7 +104,9 @@ def run(folder, model_path, *, reviewed=False, arms_override=None, shard_gpus=Fa
                 examples=context(state,arm)
                 messages=[{'role':'system','content':SYSTEM}]
                 if examples:
-                    messages.append({'role':'user','content':'Previous development observations and drafts, with controlled corrections when available. Use them as experience for interpreting new history; do not copy their task-specific preferences.\n'+json.dumps(examples,ensure_ascii=False)})
+                    preamble='Previous development observations and drafts, with controlled corrections when available. Use them as experience for interpreting new history; do not copy their task-specific preferences.\n'
+                    if arm.startswith('rules_'):preamble='Rules compiled from previous development experience. Use them to interpret new history; do not copy task-specific preferences.\n'
+                    messages.append({'role':'user','content':preamble+json.dumps(examples,ensure_ascii=False)})
                     messages.append({'role':'assistant','content':'I will infer preferences for the new request from its own evidence.'})
                 messages.append({'role':'user','content':json.dumps(observation,ensure_ascii=False)})
                 prompt=tok.apply_chat_template(messages,tokenize=False,add_generation_prompt=True)
