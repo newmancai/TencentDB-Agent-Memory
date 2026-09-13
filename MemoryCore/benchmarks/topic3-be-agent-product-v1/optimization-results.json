@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "mode": "product_engineering_validation",
+  "base": "0ddea892f1e362b4b937b2b38d23beb2a5ac4329",
+  "pass": true,
+  "product_efficacy_pass": null,
+  "scope": {
+    "changed_paths": 19,
+    "insertions": 1802,
+    "deletions": 20,
+    "feedback_runtime_source_lines": 651,
+    "gateway_modified": false,
+    "research_branch_preserved": true
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "commit": "61be8986152e8a2af1203d2da30bd5e1056b85df",
+      "name": "explicit_package_boundary",
+      "status": "pass",
+      "evidence": {
+        "public_subpath_import": true,
+        "bundle_bytes_displayed": "20.47 kB",
+        "bundle_gzip_displayed": "6.09 kB"
+      }
+    },
+    {
+      "round": 2,
+      "commit": "d218b73f1721be0c1e7142ac722fc0e215e1ed87",
+      "name": "batched_lifecycle_validation",
+      "status": "pass",
+      "evidence": {
+        "prior_store_calls_for_one_entry": 3,
+        "current_store_calls_for_one_entry": 2,
+        "record_id_batch_limit": 20
+      }
+    },
+    {
+      "round": 3,
+      "commit": "1195e53a46f8b1d0f9b88357bb35bfdef6594b28",
+      "name": "sqlite_exact_id_pushdown",
+      "status": "pass",
+      "evidence": {
+        "prior_strategy": "full_or_session_read_then_javascript_filter",
+        "current_strategy": "parameterized_record_id_in_query",
+        "combined_filter_tested": true
+      }
+    },
+    {
+      "round": 4,
+      "commit": "aaadd6804a6f320b12172696b862627f157de117",
+      "name": "reproducible_agent_runner",
+      "status": "pass",
+      "evidence": {
+        "unit_tests": 6,
+        "atomic_receipts": true,
+        "execution_failure_can_pass": false,
+        "actual_codex_or_claude_arms_run": false
+      }
+    }
+  ],
+  "verification": {
+    "vitest": { "status": "pass", "files": 23, "tests": 201 },
+    "python_unittest": { "status": "pass", "tests": 6 },
+    "python_compile": { "status": "pass" },
+    "plugin_build": { "status": "pass" },
+    "public_import": { "status": "pass" },
+    "diff_check": { "status": "pass" }
+  },
+  "claim_boundary": "Engineering validation only; held-out Codex and Claude Code product utility remains unmeasured."
+}
