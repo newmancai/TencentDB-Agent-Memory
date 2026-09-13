@@ -6,6 +6,8 @@
 
 ### 当前执行：真实反馈行为与受控学习（2026-09-13）
 
+[CUPID隔离能力诊断](topic3-b-contextual-feedback-v1/CAPABILITY_RESULTS.md)：新2开发persona/6题，本地Qwen6调用12700输入669输出19.235s；每题独立助手无gold推断匿名5胜0负1平，覆盖local2full/assistant4full，交叉两题排序2/2、覆盖3/4。助手预算/模型调用未可比计量，非同算力/B学习收益。首次单助手6题有跨变体曝光，评分前排除并保留，改6全新逐题任务；本地不重跑。实际输入正文实核一致。表面专属、其他任务偏好及新交互要求处理改善，不能全归咎信息缺失。下一可计量可复现的更强普通基线后再学具体反馈误用，勿新6调prompt/挑模型；session5253 exit0，goal active，无E/生产。
+
 [CUPID参考→反馈可观察性复核](topic3-b-contextual-feedback-v1/REFERENCE_FEEDBACK_LIMITS.md)：四题六个过强参考限定条款级标记，不删题/改gold。原12 reviewed对unlabelled4胜4负4平保持；其余8仅诊断对unlabelled/feedback均2胜3负3平，故无收益不能全归咎参考问题。独立核算一致。reference覆盖缺项≠可见用户要求遗漏≠违令，不能直接训练partial为确定纠正；仍保留同题其他源文错误。下一能力诊断需新persona、输入隔离、区分可见要求/范围强度/参考覆盖，不声称独立助手同算力。未选模型/运行新推断，无GPU/E/生产，goal active。
 
 [CUPID审查片段四臂](topic3-b-contextual-feedback-v1/FRAGMENT_RESULTS.md)：新4开发persona/12题48调用，reviewed对frozen5胜4负3平、对unlabelled4胜4负4平、对feedback4胜3负5平，助手语义意见；full2/4/5/5不能单独算收益。330132输入7102输出234.420s，reviewed1硬截断保留，生成较旧纠正+7.72%。root3可判题三参照均一致，另1未决。停止当前两示例全历史画像ICL措辞迭代，未否定所有B；联网CICL与correct-example效用论文复核记录ICL_ROUTE_REVIEW。下步改变可测要求级行为或能力对照，不在12追分/扩E。session59924 exit0，goal active。

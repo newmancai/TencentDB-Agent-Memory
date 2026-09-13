@@ -1,0 +1,42 @@
+{
+  "protocol": "cupid-capability-v1.1-isolated",
+  "local_calls": 6,
+  "local_learning_examples": 0,
+  "local_cost": {
+    "protocol": "cupid-feedback-learning-v1",
+    "examples": 6,
+    "load_seconds": 2.458007294917479,
+    "arms": {
+      "frozen": {
+        "input_tokens": 12700,
+        "output_tokens": 669,
+        "generation_ms": 19234.943164978176,
+        "errors": 0
+      }
+    }
+  },
+  "assistant_cost": "not comparably metered; excludes no cost by assumption",
+  "word_counts": {
+    "local": [
+      70,
+      87,
+      64,
+      75,
+      79,
+      75
+    ],
+    "assistant": [
+      89,
+      80,
+      86,
+      80,
+      83,
+      85
+    ]
+  },
+  "verified": "Same six serialized observations and instruction text in isolated agent inputs and local prompts. Agent wrapper/system/hidden reasoning budget differs.",
+  "scope": "Capability diagnostic only; no feedback updates or equal-compute performance claim",
+  "assistant_isolated_tasks": 6,
+  "excluded_assistant_batch_tasks": 1,
+  "assistant_actual_model_call_count": "not measured; each agent task may involve multiple model/tool steps"
+}

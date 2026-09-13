@@ -1,0 +1,13 @@
+{
+  "protocol": "cupid-feedback-learning-v1",
+  "examples": 6,
+  "load_seconds": 2.458007294917479,
+  "arms": {
+    "frozen": {
+      "input_tokens": 12700,
+      "output_tokens": 669,
+      "generation_ms": 19234.943164978176,
+      "errors": 0
+    }
+  }
+}

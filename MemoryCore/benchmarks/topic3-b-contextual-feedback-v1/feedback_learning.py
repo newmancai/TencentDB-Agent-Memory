@@ -60,7 +60,7 @@ def context(state, arm):
     return examples
 
 
-def run(folder, model_path, *, reviewed=False):
+def run(folder, model_path, *, reviewed=False, arms_override=None):
     import torch
     from transformers import AutoTokenizer, AutoModelForCausalLM
     state=json.loads((folder/'state.json').read_text())
@@ -72,6 +72,9 @@ def run(folder, model_path, *, reviewed=False):
     model=AutoModelForCausalLM.from_pretrained(model_path,local_files_only=True,torch_dtype=torch.bfloat16,attn_implementation='sdpa').to('cuda:0').eval()
     torch.cuda.synchronize(); load=time.perf_counter()-t
     arms=['frozen','unlabelled','feedback','reviewed'] if reviewed else ['request','frozen','unlabelled','feedback']
+    if arms_override is not None:
+        if not arms_override or not set(arms_override)<=set(arms):raise ValueError('Invalid diagnostic arms')
+        arms=list(arms_override)
     if reviewed:
         assert len(state['reviewed_examples'])==2
         assert {e['id'] for e in state['reviewed_examples']}=={e['id'] for e in state['examples']}
@@ -79,7 +82,7 @@ def run(folder, model_path, *, reviewed=False):
     with output.open('x') as stream,(folder/'inputs.jsonl').open('x') as inputs:
         for i,row in enumerate(tasks):
             result={}
-            for arm in arms[i%4:]+arms[:i%4]:
+            for arm in arms[i%len(arms):]+arms[:i%len(arms)]:
                 observation=visible(row)
                 if arm=='request':observation['history']=[]
                 examples=context(state,arm)

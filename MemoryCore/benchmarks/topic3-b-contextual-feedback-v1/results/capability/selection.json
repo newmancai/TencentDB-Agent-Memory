@@ -1,0 +1,16 @@
+{
+  "groups": [
+    "6+3d_printing_consultant",
+    "12+high_school_civics_teacher"
+  ],
+  "excluded_personas": 22,
+  "ids": [
+    "1be13d14321e093f497187fa",
+    "073ca63303e325ab55060737",
+    "932f3e74eb9a7ea49b5d8dda",
+    "66fa898caa65482b7d5855b7",
+    "227c678221f3dfa8f8d033b8",
+    "2ae96446c29106cf519399ee"
+  ],
+  "scope": "new development personas; assistant and local model are not matched in compute budget"
+}
