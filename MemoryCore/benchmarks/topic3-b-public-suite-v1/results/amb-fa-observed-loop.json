@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "protocol": "topic3-b-public-suite-v1:amb-fa-observed-loop",
+  "runId": "amb-fa-observed-v1",
+  "status": "pass_as_one_task_observed_loop_smoke",
+  "method": "replay an actual agent failure with or without a B candidate formed from task-visible target/scope, its artifact, and the E checker receipt",
+  "data": {
+    "dataset": "GiulioDER/agent-memory-bench",
+    "revision": "e0859d1ca757f65747b4d32e21f158d55c595879",
+    "taskId": "fa-dedup-key",
+    "taskCount": 1,
+    "sampleSelection": "the only failed-approach task in the pinned snapshot",
+    "workspaceInputDigest": "4af8318086d85df7824c248f92d719ee3c6ed8c747bd300de2e449c8bce56297",
+    "evaluationGrain": "one isolated same-task replay per arm"
+  },
+  "sourceFailure": {
+    "runId": "amb-fa-codex-v2",
+    "arm": "clean",
+    "checkerPass": false,
+    "failedArtifactSha256": "701816978036e67a89361fa738401643b22757b177fcc8487c7ccda574c2dbc0",
+    "checkerVerdict": "2 real order(s) were dropped, at order_id(s) [1001, 1002]: two supplier files reuse an id range, so order_id alone is not an identity",
+    "publicHistoryRead": false,
+    "factTermsRead": false,
+    "referenceRead": false,
+    "candidateFormation": "deterministic envelope over the exact failed artifact, artifact hash, target file, scope, checker verdict, and unresolved marker"
+  },
+  "backend": {
+    "agent": "Codex exec",
+    "model": "gpt-5.6-sol",
+    "reasoningEffort": "medium",
+    "cliVersion": "codex-cli 0.153.4",
+    "modelSeed": "not_exposed",
+    "repetitionsPerArm": 1
+  },
+  "arms": [
+    {
+      "arm": "e_only_replay",
+      "mode": "baseline_e_receipt_not_delivered",
+      "memoryInjected": false,
+      "memoryCharacters": 0,
+      "checkerPass": false,
+      "checkerVerdict": "2 real order(s) were dropped, at order_id(s) [1001, 1002]: two supplier files reuse an id range, so order_id alone is not an identity",
+      "inputTokens": 107973,
+      "cachedInputTokens": 100992,
+      "outputTokens": 1345,
+      "reasoningOutputTokens": 321,
+      "agentLatencyMs": 42448.541,
+      "checkerLatencyMs": 126.409,
+      "artifactSha256": "a980faa470f404b7c634ec422f0bda7f67cbf5adb27f0e5ecd0edb43943a2409",
+      "promptSha256": "c6510ace1351d38b738df31752cc77941b259add7db1e2af537faa05c62b5c7b",
+      "eventsSha256": "ad5eb10a5716005e204f53ac216cb7b18dab282ae94e16822a71036359d31d5d"
+    },
+    {
+      "arm": "observed_failure_replay",
+      "mode": "enabled_b_candidate_from_actual_e_failure",
+      "memoryInjected": true,
+      "memorySourceId": "amb-fa-codex-v2/clean#checker-receipt",
+      "memoryCharacters": 1659,
+      "checkerPass": true,
+      "checkerVerdict": "7 distinct orders, 7 expected, order preserved",
+      "inputTokens": 115857,
+      "cachedInputTokens": 100608,
+      "outputTokens": 2651,
+      "reasoningOutputTokens": 1158,
+      "agentLatencyMs": 75021.550,
+      "checkerLatencyMs": 70.618,
+      "artifactSha256": "3770210721907ce37a82b8ded7628e9827509f4f0b0ad4d441b8d33b46a038b5",
+      "promptSha256": "e7fd642cbf9afdd44c0c0167fec7abda5b38b7dc76ef2c0ac4232efef2c39d4e",
+      "eventsSha256": "3fd1c4df8ff1a121f0eb7afda5f91c1f270b7f3be8dc8f2b968f105e3a8bfd86"
+    }
+  ],
+  "metrics": {
+    "checkerPassByArm": {
+      "e_only_replay": "0/1",
+      "observed_failure_replay": "1/1"
+    },
+    "pairedMemoryDelta": "1 win / 0 losses / 0 ties",
+    "scoredCleanFailuresAcrossTheTwoAmbRuns": "2/2",
+    "bVersusEOnlyDescriptiveCostDelta": {
+      "memoryCharacters": 1659,
+      "inputTokens": 7884,
+      "inputTokensPercent": 7.302,
+      "outputTokens": 1306,
+      "outputTokensPercent": 97.100,
+      "reasoningOutputTokens": 837,
+      "reasoningOutputTokensPercent": 260.748,
+      "agentLatencyMs": 32573.009,
+      "agentLatencyPercent": 76.735
+    },
+    "runTotal": {
+      "calls": 2,
+      "inputTokens": 223830,
+      "cachedInputTokens": 201600,
+      "outputTokens": 3996,
+      "reasoningOutputTokens": 1479,
+      "agentLatencyMs": 117470.091,
+      "checkerLatencyMs": 197.027
+    },
+    "allAmbMethodCallsIncludingPriorDiscardedAttempt": {
+      "calls": 7,
+      "inputTokens": 833656,
+      "cachedInputTokens": 765184,
+      "outputTokens": 13826,
+      "reasoningOutputTokens": 4819
+    }
+  },
+  "safetyAndAlignment": {
+    "agentInputsContainGold": false,
+    "checkerAppliedAfterAgent": true,
+    "commandsStayedInsideIsolatedWorkspace": true,
+    "replacementKeyPrescribedByCandidate": false,
+    "candidateStatus": "observed_failure_candidate_not_durable",
+    "memoryWritePathMeasured": "deterministic sidecar formation only; not native durable MemoryCore storage"
+  },
+  "confidence": {
+    "checkerOutcome": "high for this fixed property-based task contract",
+    "observedInformationEffect": "medium-low: the source is an actual scored agent failure and the paired direction is positive, but this is one same-task replay with one non-seeded call per arm",
+    "generalization": "not measured: no unseen task or variant exists for this AMB failed-approach case",
+    "costComparison": "descriptive only: n=1 and the successful arm used more reasoning"
+  },
+  "evidence": {
+    "receiptsSha256": "f2051481604fa71adb87254fbccc4eec84baccba34e9f96175de11a42bcc0dd6",
+    "summarySha256": "b39b94c18034c89de2ad8750549c87a301cdf282ceb846d9c56b7362cfbe7206"
+  },
+  "claim": "A deterministically formed candidate containing task-visible target/scope, a prior agent artifact, and its objective checker failure prevented the same failed approach on one replay. This closes a real E-to-B-to-E method loop, but does not establish autonomous retrieval, cross-task transfer, timing benefit, or stable net gain."
+}

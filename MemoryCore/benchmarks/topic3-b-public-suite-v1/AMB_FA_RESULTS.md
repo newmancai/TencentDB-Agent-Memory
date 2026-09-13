@@ -31,3 +31,5 @@
 ## 相对端到端实验的置信口径
 
 当前 checker 对“这个 artifact 是否满足这个固定任务合同”置信较高，因为结果可确定重放且不依赖单一参考答案。它不能直接回答“是哪条记忆导致成功”或“策略平均收益多大”：后两项仍需多个任务、不可见 variant、重复调用和配对置信区间。下一轮应在 H6 main split 上先跑 `observed_loop`：episode 1 真实失败及 action fingerprint 产生候选，episode 2 在未见 variant 上比较 E-only 与 B+E，并把 eligible 分母、no-trap 误触发及 L1/L0 成本全部原样报告。
+
+复盘后的第一步已经完成，见 [`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md)：它不再读取本题公开历史，而是从本报告 clean 臂的实际失败 artifact 与 checker 回执形成候选；E-only重放失败，B+E重放通过。由于仍是同题重放，上述 H6 未见 variant 与 timing 工作仍未完成。

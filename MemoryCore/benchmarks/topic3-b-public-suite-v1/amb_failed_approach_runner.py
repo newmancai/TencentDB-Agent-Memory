@@ -20,7 +20,8 @@ from h6_adapter import sha256
 
 MODEL = "gpt-5.6-sol"
 REASONING = "medium"
-ARMS = ("clean", "irrelevant_control", "raw_feedback", "compiled_failure")
+ORACLE_ARMS = ("clean", "irrelevant_control", "raw_feedback", "compiled_failure")
+OBSERVED_ARMS = ("e_only_replay", "observed_failure_replay")
 
 
 def parse_usage(events: str) -> dict | None:
@@ -71,6 +72,39 @@ def memory_inputs(source: Path) -> dict[str, dict | None]:
                 "unresolved": "the replacement key was deliberately not chosen; derive a safe key from current evidence",
                 "evidence_quote": "What must not happen again is deduplicating on order_id.",
             }, ensure_ascii=False, sort_keys=True),
+        },
+    }
+
+
+def observed_memory_inputs(previous_run: Path, expected_workspace_digest: str) -> dict[str, dict | None]:
+    receipts = [json.loads(line) for line in (previous_run / "receipts.jsonl").read_text().splitlines()]
+    clean_rows = [row for row in receipts if row.get("arm") == "clean"]
+    if len(clean_rows) != 1:
+        raise ValueError("observed source must contain exactly one clean receipt")
+    receipt = clean_rows[0]
+    produced = json.loads((previous_run / "clean.artifact.json").read_text())
+    content = produced.get("content")
+    if (receipt.get("checkerPass") is not False
+            or receipt.get("workspaceInputDigest") != expected_workspace_digest
+            or not isinstance(receipt.get("checkerVerdict"), str)
+            or not isinstance(content, str)
+            or hashlib.sha256(content.encode()).hexdigest() != receipt.get("artifactSha256")):
+        raise ValueError("observed source is not a matching scored failure")
+    candidate = {
+        "target": "the implementation written to consolidate.py",
+        "scope": "the current order-file consolidation task",
+        "status": "observed_failure_candidate_not_durable",
+        "failed_artifact_sha256": receipt["artifactSha256"],
+        "checker_outcome": receipt["checkerVerdict"],
+        "failed_artifact": content,
+        "unresolved": "diagnose a different implementation from current files; this receipt does not prescribe the replacement",
+    }
+    return {
+        "e_only_replay": None,
+        "observed_failure_replay": {
+            "sourceId": f"{previous_run.name}/clean#checker-receipt",
+            "status": "observed_checker_failure",
+            "content": json.dumps(candidate, ensure_ascii=False, sort_keys=True),
         },
     }
 
@@ -140,18 +174,24 @@ def artifact(workspace: Path) -> dict:
     }
 
 
-def run(source: Path, output: Path, execute: bool, timeout: int) -> dict:
+def run(source: Path, output: Path, execute: bool, timeout: int,
+        observed_from: Path | None = None) -> dict:
     if output.exists():
         raise ValueError(f"output exists: {output}")
     if (tree_digest(source / "tasks") != TASK_TREE_SHA256
             or sha256(source / "corpus" / "manifest.json") != CORPUS_MANIFEST_SHA256):
         raise ValueError("AMB source snapshot does not match the pinned revision")
     task = json.loads((source / "tasks" / "fa-dedup-key" / "task.json").read_text())
-    memories = memory_inputs(source)
+    workspace_digest = tree_digest(source / "tasks" / "fa-dedup-key" / "tree")
+    observed = observed_from is not None
+    memories = observed_memory_inputs(observed_from, workspace_digest) if observed else memory_inputs(source)
+    arms = OBSERVED_ARMS if observed else ORACLE_ARMS
+    baseline_arm = arms[0]
+    protocol = "topic3-b-public-suite-v1:amb-fa-observed-loop" if observed else "topic3-b-public-suite-v1:amb-fa"
     output.mkdir(parents=True)
     receipts = []
     with tempfile.TemporaryDirectory(prefix="topic3-b-fa-codex-") as temporary:
-        for arm in ARMS:
+        for arm in arms:
             workspace = Path(temporary) / arm
             init_workspace(source, workspace)
             prompt = prompt_for(task["prompt"], memories[arm])
@@ -169,7 +209,8 @@ def run(source: Path, output: Path, execute: bool, timeout: int) -> dict:
                 "memoryCharacters": len(memories[arm]["content"]) if memories[arm] else 0,
                 "deliverySite": "turn_start" if memories[arm] else "none",
                 "sourceRevision": SOURCE_REVISION,
-                "workspaceInputDigest": tree_digest(source / "tasks" / "fa-dedup-key" / "tree"),
+                "workspaceInputDigest": workspace_digest,
+                "sourceMode": "observed_failure_receipt" if observed else "oracle_selected_public_history",
             }
             if not execute:
                 receipt.update({"status": "dry_run", "command": command[:-1]})
@@ -204,13 +245,13 @@ def run(source: Path, output: Path, execute: bool, timeout: int) -> dict:
             (output / "receipts.jsonl").write_text("".join(json.dumps(row) + "\n" for row in receipts))
     (output / "receipts.jsonl").write_text("".join(json.dumps(row) + "\n" for row in receipts))
     if not execute:
-        summary = {"protocol": "topic3-b-public-suite-v1:amb-fa", "status": "dry_run", "calls": 0}
+        summary = {"protocol": protocol, "status": "dry_run", "calls": 0, "plannedCalls": len(arms)}
     else:
         by_arm = {row["arm"]: row for row in receipts}
-        clean = by_arm["clean"]["checkerPass"]
+        clean = by_arm[baseline_arm]["checkerPass"]
         contrasts = {}
         for arm, row in by_arm.items():
-            if arm == "clean":
+            if arm == baseline_arm:
                 continue
             current = row["checkerPass"]
             if not isinstance(clean, bool) or not isinstance(current, bool):
@@ -222,17 +263,22 @@ def run(source: Path, output: Path, execute: bool, timeout: int) -> dict:
             values = [(row.get("usage") or {}).get(key) for row in receipts]
             usage[key] = sum(value for value in values if isinstance(value, (int, float)))
         summary = {
-            "schema": 1, "protocol": "topic3-b-public-suite-v1:amb-fa",
+            "schema": 1, "protocol": protocol,
             "status": "complete" if all(row["checkerPass"] is not None for row in receipts) else "incomplete",
             "taskId": "fa-dedup-key", "model": MODEL, "reasoningEffort": REASONING,
             "cliVersion": subprocess.run(["codex", "--version"], text=True, capture_output=True, check=True).stdout.strip(),
             "calls": len(receipts), "completed": sum(row["status"] == "completed" for row in receipts),
             "evaluatorErrors": sum(row["status"] == "evaluator_error" for row in receipts),
             "checkerPassByArm": {arm: row["checkerPass"] for arm, row in by_arm.items()},
-            "pairedAgainstClean": contrasts, "usage": usage,
+            ("pairedAgainstBaseline" if observed else "pairedAgainstClean"): contrasts,
+            "usage": usage,
             "agentLatencyMs": sum(row["agentLatencyMs"] for row in receipts),
             "checkerLatencyMs": sum(row["checkerLatencyMs"] for row in receipts),
-            "scope": "One public failed-approach method case; relevant-source selection and compiled memory are oracle controls, not autonomous MemoryCore learning.",
+            "scope": (
+                "One public failed-approach replay; B input comes only from the prior agent artifact and E checker receipt."
+                if observed else
+                "One public failed-approach method case; relevant-source selection and compiled memory are oracle controls, not autonomous MemoryCore learning."
+            ),
         }
     (output / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
     return summary
@@ -244,8 +290,11 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--timeout-seconds", type=int, default=600)
+    parser.add_argument("--observed-from", type=Path)
     args = parser.parse_args()
-    print(json.dumps(run(args.source, args.output, args.execute, args.timeout_seconds), sort_keys=True))
+    print(json.dumps(run(
+        args.source, args.output, args.execute, args.timeout_seconds, args.observed_from,
+    ), sort_keys=True))
 
 
 if __name__ == "__main__":

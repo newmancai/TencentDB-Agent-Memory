@@ -29,7 +29,7 @@
       },
       "license": "Apache-2.0",
       "size": {"tasks": 34, "corpusSessions": 196, "failedApproachTasks": 1},
-      "independentRun": "one_task_four_arm_method_smoke"
+      "independentRun": "one_task_four_arm_plus_observed_failure_replay"
     },
     {
       "id": "validmem",

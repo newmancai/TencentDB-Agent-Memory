@@ -2,7 +2,7 @@
 
 **2026-09-13用户曾停止整个长期任务，随后又明确恢复有界推进及初版交付后的研究优化。本文记录完整状态，是最高优先级交接入口。**
 
-> **公开集组合路线已启动：** 用户最新要求把近期公开资源结合起来，但继续以B为主线、E只作闭环。新入口是 [topic3-b-public-suite-v1](topic3-b-public-suite-v1/README.md)。已固定 H6 revision `20017969711c7c72c649d9e4d70a8df730ec6176`，完成30任务/90 variant 的适配、agent输入与评测标签隔离、六类 trap 各一题的 baseline/bad/good/no-trap checker 烟测；同时固定 AMB revision `e0859d1ca757f65747b4d32e21f158d55c595879`，完成34任务/196正式session适配和 failure-attribution 多解合同核验。AMB三项数据审计、30项能力/生命周期/作用域测试及5项关键合同通过；102项全任务reference replay被本机Git 2.25在checker前统一阻断，不算任务失败。新增唯一 `fa-dedup-key` 的Codex四臂方法烟测：clean/无关记忆失败，raw/compiled相关失败证据通过；n=1、oracle选源，不能称自主MemoryCore学习或稳定收益。结果见 [AMB_FA_RESULTS.md](topic3-b-public-suite-v1/AMB_FA_RESULTS.md)。三轮顺序固定为 H6 action-site timing → AMB/ValidMem lifecycle → ISETrace/Trigger 跨项目与误触发。本授权不恢复旧30B、本地旧模型、旧题prompt追分或production写入。
+> **公开集组合路线已启动并完成首轮复盘优化：** 用户要求把近期公开资源结合起来，但继续以B为主线、E只作闭环。新入口是 [topic3-b-public-suite-v1](topic3-b-public-suite-v1/README.md)。已固定 H6 revision `20017969711c7c72c649d9e4d70a8df730ec6176`，完成30任务/90 variant 适配、标签隔离和六类 checker 烟测；同时固定 AMB revision `e0859d1ca757f65747b4d32e21f158d55c595879`，完成34任务/196 session适配及关键合同核验。第一层 `fa-dedup-key` Codex四臂中clean/无关记忆失败、oracle选源raw/compiled通过。复盘后新增 [实际失败回执重放](topic3-b-public-suite-v1/AMB_OBSERVED_LOOP_RESULTS.md)：只从任务可见target/scope、前一clean真实artifact与checker failure确定性形成临时候选，不读公开历史/gold；E-only重放仍失败，B+E重放通过，1胜0负。它闭合了真实E→B→E，但仍是同任务n=1、无自主候选池检索/未见任务迁移/原生持久写入，不能称稳定收益。H6上游受控`apply_strategy`和Codex自由编辑action space不能直接混作严格复现，下一先在pilot冻结diff→fingerprint对齐，再进入main。本授权不恢复旧30B、本地旧模型、旧题prompt追分或production写入。
 
 > **初版交付后的恢复与最新研究：** 用户在五项初版交付完成后明确要求继续复盘并优化研究问题。新路线没有恢复30B、本地旧模型、旧题prompt追分或production，而是用公开STALE验证跨交互时态依赖。直接最终绑定13/16失败；提议+裁决仍13/16失败且成本约翻倍；全新留出集的candidate-only提议15/16通过（正例8/8、T2 4/4、负例7/8）。另200行候选池审计显示，真实新会话用户文本BM25找旧会话recall@8为96%、T2 94%，归一化M_new仅61%/53%。因此新增接口只提名待检索/核验ID，明确无写句柄、不接Gateway；下一步可在raw-session top-8上做端到端对照。完整边界见 [B_STALE_RESEARCH_REVIEW_2026-09-13.md](B_STALE_RESEARCH_REVIEW_2026-09-13.md)。这些组件结果不把原公开长对话负收益改写为正，也不构成商用完成。
 
@@ -28,7 +28,7 @@ B的核心问题是从交互证据形成可用监督：反馈说了什么、针�
 
 | 内容 | 入口 | 实际边界 |
 |---|---|---|
-| 近期公开集组合主线 | [topic3-b-public-suite-v1/README.md](topic3-b-public-suite-v1/README.md) | H6与AMB适配/合同审计已完成；AMB单题四臂支持相关失败证据的信息价值，但尚无自主学习或稳定收益 |
+| 近期公开集组合主线 | [topic3-b-public-suite-v1/README.md](topic3-b-public-suite-v1/README.md) | H6与AMB适配完成；AMB先证明相关信息价值，再以真实artifact+checker回执形成候选并1/1改善重放；仍无跨任务、候选池检索或稳定收益 |
 | 五项交付验收包 | [topic3-b-delivery-v1/README.md](topic3-b-delivery-v1/README.md) | 统一runner/JSON、指标、off/fallback、适配与移植；公开反馈增益仍明确fail |
 | Instrumented临时纠正闭环 | [topic3-b-instrumented-loop-v1/RESULTS.md](topic3-b-instrumented-loop-v1/RESULTS.md) | SQLite+Codex+trace+checker，include 4/4、omit 0/4；脚本oracle、仅当前交互 |
 | 自然原话候选与运行时gate | [topic3-b-natural-assertion-v1/RESULTS.md](topic3-b-natural-assertion-v1/RESULTS.md) | 预审14/14、2候选/12拒绝；仅当前交互candidate，无memory cause/持久化收益 |

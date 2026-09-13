@@ -2,7 +2,7 @@
 
 本目录把近期公开资源按能力缺口组合使用，不把不同分母合成一个总分。主问题始终是：**一次反馈或任务结果，何时应形成什么记忆、绑定到哪个动作和范围、在后续哪一个决策点使用，才能减少重复失败而不过度干预？** E 只提供可追溯的 checker / verifier 回执，不替代 B，也不因任务通过就反推某条记忆必然正确。
 
-当前完成第 0 轮数据固定，并增加一个 AMB 单题方法烟测。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。随后在唯一的 `fa-dedup-key` 上以 Codex 跑 clean / 无关记忆 / 原始失败反馈 / 结构化失败记忆四臂：前两臂重复失败、后两臂通过隐藏 checker。详见 [`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md) 与 [`results/amb-fa-codex.json`](results/amb-fa-codex.json)。这仍是 evaluator 选择相关 source 的 **n=1 信息干预**，不是 MemoryCore 自主学习，也不是稳定净收益。
+当前完成第 0 轮数据固定和两级 AMB 单题方法烟测。H6 对六类 trap 各抽一个 variant，验证 baseline / bad 均失败、good / no-trap 均通过；AMB 完成34任务、196正式语料 session、58个 harm condition 的结构审计，并单独验证 failure-attribution 多解合同。第一层四臂中 clean / 无关记忆失败，oracle 选中的原始/结构化反馈通过。第二层去掉公开历史选源，只用任务可见target/scope、第一层 clean 的真实 artifact 与 E checker failure 自动形成候选：E-only 重放失败，B+E 重放通过。详见 [`AMB_FA_RESULTS.md`](AMB_FA_RESULTS.md)、[`AMB_OBSERVED_LOOP_RESULTS.md`](AMB_OBSERVED_LOOP_RESULTS.md) 与 [`results/amb-fa-observed-loop.json`](results/amb-fa-observed-loop.json)。后者闭合了实际 E→B→E，但仍是同任务 n=1，不是自主检索或稳定净收益。
 
 ## 统一闭环
 
@@ -52,6 +52,8 @@ H6 的 episode-1 history 是用已知 bad/good strategy 构造并冻结的控制
 最新的 `fa-dedup-key` 更适合 B：历史会话记录 `order_id` 单键去重导致丢失1,214个真实订单，并明确不替未来 agent 选择 replacement key。记忆提供的是**被结果证伪的动作约束**，不是答案；checker 同时接受两种不同正确 key，排除了“背唯一参考答案”。上游相关5项合同测试已通过。它目前仍只有1题、bare 仅3次校准，先作 failure-attribution 方法样例，不能独立支撑主结论。
 
 本项目独立方法烟测与这一预期一致：clean 和固定无关记忆均再次选择 `order_id` 单键而失败；同源 raw feedback 与仅保留 target/scope/prohibited action/outcome/unresolved 的 compiled memory 均通过。compiled 相对 raw 的注入量与本次调用成本更低，但 n=1、无可控 seed，差值只作描述。两条 relevant 臂还是 evaluator-oracle source selection，下一步必须把“真实 E 失败回执 → B 候选形成 → 未见 variant 使用”接起来。
+
+复盘后的 observed-loop 已完成前半段：runner 读取任务可见target/scope、已评分 clean artifact 与 checker verdict，确定性封装为临时候选，不读公开历史答案；同任务新重放由失败变通过。这个结果去掉 oracle 选源，但尚无未见 variant，也没有从多个候选中自主检索。H6 上游使用受控 `apply_strategy` 工具，在实际动作执行前按 fingerprint 发 advisory；Codex CLI 四臂是自由编辑代理，不能把两种 action space 直接混作严格复现。后续先在 pilot 明确自由编辑 diff 与固定 strategy fingerprint 的对齐规则，主集才运行，不因赶进度改坏 H6 协议。
 
 本机用隔离 Python 3.12 重放时，corpus、plants、data-safety 三项审计均通过；另外30项 capability/lifecycle/task-scope 测试与5项 `fa-dedup-key` 合同测试通过。全任务102项 do-nothing/naive/informed replay 在进入 checker 前被宿主 Git 2.25 阻断，因为上游使用 `git init -b`；这记为环境阻断，不记任务失败，也不修改上游 harness 绕过。后续实跑应使用 Git ≥2.28 或上游声明的容器。
 
@@ -110,6 +112,10 @@ python3 amb_failed_approach_runner.py --source /tmp/agent-memory-bench \
   --output /tmp/amb-fa-dry-run
 python3 amb_failed_approach_runner.py --source /tmp/agent-memory-bench \
   --output /tmp/amb-fa-run --execute
+
+# 从上一次已评分 clean failure 形成 observed candidate；不读公开历史/gold
+python3 amb_failed_approach_runner.py --source /tmp/agent-memory-bench \
+  --observed-from /tmp/amb-fa-run --output /tmp/amb-fa-observed --execute
 ```
 
 两套 `tasks.json` 只含 agent 可见任务、工作区/语料合同和 checker 接口；`gold.json` 才含 bad/good、trap、fact terms、相关 source 和 reference。适配层不绑定 MemoryCore 存储实现，后续内部数据只需提供同等的 workspace、pre-decision trace、E receipt 和 evaluator-only labels。
