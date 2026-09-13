@@ -14,4 +14,8 @@
 
 运行：`strong_baseline.py prepare --root <cupid-evidence> --out <new-folder>`，然后对 `<new-folder>/4b` 和 `/30b` 分别 `run --model <local-model>`，30B 添加 `--shard-gpus`。模型下载成本和失败也单独保留。
 
+两臂完整后 `strong_baseline.py review --out <new-folder>` 生成 `review/source-packets.jsonl`（匿名 A/B，无 reference）、`cross-source-packets.jsonl`（事先排序前两题）、独立参考文件、私有映射和成本汇总。先保存 source 判断，再打开 reference 文件单列覆盖；不事后用 reference 改写源文判断。缺回执、重复实际提示或任务正文不对应会拒绝打包。不同官方 chat template 可以不同，实际提示差异须人工核对，不自动归因模型容量。时延分位数仅实际产生 token 的调用，未生成题仍保留在错误和总任务分母。
+
+源文先验要求审查只作辅助：条件性建议不全算必须覆盖，100词预算内不要求罗列每条。缺失助手方案对象不等同用户修改方向不可辨识。先验审查不是新增gold，不进入推断或学习。
+
 官方依据：[模型卡](https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507/blob/main/README.md)、[Qwen 快速开始](https://github.com/QwenLM/Qwen3/blob/main/docs/source/getting_started/quickstart.md)。模型卡能力主张不替代本地测量。
