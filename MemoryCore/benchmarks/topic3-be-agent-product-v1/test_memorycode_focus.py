@@ -1,6 +1,7 @@
 import unittest
 
 from memorycode_focus import (
+    active_rule_semantic_score,
     focused_prompt,
     history_only,
     semantic_target_score,
@@ -45,6 +46,15 @@ class MemoryCodeFocusTest(unittest.TestCase):
         output = "class Node:\n    def __init__(node, value):\n        node.value_t = value\n"
         self.assertEqual(semantic_target_score(self.packet(), output, 0.0), 1.0)
 
+    def test_active_semantic_score_follows_actual_receiver(self):
+        packet = self.packet()
+        packet["active_rules"] = [
+            {"object_type": "attribute", "regex": ".*value.*"},
+            {"object_type": "attribute", "regex": ".*_t$"},
+        ]
+        output = "class Node:\n    def __init__(node, value):\n        node.value_t = value\n"
+        self.assertEqual(active_rule_semantic_score(packet, output), 1.0)
+
     def test_summary_pairs_quality_and_counts_extra_focus_call(self):
         packets = [{"task_id": "one"}, {"task_id": "two"}]
         receipts = []
@@ -66,6 +76,7 @@ class MemoryCodeFocusTest(unittest.TestCase):
                         "wall_seconds": len(stages) * 0.5,
                         "scores": {
                             "official_compatible": 1.0,
+                            "active_rule_semantic": 1.0,
                             "target_frozen_strict": (
                                 1.0 if arm == "focus_raw" else raw_score
                             ),
@@ -89,6 +100,10 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertEqual(result["cost"]["focus_raw"]["model_calls"], 4)
         self.assertEqual(
             result["quality"]["official_compatible_mean"],
+            {"raw_full": 1.0, "focus_raw": 1.0},
+        )
+        self.assertEqual(
+            result["quality"]["active_rule_semantic_mean"],
             {"raw_full": 1.0, "focus_raw": 1.0},
         )
 

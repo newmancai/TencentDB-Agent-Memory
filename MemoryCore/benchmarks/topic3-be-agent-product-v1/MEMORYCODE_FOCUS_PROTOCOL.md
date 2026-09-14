@@ -34,8 +34,10 @@ those 24 dialogues plus all 10 first-comparison dialogues and uses domain
 
 The primary metric is strict target correctness with constructor attributes followed through the actual
 first receiver argument; this fixes the known literal-`self` extractor defect before the new calls. The old
-frozen target score and mean official-compatible score across all active rules are also reported so a
-target-only gain cannot hide broad regressions. Report paired wins/losses/ties, accuracies, usage,
+frozen target score, mean official-compatible score, and receiver-aware mean across all active rules are
+also reported so a target-only gain cannot hide broad regressions. The receiver-aware aggregate follows
+the constructor's actual first argument; the old official-compatible aggregate is retained to expose the
+pinned extractor's literal-`self` behavior. Report paired wins/losses/ties, accuracies, usage,
 non-cached input, model calls, and wall time. A timeout, missing usage, tool event, nonzero exit, or empty
 output invalidates the run.
 

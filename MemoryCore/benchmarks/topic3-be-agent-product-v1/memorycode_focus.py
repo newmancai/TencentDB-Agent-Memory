@@ -26,7 +26,7 @@ from memorycode_codex_update import (
     write_atomic,
 )
 from memorycode_codex_update_full import exact_sign_p, quantile
-from memorycode_score import score_receipt
+from memorycode_score import criterion, extract_objects, score_receipt
 
 
 ARMS = ("raw_full", "focus_raw")
@@ -100,6 +100,19 @@ def semantic_target_score(
     if target["object_type"] == "attribute":
         return receiver_aware_attribute_score(output, target["regex"])
     return frozen_score
+
+
+def active_rule_semantic_score(packet: dict[str, Any], output: str) -> float:
+    """Mean active-rule score with constructor receivers followed correctly."""
+    objects = extract_objects(output)
+    values = []
+    for rule in packet["active_rules"]:
+        value = criterion(objects, rule["object_type"], rule["regex"])
+        if rule["object_type"] == "attribute" and value is not None:
+            value = receiver_aware_attribute_score(output, rule["regex"])
+        if value is not None:
+            values.append(value)
+    return statistics.mean(values) if values else 0.0
 
 
 def run_stage(
@@ -226,6 +239,17 @@ def summarize(
         )
         for arm in ARMS
     }
+    active_rule_semantic_mean = {
+        arm: (
+            statistics.mean(
+                by_key[(task_id, arm)]["scores"]["active_rule_semantic"]
+                for task_id in task_ids
+            )
+            if complete
+            else None
+        )
+        for arm in ARMS
+    }
     return {
         "schema": 1,
         "protocol": PROTOCOL,
@@ -243,6 +267,7 @@ def summarize(
             ),
             "frozen_strict_accuracy": frozen_strict_accuracy,
             "official_compatible_mean": official_compatible_mean,
+            "active_rule_semantic_mean": active_rule_semantic_mean,
             "bootstrap_95ci": (
                 [quantile(bootstrap, 0.025), quantile(bootstrap, 0.975)]
                 if bootstrap
@@ -372,6 +397,9 @@ def run(arguments: argparse.Namespace) -> int:
                 ),
                 "scores": {
                     "official_compatible": frozen["official_compatible"],
+                    "active_rule_semantic": (
+                        active_rule_semantic_score(packet, output) if valid else 0.0
+                    ),
                     "target_frozen_strict": frozen["target_strict"],
                     "target_semantic_strict": (
                         semantic_target_score(packet, output, frozen["target_strict"])
