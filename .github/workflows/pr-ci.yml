@@ -62,6 +62,12 @@ jobs:
           path: MemoryCore/node_modules
           key: deps-${{ runner.os }}-${{ hashFiles('MemoryCore/package.json') }}
 
+      - name: Install project-agent formatting tools
+        run: python -m pip install --disable-pip-version-check -r scripts/project-agent/requirements-dev.txt
+
+      - name: Check project-agent formatting
+        run: npm run lint:project-agent
+
       - name: Test MemoryCore
         run: npm test
 

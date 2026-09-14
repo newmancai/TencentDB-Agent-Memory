@@ -10,6 +10,29 @@
 benchmarks。可用 `MEMORY_AGENT_PYTHON` 指定 Python；Node 入口会把自己的 Node 路径传给
 存储桥接，避免 PATH 上另一版 Node 被误用。旧 npm 发布包尚不包含本轮新增入口。
 
+## 维护者入口
+
+运行链路保持单向，避免把模型调用、状态规则和审阅证据混在同一层：
+
+```text
+bin/memory-agent.mjs
+  -> project_agent.py（命令编排、回退、回执与恢复）
+     -> backend.py（Codex／Claude CLI 与进程生命周期）
+     -> store.ts -> ProjectMemory（持久状态机、范围、版本与谱系）
+     -> changes.py（相对 HEAD 的可审阅差异）
+```
+
+`project_agent.py` 中的纯函数负责提示构造、观察序号和未编译原话判断；`Host` 方法按
+“加载上下文—调用代理／检查器—保存审阅证据—写工具回执”分阶段。状态约束只在
+`src/core/memory-feedback/project-memory.ts` 中判定，Python 主机不复制其有效性规则。
+因此修改某一层时，应优先运行该层测试，再运行完整 `npm test` 和包安装 smoke。
+
+```bash
+python3 -m pip install -r scripts/project-agent/requirements-dev.txt
+npm run lint:project-agent
+npm run test:project-agent
+```
+
 ```bash
 # 安装包后执行；源码检出时可把 memory-agent 换成 node bin/memory-agent.mjs。
 memory-agent \

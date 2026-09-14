@@ -12,14 +12,25 @@ try {
   const memory = new ProjectMemory(store, request.owner, request.project);
   let result: unknown;
   switch (request.operation) {
-    case 'snapshot': result = await memory.snapshot(); break;
-    case 'ingest': result = await memory.ingest(request.observation, request.proposals); break;
-    case 'retract': result = await memory.retract(request.constraintId, request.observation); break;
-    case 'context': result = await memory.context(request.options); break;
-    default: throw Error('unknown project memory operation');
+    case 'snapshot':
+      result = await memory.snapshot();
+      break;
+    case 'ingest':
+      result = await memory.ingest(request.observation, request.proposals);
+      break;
+    case 'retract':
+      result = await memory.retract(request.constraintId, request.observation);
+      break;
+    case 'context':
+      result = await memory.context(request.options);
+      break;
+    default:
+      throw Error('unknown project memory operation');
   }
   process.stdout.write(JSON.stringify({ ok: true, result }) + '\n');
 } catch (error) {
   process.stdout.write(JSON.stringify({ ok: false, error: String(error) }) + '\n');
   process.exitCode = 1;
-} finally { store.close(); }
+} finally {
+  store.close();
+}
