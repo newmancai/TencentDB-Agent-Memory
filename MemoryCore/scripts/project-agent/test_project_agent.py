@@ -88,7 +88,12 @@ class ProjectAgentTest(unittest.TestCase):
                 "retractions": [],
                 "revision": 1,
             }
-            host.store = Mock(side_effect=[snapshot, {"status": "selected", "omittedForBudget": 1}])
+            host.store = Mock(
+                return_value={
+                    "snapshot": snapshot,
+                    "selection": {"status": "selected", "omittedForBudget": 1},
+                }
+            )
             result = host.context("scoped", ["src/api"], "edit", 1)
             self.assertEqual(result["mode"], "raw_fallback")
             self.assertEqual(json.loads(result["text"]), observation)
@@ -120,7 +125,14 @@ class ProjectAgentTest(unittest.TestCase):
             self.assertEqual(result["calls"], [])
             source = result["observation"]
             host.store = Mock(
-                return_value={"observations": [source], "constraints": [], "revision": 1}
+                return_value={
+                    "snapshot": {
+                        "observations": [source],
+                        "constraints": [],
+                        "revision": 1,
+                    },
+                    "selection": None,
+                }
             )
             context = host.context("scoped", ["."], "edit", 12000)
             self.assertEqual(context["mode"], "raw")
@@ -174,7 +186,8 @@ class ProjectAgentTest(unittest.TestCase):
                     }
                 ),
             }
-            host.store = Mock(side_effect=[snapshot, selected, snapshot, selected])
+            loaded = {"snapshot": snapshot, "selection": selected}
+            host.store = Mock(side_effect=[loaded, loaded])
             host.call.reset_mock()
             first = host.context("scoped", ["src/api"], "edit", 12_000)
             second = host.context("scoped", ["src/api"], "edit", 12_000)
@@ -200,7 +213,10 @@ class ProjectAgentTest(unittest.TestCase):
                 "revision": 1,
             }
             host.store = Mock(
-                side_effect=[snapshot, {"status": "selected", "omittedForBudget": 0, "text": "{}"}]
+                return_value={
+                    "snapshot": snapshot,
+                    "selection": {"status": "selected", "omittedForBudget": 0, "text": "{}"},
+                }
             )
             result = host.context("scoped", ["src/api"], "edit", 12000)
             self.assertEqual(json.loads(result["text"])["uncompiled_user_observations"], [source])
@@ -237,7 +253,12 @@ class ProjectAgentTest(unittest.TestCase):
                 "constraints": [],
                 "revision": 128,
             }
-            host.store = Mock(side_effect=[snapshot, snapshot, ValueError("capacity exceeded")])
+            host.store = Mock(
+                side_effect=[
+                    {"snapshot": snapshot, "selection": None},
+                    ValueError("capacity exceeded"),
+                ]
+            )
             host.call = Mock(return_value="edited")
             result = host.run("Fix the retry default.", root)
             self.assertEqual(result["context_mode"], "raw")
@@ -248,6 +269,57 @@ class ProjectAgentTest(unittest.TestCase):
             self.assertEqual(
                 json.loads((root / "task.json").read_text())["text"], "Fix the retry default."
             )
+
+    def test_run_uses_two_pre_model_bridge_calls_and_one_receipt_write(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            host = self.host(root)
+            source = {
+                "id": "policy",
+                "order": 1,
+                "role": "user",
+                "text": "Keep explicit zero values.",
+            }
+            snapshot = {
+                "observations": [source],
+                "constraints": [{"sourceId": source["id"], "quote": source["text"]}],
+                "retractions": [],
+                "revision": 1,
+            }
+            selected = {
+                "status": "selected",
+                "omittedForBudget": 0,
+                "text": json.dumps(
+                    {
+                        "id": "c1",
+                        "key": "zero",
+                        "scope": {"paths": ["src/api"], "actions": ["edit"]},
+                        "sourceId": source["id"],
+                        "order": 1,
+                        "userQuote": source["text"],
+                    }
+                ),
+            }
+            host.store = Mock(
+                side_effect=[
+                    {"snapshot": snapshot, "selection": selected},
+                    {"revision": 2, "accepted": []},
+                    {"revision": 3, "accepted": []},
+                ]
+            )
+            host.call = Mock(return_value="edited")
+
+            result = host.run("Fix the retry default.", root)
+
+            self.assertEqual(
+                [call.args[0] for call in host.store.call_args_list],
+                ["loadContext", "ingest", "ingest"],
+            )
+            self.assertTrue(result["task_persisted"])
+            self.assertTrue(result["receipt_persisted"])
+            self.assertEqual(result["context_revision"], 1)
+            self.assertEqual(host.store.call_args_list[1].kwargs["observation"]["order"], 2)
+            self.assertEqual(host.store.call_args_list[2].kwargs["observation"]["order"], 3)
 
     def test_invalid_checker_fails_before_memory_or_model(self):
         with TemporaryDirectory() as directory:

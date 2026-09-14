@@ -24,6 +24,19 @@ try {
     case 'context':
       result = await memory.context(request.options);
       break;
+    case 'loadContext': {
+      const snapshot = await memory.snapshot();
+      const options = request.options
+        ? {
+            ...request.options,
+            beforeOrder: (snapshot.observations.at(-1)?.order ?? 0) + 1,
+          }
+        : null;
+      const selection =
+        options && snapshot.constraints.length ? await memory.context(options) : null;
+      result = { snapshot, selection };
+      break;
+    }
     default:
       throw Error('unknown project memory operation');
   }

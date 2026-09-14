@@ -159,6 +159,49 @@ def unresolved_user_observations(snapshot: dict) -> list[dict]:
     return unresolved
 
 
+def render_context(snapshot: dict, mode: str, selected: dict | None, budget: int) -> dict:
+    """Render one already loaded revision without another bridge round trip."""
+    raw = raw_user_context(snapshot["observations"])
+    if mode == "raw":
+        return {"text": raw, "mode": "raw", "revision": snapshot["revision"]}
+    if not snapshot["constraints"]:
+        return {
+            "text": raw,
+            "mode": "raw",
+            "revision": snapshot["revision"],
+            "selection_reason": "no_compiled_constraints",
+        }
+    if not isinstance(selected, dict):
+        raise ValueError("project memory bridge omitted scoped context")
+    if selected["status"] == "fallback" or selected["omittedForBudget"]:
+        return {
+            "text": raw,
+            "mode": "raw_fallback",
+            "selection": selected,
+            "revision": snapshot["revision"],
+        }
+    text = compact_json(
+        {
+            "scoped_constraints": [json.loads(line) for line in selected["text"].splitlines()],
+            "uncompiled_user_observations": unresolved_user_observations(snapshot),
+        },
+    )
+    # Never silently drop a constraint or unresolved source to fit a budget.
+    if len(text.encode()) > budget:
+        return {
+            "text": raw,
+            "mode": "raw_fallback",
+            "selection": selected,
+            "revision": snapshot["revision"],
+        }
+    return {
+        "text": text,
+        "mode": "scoped",
+        "selection": selected,
+        "revision": snapshot["revision"],
+    }
+
+
 def final_text(backend: str, stdout: str) -> str:
     found = []
     for event in events_from(stdout):
@@ -370,75 +413,49 @@ class Host:
             "calls": [],
         }
 
-    def context(self, mode: str, paths: list[str], action: str, budget: int) -> dict:
+    def _context_with_snapshot(
+        self, mode: str, paths: list[str], action: str, budget: int
+    ) -> tuple[dict, dict | None]:
         validate_context_request(mode, paths, action, budget)
         if mode == "off":
-            return {"text": "", "mode": "off", "revision": None}
-        snapshot = self.store("snapshot")
-        observations = snapshot["observations"]
-        before = next_order(snapshot)
-        raw = raw_user_context(observations)
-        if mode == "raw":
-            return {"text": raw, "mode": "raw", "revision": snapshot["revision"]}
-        if not snapshot["constraints"]:
-            return {
-                "text": raw,
-                "mode": "raw",
-                "revision": snapshot["revision"],
-                "selection_reason": "no_compiled_constraints",
-            }
-        selected = self.store(
-            "context", options=dict(paths=paths, action=action, beforeOrder=before, maxBytes=budget)
-        )
-        if selected["status"] == "fallback" or selected["omittedForBudget"]:
-            return {
-                "text": raw,
-                "mode": "raw_fallback",
-                "selection": selected,
-                "revision": snapshot["revision"],
-            }
-        text = compact_json(
-            {
-                "scoped_constraints": [json.loads(line) for line in selected["text"].splitlines()],
-                "uncompiled_user_observations": unresolved_user_observations(snapshot),
-            },
-        )
-        # Never silently drop a constraint or unresolved source to fit a budget.
-        if len(text.encode()) > budget:
-            return {
-                "text": raw,
-                "mode": "raw_fallback",
-                "selection": selected,
-                "revision": snapshot["revision"],
-            }
-        return {
-            "text": text,
-            "mode": "scoped",
-            "selection": selected,
-            "revision": snapshot["revision"],
-        }
+            return {"text": "", "mode": "off", "revision": None}, None
+        payload = {}
+        if mode == "scoped":
+            payload["options"] = dict(
+                paths=paths,
+                action=action,
+                maxBytes=budget,
+            )
+        loaded = self.store("loadContext", **payload)
+        snapshot = loaded["snapshot"]
+        return render_context(snapshot, mode, loaded["selection"], budget), snapshot
+
+    def context(self, mode: str, paths: list[str], action: str, budget: int) -> dict:
+        context, _ = self._context_with_snapshot(mode, paths, action, budget)
+        return context
 
     def _load_context_for_run(self, text: str) -> tuple[dict, str | None, int | None]:
         memory_error, order = None, None
+        snapshot = None
         try:
-            context = self.context(
+            context, snapshot = self._context_with_snapshot(
                 self.args.mode, self.args.paths, self.args.action, self.args.max_bytes
             )
         except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
             memory_error = str(exc)
             context = {"text": "", "mode": "off_fallback", "revision": None}
-        if self.args.mode != "off" and memory_error is None:
+        if self.args.mode != "off" and memory_error is None and snapshot is not None:
+            observation = new_observation(text, next_order(snapshot))
             try:
-                snapshot = self.store("snapshot")
-                order = next_order(snapshot)
                 self.store(
                     "ingest",
-                    observation=new_observation(text, order),
+                    observation=observation,
                     proposals=[],
                 )
+                order = observation["order"]
             except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
                 # A write failure does not invalidate a successfully loaded context.
-                memory_error, order = str(exc), None
+                memory_error = str(exc)
         return context, memory_error, order
 
     def _call_and_check(
