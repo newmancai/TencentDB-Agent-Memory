@@ -79,7 +79,7 @@ The `2/4 → 4/4` end-to-end gain came from instruction-scope admission. The new
 
 ## Verify locally
 
-Requirements are the same as MemoryCore: Node.js 22.16 or newer and installed npm dependencies.
+Requirements are the same as MemoryCore: Node.js 22.19 or newer and installed npm dependencies.
 
 ```bash
 cd MemoryCore

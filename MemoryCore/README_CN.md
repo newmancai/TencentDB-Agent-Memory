@@ -49,7 +49,7 @@ MemoryCore 以 Standalone Runtime 形式开源，适合本地开发、单机部�
 
 ## 环境要求
 
-- Node.js `>= 22.16.0`
+- Node.js `>= 22.19.0`
 - npm
 - 一个 OpenAI-compatible LLM API；只读查询可以不触发 LLM，但记忆抽取和归纳需要有效凭证
 
@@ -246,7 +246,6 @@ MemoryCore/
 
 ```bash
 npm run read-local-memory
-npm run seed-v2
 ```
 
 ## 安全建议
