@@ -60,3 +60,22 @@ more complex mechanism automatically. Report all eligible episodes, including ti
 The prospective registry is [phase-b-natural-registry.json](phase-b-natural-registry.json). Append only
 after eligibility is established; never delete an eligible row because of its result. The registry stores
 verbatim-text hashes and local evidence paths, not secret credentials or unrelated conversation content.
+
+Prospective evidence is created in two append-only local packets before the outcome registry is touched:
+
+1. `phase_b_registry.py record-correction` records the exact UTF-8 correction, its source reference,
+   observed and recorded timestamps, decision thread, hash, and current project revision. It refuses to
+   replace an existing correction ID. The packet remains local evidence; the eventual public registry row
+   contains its hash and evidence path, not the verbatim text.
+2. After a genuinely later user task arrives, `phase_b_registry.py freeze-task` records the exact task and hash,
+   allowed paths, checker command, severity kind, shared full base commit, and two distinct clean marked
+   workspaces. It rejects a task timestamp that is not later than correction recording, a dirty or unmarked
+   workspace, unequal revisions, unsafe paths, an in-workspace or unhashed checker, or overwrite. Freeze this
+   packet before running either arm; later checker-file hash drift invalidates execution.
+3. `phase_b_registry.py build-manifest` converts only that frozen packet into the runner's strict `natural`
+   mode: one user task, two arms, raw history only in `raw_full`, output-scope enforcement, and immediate stop
+   on isolation, visibility, undeclared-path, agent, or checker failure. It cannot add a synthetic paired step.
+
+`phase_b_registry.py validate phase-b-natural-registry.json` recomputes the three public counts and rejects
+duplicate episode IDs. Synthetic fixtures may exercise the tooling in unit tests, but must never be appended
+to the real registry.

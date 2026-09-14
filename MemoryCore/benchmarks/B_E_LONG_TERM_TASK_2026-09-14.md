@@ -113,8 +113,11 @@ prompt 追分、production、Gateway 自动启用或操作他人 GPU。
 [v9 失效复盘](topic3-be-route-v2/HELDOUT_V9_INVALID_REVIEW.md)。v10 前只有 v4 是完整有效矩阵；
 v5 至 v9 都不能报告复制成功或成本优势。有效 [v10 结果](topic3-be-route-v2/HELDOUT_V10_RESULTS.md)
 新增一个独立家族收益，达到 Phase A 预注册门槛。runner 现已强制允许变更路径、保留 porcelain 前导状态位，隔离
-执行也禁写 Python bytecode；八项 route-runner、16 项 agent-product 和 21 项 project-agent 测试通过。
+执行也禁写 Python bytecode；16 项 route-v2、16 项 agent-product 和 21 项 project-agent 测试通过。
 下一步已冻结为[自然 Phase B 协议](topic3-be-route-v2/PHASE_B_NATURAL_PROTOCOL.md)：从现在起前瞻收集
 至少 10 个真实用户纠正—后续任务序列、至少四个决策线程和三个自然控制；当前 registry 为 0，不用公开
 PR 重放、旧题或 evaluator 生成任务补数。runner 的未来汇总已改为候选需补丁审计，并在首个越界或未完成
-执行后自动停止。不得提前进入复杂机制或开源对照。
+执行后自动停止。Phase B 工具现会追加式登记纠正原话与实际记录时间；后续任务必须晚于该记录，且要先冻结
+同 revision 的两个干净标记 worktree、允许路径、外置 checker 文件哈希和 Codex 配置。只有冻结包能生成
+单任务 `natural` manifest，手写自然任务会被 runner 拒绝；目前没有因此虚增任何 episode。不得提前进入
+复杂机制或开源对照。

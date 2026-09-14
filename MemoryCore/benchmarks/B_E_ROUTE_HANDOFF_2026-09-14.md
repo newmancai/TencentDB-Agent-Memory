@@ -318,3 +318,9 @@ v10 首次按近错标准冻结：42 个预检阶段覆盖 8 个 base 拒绝、8
 assistant 结论、evaluator 造题和旧 benchmark 都不能补数。未积累到样本前不得声称自然验证完成，也不提前
 启动复杂编译、学习器或开源产品对照。未来 runner 在第一个输出越界或执行不完整回执后立即停止，避免像
 v5/v8 一样继续浪费无效矩阵调用。
+
+Phase B 的前瞻证据链已可执行：`phase_b_registry.py` 以不可覆盖文件登记纠正原话、来源、实际记录时间和
+当时 revision；只有时间更晚的真实任务才能冻结，冻结时校验两个 worktree 独立、标记、干净且同 base，
+并锁定允许路径、外置 checker 文件哈希、模型／effort／超时。冻结包才能生成单任务 `natural` manifest；
+runner 会对照冻结包重建 manifest，拒绝手写替代、checker 漂移以及旧模式要求的合成第二步。相关 16 项
+route-v2 测试、16 项 agent-product 测试和 21 项 project-agent 测试通过；正式 registry 仍保持 0。
