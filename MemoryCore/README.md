@@ -51,7 +51,7 @@ MemoryCore is distributed as a standalone runtime for local development, single-
 
 ## Requirements
 
-- Node.js `>= 22.16.0`
+- Node.js `>= 22.19.0`
 - npm
 - An OpenAI-compatible LLM API. Read-only queries may not invoke an LLM, but memory extraction and aggregation require valid credentials.
 
@@ -245,7 +245,6 @@ MemoryCore/
 
 ```bash
 npm run read-local-memory
-npm run seed-v2
 ```
 
 ## Security recommendations

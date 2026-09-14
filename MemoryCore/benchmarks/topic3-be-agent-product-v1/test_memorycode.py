@@ -42,15 +42,16 @@ class MemoryCodeScoreTest(unittest.TestCase):
                 arms[arm] = {"mode": mode, "system": "s", "user": "u", "source_session_ids": [0]}
                 receipts.append({
                     "task_id": "t", "dialogue_id": 1, "arm": arm, "mode": mode,
+                    "model": "fixture-model", "decoding": "greedy",
                     "status": "passed", "output": output,
                     "prompt_sha256": hashlib.sha256(b"s\0u").hexdigest(), "source_session_ids": [0],
-                    "input_tokens": 10, "output_tokens": 5, "generation_seconds": 0.1,
+                    "input_tokens": 10, "max_input_tokens": 1024, "max_new_tokens": 128,
+                    "output_tokens": 5, "generation_seconds": 0.1,
                     "output_truncated": False,
-                    "shard": 0, "load_seconds": 0.2, "model": "fixture-model",
-                    "decoding": "greedy", "max_input_tokens": 4096, "max_new_tokens": 256,
+                    "shard": 0, "load_seconds": 0.01,
                 })
             packet = {
-                "task_id": "t", "history_class": "short", "session_count": 3,
+                "task_id": "t", "dialogue_id": 1, "history_class": "short", "session_count": 3,
                 "target_status": "update", "arms": arms,
                 "targets": [{"object_type": "function", "regex": ".*_x$"}],
                 "active_rules": [{"object_type": "function", "regex": ".*_x$"}],
@@ -65,7 +66,18 @@ class MemoryCodeScoreTest(unittest.TestCase):
             self.assertEqual(result["status"], "pass")
             self.assertEqual(result["paired"]["memorycore_l0_vs_full_history_target_strict"]["wins"], 1)
             self.assertEqual(result["arms"]["full_history"]["scores"]["target_strict"], 0.0)
-            self.assertEqual(result["execution"]["model_load_seconds_by_shard"], {"0": 0.2})
+            self.assertEqual(result["execution"]["model_load_seconds_by_shard"], {"0": 0.01})
+
+            receipts[0].pop("shard")
+            runs.write_text("".join(json.dumps(row) + "\n" for row in receipts))
+            with self.assertRaisesRegex(ValueError, "missing required fields: shard"):
+                evaluate(packets, [runs])
+
+            receipts[0]["shard"] = 0
+            receipts[0]["model"] = "mixed-model"
+            runs.write_text("".join(json.dumps(row) + "\n" for row in receipts))
+            with self.assertRaisesRegex(ValueError, "inconsistent execution metadata: model"):
+                evaluate(packets, [runs])
 
 
 if __name__ == "__main__":

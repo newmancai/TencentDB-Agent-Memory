@@ -3,14 +3,19 @@
 **接手先读本文件。当前目标是比现有系统和合适的开源方案更有用，先验证路线是否值得做；不再把完整对标 Codex／Claude Code 作为近期验收条件，也不要求必须有创新算法或反馈学习。**
 
 当前长程执行与阶段门槛见 [B+E 长程任务](B_E_LONG_TERM_TASK_2026-09-14.md)。
+导师提交与五项必交材料从 [最终交付索引](B_E_DELIVERY_INDEX_2026-09-14.md) 进入。
 
 当前结论：已有可运行的项目记忆编码 CLI，E 的执行与证据链明显完善；B 在公开项目上为 2 胜 0 负
 6 平，在第二批不重叠 MemoryCode 更新集上把 receiver-aware 目标从 9/10 提到 10/10、1 胜 0 负
 9 平。后者区间仍触及 0，支持显式 experimental 路线，不支持稳定普适收益。原话保留仍是默认方案，
-约束编译是显式实验选项；编译结果应按精确 history revision 持久复用，不应每次编码重算。接下来做
-同条件开源对照和热路径降本，不用外围功能数量、文档数量或组件分数替代后续任务效果。
+约束编译是显式实验选项；编译结果应按精确 history revision 持久复用，不应每次编码重算。热路径高收益
+降本已经完成并停止；同条件开源对照仍是未完成边界，不自动续跑。最新两条模型侧
+降本捷径均因冻结质量门槛关闭；产品 bridge 已在逐字等价条件下把模型前进程由 4 个降到 1 个。最终
+三臂配对中，precompiled one-shot 相对上一版 source/`tsx` 双调用均值／p95 降低 46.1%／46.5%；
+高收益 infra 优化至此停止。
 
-本文整理既有资料与用户最新决策。本次交接不启动模型、下载或新评测；不表示用户永久停止后续优化。
+本文整理既有资料与用户最新决策。当前任务已停止，不启动模型、下载、新评测或新的 infra 分支；若未来
+明确恢复，应从未完成的同条件开源对照重新立项，而不是继续在已用数据上追分。
 
 ## 1. 用户最新要求与执行原则
 
@@ -107,7 +112,10 @@ checker 通过只证明该次被检查的行为；不能证明某条记忆长期
   3 胜 0 负 7 平。主指标区间 `[0,0.3]` 且 sign `p=1.0`，只支持方向性 experimental 结论。
   冷 focus 为 2.026 倍非缓存输入和 1.706 倍墙钟；持久复用编译状态后的已执行 coding stage 为
   1.101 倍非缓存输入、0.969 倍墙钟和相同调用数。详见
-  [focus 与 infra 结果](topic3-be-agent-product-v1/MEMORYCODE_FOCUS_RESULTS.md)。
+  [focus 与 infra 结果](topic3-be-agent-product-v1/MEMORYCODE_FOCUS_RESULTS.md)。authoritative-source
+  后续在再不重叠 10 题上把热编码非缓存输入降到 0.693 倍，但主指标为 1 胜 1 负 8 平，未启用；
+  single-pass 两题为 1 胜 1 负且成本回退，提前停止。详见
+  [进一步 infra 结果](topic3-be-agent-product-v1/MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md)。
 - **CUPID：** 当前两例纠正 ICL 对普通历史为 3 胜 4 负 5 平，输入 3.434 倍；没有稳定反馈学习收益。
 - **ValidMem：** 留出 374/406→387/406，15 胜 2 负；case 显著但 batch sign p=0.125。属于生命周期
   方法验证，不能当编码收益或实际 L1 写入验证。
@@ -128,7 +136,7 @@ checker 通过只证明该次被检查的行为；不能证明某条记忆长期
 `delivery/topic3-be-product-v1`，focus 结果主提交为 `7da00f5`；除既有未跟踪
 `MemoryCore/node_modules` 和本交接同步外干净。
 最终产品 PR 工作树：`/home/edarace/Tencent-Memory-2/topic3-be-project-memory-pr`，分支
-`delivery/topic3-be-project-memory-v1`，当前 head `545eca4` 已推送到 PR #4。原始研究工作树仍为
+`delivery/topic3-be-project-memory-v1`；最终 bridge 实现锚点为 `96a7176`，最终文档提交也在 PR #4。原始研究工作树仍为
 `/home/edarace/Tencent-Memory-2/topic3-be-delivery`、分支 `delivery/topic3-be-v1`。三者不能混用提交状态。
 
 | 提交 | 内容 |
@@ -139,13 +147,17 @@ checker 通过只证明该次被检查的行为；不能证明某条记忆长期
 | `a47528e` | 在模型调用前冻结第二批不重叠质量集 |
 | `7da00f5` | 发布 focus 质量、失败试验和冷／热 infra 成本结果 |
 | `545eca4` | 产品热路径复用测试、无损紧凑 JSON、最终上交报告更新 |
+| `7e19d4f` | 关闭 source-context 与 single-pass 两条冻结模型侧降本候选 |
+| `5428a96` | 产品 pre-model bridge 4→2，并冻结等价性／时延协议 |
+| `a3b1a63` | 保证范围选择只读取并使用同一个 pre-task 快照 |
+| `96a7176` | 预编译 bridge 并将模型前读取／任务写入合并为 one-shot，最终进程数 4→1 |
 
 | 文件 | 接手用途 |
 | --- | --- |
 | [CLI README](../scripts/project-agent/README.md) | 使用方式与真实限制 |
 | [project_agent.py](../scripts/project-agent/project_agent.py) | remember／record／context／run／history／retract／check-run；宿主锁与证据 |
 | [project-memory.ts](../src/core/memory-feedback/project-memory.ts) | 来源、范围、版本链、撤销、历史视图和容量 |
-| [store.ts](../scripts/project-agent/store.ts) | Python 到原生 SQLite 的 JSON 桥接，每次操作启动 Node |
+| [store.ts](../scripts/project-agent/store.ts) | Python 到原生 SQLite 的 JSON 桥接；`prepareRun` 在一个进程中顺序读取上下文并写入任务 |
 | [backend.py](../scripts/project-agent/backend.py) | Codex／Claude 命令、真实进程组、日志、usage |
 | [changes.py](../scripts/project-agent/changes.py) | 相对 HEAD 的工作区差异，包含原有编辑，不能全部归因于本轮 |
 | [sequence_runner.py](topic3-be-agent-product-v1/sequence_runner.py) | 每项目／臂独立保存代码与记忆、累计检查与成本 |
@@ -162,10 +174,10 @@ checker 通过只证明该次被检查的行为；不能证明某条记忆长期
 
 ## 6. 已验证能力与尚未解决的使用限制
 
-研究侧 28 项 agent-product 测试通过；第二批 focus 的 30/30 次 Codex 调用完整有效，开发与两个失败
-infra pilot 的原始证据均保留。产品侧本轮重新通过 Black／Prettier、TypeScript 全量 204/204、项目代理
-21/21、公共 runner 12/12、build、1,477,474-byte 包和空目录安装 smoke。产品提交 `545eca4` 已推送，
-其远端 CI 需以最新 Actions run 为准，不沿用旧 run ID。
+研究侧 31 项 agent-product 测试通过；第二批 focus 和第三批 source confirmation 各有 30/30 次 Codex
+调用完整有效，所有失败 pilot 原始证据均保留。产品侧本轮重新通过 TypeScript 全量 204/204、项目代理
+25/25；最终 bridge 三臂 20/20 配对上下文与最终快照等价，模型调用 0。Black／Prettier、build、包和
+空目录安装 smoke 均已在最终实现上本地复核通过；远端 CI 仍须使用新提交触发的 run，不沿用旧 run ID。
 
 - 128 条观察仍是硬容量；通常每个 run 消耗两条。满后旧上下文可用，但新任务不会进入项目记忆。
 - scoped 预算不足时回退完整原话，可能超过字节目标；不代表已经有长期有界上下文策略。
@@ -191,7 +203,7 @@ node bin/memory-agent.mjs --help
 ## 7. 建议下一次优化只交付什么
 
 **建议的有界任务：固定当前 focus 质量锚点，完成一个开源项目记忆方案的同模型适配，并把编译状态复用
-接到可审计成本回执。** 不再在已用的两个 10-dialogue 集上改 prompt，也不再恢复“自然验证”。
+接到可审计成本回执。** 不再在已用的三个 10-dialogue 集上改 prompt，也不再恢复“自然验证”。
 
 1. 选择一个能直接给相同 Codex 编码任务提供持久项目上下文的开源实现，固定版本、许可和默认配置；
    若只能做向量召回或无法保留来源，明确写成合同差异。
@@ -204,8 +216,8 @@ node bin/memory-agent.mjs --help
 5. 输出逐题胜负、全量 active rules、总／非缓存 token、调用数、时延和集成维护成本，并给采用、保留
    experimental 或关闭的明确决定。
 
-当前已排除两条捷径：compact-history 有目标回归，独立 CLI 共享前缀没有产生非缓存 token 收益。下一轮
-不要重复这两个 pilot。
+当前已排除四条捷径：compact-history 有目标回归，独立 CLI 共享前缀没有产生非缓存 token 收益，
+source-context 有一项冻结主指标回归，single-pass 同时有质量和成本回退。下一轮不要重复这些 pilot。
 
 ## 8. 接手者必须能回答的五个问题
 

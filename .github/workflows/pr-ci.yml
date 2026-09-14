@@ -1,8 +1,10 @@
 name: CI
 
 on:
-  pull_request:
-    branches: [main]
+  pull_request: {}
+
+permissions:
+  contents: read
 
 # Cancel previous runs for the same PR / branch
 concurrency:
@@ -19,14 +21,15 @@ jobs:
     name: Install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version: "22.19.0"
+          package-manager-cache: false
 
       - name: Cache node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: cache-deps
         with:
           path: MemoryCore/node_modules
@@ -34,25 +37,69 @@ jobs:
 
       - name: npm install
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm install --ignore-scripts
+        # npm 10.9.3 (bundled with Node 22.19) can fail while resolving this
+        # development tree's optional peers. CI does not need those peers.
+        run: npm install --ignore-scripts --legacy-peer-deps
 
-  # ── 2. Pack validation ─────────────────────────────────────
+  # ── 2. Focused runtime tests ───────────────────────────────
+  test:
+    name: MemoryCore and project-agent tests
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24.15.0"
+          package-manager-cache: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.10"
+
+      - name: Restore node_modules
+        uses: actions/cache@v6
+        with:
+          path: MemoryCore/node_modules
+          key: deps-${{ runner.os }}-${{ hashFiles('MemoryCore/package.json') }}
+
+      - name: Install project-agent formatting tools
+        run: python -m pip install --disable-pip-version-check -r scripts/project-agent/requirements-dev.txt
+
+      - name: Check project-agent formatting
+        run: npm run lint:project-agent
+
+      - name: Test MemoryCore
+        run: npm test
+
+      - name: Test project-agent host
+        run: npm run test:project-agent
+
+      - name: Test public-evaluation harnesses
+        run: npm run test:agent-product
+
+  # ── 3. Pack validation ─────────────────────────────────────
   pack:
     name: Pack
     needs: install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version: "22.19.0"
+          package-manager-cache: false
 
       - name: Restore node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: MemoryCore/node_modules
           key: deps-${{ runner.os }}-${{ hashFiles('MemoryCore/package.json') }}
+
+      - name: Test feedback runtime on minimum Node
+        run: npx vitest run src/core/memory-feedback
 
       - name: npm pack (dry-run)
         run: npm pack --dry-run
@@ -60,19 +107,22 @@ jobs:
       - name: npm pack
         run: npm pack
 
+      - name: Smoke-test installed memory-agent package
+        run: bash scripts/ci/smoke-memory-agent-package.sh ./*.tgz
+
       - name: Upload .tgz artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: package-tarball
           path: "MemoryCore/*.tgz"
           retention-days: 7
 
-  # ── 5. Plugin manifest validation ──────────────────────────
+  # ── 4. Plugin manifest validation ──────────────────────────
   manifest:
     name: Manifest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Validate openclaw.plugin.json
         run: |
@@ -108,14 +158,14 @@ jobs:
             console.log('   openclawVersion:', oc.build.openclawVersion);
           "
 
-  # ── 6. Package size guard ──────────────────────────────────
+  # ── 5. Package size guard ──────────────────────────────────
   size:
     name: Size Guard
     needs: pack
     runs-on: ubuntu-latest
     steps:
       - name: Download tarball
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: package-tarball
           path: MemoryCore
@@ -138,7 +188,7 @@ jobs:
             echo "✅ Size OK"
           fi
 
-  # ── 7. Skill queue isolation guard ─────────────────────────
+  # ── 6. Skill queue isolation guard ─────────────────────────
   # 强约束：禁止 PR 触碰记忆模块红线文件（state/pipeline-worker/integrations/redis），
   # 禁止 src/core/skill/** 新增直接 fs import。详见
   # docs/design/2026-06-16-skill-extract-queue.md
@@ -146,9 +196,9 @@ jobs:
     name: Skill Queue Isolation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
-          fetch-depth: 0   # 需要完整历史以便 git diff base..HEAD
+          fetch-depth: 0 # 需要完整历史以便 git diff base..HEAD
 
       - name: Run isolation guard
         env:
@@ -156,4 +206,3 @@ jobs:
         run: |
           git fetch origin "${{ github.base_ref || 'main' }}" --depth=50 || true
           bash scripts/ci/check-skill-queue-isolation.sh
-

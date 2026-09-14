@@ -18,6 +18,13 @@ from typing import Any
 
 ARMS = ("full_history", "memorycore_l0", "latest_guidelines_oracle")
 BOOTSTRAP_SEED = 20260913
+REQUIRED_RECEIPT_FIELDS = (
+    "task_id", "dialogue_id", "arm", "mode", "model", "decoding", "status", "output",
+    "prompt_sha256", "source_session_ids", "input_tokens", "max_input_tokens",
+    "max_new_tokens", "output_tokens", "generation_seconds", "output_truncated", "shard",
+    "load_seconds",
+)
+UNIFORM_EXECUTION_FIELDS = ("model", "decoding", "max_input_tokens", "max_new_tokens")
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -49,6 +56,60 @@ def _distribution(values: list[float]) -> dict[str, float | int | None]:
         "p50": _quantile(values, 0.5),
         "p95": _quantile(values, 0.95),
     }
+
+
+def _validate_inputs(packets: list[dict[str, Any]], receipts: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    task_ids = [packet.get("task_id") for packet in packets]
+    if (not task_ids or any(not isinstance(task_id, str) or not task_id for task_id in task_ids)
+            or len(task_ids) != len(set(task_ids))):
+        raise ValueError("packets must have unique non-empty task IDs")
+    packet_by_id = {packet["task_id"]: packet for packet in packets}
+    keys = []
+    execution = None
+    shard_loads: dict[int, float] = {}
+
+    for index, receipt in enumerate(receipts):
+        missing = [field for field in REQUIRED_RECEIPT_FIELDS if field not in receipt]
+        if missing:
+            raise ValueError(f"receipt {index} missing required fields: {', '.join(missing)}")
+        task_id, arm = receipt["task_id"], receipt["arm"]
+        if task_id not in packet_by_id or arm not in ARMS:
+            raise ValueError(f"unexpected receipt identity: {task_id} {arm}")
+        packet = packet_by_id[task_id]
+        packet_arm = packet.get("arms", {}).get(arm)
+        if (not packet_arm or receipt["dialogue_id"] != packet.get("dialogue_id")
+                or receipt["mode"] != packet_arm.get("mode")):
+            raise ValueError(f"receipt metadata alignment failed: {task_id} {arm}")
+        if receipt["status"] not in {"passed", "failed"} or not isinstance(receipt["output"], str):
+            raise ValueError(f"invalid receipt outcome: {task_id} {arm}")
+
+        counts = [receipt[field] for field in
+                  ("input_tokens", "max_input_tokens", "max_new_tokens", "output_tokens", "shard")]
+        timings = [receipt[field] for field in ("generation_seconds", "load_seconds")]
+        if (any(not isinstance(value, int) or isinstance(value, bool) or value < 0 for value in counts)
+                or any(not isinstance(value, (int, float)) or isinstance(value, bool)
+                       or not math.isfinite(value) or value < 0 for value in timings)
+                or receipt["max_input_tokens"] < 1 or receipt["max_new_tokens"] < 1
+                or receipt["output_tokens"] > receipt["max_new_tokens"]
+                or not isinstance(receipt["output_truncated"], bool)):
+            raise ValueError(f"invalid receipt cost metadata: {task_id} {arm}")
+
+        current_execution = {field: receipt[field] for field in UNIFORM_EXECUTION_FIELDS}
+        if execution is None:
+            execution = current_execution
+        elif current_execution != execution:
+            changed = [field for field in UNIFORM_EXECUTION_FIELDS
+                       if current_execution[field] != execution[field]]
+            raise ValueError(f"inconsistent execution metadata: {', '.join(changed)}")
+        previous_load = shard_loads.setdefault(receipt["shard"], receipt["load_seconds"])
+        if receipt["load_seconds"] != previous_load:
+            raise ValueError(f"inconsistent load_seconds for shard {receipt['shard']}")
+        keys.append((task_id, arm))
+
+    expected = {(task_id, arm) for task_id in packet_by_id for arm in ARMS}
+    if len(keys) != len(set(keys)) or set(keys) != expected:
+        raise ValueError("receipts must contain exactly one row per task and arm")
+    return packet_by_id
 
 
 def _extract_code(text: str) -> str:
@@ -280,18 +341,15 @@ def _paired(rows: list[dict[str, Any]], metric: str) -> dict[str, Any]:
 
 def evaluate(packets_path: Path, receipt_paths: list[Path]) -> dict[str, Any]:
     packets = _read_jsonl(packets_path)
-    packet_by_id = {packet["task_id"]: packet for packet in packets}
     receipts = [row for path in receipt_paths for row in _read_jsonl(path)]
-    keys = [(row["task_id"], row["arm"]) for row in receipts]
-    expected = {(task_id, arm) for task_id in packet_by_id for arm in ARMS}
-    if len(keys) != len(set(keys)) or set(keys) != expected:
-        raise ValueError("receipts must contain exactly one row per task and arm")
+    packet_by_id = _validate_inputs(packets, receipts)
     for receipt in receipts:
         packet_arm = packet_by_id[receipt["task_id"]]["arms"][receipt["arm"]]
         prompt_hash = hashlib.sha256(
             (packet_arm["system"] + "\0" + packet_arm["user"]).encode()
         ).hexdigest()
-        if receipt["prompt_sha256"] != prompt_hash or receipt["source_session_ids"] != packet_arm["source_session_ids"]:
+        if (receipt["prompt_sha256"] != prompt_hash
+                or receipt["source_session_ids"] != packet_arm["source_session_ids"]):
             raise ValueError(f"receipt alignment failed: {receipt['task_id']} {receipt['arm']}")
 
     scored = [score_receipt(packet_by_id[receipt["task_id"]], receipt) for receipt in receipts]

@@ -1,5 +1,5 @@
-import { defineConfig } from "tsdown";
-import packageJson from "./package.json" with { type: "json" };
+import { defineConfig } from 'tsdown';
+import packageJson from './package.json' with { type: 'json' };
 
 /** Collect all declared dependencies that must NOT be bundled. */
 function collectExternalDependencies(): string[] {
@@ -11,10 +11,14 @@ function collectExternalDependencies(): string[] {
 }
 
 export default defineConfig({
-  entry: ["./index.ts", "./memory-feedback.ts"],
-  outDir: "./dist",
-  format: "esm",
-  platform: "node",
+  entry: {
+    index: './index.ts',
+    'memory-feedback': './memory-feedback.ts',
+    'project-agent-store': './scripts/project-agent/store.ts',
+  },
+  outDir: './dist',
+  format: 'esm',
+  platform: 'node',
   clean: true,
   fixedExtension: true,
   dts: false,
@@ -22,9 +26,9 @@ export default defineConfig({
   deps: {
     neverBundle: (id) => {
       // openclaw SDK — always external
-      if (id === "openclaw" || id.startsWith("openclaw/")) return true;
+      if (id === 'openclaw' || id.startsWith('openclaw/')) return true;
       // node: builtins
-      if (id.startsWith("node:")) return true;
+      if (id.startsWith('node:')) return true;
       // all declared dependencies
       for (const dep of collectExternalDependencies()) {
         if (id === dep || id.startsWith(`${dep}/`)) return true;

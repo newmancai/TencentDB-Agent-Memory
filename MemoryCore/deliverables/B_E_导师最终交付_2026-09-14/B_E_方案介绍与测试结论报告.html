@@ -1,0 +1,1276 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<title>面向多轮交互式长编程任务的记忆自优化：B+E 方案介绍与测试结论</title>
+<style>
+@font-face { font-family: ReportSans; src: url("file:///usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"); }
+@font-face { font-family: ReportSerif; src: url("file:///usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"); }
+@page {
+  size: A4; margin: 18mm 17mm 18mm;
+  @top-left { content: "题目三 · B+E 方案介绍与测试结论"; font: 7.3pt ReportSans; color: #667085; }
+  @top-right { content: "2026-09-14"; font: 7.3pt ReportSans; color: #667085; }
+  @bottom-center { content: counter(page); font: 8pt ReportSans; color: #667085; }
+}
+@page:first { @top-left { content: none; } @top-right { content: none; } @bottom-center { content: none; } }
+* { box-sizing: border-box; }
+html, body { background: #fff; color: #172033; }
+body { margin: 0; font: 9pt/1.68 ReportSans, sans-serif; }
+main { max-width: 176mm; margin: 0 auto; }
+a { color: #215bb5; text-decoration: none; overflow-wrap: anywhere; }
+p { margin: 0 0 3.2mm; orphans: 3; widows: 3; }
+h1, h2, h3 { break-after: avoid; }
+h1 { margin: 9mm 0 4mm; padding-bottom: 2mm; border-bottom: .35mm solid #cfd8e6;
+  color: #102a56; font: 700 16pt/1.3 ReportSerif, serif; }
+h2 { margin: 6mm 0 2.5mm; color: #183b72; font: 700 11.5pt/1.35 ReportSans, sans-serif; }
+h3 { margin: 4mm 0 2mm; color: #24466f; font-size: 9.8pt; }
+ul, ol { margin: 1mm 0 4mm; padding-left: 6mm; }
+li { margin: 1mm 0; }
+strong { color: #111827; }
+code { font: 7.7pt "DejaVu Sans Mono", monospace; background: #eef2f7; color: #26364f;
+  padding: .2mm .8mm; border-radius: .7mm; overflow-wrap: anywhere; }
+pre { margin: 3mm 0 5mm; padding: 3.5mm 4.5mm; border-radius: 1.5mm; color: #eaf0fa;
+  background: #17243a; font: 7.1pt/1.5 "DejaVu Sans Mono", monospace; white-space: pre-wrap; break-inside: avoid; }
+pre code { padding: 0; color: inherit; background: transparent; }
+table { width: 100%; margin: 2.5mm 0 5mm; border-collapse: collapse; font-size: 7.35pt;
+  line-height: 1.42; break-inside: avoid; }
+th, td { padding: 1.8mm 2mm; border: .22mm solid #d6dee9; vertical-align: top; }
+th { background: #eaf0f8; color: #163866; text-align: left; font-weight: 700; }
+tbody tr:nth-child(even) td { background: #f8fafc; }
+blockquote { margin: 3.5mm 0 5mm; padding: 3mm 4mm; border-left: 1.1mm solid #3c72c4;
+  background: #f1f5fb; color: #33445e; }
+hr { margin: 8mm 0; border: 0; border-top: .3mm solid #d5dce7; }
+.page-break { page-break-after: always; height: 0; }
+.cover { height: 250mm; padding: 25mm 7mm 10mm; display: flex; flex-direction: column;
+  justify-content: flex-start; background: #fff; color: #15223a; }
+.cover h1 { margin: 12mm 0 5mm; padding: 0; border: 0; color: #10284f;
+  font: 700 26pt/1.28 ReportSerif, serif; }
+.cover-kicker { color: #315f9f; font-size: 10pt; letter-spacing: 1.7mm; font-weight: 700; }
+.cover-subtitle { color: #244c82; font-size: 13pt; line-height: 1.65; }
+.cover-rule { width: 42mm; margin: 13mm 0 8mm; border-top: 1.4mm solid #2d64ad; }
+.cover-type { color: #132f5c; font-size: 16pt; font-weight: 700; }
+.cover > p { width: 125mm; margin-top: 5mm; color: #55657d; font-size: 10pt; }
+.cover-meta { margin-top: auto; width: 142mm; border-top: .3mm solid #cbd5e1; padding-top: 5mm; }
+.cover-meta div { display: grid; grid-template-columns: 27mm 1fr; margin: 2mm 0; font-size: 8.5pt; }
+.cover-meta span { color: #7b8799; } .cover-meta b { color: #243650; font-weight: 500; }
+.key-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 6mm 0 8mm; }
+.key-results div { padding: 4mm 2mm; border: .3mm solid #c8d5e6; border-radius: 1.5mm; text-align: center; background: #f7f9fc; }
+.key-results b { display: block; color: #174e91; font-size: 15pt; }
+.key-results span { display: block; margin-top: 1mm; color: #5a687c; font-size: 7.3pt; line-height: 1.45; }
+.flow-diagram { display: grid; grid-template-columns: 1fr 5mm 1fr 5mm 1fr 5mm 1fr 5mm 1fr;
+  gap: 1.5mm; align-items: center; margin: 5mm 0 7mm; padding: 4mm; border: .3mm solid #ccd7e5;
+  background: #f8fafc; break-inside: avoid; }
+.flow-diagram div { padding: 3mm 2mm; border: .25mm solid #c2d1e5; border-radius: 1mm; text-align: center; background: #fff; }
+.flow-diagram b, .flow-diagram span { display: block; }
+.flow-diagram b { color: #194d8c; font-size: 8pt; }
+.flow-diagram span { margin-top: 1mm; color: #627085; font-size: 6.8pt; line-height: 1.35; }
+.flow-diagram i { color: #4976ad; text-align: center; font-style: normal; }
+.toc { columns: 2; column-gap: 12mm; margin: 4mm 0 10mm; }
+.toc a { display: flex; gap: 2mm; margin: 1.7mm 0; color: #263b5b; font-size: 8.4pt; break-inside: avoid; }
+.toc a span:first-child { flex: 1; border-bottom: .2mm dotted #c0c9d7; }
+.toc a span:last-child::after { content: target-counter(attr(data-href), page); }
+.source-note { color: #697586; font-size: 7.5pt; }
+</style></head><body><main><section class="cover">
+  <div class="cover-kicker">题目三 · 最终成果报告</div>
+  <h1 id="section-1">面向多轮交互式长编程任务的记忆自优化</h1>
+  <div class="cover-subtitle">方向 B：多轮交互中的高置信优化反馈<br>方向 E：记忆生命周期——更新、过时与遗忘</div>
+  <div class="cover-rule"></div>
+  <div class="cover-type">方案介绍 + 测试结论报告</div>
+  <p>基于 MemoryCore v2.0.0-beta.1 的可演化项目记忆、编码代理执行闭环与公开数据验证</p>
+  <div class="cover-meta">
+    <div><span>日期</span><b>2026-09-14</b></div>
+    <div><span>分支</span><b>delivery/topic3-be-project-memory-v1</b></div>
+    <div><span>实现快照</span><b>84ba04dee30bd72d7e9f9e57365c5015e7cd5e6d</b></div>
+    <div><span>代码评审</span><b>GitHub Pull Request #4</b></div>
+  </div>
+</section>
+<div class="page-break"></div>
+<h1 id="section-2">报告摘要</h1>
+<p>长程编码任务中的异常类型、默认参数、兼容边界和目录例外，常常只存在于早期用户纠正或 review 中。
+代理忘记这些决定会重复犯错；无差别注入全部历史又会引入过时信息、作用域误用和额外成本。本课题选择
+原题 B、E 两个方向，在 MemoryCore v2.0.0-beta.1 上实现旁路式项目记忆：B 保存可追溯、可限定、
+可演化的反馈，E 将其接入编码、检查、恢复和审阅闭环。</p>
+<p>最终系统默认保留用户原话，不调用模型总结；结构化约束必须具有唯一原文引用、合法作用域和明确前任，
+并按项目 revision 持久复用。编码侧保存 prompt、context、模型原始事件、usage、checker、工作区差异
+和持久化状态。公开验证覆盖 MemoryCode 360 段对话与 4,182 个查询、8 个公开项目家族与 16 个有效
+顺序任务，以及 CUPID、ValidMem、Trigger、STALE 的补充组件实验。</p>
+<p>核心结果是：公开项目家族按独立首任务计 <strong>2 胜 0 负 6 平</strong>，严重回归 0；MemoryCode 全部 10 个
+更新 dialogue 中，Codex 使用完整原话为 <strong>7/10</strong>，无历史为 <strong>0/10</strong>；机制修正后的独立确认集由
+<strong>9/10 提升至 10/10</strong>。工程侧三套主测试 <strong>260/260</strong> 通过；模型前 bridge 由 4 个进程收敛至 1 个，
+20 组三臂逐字等价验证中 mean/p95 固定开销下降 <strong>46.1%/46.5%</strong>。</p>
+<p>现有证据支持“项目历史能在维护者选择无法由当前源码唯一推出时改善编码结果”，不支持普遍优于所有
+编码代理或开源记忆系统。报告保留负结果、失效矩阵和未完成边界，不用不完整调用补数。</p>
+<div class="key-results">
+  <div><b>2–0–6</b><span>公开项目家族<br>胜–负–平</span></div>
+  <div><b>7/10</b><span>Codex 使用更新历史<br>无历史 0/10</span></div>
+  <div><b>260</b><span>主工程测试<br>全部通过</span></div>
+  <div><b>−46.1%</b><span>模型前 bridge<br>平均固定开销</span></div>
+</div>
+<h1 id="section-3">目录</h1>
+<div class="toc"><a href="#section-4"><span>0. 原始课题描述与本次选题</span><span data-href="#section-4"></span></a><a href="#section-5"><span>0.1 方向 B 原文</span><span data-href="#section-5"></span></a><a href="#section-6"><span>0.2 方向 E 原文</span><span data-href="#section-6"></span></a><a href="#section-7"><span>0.3 原题目标、非目标与必交付</span><span data-href="#section-7"></span></a><a href="#section-8"><span>0.4 B+E 闭环</span><span data-href="#section-8"></span></a><a href="#section-9"><span>1. 完成的工作与主要贡献</span><span data-href="#section-9"></span></a><a href="#section-10"><span>1.1 最终上交材料</span><span data-href="#section-10"></span></a><a href="#section-11"><span>1.2 设计创新与技术贡献</span><span data-href="#section-11"></span></a><a href="#section-12"><span>1.3 可核对的工作量</span><span data-href="#section-12"></span></a><a href="#section-13"><span>2. 问题定义与目标</span><span data-href="#section-13"></span></a><a href="#section-14"><span>3. 方案设计</span><span data-href="#section-14"></span></a><a href="#section-15"><span>3.1 B：有来源、有范围、可演化的反馈记忆</span><span data-href="#section-15"></span></a><a href="#section-16"><span>3.2 E：从模型调用到代码检查的证据闭环</span><span data-href="#section-16"></span></a><a href="#section-17"><span>3.3 正确性约束下的运行时优化</span><span data-href="#section-17"></span></a><a href="#section-18"><span>3.4 系统边界</span><span data-href="#section-18"></span></a><a href="#section-19"><span>4. 实现与测试代码清单</span><span data-href="#section-19"></span></a><a href="#section-20"><span>4.1 主要实现</span><span data-href="#section-20"></span></a><a href="#section-21"><span>4.2 主要测试</span><span data-href="#section-21"></span></a><a href="#section-22"><span>5. 测试方法</span><span data-href="#section-22"></span></a><a href="#section-23"><span>5.1 工程验证</span><span data-href="#section-23"></span></a><a href="#section-24"><span>5.2 效果验证</span><span data-href="#section-24"></span></a><a href="#section-25"><span>6. 测试结果</span><span data-href="#section-25"></span></a><a href="#section-26"><span>6.1 最终工程结果</span><span data-href="#section-26"></span></a><a href="#section-27"><span>6.2 受控公开仓库编码任务</span><span data-href="#section-27"></span></a><a href="#section-28"><span>6.3 公共数据集与组件研究</span><span data-href="#section-28"></span></a><a href="#section-29"><span>6.4 结论的适用范围</span><span data-href="#section-29"></span></a><a href="#section-30"><span>7. 复现工程测试</span><span data-href="#section-30"></span></a><a href="#section-31"><span>8. 最终结论</span><span data-href="#section-31"></span></a><a href="#section-32"><span>9. 详细量化附录</span><span data-href="#section-32"></span></a><a href="#section-33"><span>9.1 MemoryCode 数据与全量检索</span><span data-href="#section-33"></span></a><a href="#section-34"><span>9.2 MemoryCode 24-dialogue、72-call 三臂生成</span><span data-href="#section-34"></span></a><a href="#section-35"><span>9.3 Codex 更新层与 focus</span><span data-href="#section-35"></span></a><a href="#section-36"><span>9.4 CUPID、ValidMem、Trigger、STALE</span><span data-href="#section-36"></span></a><a href="#section-37"><span>9.5 公开项目逐矩阵结果</span><span data-href="#section-37"></span></a><a href="#section-38"><span>9.6 失效矩阵记录</span><span data-href="#section-38"></span></a><a href="#section-39"><span>9.7 工程、fallback 与恢复</span><span data-href="#section-39"></span></a><a href="#section-40"><span>9.8 AI infra 最终结果</span><span data-href="#section-40"></span></a><a href="#section-41"><span>10. 实现细节与代码工作量</span><span data-href="#section-41"></span></a><a href="#section-42"><span>10.1 核心数据合同</span><span data-href="#section-42"></span></a><a href="#section-43"><span>10.2 执行与证据顺序</span><span data-href="#section-43"></span></a><a href="#section-44"><span>10.3 代码规模</span><span data-href="#section-44"></span></a><a href="#section-45"><span>11. 结论边界与最终判断</span><span data-href="#section-45"></span></a><a href="#section-46"><span>12. 复现与移植</span><span data-href="#section-46"></span></a><a href="#section-47"><span>13. 参考资料</span><span data-href="#section-47"></span></a></div>
+<div class="page-break"></div>
+<h1 id="section-4">0. 原始课题描述与本次选题</h1>
+<p>以下引用来自活动方原始任务书，仅调整排版，不改变内容。</p>
+<blockquote>
+<p><strong>题目三：面向多轮交互式长编程任务的记忆自优化</strong></p>
+<p>开源 MemoryCore（建议 tag <code>v2.0.0-beta.1</code>）提供分层记忆（L0 对话 / L1 原子记忆 / L2 场景 /
+L3 画像）、HTTP Gateway，以及检索、抽取、注入等基座能力。本地检索基座通常包括 FTS5、
+SQLite Embedding / 向量检索与多路融合（如 RRF）；抽取、写入、注入预算、<code>maxResults</code> /
+<code>strategy</code> 等也多为静态配置。</p>
+<p>本课题的应用场景是：<strong>多轮交互式长编程任务中的记忆自优化</strong>。公开可用的、真正对应这一场景的
+评测集目前几乎没有；活动方的真实用户数据也不能外发。因此本题不要求在公开编程 Agent 集上给出
+最终业务结论，而要求先做调研，在公开长对话任务上完成可复现实验，并以可审阅 PR 和可替换适配层
+交付，使方法后续可接入内部多轮编程数据而不用重写主逻辑。</p>
+</blockquote>
+<h2 id="section-5">0.1 方向 B 原文</h2>
+<blockquote>
+<p><strong>方向 B. 多轮交互中的高置信优化反馈</strong></p>
+<p>自优化需要监督信号。多轮对话里，显式“你忘了 / 记错了 / 请记住”一类反馈往往精确但极稀；
+更常见的是当轮纠错、重述约束、撤销重做、任务失败等弱信号，直接拿来当监督又容易假阳性。</p>
+<p>本题希望探索：在多轮交互中，如何获得能驱动记忆策略更新的反馈，并使<strong>置信度可估计、成本可接受</strong>。
+公开长对话上验证信号与判定方法；同样要求代码能接到内部数据。</p>
+</blockquote>
+<h2 id="section-6">0.2 方向 E 原文</h2>
+<blockquote>
+<p><strong>方向 E. 记忆生命周期：更新、过时与遗忘</strong></p>
+<p>长程任务中约束会变（方案推翻、接口更名、环境切换）。做有上限的更新 / 失效 / 遗忘策略，避免
+过时记忆在后续轮次被当作事实注入。须有可复现的过时记忆用例，并报告误删代价。</p>
+</blockquote>
+<h2 id="section-7">0.3 原题目标、非目标与必交付</h2>
+<p>原题把“自优化”限定为：根据评测或受控反馈更新策略参数、辅助结构或决策规则；不是一次性静态配置，
+也不是重写 FTS5、向量引擎或抽取模型。能力必须可关闭，读失败、超时和结构损坏时必须硬回退。
+公开长对话只用于方法验证，不能写成真实编程业务结论；适配层应允许后续换成内部多轮编程数据。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">序号</th>
+<th>原题必交付</th>
+<th>本次对应成果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>调研报告 + 设计说明（问题、相关工作、方法、协议、演化边界、fallback、移植说明）</td>
+<td>本报告第 1–3、7–8 章及移植说明</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>公开长对话 Eval Runner 与结构化结果（含基座基线）</td>
+<td>MemoryCode runner、JSON 结果与第 6 章</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>所选方向实现及与基座对比（或方法验证）</td>
+<td>ProjectMemory、项目代理、公开项目与组件实验</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>关闭开关与强制失败回退验证</td>
+<td>runtime contract、状态机与恢复测试</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td>可审阅 PR：数据适配层与内部移植说明</td>
+<td>PR #4、<code>PORTING.md</code>、源码提交包</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-8">0.4 B+E 闭环</h2>
+<div class="flow-diagram">
+  <div><b>多轮输入</b><span>纠正、约束、工具回执</span></div><i>→</i>
+  <div><b>B：证据绑定</b><span>原话、对象、范围、置信边界</span></div><i>→</i>
+  <div><b>E：生命周期</b><span>当前版本、历史版本、撤销</span></div><i>→</i>
+  <div><b>编码执行</b><span>代理、checker、diff、usage</span></div><i>→</i>
+  <div><b>再评估</b><span>收益、回归、成本、fallback</span></div>
+</div>
+<p>本实现不把普通任务失败自动解释为记忆错误，也不让工具输出直接生成规范性约束。低置信信号最多用于
+候选提名；只有用户原文、合法来源和明确范围通过校验后，才允许进入可演化当前视图。</p>
+<hr />
+<h1 id="section-9">1. 完成的工作与主要贡献</h1>
+<h2 id="section-10">1.1 最终上交材料</h2>
+<p>五项验收要求与导师三项上交物的逐项入口见
+<a href="B_E_DELIVERY_INDEX_2026-09-14.md"><code>B_E_DELIVERY_INDEX_2026-09-14.md</code></a>。</p>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th>本次交付</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方案实现代码</td>
+<td>TypeScript 项目记忆状态机、SQLite 接口、Python 执行宿主、Codex／Claude 后端、差异捕获、安装 CLI</td>
+<td>完成</td>
+</tr>
+<tr>
+<td>测试代码</td>
+<td>TypeScript 单元／集成测试、Python 宿主／后端／差异测试、公共评测器测试、安装包 smoke、GitHub Actions</td>
+<td>完成</td>
+</tr>
+<tr>
+<td>方案介绍＋测试结论报告</td>
+<td>本文；给出问题、设计、实验协议、量化结果、复现方式和适用范围</td>
+<td>完成</td>
+</tr>
+</tbody>
+</table>
+<p>代码可读性专项复盘见
+<a href="B_E_CODE_READABILITY_REVIEW_2026-09-14.md"><code>B_E_CODE_READABILITY_REVIEW_2026-09-14.md</code></a>。
+CLI 的用户与维护说明见
+<a href="../scripts/project-agent/README.md"><code>scripts/project-agent/README.md</code></a>。本文是给导师提交时应优先阅读的
+单一总报告，前两份作为实现附录。</p>
+<h2 id="section-11">1.2 设计创新与技术贡献</h2>
+<ol>
+<li><strong>把反馈记忆从文本缓存提升为可演化状态。</strong> 我为观察、约束和版本关系设计了确定性标识，加入
+owner／project 隔离、路径与动作范围、显式替代链和撤销语义。原始证据始终保留，当前规则可以更新，
+两者不再混为一层。</li>
+<li><strong>把 B 和 E 接成可审计的编码闭环。</strong> 记忆不只参与提示构造，还与 Codex／Claude Code 执行、独立
+checker、原始事件、usage、工作区 diff 和中断恢复关联。这样能够区分“检索到了”“模型用了”和
+“代码最终通过”三个不同问题。</li>
+<li><strong>建立针对编码记忆的严格配对评测。</strong> 评测以独立项目家族为统计单位，冻结 base、任务、checker 和
+arm 隔离；未来 Git 引用、跨 arm 读取、联网搜索和 checker 语义漏洞都会使整组实验失效。五轮有问题
+的矩阵被完整保留并排除，最终只采用通过近错实现预检的 v4 和 v10。</li>
+<li><strong>在保持语义等价的条件下优化运行时。</strong> 编译结果按 revision 复用，SQLite bridge 纳入正式构建，
+<code>prepareRun</code> 在同一进程内完成快照读取、范围选择和任务写入。优化前后不仅比较时间，还逐字比较注入
+上下文和最终数据库快照，避免用性能改动悄悄改变记忆行为。</li>
+</ol>
+<h2 id="section-12">1.3 可核对的工作量</h2>
+<table>
+<thead>
+<tr>
+<th>工作面</th>
+<th>完成规模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>产品实现与交付</td>
+<td>PR 相对研究基线覆盖 41 个文件；包含状态机、SQLite 适配、双后端宿主、差异捕获、安装 CLI、构建与 CI</td>
+</tr>
+<tr>
+<td>公开项目实验</td>
+<td>8 个独立项目家族、16 个顺序编码任务、2 套有效矩阵；另对 v5–v9 五套失效矩阵逐一定位并保留证据</td>
+</tr>
+<tr>
+<td>MemoryCode 研究</td>
+<td>全量覆盖 360 段对话、4,182 个检索查询；冻结生成集 24 段对话、72 次调用；三组关键 Codex 实验为 20＋30＋30 次有效调用</td>
+</tr>
+<tr>
+<td>工程测试</td>
+<td>三套主测试共 260 项：MemoryCore 204、项目代理 25、公共评测 31；另有最低 Node、构建、安装包和尺寸门禁</td>
+</tr>
+<tr>
+<td>运行时验证</td>
+<td>20 组三臂配对，逐组比较上下文、数据库终态和时延；安装包在空目录完成真实安装与读写 smoke</td>
+</tr>
+</tbody>
+</table>
+<h1 id="section-13">2. 问题定义与目标</h1>
+<p>普通编码代理通常能读取当前请求和仓库，但许多真正影响实现的约定只存在于早先的用户纠正、review 意见
+或例外说明中。例如，源码可以同时容纳两种异常类型，真正应采用哪一种只能由维护者历史决定。直接注入
+全部历史会增加成本，也可能把旧要求错误应用到新目录；只保留自动摘要，又容易丢失“何时适用”和
+“为什么这样做”。因此，我把问题拆成五个可验证的问题：</p>
+<ol>
+<li>哪条反馈应保存，出处是什么；</li>
+<li>它对哪个项目、路径和动作生效；</li>
+<li>新要求出现后，旧要求如何保留但不再作为当前规则；</li>
+<li>编码结果是否真的通过独立行为检查；</li>
+<li>失败、中断或读取异常时，系统是否留下可审计证据并安全退回。</li>
+</ol>
+<p>这里的效果指标不是“保存了多少条记忆”，也不是单独一次 checker 是否通过，而是同一任务、同一模型下
+有记忆与无记忆的配对行为差异，同时检查同主题控制是否回归、上下文和模型成本是否增加，以及完整证据
+能否由第三方复核。</p>
+<h1 id="section-14">3. 方案设计</h1>
+<h2 id="section-15">3.1 B：有来源、有范围、可演化的反馈记忆</h2>
+<p><code>remember</code> 默认保存完整用户原话，不调用模型。观察与实验性约束都有确定性 ID；任何结构化约束都必须
+引用真实存在的原文片段。这样做的目的，是把“证据是什么”和“系统怎样解释证据”分开：解释可以被修正，
+原始证据不会被摘要覆盖。</p>
+<p>记忆的适用范围由 owner、project、动作和路径共同决定。非规范路径、未知动作或非法预算会在读取记忆和
+调用模型之前被拒绝，不会因为异常而退回到范围更宽的历史。新规则只有明确指向同范围前任时才建立
+<code>supersedes</code> 关系；旧证据仍可审计，但不会重新成为当前规则，必要时还可以通过 <code>retract</code> 显式撤销。</p>
+<p>结构化编译通过 <code>remember --compile</code> 单独开启，每次最多提议四条带引用约束。来源、容量或格式校验失败时，
+系统只保留原话，不写入半成品规则。被接受的编译结果随项目 revision 持久化；revision 不变时，后续编码
+直接复用，不再重复付出编译调用。系统同时保留 <code>scoped</code>、<code>raw</code> 和 <code>off</code> 三种模式，分别用于范围化记忆、
+完整原话和无记忆基线。</p>
+<h2 id="section-16">3.2 E：从模型调用到代码检查的证据闭环</h2>
+<p>运行链路保持单向，每一层只承担一种职责：</p>
+<pre><code class="language-text">memory-agent
+  -&gt; project_agent.py（命令编排、持久化回执、恢复）
+     -&gt; backend.py（Codex／Claude CLI、事件流和进程生命周期）
+     -&gt; store.ts -&gt; ProjectMemory（SQLite、范围、版本与谱系）
+     -&gt; changes.py（相对 HEAD 的可审阅差异）
+     -&gt; 独立 checker（行为结果，不充当用户反馈）
+</code></pre>
+<p>每次 <code>run</code> 都先保存任务，再调用编码后端，随后记录 agent 完成状态并执行 argv 形式的 checker。提示、
+记忆上下文、原始 backend 事件、usage、模型输出、检查结果和 <code>changes.diff</code> 分开落盘，审阅者可以沿一次
+run 还原完整过程。超时或 Ctrl-C 会终止该进程组并留下 partial evidence。若编码已经完成、检查阶段却
+中断，<code>check-run</code> 可以只补跑 checker，不重复调用模型，也不新增记忆；对于人工接管的未完成 diff，
+<code>--allow-incomplete</code> 会保留 <code>completion_confirmed=false</code>，避免把人工确认包装成模型完成。</p>
+<p>读取失败时，编码任务退回当前请求并记录原因；如果读取已经成功、任务写回随后失败，已取得的上下文仍然
+可以使用。<code>task_persisted</code>、<code>receipt_persisted</code> 和 <code>memory_error</code> 分开记录，因此“没有记忆”和“存储
+出错”不会在回执中表现成同一种状态。</p>
+<h2 id="section-17">3.3 正确性约束下的运行时优化</h2>
+<p>性能优化遵守一个简单约束：注入模型的上下文和任务后的数据库状态必须保持逐字一致。在这个约束下，
+我依次完成了三步改造：把相同 revision 的编译结果移出编码热路径；把 TypeScript bridge 纳入正式
+<code>tsdown</code> 构建；再用 <code>prepareRun</code> 在一个 Node 进程内完成快照读取、范围选择和任务写入。安装后的 CLI
+执行预编译产物，源码检出没有构建产物时仍可回退到 <code>tsx</code>。</p>
+<p>最终三臂实验包含 20 组配对。source/<code>tsx</code> 双调用、precompiled 双调用和 precompiled one-shot 的均值
+分别为 0.454、0.323、0.245 秒，p95 分别为 0.472、0.336、0.253 秒。最终路径把模型前桥接进程由 4 个
+降为 1 个，相对 source/<code>tsx</code> 双调用的均值和 p95 下降 46.1% 和 46.5%；20/20 组上下文和最终快照完全
+一致。该测量只覆盖本地 Python→Node→SQLite 固定开销，不包含模型、网络或 checker。</p>
+<h2 id="section-18">3.4 系统边界</h2>
+<ul>
+<li>SQLite 单写者，CLI 文件锁只协调同一状态目录；没有多设备同步或后台归档。</li>
+<li>默认最多 128 条观察；一次普通 <code>run</code> 通常使用任务和工具回执两条，容量满后仍可读旧上下文，但不能
+假装新任务已持久化。</li>
+<li>scoped 预算不足时回退完整原话而不静默裁切，因此上下文可能超过目标字节预算。</li>
+<li><code>changes.diff</code> 相对当前 HEAD，可能包含用户已有编辑；它是审阅材料，不是模型归因证明。</li>
+<li>当前交付没有自动接入 Gateway，也没有发布新的 npm 正式版本或实现自动语义纠错。</li>
+<li>提示 JSON 采用无损紧凑序列化；在既有 6 份顺序任务 context 上字节数从 4,383 降到 4,247
+（3.10%）；这是确定性字节重算，不等同于 token 费用或模型质量实验。</li>
+</ul>
+<h1 id="section-19">4. 实现与测试代码清单</h1>
+<h2 id="section-20">4.1 主要实现</h2>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/core/memory-feedback/project-memory.ts</code></td>
+<td>项目记忆状态机、校验、范围、版本链、撤销与上下文视图</td>
+</tr>
+<tr>
+<td><code>src/core/memory-feedback/index.ts</code></td>
+<td>明确导出的项目记忆 API 与类型</td>
+</tr>
+<tr>
+<td><code>src/core/store/sqlite.ts</code>、<code>types.ts</code></td>
+<td>原生 SQLite 精确记录能力与存储合同</td>
+</tr>
+<tr>
+<td><code>scripts/project-agent/project_agent.py</code></td>
+<td>remember／context／run／history／retract／check-run 编排</td>
+</tr>
+<tr>
+<td><code>scripts/project-agent/backend.py</code></td>
+<td>Codex／Claude CLI、实时 JSONL、usage、超时与取消</td>
+</tr>
+<tr>
+<td><code>scripts/project-agent/changes.py</code></td>
+<td>已跟踪和普通新文件的有界差异捕获</td>
+</tr>
+<tr>
+<td><code>scripts/project-agent/store.ts</code></td>
+<td>Python 到 MemoryCore SQLite 的 JSON 桥接</td>
+</tr>
+<tr>
+<td><code>bin/memory-agent.mjs</code></td>
+<td>安装后统一命令入口与运行时定位</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-21">4.2 主要测试</h2>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>覆盖重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/core/memory-feedback/project-memory.test.ts</code></td>
+<td>来源校验、隔离、范围、更新链、损坏链、撤销、容量和 fallback</td>
+</tr>
+<tr>
+<td><code>scripts/project-agent/test_project_agent.py</code></td>
+<td>CLI 流程、回执、错误边界、恢复与读写失败语义</td>
+</tr>
+<tr>
+<td><code>scripts/project-agent/test_backend.py</code></td>
+<td>后端命令、实时日志、超时、取消、进程组终止和 usage</td>
+</tr>
+<tr>
+<td><code>scripts/project-agent/test_changes.py</code></td>
+<td>已有／新增文件差异、符号链接、容量和遗漏原因</td>
+</tr>
+<tr>
+<td><code>benchmarks/topic3-be-agent-product-v1/test_*.py</code></td>
+<td>runner 隔离合同、公共结果聚合、MemoryCode 评分和证据对齐</td>
+</tr>
+<tr>
+<td><code>benchmarks/topic3-be-agent-product-v1/project_memory_runtime_benchmark.py</code></td>
+<td>source／预编译／one-shot 三臂调用数、上下文与最终状态等价性、配对时延</td>
+</tr>
+<tr>
+<td><code>scripts/ci/smoke-memory-agent-package.sh</code></td>
+<td>从生成 tarball 安装后的入口、子路径导出及 remember→context→history</td>
+</tr>
+<tr>
+<td><code>.github/workflows/pr-ci.yml</code></td>
+<td>全量／最低版本测试、格式、构建、打包、尺寸、manifest 和隔离门禁</td>
+</tr>
+</tbody>
+</table>
+<h1 id="section-22">5. 测试方法</h1>
+<h2 id="section-23">5.1 工程验证</h2>
+<p>工程测试覆盖六层：状态机、执行宿主、公共评测工具、完整仓库回归、最低支持版本和最终安装包。单元测试
+不依赖网络或真实模型；安装 smoke 则在空消费者目录中安装生成的 <code>.tgz</code>，专门检查“源码工作区能跑、
+发布包不能跑”这一类交付问题。PR 的每个新 head 都由 GitHub Actions 重跑相同门禁。</p>
+<h2 id="section-24">5.2 效果验证</h2>
+<p>效果实验固定任务、base commit、模型配置和 checker，各 arm 使用独立文件系统并禁用 web search，
+同时保存完整事件与 usage。顺序任务的第二步可能继承第一步代码，因此我把“独立项目家族的首个必要
+任务”作为胜负单位，避免把一次修复重复计算成多次收益。</p>
+<p>评测中最耗时、也最重要的工作，是判断一个分数是否真的由记忆带来。v5–v9 先后暴露未来 Git ref、
+兄弟 arm 路径、联网搜索、Git porcelain 解析和 checker 语义覆盖等问题。这五套矩阵全部保留用于复盘，
+但不进入最终成绩。只有通过隔离扫描、上游实现、独立等价实现和 near-miss 反例预检的 v4 与 v10 被
+计入产品结论。最终样本量因此更小，但每一个胜例都能说明“历史提供了当前代码之外的必要决策”。</p>
+<h1 id="section-25">6. 测试结果</h1>
+<h2 id="section-26">6.1 最终工程结果</h2>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th style="text-align:right">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MemoryCore Node 24 全量 Vitest</td>
+<td style="text-align:right">24 个文件，204/204 通过</td>
+</tr>
+<tr>
+<td>Python 项目代理</td>
+<td style="text-align:right">25/25 通过</td>
+</tr>
+<tr>
+<td>Python agent-product／公共评测 runner</td>
+<td style="text-align:right">31/31 通过</td>
+</tr>
+<tr>
+<td>项目记忆 runtime 三臂配对</td>
+<td style="text-align:right">20/20 上下文、最终快照等价；模型调用 0</td>
+</tr>
+<tr>
+<td>最低 Node 22.19 反馈模块</td>
+<td style="text-align:right">5 个文件，30/30 通过</td>
+</tr>
+<tr>
+<td>Black 25.1.0＋Prettier 3.5.3</td>
+<td style="text-align:right">通过</td>
+</tr>
+<tr>
+<td><code>npm run build</code></td>
+<td style="text-align:right">通过</td>
+</tr>
+<tr>
+<td>生成包</td>
+<td style="text-align:right">376 个文件，1,479,928 bytes，低于 2 MiB 门禁</td>
+</tr>
+<tr>
+<td>空目录安装后的 CLI／SQLite／子路径 smoke</td>
+<td style="text-align:right">通过</td>
+</tr>
+<tr>
+<td>Python 编译、shell 语法、<code>git diff --check</code></td>
+<td style="text-align:right">通过</td>
+</tr>
+</tbody>
+</table>
+<p>终检还发现，早期公共评测夹具缺少现行回执协议要求的 <code>shard</code>、模型和解码字段。我补全了合法回执，
+并把公共评测套件纳入 CI，而没有放宽评分器。随后增加跨回执的模型、解码和 token 限额一致性检查；
+最终 31 项公共评测测试全部通过，原有 72 条模型回执的重算结果逐字段保持不变。这项修复没有改变实验
+分数，但补齐了从原始回执到报告数字之间的验证链。</p>
+<h2 id="section-27">6.2 受控公开仓库编码任务</h2>
+<table>
+<thead>
+<tr>
+<th>有效矩阵</th>
+<th>独立项目家族</th>
+<th style="text-align:right">Full raw</th>
+<th style="text-align:right">No history</th>
+<th style="text-align:right">首任务家族胜负</th>
+<th style="text-align:right">严重回归</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>held-out v4</td>
+<td>packaging、Flask、tqdm、Uvicorn</td>
+<td style="text-align:right">8/8</td>
+<td style="text-align:right">6/8</td>
+<td style="text-align:right">1 胜 0 负 3 平</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>held-out v10</td>
+<td>h2、pycodestyle、path、importlib_resources</td>
+<td style="text-align:right">8/8</td>
+<td style="text-align:right">6/8</td>
+<td style="text-align:right">1 胜 0 负 3 平</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>合计（按独立家族首任务）</td>
+<td>8 个家族</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right"><strong>2 胜 0 负 6 平</strong></td>
+<td style="text-align:right"><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>两个有效收益都属于“当前代码和通用常识不能唯一确定维护者选择”的情况：tqdm 需要保留已知长度提示、
+忽略未知提示；importlib_resources 需要采用指定异常类型及诊断语义。完整原话给出了决定性历史，
+no-history 选择了合理但不被项目接受的另一实现。</p>
+<p>两套矩阵中的成本都只测量一次，只能作为机制线索。v4 中 full raw 相比 no-history 的总输入、非缓存输入
+和墙钟分别低 30.16%、17.06%、12.46%；v10 分别低 51.28%、57.01%、34.40%。合理解释是，明确的历史
+约定减少了代理探索，而不是“上下文越多成本越低”。v4 的 raw top-8 虽然同样 8/8，并少注入 30.86%
+上下文，却多用了 7.43% 总输入、23.14% 非缓存输入和 4.04% 墙钟，因此没有被采用为默认路径。</p>
+<h2 id="section-28">6.3 公共数据集与组件研究</h2>
+<p>下表汇总不同公开数据和组件实验。任务、模型与指标并不相同，所以分别报告，不合成为一个失真的总分。</p>
+<table>
+<thead>
+<tr>
+<th>数据／任务</th>
+<th>量化结果</th>
+<th>支持的结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MemoryCode 全量检索</td>
+<td>360 对话、4,182 查询；最新来源 recall@8 45.89%，100-session 为 20.01%；更新题 stale-only 24.12%</td>
+<td>固定 top-8 在长历史和版本更新上会漏证据</td>
+</tr>
+<tr>
+<td>MemoryCode 冻结生成</td>
+<td>24 对话、72 调用；full history strict 12.50%，FTS 16.67%，1 胜 0 负 23 平；10 个更新题两者均 0%</td>
+<td>小模型下普通检索没有高置信质量收益</td>
+</tr>
+<tr>
+<td>MemoryCode Codex 完整更新层</td>
+<td>固定全部 10 个更新 dialogue、20/20 调用有效；full raw 7/10，no history 0/10，即 7 胜 0 负 3 平；bootstrap 95% <code>[+0.40,+1.00]</code>，sign <code>p=0.015625</code></td>
+<td>Codex 能从原话历史恢复多数更新约定；这是公开开发数据的方法诊断，不是产品成绩</td>
+</tr>
+<tr>
+<td>MemoryCode focus 不重叠确认</td>
+<td>新 10 个 update dialogue、与此前 34 个已用 dialogue 零重叠；raw 9/10，focus 10/10，1 胜 0 负 9 平；30/30 调用有效</td>
+<td>修正后的两阶段整理得到方向性零观察回归；区间 <code>[0,0.3]</code>、sign <code>p=1.0</code>，仍非高置信普适收益</td>
+</tr>
+<tr>
+<td>MemoryCode source-context 不重叠确认</td>
+<td>再新 10 个 update dialogue、与此前 44 个已用 dialogue 零重叠；raw 9/10、source 9/10，1 胜 1 负 8 平；热编码非缓存输入 0.693 倍</td>
+<td>有明确降本线索，但未过零回归门槛，不启用</td>
+</tr>
+<tr>
+<td>MemoryCode single-pass pilot</td>
+<td>两个已暴露机制题 1 胜 1 负；active-rule 均分回退；非缓存输入 1.107 倍</td>
+<td>在第三题和新留出前按协议停止</td>
+</tr>
+<tr>
+<td>CUPID 纠正 ICL</td>
+<td>相比普通历史 3 胜 4 负 5 平，输入 3.434 倍</td>
+<td>当前规则／画像式反馈学习无稳定净收益</td>
+</tr>
+<tr>
+<td>ValidMem 生命周期</td>
+<td>374/406→387/406，15 胜 2 负；batch sign p=0.125</td>
+<td>支持来源绑定与生命周期方法，不能当编码收益</td>
+</tr>
+<tr>
+<td>Trigger 微任务</td>
+<td>112/140→130/140，21 胜 3 负</td>
+<td>能减少无关记忆操作；同源场景簇限制外推</td>
+</tr>
+<tr>
+<td>STALE 候选提名</td>
+<td>直接绑定和提议＋裁决均 13/16；独立 candidate-only 15/16</td>
+<td>只支持候选提名，不支持自动失效／持久化</td>
+</tr>
+</tbody>
+</table>
+<p>MemoryCode 详细的已提交结果见
+<a href="topic3-be-agent-product-v1/MEMORYCODE_RESULTS.md"><code>topic3-be-agent-product-v1/MEMORYCODE_RESULTS.md</code></a>。
+完整更新层的 3 项冻结平局中，两项来自 attribute 提取器只识别字面 <code>self</code>：对应输出实际使用了
+满足目标后缀的构造器属性，同时遵守另一条“重命名 receiver”的历史约定。接收者感知的 AST 事后
+敏感性为 9/10，真实目标遗漏保留 1 项；因为输出可见后才加入该分析，所以 9/10 只作次级解释，不能
+替换 7/10 主结论。full raw 相比 no history 的总输入、非缓存输入和墙钟分别增加 120.56%、411.37%
+和 51.68%，明确暴露了直接注入完整历史的效率代价。</p>
+<p>focus 的第一批开发集出现 1 个回归，原因是编译器错误地把 method 前缀、后缀、必含子串和数字约束
+视为互斥；只修复该机制后才冻结第二批新集。第二批冻结 official-compatible active-rule 均分为
+88.67%→91.78%；事后 receiver-aware 全规则敏感性为 89.44%→97.00%、3 胜 0 负 7 平，因该聚合在
+输出后新增，只作次级诊断。逐请求冷 focus 为 2.011 倍输入、2.026 倍非缓存输入、1.706 倍墙钟和
+2 倍调用；持久复用编译状态后的实际 coding stage 为 1.009 倍输入、1.101 倍非缓存输入、0.969 倍
+墙钟和相同调用数。compact-history pilot 有目标回归，独立 CLI 的共享前缀 pilot 没有产生非缓存收益，
+两者均已关闭。再进一步的 source-context 在 54 个已用包上确定性减少 37.03% 历史字节，第三批不重叠
+确认的热编码输入／非缓存输入为 raw 的 0.809／0.693 倍，active-rule 为 4 胜 0 负 6 平；但冻结主指标
+为 1 胜 1 负 8 平，仍保持 off。single-pass 在两个机制题上 1 胜 1 负且成本门槛失败，未扩样。
+完整可重算结果位于研究分支 <code>delivery/topic3-be-product-v1</code>，当前冻结 head 为 <code>7e19d4f</code>。</p>
+<p>有效公开仓库矩阵和 Codex 诊断的协议、回执哈希与原始证据保存在研究分支
+<code>delivery/topic3-be-product-v1</code> 及本机 <code>.local-evidence/</code> 归档；产品交付分支通过冻结研究基线继承提交内
+证据，但产品 PR 的增量审阅仍聚焦方案实现、测试与最终报告，不把本机生成产物加入 Git。</p>
+<p>模型侧降本的完整失败门槛见
+<a href="topic3-be-agent-product-v1/MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md"><code>MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md</code></a>；
+已采用的本地 bridge 等价性与时延结果见
+<a href="topic3-be-agent-product-v1/PROJECT_MEMORY_BRIDGE_RESULTS.md"><code>PROJECT_MEMORY_BRIDGE_RESULTS.md</code></a> 和
+<a href="topic3-be-agent-product-v1/PROJECT_MEMORY_RUNTIME_OPTIMIZATION_RESULTS.md"><code>PROJECT_MEMORY_RUNTIME_OPTIMIZATION_RESULTS.md</code></a>。</p>
+<h2 id="section-29">6.4 结论的适用范围</h2>
+<ul>
+<li>尚未选择并运行外部开源项目记忆方案的同任务、同模型对照。</li>
+<li>Claude Code 在早期服务诊断中连续返回 502，没有形成可评分结果；服务失败没有计作质量失败。</li>
+<li>Codex CLI 记录请求模型与 usage，但不能独立确认服务端实际模型身份或账户美元费用。</li>
+<li>现有证据支持实验系统和窄范围收益，不支持总体成功率、商业可用性或普遍优于 Codex／Claude Code／
+开源系统的结论。</li>
+</ul>
+<h1 id="section-30">7. 复现工程测试</h1>
+<p>以下命令不调用模型：</p>
+<pre><code class="language-bash">cd MemoryCore
+npm install --ignore-scripts --legacy-peer-deps
+python3 -m pip install -r scripts/project-agent/requirements-dev.txt
+
+npm run lint:project-agent
+npm test
+npm run test:project-agent
+npm run test:agent-product
+npm run build
+npm pack
+bash scripts/ci/smoke-memory-agent-package.sh ./*.tgz
+</code></pre>
+<p>最低 Node 验证应使用 Node 22.19.0 运行：</p>
+<pre><code class="language-bash">npx vitest run src/core/memory-feedback
+</code></pre>
+<p>真实模型实验不属于普通测试命令。复现时需要独立 worktree、已登录的 backend，以及冻结的 manifest 和
+checker；smoke、旧工作区和已经打开过的任务不能作为新的留出实验。</p>
+<h1 id="section-31">8. 最终结论</h1>
+<p>本项目完成的不是一个孤立的检索算法，而是一套可以安装和审阅的项目记忆系统：它有明确 API、持久状态、
+来源与范围语义、故障回退、检查恢复、完整运行回执、最低版本验证和 CI 门禁。实现代码、测试代码、公共
+实验和本报告已经收束到同一 PR，能够由另一位开发者从安装包开始复核。</p>
+<p>研究上的主要发现是：当任务涉及源码无法唯一决定的维护者选择时，完整原话项目记忆确实能改变编码结果。
+在 8 个公开项目家族上，它带来 2 个独立收益且没有首任务损失；在 MemoryCode 更新任务上，Codex 的
+完整历史基线达到 7/10，无历史为 0/10，修正后的约束整理又在独立确认集上达到 9/10→10/10。与此同时，
+6/8 项目家族仍然打平，统计区间也提醒我们不要把窄范围收益写成普适结论。</p>
+<p>工程上的主要成果是把正确性、可审计性和开销放在同一条链路中优化。编译状态不再在每次编码时重算；
+预编译 one-shot bridge 将模型前进程由 4 个降到 1 个，本地均值和 p95 固定开销下降 46.1% 和 46.5%，
+而 20/20 组上下文与最终快照完全一致。基于这些证据，本项目可以表述为：<strong>完成了一套面向编码代理的
+可演化项目记忆方案，并在公开仓库与长对话数据上验证了其有效边界，同时交付了可安装、可测试、可回退、
+可审计的完整实现。</strong> 外部开源系统的同条件对照与更大规模泛化验证留作后续工作。</p>
+<hr />
+<h1 id="section-32">9. 详细量化附录</h1>
+<p>本附录补充正文中不适合全部展开的协议、逐层指标和失效记录。不同数据集的分母、模型和任务不同，
+所有结果分别报告，不合成为一个失真的“总准确率”。</p>
+<h2 id="section-33">9.1 MemoryCode 数据与全量检索</h2>
+<ul>
+<li>Source commit：<code>1ab87e119b2f9a498de8075219e1c07f6041b394</code></li>
+<li>Hugging Face revision：<code>32d888b11c73c67be91414e571dfe98c5c20feac</code></li>
+<li>规模：360 dialogues、8,400 sessions、4,426 次规则新增、2,913 次规则更新、4,182 个查询</li>
+<li>检索：每个 dialogue 独立 SQLite，原始 session chunk，FTS5，固定 k=8，最新 session 强制保留</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Session 数</th>
+<th style="text-align:right">查询</th>
+<th style="text-align:right">最新来源 recall@8</th>
+<th style="text-align:right">更新查询</th>
+<th style="text-align:right">stale-only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">43</td>
+<td style="text-align:right">100.00%</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">—</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">45</td>
+<td style="text-align:right">100.00%</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">—</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">96.97%</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">0.00%</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">79</td>
+<td style="text-align:right">98.73%</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">0.00%</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:right">108</td>
+<td style="text-align:right">96.30%</td>
+<td style="text-align:right">23</td>
+<td style="text-align:right">0.00%</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:right">152</td>
+<td style="text-align:right">89.47%</td>
+<td style="text-align:right">37</td>
+<td style="text-align:right">0.00%</td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:right">244</td>
+<td style="text-align:right">72.95%</td>
+<td style="text-align:right">49</td>
+<td style="text-align:right">24.49%</td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:right">299</td>
+<td style="text-align:right">70.57%</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">22.73%</td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:right">424</td>
+<td style="text-align:right">55.66%</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">25.84%</td>
+</tr>
+<tr>
+<td style="text-align:right">40</td>
+<td style="text-align:right">545</td>
+<td style="text-align:right">44.40%</td>
+<td style="text-align:right">114</td>
+<td style="text-align:right">42.98%</td>
+</tr>
+<tr>
+<td style="text-align:right">50</td>
+<td style="text-align:right">813</td>
+<td style="text-align:right">38.01%</td>
+<td style="text-align:right">133</td>
+<td style="text-align:right">28.57%</td>
+</tr>
+<tr>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,364</td>
+<td style="text-align:right">20.01%</td>
+<td style="text-align:right">283</td>
+<td style="text-align:right">21.55%</td>
+</tr>
+<tr>
+<td style="text-align:right"><strong>总计</strong></td>
+<td style="text-align:right"><strong>4,182</strong></td>
+<td style="text-align:right"><strong>45.89%</strong></td>
+<td style="text-align:right"><strong>821</strong></td>
+<td style="text-align:right"><strong>24.12%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>更新查询最新来源 recall 为 46.77%，旧版本碰撞率为 61.39%。检索 mean/p50/p95 为
+1.546/1.387/2.785 ms；短历史 recall 87.92%，长历史为 36.89%。这说明普通 top-8 在长历史和
+版本更新上会漏证据，不能只靠增大 k 在已打开结果上追分。</p>
+<h2 id="section-34">9.2 MemoryCode 24-dialogue、72-call 三臂生成</h2>
+<p>模型为 Qwen3-4B-Instruct-2507，greedy，输入上限 65,536，输出上限 1,024；24 个 dialogue 覆盖全部
+12 档历史长度，每档两个独立 cluster。</p>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align:right">Strict target</th>
+<th style="text-align:right">Official-compatible</th>
+<th style="text-align:right">Coverage</th>
+<th style="text-align:right">Input</th>
+<th style="text-align:right">Gen p50/p95</th>
+<th style="text-align:right">截断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full history</td>
+<td style="text-align:right">3/24（12.50%）</td>
+<td style="text-align:right">23.99%</td>
+<td style="text-align:right">91.67%</td>
+<td style="text-align:right">304,702</td>
+<td style="text-align:right">11.80/41.34s</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>MemoryCore top-8</td>
+<td style="text-align:right">4/24（16.67%）</td>
+<td style="text-align:right">19.94%</td>
+<td style="text-align:right">100.00%</td>
+<td style="text-align:right">70,706</td>
+<td style="text-align:right">7.26/16.05s</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>Latest-rule oracle</td>
+<td style="text-align:right">13/24（54.17%）</td>
+<td style="text-align:right">65.85%</td>
+<td style="text-align:right">95.83%</td>
+<td style="text-align:right">5,701</td>
+<td style="text-align:right">9.09/24.67s</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<p>top-8 对 full history 为 1 胜 0 负 23 平，bootstrap 95% <code>[0,0.125]</code>，sign <code>p=1.0</code>；输入为
+full history 的 23.20%，但 official-compatible 为 3 胜 7 负 14 平。10 个 update 任务两条普通路径
+均为 0%，oracle 为 50%，所以后续工作转向来源绑定和版本整理。</p>
+<h2 id="section-35">9.3 Codex 更新层与 focus</h2>
+<p>全部 10 个 update dialogue 的 Codex 运行使用 CLI 0.153.4、请求 <code>gpt-5.6-sol</code>、medium、空只读目录、
+无工具与 web。20/20 调用有效。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align:right">No history</th>
+<th style="text-align:right">Full raw</th>
+<th style="text-align:right">变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strict target</td>
+<td style="text-align:right">0/10</td>
+<td style="text-align:right"><strong>7/10</strong></td>
+<td style="text-align:right">7 胜 0 负 3 平</td>
+</tr>
+<tr>
+<td>Input</td>
+<td style="text-align:right">116,270</td>
+<td style="text-align:right">256,448</td>
+<td style="text-align:right">+120.56%</td>
+</tr>
+<tr>
+<td>Non-cached input</td>
+<td style="text-align:right">37,934</td>
+<td style="text-align:right">193,984</td>
+<td style="text-align:right">+411.37%</td>
+</tr>
+<tr>
+<td>Output</td>
+<td style="text-align:right">4,879</td>
+<td style="text-align:right">11,150</td>
+<td style="text-align:right">+128.53%</td>
+</tr>
+<tr>
+<td>Wall</td>
+<td style="text-align:right">180.223s</td>
+<td style="text-align:right">273.357s</td>
+<td style="text-align:right">+51.68%</td>
+</tr>
+</tbody>
+</table>
+<p>质量差均值 +0.70，bootstrap <code>[+0.40,+1.00]</code>，sign <code>p=0.015625</code>。receiver-aware 事后敏感性为
+9/10，但冻结主结果保留 7/10。</p>
+<p>机制修正后的第二批零重叠 focus 确认：30/30 调用有效，receiver-aware target 由 9/10 到 10/10，
+1 胜 0 负 9 平；active-rule mean 89.44%→97.00%，3 胜 0 负 7 平。主区间 <code>[0,0.30]</code>、sign <code>p=1.0</code>，
+只能作为方向性证据。</p>
+<table>
+<thead>
+<tr>
+<th>Focus 成本</th>
+<th style="text-align:right">Raw full</th>
+<th style="text-align:right">Cold focus</th>
+<th style="text-align:right">Persisted coding stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model calls</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td>Non-cached input</td>
+<td style="text-align:right">189,747</td>
+<td style="text-align:right">384,398（2.026x）</td>
+<td style="text-align:right">208,938（1.101x）</td>
+</tr>
+<tr>
+<td>Wall</td>
+<td style="text-align:right">360.637s</td>
+<td style="text-align:right">615.355s（1.706x）</td>
+<td style="text-align:right">349.318s（0.969x）</td>
+</tr>
+</tbody>
+</table>
+<p>产品因此只采用“显式反馈写入时编译、精确 revision 持久复用”，不采用逐请求冷编译。</p>
+<h2 id="section-36">9.4 CUPID、ValidMem、Trigger、STALE</h2>
+<table>
+<thead>
+<tr>
+<th>数据／任务</th>
+<th>规模与结果</th>
+<th>成本与边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CUPID</td>
+<td>756 observations、252 personas；固定 4 personas/12 tasks/48 calls；feedback 对 frozen 为 3W/4L/5T，cluster mean −0.0833，CI <code>[-0.25,0]</code></td>
+<td>输入 3.434x、+73,260；time 1.620x；负结果使默认编译关闭</td>
+</tr>
+<tr>
+<td>ValidMem v1.1</td>
+<td>406-case 留出：374/406→387/406，15W/2L；Part B/EAR 147/176→159/176</td>
+<td>input +0.59%，wall +14.01%；batch sign <code>p=0.125</code>，只作生命周期方法验证</td>
+</tr>
+<tr>
+<td>Trigger Bench</td>
+<td>140-case 留出：full pass 112/140→130/140，21W/3L；specificity 62.12%→89.39%</td>
+<td>工具调用 −34.72%，input −7.76%，wall −3.56%；公开微任务结果</td>
+</tr>
+<tr>
+<td>STALE direct</td>
+<td>13/16，T2 1/4，负例 8/8</td>
+<td>16 calls；太保守，关闭最终绑定</td>
+</tr>
+<tr>
+<td>STALE proposer+judge</td>
+<td>13/16，1W/1L/14T</td>
+<td>48 calls、455,788 input、303.180s；无净收益</td>
+</tr>
+<tr>
+<td>STALE candidate-only</td>
+<td>15/16，T1/T2 4/4，负例 7/8，引用错误 0</td>
+<td>16 calls、228,302 input、171.741s；只授权候选提名，不授权失效</td>
+</tr>
+</tbody>
+</table>
+<p>另 200 行 STALE candidate-universe 检索中，原始新 session 用户文本 BM25 recall@1/5/8/16/32 为
+67.5%/90.5%/96.0%/98.0%/100%，T2 recall@8 为 94%；归一化 <code>M_new</code> 只有 61%/53%。</p>
+<h2 id="section-37">9.5 公开项目逐矩阵结果</h2>
+<p>有效 v4：packaging、Flask、tqdm、Uvicorn；24/24 调用完成、隔离 24/24、严重回归 0。Full raw 与
+top-8 均 8/8，no-history 6/8；按首任务是 1 胜 0 负 3 平。tqdm 的关键历史要求是“忽略未知长度提示、
+保留最小已知提示，只有全部未知时才用零”。</p>
+<table>
+<thead>
+<tr>
+<th>v4</th>
+<th style="text-align:right">No history</th>
+<th style="text-align:right">Full raw</th>
+<th style="text-align:right">Top-8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total input</td>
+<td style="text-align:right">2,919,958</td>
+<td style="text-align:right">2,039,342</td>
+<td style="text-align:right">2,190,824</td>
+</tr>
+<tr>
+<td>Non-cached input</td>
+<td style="text-align:right">243,734</td>
+<td style="text-align:right">202,158</td>
+<td style="text-align:right">248,936</td>
+</tr>
+<tr>
+<td>Output</td>
+<td style="text-align:right">31,169</td>
+<td style="text-align:right">27,409</td>
+<td style="text-align:right">29,413</td>
+</tr>
+<tr>
+<td>Wall</td>
+<td style="text-align:right">956.214s</td>
+<td style="text-align:right">837.074s</td>
+<td style="text-align:right">870.874s</td>
+</tr>
+<tr>
+<td>Context</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">16,484B</td>
+<td style="text-align:right">11,398B</td>
+</tr>
+</tbody>
+</table>
+<p>有效 v10：h2、pycodestyle、path、importlib_resources；16/16 调用与 checker 完成，42/42 preflight
+符合预期，包含 18 个被拒绝 near-miss；隔离／额外路径／严重回归均 0。Full raw 8/8，no-history 6/8；
+按首任务是 1 胜 0 负 3 平。importlib_resources 的历史提供了源码无法唯一确定的 <code>TypeError</code> 和诊断语义。</p>
+<table>
+<thead>
+<tr>
+<th>v10</th>
+<th style="text-align:right">No history</th>
+<th style="text-align:right">Full raw</th>
+<th style="text-align:right">变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total input</td>
+<td style="text-align:right">1,074,156</td>
+<td style="text-align:right">523,336</td>
+<td style="text-align:right">−51.28%</td>
+</tr>
+<tr>
+<td>Non-cached input</td>
+<td style="text-align:right">189,548</td>
+<td style="text-align:right">81,480</td>
+<td style="text-align:right">−57.01%</td>
+</tr>
+<tr>
+<td>Output</td>
+<td style="text-align:right">22,474</td>
+<td style="text-align:right">11,534</td>
+<td style="text-align:right">−48.68%</td>
+</tr>
+<tr>
+<td>Wall</td>
+<td style="text-align:right">668.636s</td>
+<td style="text-align:right">438.657s</td>
+<td style="text-align:right">−34.40%</td>
+</tr>
+<tr>
+<td>Context</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">17,322B</td>
+<td style="text-align:right">—</td>
+</tr>
+</tbody>
+</table>
+<p>合计按任务行为是 full raw 16/16、no-history 12/16；按独立项目家族首任务才是正式口径：
+<strong>2 胜 0 负 6 平</strong>。两项后续控制失败继承首任务错误，不能重复算成四个胜例。</p>
+<h2 id="section-38">9.6 失效矩阵记录</h2>
+<table>
+<thead>
+<tr>
+<th>矩阵</th>
+<th style="text-align:right">发起／计划</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v5</td>
+<td style="text-align:right">16/16</td>
+<td>jsonschema no-history 两次 300s timeout，checker 未运行</td>
+<td>缺失观察，不记 memory win</td>
+</tr>
+<tr>
+<td>v6</td>
+<td style="text-align:right">2/16</td>
+<td>首臂 timeout，配对臂人工取消</td>
+<td>partial edit 不补作正式完成</td>
+</tr>
+<tr>
+<td>v7</td>
+<td style="text-align:right">11/16</td>
+<td>未强制 single-file edit scope</td>
+<td>行为通过不能覆盖额外文件回归</td>
+</tr>
+<tr>
+<td>v8</td>
+<td style="text-align:right">2/16</td>
+<td>Git porcelain 前导空格被 <code>.strip()</code> 删除</td>
+<td>runner 标签不可信，立即停止</td>
+</tr>
+<tr>
+<td>v9</td>
+<td style="text-align:right">16/16</td>
+<td>typeguard checker 接受条件顺序 near-miss</td>
+<td>整矩阵失效，新增 near-miss 标准</td>
+</tr>
+</tbody>
+</table>
+<p>五轮 event、receipt、partial workspace 和复盘保留，但都不进入主成绩。这一部分是评测工作量的重要组成：
+目标不是获得更多“胜利”，而是确保保留下来的每个胜例能经得住代码和协议审阅。</p>
+<h2 id="section-39">9.7 工程、fallback 与恢复</h2>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th style="text-align:right">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MemoryCore Vitest</td>
+<td style="text-align:right">24 文件，204/204</td>
+</tr>
+<tr>
+<td>Python 项目代理</td>
+<td style="text-align:right">25/25</td>
+</tr>
+<tr>
+<td>Python 公共评测</td>
+<td style="text-align:right">31/31</td>
+</tr>
+<tr>
+<td>主测试合计</td>
+<td style="text-align:right"><strong>260/260</strong></td>
+</tr>
+<tr>
+<td>Node 22.19 memory-feedback</td>
+<td style="text-align:right">5 文件，30/30</td>
+</tr>
+<tr>
+<td>Runtime 三臂逐字等价</td>
+<td style="text-align:right">20/20，模型调用 0</td>
+</tr>
+<tr>
+<td>npm pack</td>
+<td style="text-align:right">376 文件，1,479,928 bytes，低于 2MiB</td>
+</tr>
+<tr>
+<td>空目录安装 smoke</td>
+<td style="text-align:right">CLI、子路径导出、SQLite 写读通过</td>
+</tr>
+</tbody>
+</table>
+<p>Runtime contract 四例全部通过：<code>feature_off</code> 返回 baseline；正常选择 k=1；selector 强制失败返回
+<code>selector_failed</code> 与原基线；over-k 返回 <code>invalid_selection</code> 与原基线。候选最大 256、k 1–32、timeout
+最大 30s，adapter 不持有持久化写句柄。</p>
+<p>容量恢复实跑：状态预填到 128 observations/revision 128；一次 Codex 调用仍取得 773-byte scoped context，
+任务写入失败被标记为 <code>task_persisted=false</code>。编码 input 96,294（cached 88,192）、output 2,213、wall
+63.256s；checker 被主动取消后，<code>check-run</code> 以 <strong>0 次新模型调用</strong>补跑通过，数据库仍保持 revision 128。</p>
+<h2 id="section-40">9.8 AI infra 最终结果</h2>
+<table>
+<thead>
+<tr>
+<th>20 组轮换三臂</th>
+<th style="text-align:right">Bridge 进程</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p95</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source/tsx 双调用</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0.454s</td>
+<td style="text-align:right">0.457s</td>
+<td style="text-align:right">0.472s</td>
+</tr>
+<tr>
+<td>Precompiled 双调用</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0.323s</td>
+<td style="text-align:right">0.329s</td>
+<td style="text-align:right">0.336s</td>
+</tr>
+<tr>
+<td>Precompiled one-shot</td>
+<td style="text-align:right"><strong>1</strong></td>
+<td style="text-align:right"><strong>0.245s</strong></td>
+<td style="text-align:right"><strong>0.245s</strong></td>
+<td style="text-align:right"><strong>0.253s</strong></td>
+</tr>
+</tbody>
+</table>
+<p>最终路径相对 source 双调用 mean/p95 降 46.1%/46.5%；相对最初四进程结构，进程数减少 75%。20/20
+context 和最终 SQLite snapshot 逐字一致。该测量不包含模型、网络和 checker，不是生产 SLO。</p>
+<h1 id="section-41">10. 实现细节与代码工作量</h1>
+<h2 id="section-42">10.1 核心数据合同</h2>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>字段</th>
+<th>约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Observation</td>
+<td>id/order/role/text</td>
+<td>ID≤256，text≤32k，order 单调；role=user/tool</td>
+</tr>
+<tr>
+<td>Constraint</td>
+<td>key/quote/scope/sourceId/supersedes</td>
+<td>单次≤4；quote≤4k 且在来源中唯一；更新指向同 key/scope 当前前任</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>paths/actions</td>
+<td>1–16 路径；read/edit/test/build/install；拒绝绝对路径与 <code>..</code></td>
+</tr>
+<tr>
+<td>Snapshot</td>
+<td>owner/project/revision/arrays</td>
+<td>默认容量 128，可配但≤1,024；规则≤容量×4</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>text/selectedIds/status/reason</td>
+<td>默认 12kB，合法 1–64kB；off/selected/fallback</td>
+</tr>
+</tbody>
+</table>
+<p>当前规则由 observation order、supersedes 与 retraction 决定。旧规则只以 <code>historical</code> 前任证据出现，
+不会重新激活。损坏链、存储降级或预算无法完整容纳时不返回部分 selected ID。</p>
+<h2 id="section-43">10.2 执行与证据顺序</h2>
+<pre><code class="language-text">校验 workspace/path/checker argv
+→ 从同一 pre-task revision 读取 snapshot 与 context
+→ 原子写 task.json，尝试 ingest 当前任务
+→ 启动 Codex/Claude 进程组，实时写 stdout.jsonl/stderr
+→ 原子写 agent-result.json 与 usage
+→ 捕获相对 HEAD 的 changes.diff
+→ 运行外置 checker 并保存原始输出
+→ 写工具回执和最终 receipt
+</code></pre>
+<p><code>task_persisted</code>、<code>receipt_persisted</code>、<code>memory_error</code> 分开记录。读取成功但任务写入失败时继续使用已取得
+context；读取失败则退回当前请求。<code>check-run</code> 只恢复检查，不重复模型调用和记忆写入。</p>
+<h2 id="section-44">10.3 代码规模</h2>
+<p>从原始 MemoryCore 基线 <code>0ddea892f1e362b4b937b2b38d23beb2a5ac4329</code> 到实现快照 <code>84ba04d</code>：
+<strong>166 个文件，+21,878/−83 行</strong>。B+E runtime 与项目代理主要实现 10 文件、2,368 行；聚焦测试 15 文件、
+2,158 行；公开评测、数据准备和 checker 源码 50 文件、8,973 行。最终产品化 PR 相对研究分支为
+41 文件、+3,855/−1,088 行。</p>
+<h1 id="section-45">11. 结论边界与最终判断</h1>
+<p>可以确认：完整原话是当前最可靠的证据保留基线；普通 top-8 在长历史更新上会漏掉最新来源；强模型能够
+利用版本历史；范围、版本链、撤销、fallback 和执行证据已经形成可运行系统；项目历史在两个不同公开项目
+中解决了源码无法唯一确定的维护选择；模型前固定开销已经在等价条件下降低约 46%。</p>
+<p>不能确认：普遍优于 Codex、Claude Code 或开源记忆系统；公开结果等同内部真实业务；候选提名可以自动
+失效；编译规则已获得稳定反馈学习收益；单次成本下降可直接外推为生产 SLO。Claude Code 诊断连续 502，
+没有质量样本，服务失败未计作质量失败。</p>
+<p>最终结论是：<strong>本项目完成了一套面向编码代理的可演化项目记忆方案，并在公开长对话和公开仓库任务上
+验证了有效机制、失败边界和工程可交付性。</strong> 它已经适合作为实验版和可审阅研究交付；扩大默认启用前，
+仍需更大规模新项目、同任务开源方案对照以及内部多轮编程数据复核。</p>
+<h1 id="section-46">12. 复现与移植</h1>
+<p>零模型复现命令：</p>
+<pre><code class="language-bash">cd MemoryCore
+npm install --ignore-scripts --legacy-peer-deps
+python3 -m pip install -r scripts/project-agent/requirements-dev.txt
+npm run lint:project-agent
+npm test
+npm run test:project-agent
+npm run test:agent-product
+npm run build
+npm pack
+bash scripts/ci/smoke-memory-agent-package.sh ./*.tgz
+</code></pre>
+<p>内部数据只需替换 adapter、标签和 checker，主状态机与运行回执保持不变。内部记录至少需要 owner/project/
+session/turn、user/tool role、exact text、repo/branch/environment、path/symbol/action、source/supersedes/retract、
+base commit/diff、backend/model/usage 和外置 checker。公开数据中的“最新值全局有效”不能直接移植到多分支环境。</p>
+<h1 id="section-47">13. 参考资料</h1>
+<ol>
+<li>TencentCloud, <em>TencentDB Agent Memory / MemoryCore v2.0.0-beta.1</em>.</li>
+<li>Shinn et al., <em>Reflexion: Language Agents with Verbal Reinforcement Learning</em>, 2023.</li>
+<li>Maharana et al., <em>LoCoMo</em>, ACL 2024.</li>
+<li>Wu et al., <em>LongMemEval</em>, 2024.</li>
+<li>Mem0, <em>Building Production-Ready AI Agents with Scalable Long-Term Memory</em>, 2025.</li>
+<li>Rasmussen et al., <em>Zep: A Temporal Knowledge Graph Architecture for Agent Memory</em>, 2025.</li>
+<li>Cohere Labs Community, <em>MemoryCode</em>.</li>
+<li>Zhou et al., <em>ValidMem / MemFSM</em>.</li>
+<li><em>Agent Memory Trigger Bench</em>.</li>
+<li><em>STALE: A Benchmark for Stale Memory in Long-Context Agents</em>.</li>
+</ol>
+<hr />
+<p>本文所有“通过”均对应明确协议和分母。开发结果、失效矩阵、事后敏感性和主结果分开标记；未用未完成
+调用补数，也未把外部论文成绩记作本项目成绩。</p>
+</main></body></html>

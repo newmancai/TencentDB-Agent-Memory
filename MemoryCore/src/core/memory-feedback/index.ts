@@ -6,13 +6,7 @@ export {
   validateCandidate,
   verifyBounded,
 } from './lifecycle.js';
-export type {
-  Candidate,
-  PolicyState,
-  Relation,
-  SourceRecord,
-  Verification,
-} from './lifecycle.js';
+export type { Candidate, PolicyState, Relation, SourceRecord, Verification } from './lifecycle.js';
 
 export {
   parseAnswerFeedback,
@@ -39,6 +33,16 @@ export type {
 
 export { ProjectMemory } from './project-memory.js';
 export type {
-  ConstraintProposal, ConstraintScope, ProjectAction, ProjectConstraint,
-  ProjectMemorySnapshot, ProjectObservation,
+  ConstraintProposal,
+  ConstraintRetraction,
+  ConstraintScope,
+  ProjectAction,
+  ProjectConstraint,
+  ProjectContextOptions,
+  ProjectContextResult,
+  ProjectIngestResult,
+  ProjectLoadContextOptions,
+  ProjectLoadedContextResult,
+  ProjectMemorySnapshot,
+  ProjectObservation,
 } from './project-memory.js';

@@ -1,13 +1,17 @@
-# Sequential coding-agent B+E product protocol v1
+# Controlled B+E evaluation protocol for sequential coding agents
 
-Current direction (2026-09-14): see [route handoff](../B_E_ROUTE_HANDOFF_2026-09-14.md).
-The user now prioritizes improvement over the existing system and suitable open-source
-baselines, not parity with complete Codex/Claude Code products. This document and its
-runner retain the historical four-arm contract; use a separately versioned protocol for
-future comparisons rather than relaxing these criteria to relabel old results.
+This document freezes the original four-arm product protocol and its runner. It
+measures the incremental effect of MemoryCore inside each coding backend; it is
+not a raw leaderboard for Codex and Claude Code. The final project direction and
+accepted evidence are summarized in the [submission report](../B_E_FINAL_SUBMISSION_REPORT_2026-09-14.md).
+Any later comparison should receive a new protocol version instead of changing
+these criteria after results are known.
 
-This protocol compares MemoryCore augmentation inside each coding product. It is
-not a raw model leaderboard.
+## Evaluation question
+
+Given the same repository state, backend configuration and task, does persistent
+project memory improve a later coding decision without causing a regression on a
+closely related control task?
 
 ## Tasks
 
@@ -60,7 +64,7 @@ argv-form checker and records:
 - input, cached-input, output and reasoning tokens when exposed;
 - reported cost when exposed;
 - agent and checker wall time;
-- mode, backend, model, task and whether memory context was injected.
+- mode, backend, model, task and whether memory context was injected;
 - base commit and agent-created workspace changes.
 
 Checker timeouts are explicit failures. Receipts are replaced atomically after
@@ -130,8 +134,8 @@ All four workspaces are prepared even if a service is unavailable. Missing arms
 remain missing, and partial-backend summaries cannot pass the full protocol.
 The compiler and task prompts are not tuned on these pilot outcomes.
 
-Future prepared manifests alternate `arm_order_offset` across clusters as well
-as step order. The first recorded pilot had no offset field (equivalent to 0
-in every cluster), so its first/third steps always ran raw first. Reproducing
-that pilot uses its recorded manifest; do not claim its latency/cache comparisons
-were fully counterbalanced or replace it with a freshly prepared balanced manifest.
+Any future manifest should alternate `arm_order_offset` across clusters as well
+as step order. The first recorded pilot had no offset field (equivalent to 0 in
+every cluster), so its first and third steps always ran raw first. Reproduction
+must use that recorded manifest and report that its latency/cache comparison was
+not fully counterbalanced.

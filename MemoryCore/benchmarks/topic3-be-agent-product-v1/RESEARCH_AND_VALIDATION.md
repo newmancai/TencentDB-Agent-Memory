@@ -1,4 +1,4 @@
-# Research and validation design
+# Research design and validation methodology
 
 ## Problem and claim boundary
 
@@ -39,7 +39,7 @@ and irrelevant interference. CUPID remains useful for deciding when a
 correction applies. LoCoMo and LongMemEval remain retrieval/update breadth
 regressions. Their scores must never be added into one synthetic B total.
 
-## New primary public experiment
+## Primary public experiment: retrieval before generation
 
 The frozen protocol, source hashes, exact subset, prompts and metric definitions
 are in `MEMORYCODE_PROTOCOL.md`; results are in `MEMORYCODE_RESULTS.md`. Two
@@ -57,8 +57,9 @@ model comparison reduces input to 23.20% of full history but yields only 1 win,
 0 losses and 23 ties on strict target accuracy. Its bootstrap lower bound is
 zero and sign-test `p=1.0`, so high-confidence gain fails. The oracle reaches
 54.17% strict accuracy, including 50% on updates, while both non-oracle arms
-score zero on update tasks. The next method must therefore improve extraction
-and version consolidation, not tune `k` on the opened result.
+score zero on update tasks. This result ruled out further `k` tuning on the
+opened data and redirected the work toward source-bound extraction and version
+consolidation.
 
 ## Historical CUPID diagnostic
 
@@ -141,32 +142,39 @@ python benchmarks/topic3-be-agent-product-v1/public_eval.py
 python -m unittest discover -s benchmarks/topic3-be-agent-product-v1 -p 'test_*.py'
 ```
 
-## Expansion policy
+## How the experiment evolved
 
-The dataset has now been enlarged where extra volume is cheap and diagnostic:
-retrieval covers the full 360-dialogue/4,182-query release. Model inference is
-kept at 24 independent dialogues until a source-bound extractor can clear the
-current zero-on-updates failure. Spending thousands of calls on the unchanged
-raw FTS method would estimate a known failure more precisely without improving
-the product.
+Retrieval was enlarged first because it was cheap and diagnostic: the complete
+release covers 360 dialogues and 4,182 queries. The fixed 24-dialogue generation
+experiment then showed that adding more calls to the unchanged FTS method would
+only measure a known update failure more precisely. The work therefore moved to
+the stronger Codex baseline and source-bound rule compilation instead of tuning
+`k` on already opened results.
 
-The next fixed comparison must rerun full-history and raw-FTS baselines on the
-same selected IDs, preserve every gold regex, and add one bounded extracted-rule
-arm. Development may use the now-open MemoryCode release, but confirmation must
-use either a pre-registered public extension or the held-out repository checker
-protocol. LoCoMo/LongMemEval stay separate regression suites; CUPID stays a
-scope diagnostic.
+On all ten MemoryCode update dialogues, full raw history scored 7/10 while the
+no-history baseline scored 0/10. A two-stage guideline focus was developed on a
+separate set, its observed constraint-dimension error was corrected once, and a
+new zero-overlap confirmation set then scored 9/10 to 10/10. A third disjoint
+source-context trial reduced warm non-cached input but produced one win and one
+loss, so it remained off. These later protocols and machine-readable results are
+linked from the final submission report.
+
+The study stops at that boundary. LoCoMo and LongMemEval remain separate
+retrieval/update regressions, CUPID remains a scope diagnostic, and a
+same-model external memory-system comparison is recorded as future work rather
+than implied by these results.
 
 ## Delivery status against the requested rubric
 
 | Deliverable | Artifact | Status |
 |---|---|---|
-| Research and design | this document, `MEMORYCODE_PROTOCOL.md`, `OPTIMIZATION_REPORT.md` | pass |
-| Public long-dialogue runner and baseline result | MemoryCode prepare/packet/model/score runners and structured results | pass; high-confidence gain fails |
-| Implementation and comparison | native MemoryCore FTS adapter, full-history baseline and oracle ceiling | method complete; current raw retrieval not accepted |
-| Off switch and forced fallback | `runtime_contract_harness.ts`, `runtime-contract-results.json`, unit tests | pass |
-| Portable PR and internal notes | draft PR #3, `PORTING.md` | pass for review; not production-enabled |
+| Research and design | this document, `MEMORYCODE_PROTOCOL.md`, `OPTIMIZATION_REPORT.md`, final submission report | pass |
+| Public long-dialogue runner and baseline result | MemoryCode prepare/packet/model/score runners and structured results | pass; raw 7/10 vs no-history 0/10, independent focus 9/10 to 10/10 |
+| Implementation and comparison | `ProjectMemory`, project-agent host, public repository and MemoryCode comparisons | pass for the experimental product slice |
+| Off switch and forced fallback | `runtime_contract_harness.ts`, `runtime-contract-results.json`, unit and package tests | pass |
+| Portable PR and internal notes | draft PR #4, `PORTING.md`, final delivery index | pass for review; not production-enabled |
 
-Negative public gain is retained as a first-class result. It explains why a
-single classifier or reviewer is not high-confidence feedback and why the next
-experiment must test selective action under equal information and cost.
+Negative results remain part of the evidence. In particular, the CUPID result
+shows why a single classifier or reviewer is insufficient grounds for automatic
+feedback persistence, and the source-context result explains why a cheaper arm
+was not enabled despite its token reduction.

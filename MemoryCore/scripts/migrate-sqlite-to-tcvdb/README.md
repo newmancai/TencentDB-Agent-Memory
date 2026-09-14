@@ -4,7 +4,7 @@
 
 ## 前置条件
 
-- Node.js >= 22.16.0
+- Node.js >= 22.19.0
 - 插件已通过 `openclaw plugins install` 安装
 - 迁移脚本已编译（见下方）
 
