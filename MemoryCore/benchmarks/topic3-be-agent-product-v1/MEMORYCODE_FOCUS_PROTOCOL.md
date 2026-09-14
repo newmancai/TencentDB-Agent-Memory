@@ -26,9 +26,11 @@ lowering the frozen quality result.
 ## Disjoint quality set
 
 Select one single-target update dialogue from each update-capable official session-count stratum
-`3, 4, 5, 10, 15, 20, 30, 40, 50, 100`. Exclude all 24 dialogues from the earlier generation subset, then
-use domain-separated SHA-256 ordering with domain `topic3-be-memorycode-focus-quality-v1`. Selection and
-scoring are fixed before model output.
+`3, 4, 5, 10, 15, 20, 30, 40, 50, 100`. The first comparison excludes all 24 dialogues from the earlier
+generation subset and uses domain `topic3-be-memorycode-focus-quality-v1`. The `v2` confirmation excludes
+those 24 dialogues plus all 10 first-comparison dialogues and uses domain
+`topic3-be-memorycode-focus-quality-v2`. The frozen `v2` IDs are `067`, `117`, `139`, `151`, `185`, `240`,
+`250`, `300`, `301`, and `352`; selection and scoring are fixed before model output.
 
 The primary metric is strict target correctness with constructor attributes followed through the actual
 first receiver argument; this fixes the known literal-`self` extractor defect before the new calls. The old
