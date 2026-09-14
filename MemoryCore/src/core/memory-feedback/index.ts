@@ -36,3 +36,9 @@ export type {
   DependencyCandidateResult,
   DependencyCandidateStatus,
 } from './dependency-candidate-adapter.js';
+
+export { ProjectMemory } from './project-memory.js';
+export type {
+  ConstraintProposal, ConstraintScope, ProjectAction, ProjectConstraint,
+  ProjectMemorySnapshot, ProjectObservation,
+} from './project-memory.js';

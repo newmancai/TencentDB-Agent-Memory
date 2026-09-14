@@ -88,6 +88,33 @@ timeout failures require a baseline read. Lifecycle validation deduplicates and
 batches record IDs in backend-safe groups of 20 instead of issuing one query per
 record. `unknown` never mutates memory.
 
+## Scoped project memory (experimental B+E product core)
+
+`ProjectMemory` preserves explicit user observations and source-quoted constraint
+proposals in an existing MemoryCore SQLite L1 record. Constraints have path/action
+scopes and a host-assigned sequence. Replacement requires the current predecessor
+with the same key and exact scope; other scopes remain intact. Historical queries
+and explicit retractions retain the original source, and retracting a replacement
+does not silently restore its predecessor.
+
+The selected view also includes `predecessorEvidence` for a bound update chain,
+explicitly marked historical. This preserves the referent of updates such as
+"everything else stays unchanged" without reactivating old defaults. A chain is
+one budget unit; broken lineage falls back with no partially selected IDs.
+
+This is an opt-in, single-writer, bounded state machine, not a semantic truth
+verifier. Quote, identity and lineage checks do not prove a model's scope or key
+judgment. Tool output cannot create normative constraints. The default capacity
+is 128 observations, including task and tool receipts; it is not an unlimited log.
+Stateful consumers require `queryL1RecordsStrict`; SQLite supplies it while the
+existing tolerant read API keeps its previous behavior. Unsupported backends fail
+explicitly instead of treating a storage error as an empty memory.
+
+The [source CLI](../../../scripts/project-agent/README.md) connects this state to
+Codex and Claude Code, keeps raw-history/off controls, and stores execution evidence.
+Its process lock provides the single-writer contract for CLI invocations; callers
+using the TypeScript API directly must enforce it themselves.
+
 ## Evaluation-only support
 
 Causal ledgers, replay validation, scope matching, target binding and candidate

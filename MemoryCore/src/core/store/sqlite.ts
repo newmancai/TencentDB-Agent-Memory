@@ -1694,10 +1694,17 @@ export class VectorStore implements IMemoryStore {
    * Uses the composite index `idx_l1_session_updated(session_id, updated_time)`
    * for efficient filtering. All timestamps are compared as UTC ISO 8601 strings.
    *
-   * **Fault-tolerant**: returns an empty array on any error (degraded mode, DB issues).
+   * Strict variant: propagate failures so stateful consumers cannot mistake a
+   * failed read for an empty store during read/modify/write.
    */
-  queryL1Records(filter?: L1QueryFilter): L1RecordRow[] {
+  queryL1RecordsStrict(filter?: L1QueryFilter): L1RecordRow[] {
+    return this.queryL1Records(filter, { throwOnError: true });
+  }
+
+  /** Existing tolerant read; by default returns an empty array on store errors. */
+  queryL1Records(filter?: L1QueryFilter, options?: { throwOnError?: boolean }): L1RecordRow[] {
     if (this.degraded) {
+      if (options?.throwOnError) throw new Error('L1 store is degraded');
       this.logger?.warn(`${TAG} [L1-query] SKIPPED (degraded mode)`);
       return [];
     }
@@ -1770,6 +1777,7 @@ export class VectorStore implements IMemoryStore {
       );
       return rows;
     } catch (err) {
+      if (options?.throwOnError) throw err;
       this.logger?.warn(
         `${TAG} [L1-query] FAILED (non-fatal, returning empty): ${err instanceof Error ? err.message : String(err)}`
       );
