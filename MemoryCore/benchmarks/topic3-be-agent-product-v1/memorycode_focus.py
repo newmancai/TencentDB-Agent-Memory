@@ -237,6 +237,47 @@ def aggregate_usage(stages: list[dict[str, Any]]) -> dict[str, int]:
     }
 
 
+def stage_cost(stages: list[dict[str, Any]]) -> dict[str, float | int]:
+    usage = aggregate_usage(stages)
+    return {
+        **usage,
+        "noncached_input_tokens": usage["input_tokens"] - usage["cached_input_tokens"],
+        "wall_seconds": sum(stage.get("wall_seconds", 0.0) for stage in stages),
+        "model_calls": len(stages),
+    }
+
+
+def cost_ratio(
+    numerator: dict[str, float | int], denominator: dict[str, float | int]
+) -> dict[str, float | None]:
+    keys = ("input_tokens", "noncached_input_tokens", "wall_seconds", "model_calls")
+    return {
+        key: numerator[key] / denominator[key] if denominator[key] else None
+        for key in keys
+    }
+
+
+def receipt_scores(
+    packet: dict[str, Any], output: str, valid: bool
+) -> dict[str, float]:
+    frozen = score_receipt(
+        packet,
+        {"arm": "rescore", "status": "passed" if valid else "failed", "output": output},
+    )
+    return {
+        "official_compatible": frozen["official_compatible"],
+        "active_rule_semantic": (
+            active_rule_semantic_score(packet, output) if valid else 0.0
+        ),
+        "target_frozen_strict": frozen["target_strict"],
+        "target_semantic_strict": (
+            semantic_target_score(packet, output, frozen["target_strict"])
+            if valid
+            else 0.0
+        ),
+    }
+
+
 def summarize(
     packets: list[dict[str, Any]],
     receipts: list[dict[str, Any]],
@@ -293,6 +334,38 @@ def summarize(
         )
         costs[arm]["wall_seconds"] = sum(row["wall_seconds"] for row in arm_rows)
         costs[arm]["model_calls"] = sum(len(row["stages"]) for row in arm_rows)
+    infra = None
+    if complete and all(
+        len(by_key[(task_id, focus_arm)]["stages"]) == 2 for task_id in task_ids
+    ):
+        focus_rows = [by_key[(task_id, focus_arm)] for task_id in task_ids]
+        compiler = stage_cost([row["stages"][0] for row in focus_rows])
+        warm_code = stage_cost([row["stages"][1] for row in focus_rows])
+        raw_cost = costs[RAW_ARM]
+        amortized = {}
+        for reuse_count in (1, 2, 3, 5, 10, 20):
+            projected = {
+                key: compiler[key] + reuse_count * warm_code[key]
+                for key in (
+                    "input_tokens",
+                    "noncached_input_tokens",
+                    "wall_seconds",
+                    "model_calls",
+                )
+            }
+            comparison = {key: reuse_count * raw_cost[key] for key in projected}
+            amortized[str(reuse_count)] = cost_ratio(projected, comparison)
+        infra = {
+            "compiler_stage": compiler,
+            "warm_code_stage": warm_code,
+            "cold_ratio_vs_raw": cost_ratio(costs[focus_arm], raw_cost),
+            "warm_ratio_vs_raw": cost_ratio(warm_code, raw_cost),
+            "amortized_ratio_vs_raw_by_requests_per_history": amortized,
+            "boundary": (
+                "warm figures are exact stage decomposition from completed calls; "
+                "amortized figures assume the compiled state is reused without a history revision"
+            ),
+        }
     frozen_strict_accuracy = {
         arm: (
             statistics.mean(
@@ -357,6 +430,7 @@ def summarize(
             "pairs": pairs,
         },
         "cost": costs,
+        "infra": infra,
         "completed_model_calls": sum(len(row["stages"]) for row in receipts),
         "claim_boundary": "public synthetic quality validation; focus uses an extra model call",
     }
@@ -467,14 +541,6 @@ def run(arguments: argparse.Namespace) -> int:
                 stage["status"] == "passed" for stage in stages
             )
             output = stages[-1]["output"] if valid else ""
-            frozen = score_receipt(
-                packet,
-                {
-                    "arm": arm,
-                    "status": "passed" if valid else "failed",
-                    "output": output,
-                },
-            )
             usage = aggregate_usage(stages)
             receipt = {
                 "schema": 1,
@@ -493,18 +559,7 @@ def run(arguments: argparse.Namespace) -> int:
                 "compiled_guidelines": (
                     stages[0]["output"] if arm == focus_arm and stages else None
                 ),
-                "scores": {
-                    "official_compatible": frozen["official_compatible"],
-                    "active_rule_semantic": (
-                        active_rule_semantic_score(packet, output) if valid else 0.0
-                    ),
-                    "target_frozen_strict": frozen["target_strict"],
-                    "target_semantic_strict": (
-                        semantic_target_score(packet, output, frozen["target_strict"])
-                        if valid
-                        else 0.0
-                    ),
-                },
+                "scores": receipt_scores(packet, output, valid),
             }
             receipts.append(receipt)
             with (arguments.out / "receipts.jsonl").open("ab") as stream:

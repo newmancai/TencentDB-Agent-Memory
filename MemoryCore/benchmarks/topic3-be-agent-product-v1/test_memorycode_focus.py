@@ -127,6 +127,9 @@ class MemoryCodeFocusTest(unittest.TestCase):
         )
         self.assertEqual(result["cost"]["raw_full"]["model_calls"], 2)
         self.assertEqual(result["cost"]["focus_raw"]["model_calls"], 4)
+        self.assertEqual(result["infra"]["compiler_stage"]["model_calls"], 2)
+        self.assertEqual(result["infra"]["warm_code_stage"]["model_calls"], 2)
+        self.assertEqual(result["infra"]["warm_ratio_vs_raw"]["model_calls"], 1.0)
         self.assertEqual(
             result["quality"]["official_compatible_mean"],
             {"raw_full": 1.0, "focus_raw": 1.0},
