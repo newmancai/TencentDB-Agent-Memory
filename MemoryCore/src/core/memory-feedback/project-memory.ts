@@ -431,20 +431,21 @@ export class ProjectMemory {
     };
     if (options.enabled === false) return result;
 
+    const validQuery =
+      Array.isArray(options.paths) &&
+      options.paths.length >= 1 &&
+      options.paths.every(validPath) &&
+      PROJECT_ACTIONS.has(options.action) &&
+      Number.isSafeInteger(options.beforeOrder) &&
+      options.beforeOrder >= 1;
+    if (!validQuery) throw Error('invalid context query');
+
+    const budget = options.maxBytes ?? 12_000;
+    if (!Number.isInteger(budget) || budget < 1 || budget > 64_000) {
+      throw Error('invalid context budget');
+    }
+
     try {
-      const validQuery =
-        options.paths.length >= 1 &&
-        options.paths.every(validPath) &&
-        PROJECT_ACTIONS.has(options.action) &&
-        Number.isSafeInteger(options.beforeOrder) &&
-        options.beforeOrder >= 1;
-      if (!validQuery) throw Error('invalid context query');
-
-      const budget = options.maxBytes ?? 12_000;
-      if (!Number.isInteger(budget) || budget < 1 || budget > 64_000) {
-        throw Error('invalid context budget');
-      }
-
       const state = await this.snapshot();
       const rules = activeAt(state, options.beforeOrder - 1).filter(
         (rule) =>

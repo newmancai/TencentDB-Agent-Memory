@@ -168,7 +168,12 @@ it('rejects unsupported writes atomically and exposes budget/store fallback with
     await expect(memory.ingest(observation(4, 'Another event.'), [])).rejects.toThrow('capacity');
     const query = { paths: ['src/api/client.ts'], action: 'edit' as const, beforeOrder: 4 };
     expect((await memory.context({ ...query, maxBytes: 1 })).omittedForBudget).toBe(1);
-    expect((await memory.context({ ...query, paths: ['../escape'] })).status).toBe('fallback');
+    await expect(memory.context({ ...query, paths: ['../escape'] })).rejects.toThrow(
+      'invalid context query',
+    );
+    await expect(memory.context({ ...query, maxBytes: 0 })).rejects.toThrow(
+      'invalid context budget',
+    );
     store.close();
     expect((await memory.context({ ...query, enabled: false })).status).toBe('off');
     expect((await memory.context(query)).status).toBe('fallback');

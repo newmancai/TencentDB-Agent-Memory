@@ -112,6 +112,33 @@ def raw_user_context(observations: list[dict]) -> str:
     )
 
 
+def valid_project_path(path: object) -> bool:
+    if not isinstance(path, str) or len(path) > 512:
+        return False
+    if path == ".":
+        return True
+    if not path or path.startswith("/") or "\\" in path:
+        return False
+    return all(part not in {"", ".", ".."} for part in path.split("/"))
+
+
+def validate_context_request(mode: str, paths: list[str], action: str, budget: int) -> None:
+    if mode not in {"scoped", "raw", "off"}:
+        raise ValueError("invalid context mode")
+    if mode == "off":
+        return
+    if (
+        not isinstance(paths, list)
+        or not paths
+        or not all(valid_project_path(path) for path in paths)
+    ):
+        raise ValueError("paths must be normalized repository-relative paths")
+    if action not in PROJECT_ACTIONS:
+        raise ValueError("invalid project action")
+    if not isinstance(budget, int) or isinstance(budget, bool) or not 1 <= budget <= 64_000:
+        raise ValueError("context budget must be between 1 and 64000 bytes")
+
+
 def unresolved_user_observations(snapshot: dict) -> list[dict]:
     unresolved = []
     for observation in snapshot["observations"]:
@@ -341,6 +368,7 @@ class Host:
         }
 
     def context(self, mode: str, paths: list[str], action: str, budget: int) -> dict:
+        validate_context_request(mode, paths, action, budget)
         if mode == "off":
             return {"text": "", "mode": "off", "revision": None}
         snapshot = self.store("snapshot")
@@ -459,8 +487,11 @@ class Host:
 
     def run(self, text: str, evidence: Path) -> dict:
         started = time.perf_counter()
-        # Reject malformed checks before spending tokens or touching project memory.
+        # Reject malformed checks and scopes before spending tokens or touching project memory.
         command = checker_command(self.args.check)
+        validate_context_request(
+            self.args.mode, self.args.paths, self.args.action, self.args.max_bytes
+        )
         save_json(
             evidence / "task.json",
             {
@@ -704,12 +735,21 @@ def result_exit_code(result: dict) -> int:
 
 def main() -> int:
     args = build_parser().parse_args()
-    host = Host(args)
-    with (host.state / "writer.lock").open("a") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        result = dispatch(host, args)
-        print(json.dumps(result, indent=2, ensure_ascii=False))
-        return result_exit_code(result)
+    host = None
+    try:
+        host = Host(args)
+        with (host.state / "writer.lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            result = dispatch(host, args)
+    except BlockingIOError:
+        result = {
+            "error": "project memory state is busy; another CLI invocation holds writer.lock",
+            "calls": host.calls if host else [],
+        }
+    except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
+        result = {"error": str(exc), "calls": host.calls if host else []}
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+    return result_exit_code(result)
 
 
 if __name__ == "__main__":

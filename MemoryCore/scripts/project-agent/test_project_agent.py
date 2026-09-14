@@ -1,10 +1,12 @@
 import argparse
+import fcntl
 import json
+import subprocess
+import sys
+import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
-import unittest
 from unittest.mock import Mock, patch
-import sys
 
 from project_agent import Host, final_text, retain_project_instructions, command_for
 
@@ -186,6 +188,76 @@ class ProjectAgentTest(unittest.TestCase):
                     host.run("Edit code.", root)
             host.store.assert_not_called()
             host.call.assert_not_called()
+
+    def test_invalid_context_scope_is_rejected_without_raw_fallback_or_model_call(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            host = self.host(root)
+            host.store = Mock()
+            host.call = Mock()
+            invalid = [
+                ("scoped", ["../escape"], "edit", 12_000),
+                ("scoped", ["/absolute"], "edit", 12_000),
+                ("scoped", ["src//api"], "edit", 12_000),
+                ("scoped", ["src\\api"], "edit", 12_000),
+                ("scoped", [], "edit", 12_000),
+                ("scoped", ["src/api"], "deploy", 12_000),
+                ("scoped", ["src/api"], "edit", 0),
+                ("scoped", ["src/api"], "edit", 64_001),
+                ("unknown", ["src/api"], "edit", 12_000),
+            ]
+            for mode, paths, action, budget in invalid:
+                with self.subTest(mode=mode, paths=paths, action=action, budget=budget):
+                    host.args.mode = mode
+                    host.args.paths = paths
+                    host.args.action = action
+                    host.args.max_bytes = budget
+                    with self.assertRaises(ValueError):
+                        host.run("Edit code.", root)
+            host.store.assert_not_called()
+            host.call.assert_not_called()
+            self.assertFalse((root / "task.json").exists())
+
+            command = [
+                sys.executable,
+                str(Path(__file__).with_name("project_agent.py")),
+                "--state",
+                str(root / "cli-state"),
+                "--workspace",
+                str(root),
+                "--project",
+                "p",
+                "context",
+                "--paths",
+                "../escape",
+            ]
+            completed = subprocess.run(command, text=True, capture_output=True, check=False)
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("normalized repository-relative", json.loads(completed.stdout)["error"])
+            self.assertNotIn("Traceback", completed.stderr)
+
+    def test_concurrent_cli_returns_structured_busy_error(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            state = root / "state"
+            state.mkdir()
+            command = [
+                sys.executable,
+                str(Path(__file__).with_name("project_agent.py")),
+                "--state",
+                str(state),
+                "--workspace",
+                str(root),
+                "--project",
+                "p",
+                "history",
+            ]
+            with (state / "writer.lock").open("a") as lock:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                completed = subprocess.run(command, text=True, capture_output=True, check=False)
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("state is busy", json.loads(completed.stdout)["error"])
+            self.assertNotIn("Traceback", completed.stderr)
 
     def test_checker_recovery_uses_current_files_without_model_or_memory_calls(self):
         with TemporaryDirectory() as directory:
