@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "date": "2026-09-13",
+  "scope": "synthetic sequence integration smoke, not a product benchmark",
+  "product_pass": false,
+  "model_requested": "gpt-5.6-sol",
+  "model_observed": null,
+  "effort": "medium",
+  "backend": "codex",
+  "setup": {
+    "extraction_calls": 2,
+    "accepted_constraints": [
+      2,
+      1
+    ],
+    "errors": [
+      null,
+      null
+    ],
+    "cli_runs": 2,
+    "wall_seconds": 17.434,
+    "input_tokens": 28971,
+    "cached_input_tokens": 0,
+    "output_tokens": 227,
+    "reasoning_output_tokens": 0,
+    "cost_usd": null
+  },
+  "arms": {
+    "raw": {
+      "checker_pass": 3,
+      "tasks": 3,
+      "context_bytes": 2263,
+      "cli_runs": 3,
+      "wall_seconds": 114.484,
+      "input_tokens": 308711,
+      "cached_input_tokens": 278528,
+      "output_tokens": 3204,
+      "reasoning_output_tokens": 601,
+      "cost_usd": null
+    },
+    "scoped": {
+      "checker_pass": 3,
+      "tasks": 3,
+      "context_bytes": 2120,
+      "cli_runs": 3,
+      "wall_seconds": 114.394,
+      "input_tokens": 274418,
+      "cached_input_tokens": 239232,
+      "output_tokens": 3150,
+      "reasoning_output_tokens": 623,
+      "cost_usd": null
+    }
+  },
+  "paired": {
+    "wins": 0,
+    "losses": 0,
+    "ties": 3
+  },
+  "claude": {
+    "status": "blocked_by_service",
+    "http_status": 502,
+    "diagnostic_timeout_seconds": 45,
+    "quality_tasks_completed": 0
+  },
+  "limitations": [
+    "One synthetic fixture; no real-project holdout or product-parity claim.",
+    "Setup extraction was shared before copying independent raw/scoped stores; report its cost separately.",
+    "Input usage includes backend tool-turn accumulation and cache hits; context bytes are not billing tokens.",
+    "Wall time here is CLI execution only, excluding SQLite bridge and checkers.",
+    "The CLI does not expose a confirmed served Codex model id or dollar cost."
+  ]
+}

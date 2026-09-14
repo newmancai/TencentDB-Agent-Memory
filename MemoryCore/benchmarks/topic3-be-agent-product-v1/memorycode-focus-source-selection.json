@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "protocol": "topic3-be-memorycode-focus-source-v1",
+  "dataset": "CohereLabsCommunity/MemoryCode",
+  "selection": {
+    "unit": "dialogue",
+    "method": "one disjoint single-target update dialogue per update-capable official session-count stratum, selected by domain-separated SHA-256 ordering",
+    "excluded_dialogue_count": 44,
+    "tasks": [
+      {
+        "id": "memorycode-073",
+        "dialogue_id": 73,
+        "session_count": 3,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that given an array of integer citations, computes the h-index",
+        "targets": [
+          {
+            "instruction_id": 6,
+            "update_id": 2,
+            "occurrence": 2,
+            "source_session_id": 2,
+            "object_type": "function",
+            "regex": "^c_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-098",
+        "dialogue_id": 98,
+        "session_count": 4,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that merges two sorted lists",
+        "targets": [
+          {
+            "instruction_id": 15,
+            "update_id": 4,
+            "occurrence": 3,
+            "source_session_id": 3,
+            "object_type": "function argument",
+            "regex": ".*_i$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-127",
+        "dialogue_id": 127,
+        "session_count": 5,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "Inventory class with add stock and remove stock methods",
+        "targets": [
+          {
+            "instruction_id": 8,
+            "update_id": 4,
+            "occurrence": 3,
+            "source_session_id": 3,
+            "object_type": "method",
+            "regex": "^a_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-176",
+        "dialogue_id": 176,
+        "session_count": 10,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that merges two sorted lists",
+        "targets": [
+          {
+            "instruction_id": 15,
+            "update_id": 6,
+            "occurrence": 3,
+            "source_session_id": 8,
+            "object_type": "function argument",
+            "regex": ".*_x$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-206",
+        "dialogue_id": 206,
+        "session_count": 15,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that checks if a string is a valid palindrome",
+        "targets": [
+          {
+            "instruction_id": 12,
+            "update_id": 1,
+            "occurrence": 3,
+            "source_session_id": 12,
+            "object_type": "variable",
+            "regex": ".*_y$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-239",
+        "dialogue_id": 239,
+        "session_count": 20,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "Graph class with a method that computes the shortest path from one node to another",
+        "targets": [
+          {
+            "instruction_id": 13,
+            "update_id": 4,
+            "occurrence": 5,
+            "source_session_id": 17,
+            "object_type": "method",
+            "regex": ".*_a$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-263",
+        "dialogue_id": 263,
+        "session_count": 30,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that merges two sorted lists",
+        "targets": [
+          {
+            "instruction_id": 15,
+            "update_id": 4,
+            "occurrence": 3,
+            "source_session_id": 16,
+            "object_type": "function argument",
+            "regex": ".*_i$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-297",
+        "dialogue_id": 297,
+        "session_count": 40,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "LRU cache class with get and put methods",
+        "targets": [
+          {
+            "instruction_id": 9,
+            "update_id": 3,
+            "occurrence": 4,
+            "source_session_id": 39,
+            "object_type": "attribute",
+            "regex": "^t_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-313",
+        "dialogue_id": 313,
+        "session_count": 50,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that implements merge sort",
+        "targets": [
+          {
+            "instruction_id": 11,
+            "update_id": 4,
+            "occurrence": 3,
+            "source_session_id": 45,
+            "object_type": "function",
+            "regex": ".*_x$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-344",
+        "dialogue_id": 344,
+        "session_count": 100,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "LRU cache class with get and put methods",
+        "targets": [
+          {
+            "instruction_id": 9,
+            "update_id": 4,
+            "occurrence": 3,
+            "source_session_id": 99,
+            "object_type": "attribute",
+            "regex": "^i_.*"
+          }
+        ]
+      }
+    ]
+  }
+}

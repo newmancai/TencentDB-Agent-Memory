@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "protocol": "topic3-be-memorycode-focus-quality-v1",
+  "dataset": "CohereLabsCommunity/MemoryCode",
+  "selection": {
+    "unit": "dialogue",
+    "method": "one disjoint single-target update dialogue per update-capable official session-count stratum, selected by domain-separated SHA-256 ordering",
+    "excluded_dialogue_count": 24,
+    "tasks": [
+      {
+        "id": "memorycode-069",
+        "dialogue_id": 69,
+        "session_count": 3,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that checks if a string is a valid palindrome",
+        "targets": [
+          {
+            "instruction_id": 12,
+            "update_id": 4,
+            "occurrence": 2,
+            "source_session_id": 2,
+            "object_type": "variable",
+            "regex": ".*_m$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-115",
+        "dialogue_id": 115,
+        "session_count": 4,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that given an array of integer citations, computes the h-index",
+        "targets": [
+          {
+            "instruction_id": 6,
+            "update_id": 2,
+            "occurrence": 3,
+            "source_session_id": 3,
+            "object_type": "function",
+            "regex": "^c_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-145",
+        "dialogue_id": 145,
+        "session_count": 5,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that checks if a string is a valid palindrome",
+        "targets": [
+          {
+            "instruction_id": 12,
+            "update_id": 6,
+            "occurrence": 2,
+            "source_session_id": 4,
+            "object_type": "variable",
+            "regex": ".*_vr$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-152",
+        "dialogue_id": 152,
+        "session_count": 10,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "LRU cache class with get and put methods",
+        "targets": [
+          {
+            "instruction_id": 9,
+            "update_id": 2,
+            "occurrence": 4,
+            "source_session_id": 9,
+            "object_type": "attribute",
+            "regex": "^s_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-198",
+        "dialogue_id": 198,
+        "session_count": 15,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that given an array of integer citations, computes the h-index",
+        "targets": [
+          {
+            "instruction_id": 6,
+            "update_id": 6,
+            "occurrence": 3,
+            "source_session_id": 14,
+            "object_type": "function",
+            "regex": "^fn_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-214",
+        "dialogue_id": 214,
+        "session_count": 20,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "Graph class with a method that computes the shortest path from one node to another",
+        "targets": [
+          {
+            "instruction_id": 13,
+            "update_id": 5,
+            "occurrence": 5,
+            "source_session_id": 14,
+            "object_type": "method",
+            "regex": ".*_b$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-241",
+        "dialogue_id": 241,
+        "session_count": 30,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that given an array of integer citations, computes the h-index",
+        "targets": [
+          {
+            "instruction_id": 6,
+            "update_id": 4,
+            "occurrence": 3,
+            "source_session_id": 22,
+            "object_type": "function",
+            "regex": "^x_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-280",
+        "dialogue_id": 280,
+        "session_count": 40,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that determines if an array is a valid sudoku",
+        "targets": [
+          {
+            "instruction_id": 7,
+            "update_id": 5,
+            "occurrence": 3,
+            "source_session_id": 27,
+            "object_type": "variable",
+            "regex": "^n_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-310",
+        "dialogue_id": 310,
+        "session_count": 50,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "Graph class with a method that computes the shortest path from one node to another",
+        "targets": [
+          {
+            "instruction_id": 13,
+            "update_id": 3,
+            "occurrence": 2,
+            "source_session_id": 34,
+            "object_type": "method",
+            "regex": ".*_p$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-339",
+        "dialogue_id": 339,
+        "session_count": 100,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "Inventory class with add stock and remove stock methods",
+        "targets": [
+          {
+            "instruction_id": 8,
+            "update_id": 7,
+            "occurrence": 8,
+            "source_session_id": 85,
+            "object_type": "method",
+            "regex": "^ud_.*"
+          }
+        ]
+      }
+    ]
+  }
+}

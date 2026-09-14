@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "suite": "topic3-be-runtime-contract-v2",
+  "status": "pass",
+  "cases": [
+    {
+      "id": "feature_off",
+      "status": "pass",
+      "expected": {
+        "mode": "baseline",
+        "status": "off",
+        "auxiliaryPathUsed": false,
+        "fallback": false,
+        "useBaseline": true
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "baseline",
+        "status": "off",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 8,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 0,
+        "auxiliaryPathUsed": false,
+        "fallback": false,
+        "fallbackReason": null,
+        "useBaseline": true,
+        "elapsedMs": 0.03258600000003753
+      }
+    },
+    {
+      "id": "enabled_selection",
+      "status": "pass",
+      "expected": {
+        "mode": "enabled",
+        "status": "selected",
+        "auxiliaryPathUsed": true,
+        "fallback": false,
+        "useBaseline": false
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "enabled",
+        "status": "selected",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 1,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 1,
+        "auxiliaryPathUsed": true,
+        "fallback": false,
+        "fallbackReason": null,
+        "useBaseline": false,
+        "elapsedMs": 0.93656900000002
+      }
+    },
+    {
+      "id": "forced_failure_fallback",
+      "status": "pass",
+      "expected": {
+        "mode": "enabled",
+        "status": "fallback",
+        "auxiliaryPathUsed": true,
+        "fallback": true,
+        "fallbackReason": "selector_failed",
+        "useBaseline": true
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "enabled",
+        "status": "fallback",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 8,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 0,
+        "auxiliaryPathUsed": true,
+        "fallback": true,
+        "fallbackReason": "selector_failed",
+        "useBaseline": true,
+        "elapsedMs": 0.35164300000002413
+      }
+    },
+    {
+      "id": "over_k_fallback",
+      "status": "pass",
+      "expected": {
+        "mode": "enabled",
+        "status": "fallback",
+        "auxiliaryPathUsed": true,
+        "fallback": true,
+        "fallbackReason": "invalid_selection",
+        "useBaseline": true
+      },
+      "decisionLog": {
+        "schema": 1,
+        "feature": "temporary_answer_feedback",
+        "mode": "enabled",
+        "status": "fallback",
+        "policyVersion": "temporary-feedback:v1",
+        "signalType": "explicit_correction",
+        "k": 1,
+        "candidateCount": 3,
+        "eligibleCandidateCount": 2,
+        "selectedCount": 0,
+        "auxiliaryPathUsed": true,
+        "fallback": true,
+        "fallbackReason": "invalid_selection",
+        "useBaseline": true,
+        "elapsedMs": 0.12259299999999484
+      }
+    }
+  ],
+  "bounds": {
+    "maxCandidates": 256,
+    "defaultSelectedK": 8,
+    "allowedSelectedK": [
+      1,
+      32
+    ],
+    "defaultTimeoutMs": 30000,
+    "maxTimeoutMs": 30000,
+    "persistentWrites": false
+  },
+  "scope": "Host-neutral answer-feedback sidecar; no Gateway hook, model call, memory mutation, or production traffic."
+}

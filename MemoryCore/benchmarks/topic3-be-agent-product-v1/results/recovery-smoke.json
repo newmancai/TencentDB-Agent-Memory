@@ -1,0 +1,60 @@
+{
+  "scope": "synthetic integration, not product quality or memory benefit",
+  "model_requested": "gpt-5.6-sol",
+  "coding_calls": 1,
+  "recovery_calls": 0,
+  "interrupted_exit": 130,
+  "recovery_exit": 0,
+  "recovery_checker_pass": true,
+  "context_mode": "scoped",
+  "context_bytes": 773,
+  "memory_error": "Error: project observation capacity",
+  "task_persisted": false,
+  "observations_after": 128,
+  "revision_after": 128,
+  "calls": [
+    {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 63.25609761895612,
+      "usage": {
+        "input_tokens": 96294,
+        "cached_input_tokens": 88192,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2213,
+        "reasoning_output_tokens": 813
+      },
+      "backend": "codex",
+      "model_requested": "gpt-5.6-sol",
+      "model_observed": null,
+      "effort": "medium",
+      "evidence": "local-only: project-agent-recovery-v3/state/runs/20260914T002852-6d63e7a1/agent",
+      "extraction": false,
+      "instruction_mode": "controlled"
+    }
+  ],
+  "original_run": "20260914T002852-6d63e7a1",
+  "recovery_run": "20260914T002957-033bbb1b",
+  "validation": {
+    "product_host_unit_tests": 16,
+    "evaluation_tests": 15,
+    "real_model_coding_calls": 1,
+    "new_compilation_calls": 0,
+    "memory_quality_comparison": false
+  },
+  "limitations": [
+    "Authored synthetic source rules; not feedback learning or a product benchmark.",
+    "Capacity remains 128 observations; new task was saved only in its run directory.",
+    "Recheck evaluates current workspace; it does not resume incomplete agent execution.",
+    "Served model ID and dollar cost were not reported by the CLI."
+  ],
+  "pre_model_harness_failures": {
+    "attempts": 2,
+    "cause": "fixture passed a constraint object as supersedes instead of its id",
+    "model_calls": 0,
+    "evidence_retained": [
+      "project-agent-recovery-v1",
+      "project-agent-recovery-v2"
+    ]
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "completed_date": "2026-09-14",
+  "scope": "authored sequential maintenance pilot on four real repositories",
+  "task_source": "controlled authored API-extension scenarios; not natural issues or an official benchmark",
+  "product_pass": false,
+  "lineage_fix_included_in_quality_run": false,
+  "models": {
+    "codex_requested": "gpt-5.6-sol",
+    "served_model_id": null,
+    "effort": "medium"
+  },
+  "arms": {
+    "codex_clean": {
+      "tasks": 12,
+      "checker_pass": 12,
+      "execution_failures": 0,
+      "severe_regressions": 0,
+      "coding_usage": {
+        "input_tokens": 2803371,
+        "cached_input_tokens": 2507520,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 39787,
+        "reasoning_output_tokens": 8844
+      },
+      "coding_wall_seconds": 1307.075,
+      "total_wall_seconds_including_setup_store_checker": 1323.672,
+      "total_input_tokens_including_setup": 2803371,
+      "total_uncached_input_tokens_including_setup": 295851,
+      "context_bytes": 13507,
+      "cost_usd": null
+    },
+    "codex_memory": {
+      "tasks": 12,
+      "checker_pass": 12,
+      "execution_failures": 0,
+      "severe_regressions": 0,
+      "coding_usage": {
+        "input_tokens": 2452353,
+        "cached_input_tokens": 2172672,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 34828,
+        "reasoning_output_tokens": 7870
+      },
+      "coding_wall_seconds": 1213.796,
+      "total_wall_seconds_including_setup_store_checker": 1347.321,
+      "total_input_tokens_including_setup": 2629487,
+      "total_uncached_input_tokens_including_setup": 435567,
+      "context_bytes": 15638,
+      "cost_usd": null
+    }
+  },
+  "setup": {
+    "codex_clean": {
+      "cli_runs": 0,
+      "usage": null,
+      "wall_seconds": 0,
+      "missing_usage_runs": 0
+    },
+    "codex_memory": {
+      "cli_runs": 12,
+      "usage": {
+        "input_tokens": 177134,
+        "cached_input_tokens": 21248,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1886,
+        "reasoning_output_tokens": 317
+      },
+      "wall_seconds": 115.6195727372542,
+      "missing_usage_runs": 0
+    },
+    "claude_clean": {
+      "cli_runs": 0,
+      "usage": null,
+      "wall_seconds": 0,
+      "missing_usage_runs": 0
+    },
+    "claude_memory": {
+      "cli_runs": 0,
+      "usage": null,
+      "wall_seconds": 0,
+      "missing_usage_runs": 0
+    }
+  },
+  "paired": {
+    "codex": {
+      "tie": 12,
+      "necessary_update_tie": 8,
+      "same_topic_control_tie": 4
+    },
+    "claude": {}
+  },
+  "clusters": [
+    {
+      "id": "boltons",
+      "source_url": "https://github.com/mahmoud/boltons.git",
+      "commit": "961dcff3f42e73b245aef65e377fe82763b257bb",
+      "scores": {
+        "codex_clean": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "codex_memory": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "claude_clean": {
+          "tasks": 0,
+          "pass": 0
+        },
+        "claude_memory": {
+          "tasks": 0,
+          "pass": 0
+        }
+      }
+    },
+    {
+      "id": "more-itertools",
+      "source_url": "https://github.com/more-itertools/more-itertools.git",
+      "commit": "9ed3dbb0ae527230cd156d91d0af305478558fba",
+      "scores": {
+        "codex_clean": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "codex_memory": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "claude_clean": {
+          "tasks": 0,
+          "pass": 0
+        },
+        "claude_memory": {
+          "tasks": 0,
+          "pass": 0
+        }
+      }
+    },
+    {
+      "id": "packaging",
+      "source_url": "https://github.com/pypa/packaging.git",
+      "commit": "10590c194edb33c82f84a127883d6097c56b7840",
+      "scores": {
+        "codex_clean": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "codex_memory": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "claude_clean": {
+          "tasks": 0,
+          "pass": 0
+        },
+        "claude_memory": {
+          "tasks": 0,
+          "pass": 0
+        }
+      }
+    },
+    {
+      "id": "itsdangerous",
+      "source_url": "https://github.com/pallets/itsdangerous.git",
+      "commit": "672971d66a2ef9f85151e53283113f33d642dabd",
+      "scores": {
+        "codex_clean": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "codex_memory": {
+          "tasks": 3,
+          "pass": 3
+        },
+        "claude_clean": {
+          "tasks": 0,
+          "pass": 0
+        },
+        "claude_memory": {
+          "tasks": 0,
+          "pass": 0
+        }
+      }
+    }
+  ],
+  "blocked_backends": {
+    "claude": "default and sonnet diagnostics each had repeated HTTP 502 and timed out at 45 seconds; no quality tasks"
+  },
+  "limitations": [
+    "Only four project clusters; three dependent steps per cluster.",
+    "Targeted cumulative feature and existing API checks, not full repository suites.",
+    "First and third steps ran raw first in every cluster; cache and time effects are not fully counterbalanced.",
+    "Dollar costs and confirmed served Codex model id were not exposed.",
+    "The post-pilot lineage fix has component tests, not a new coding-quality result."
+  ]
+}

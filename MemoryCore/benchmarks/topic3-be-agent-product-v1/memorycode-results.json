@@ -1,0 +1,256 @@
+{
+  "schema": 1,
+  "protocol": "topic3-be-memorycode-score-v1",
+  "status": "pass",
+  "claim_boundary": {
+    "memorycore_l0": "label-blind raw-session retrieval/injection method validation",
+    "latest_guidelines_oracle": "privileged extraction ceiling; excluded from product-gain gates",
+    "l1_extraction": "not evaluated",
+    "business_or_coding_agent_utility": "not evaluated"
+  },
+  "tasks": 24,
+  "independent_dialogue_clusters": 24,
+  "execution": {
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "decoding": "greedy",
+    "max_input_tokens": 65536,
+    "max_new_tokens": 1024,
+    "parallel_shards": 4,
+    "model_load_seconds_by_shard": {
+      "0": 3.347164524020627,
+      "1": 3.6143045839853585,
+      "2": 3.617527632974088,
+      "3": 3.629162125987932
+    },
+    "generation_latency_includes_prefill": true,
+    "generation_latency_excludes_model_load": true
+  },
+  "packets": {
+    "rows": 24,
+    "bytes": 1919862,
+    "sha256": "ecabcda9142f5094cfa73b62ce1c41e6c87bad33633b2ccb2c29b1c69f1c76e4",
+    "committed": false
+  },
+  "receipts": {
+    "rows": 72,
+    "bytes": 171727,
+    "sha256": "778ecd17b40116b8ba5734dd14f89e13359024fd5e2f17e9f839135d001de9e5"
+  },
+  "arms": {
+    "full_history": {
+      "mode": "baseline",
+      "tasks": 24,
+      "run_passed": 24,
+      "syntax_valid": 23,
+      "output_truncated": 1,
+      "scores": {
+        "official_compatible": 0.2399154005626475,
+        "target_coverage": 0.9166666666666666,
+        "target_conditional": 0.13636363636363635,
+        "target_strict": 0.125
+      },
+      "by_target_status": {
+        "add": {
+          "tasks": 14,
+          "target_strict": 0.21428571428571427,
+          "official_compatible": 0.282703886152162
+        },
+        "update": {
+          "tasks": 10,
+          "target_strict": 0.0,
+          "official_compatible": 0.18001152073732718
+        }
+      },
+      "cost": {
+        "input_tokens": {
+          "count": 24,
+          "sum": 304702,
+          "mean": 12695.916666666666,
+          "p50": 6695.5,
+          "p95": 50293.79999999995
+        },
+        "output_tokens": {
+          "count": 24,
+          "sum": 10241,
+          "mean": 426.7083333333333,
+          "p50": 328.5,
+          "p95": 869.4499999999999
+        },
+        "generation_seconds": {
+          "count": 24,
+          "sum": 398.24462152435444,
+          "mean": 16.593525896848103,
+          "p50": 11.804644191055559,
+          "p95": 41.335078236542174
+        }
+      }
+    },
+    "memorycore_l0": {
+      "mode": "enabled",
+      "tasks": 24,
+      "run_passed": 24,
+      "syntax_valid": 24,
+      "output_truncated": 0,
+      "scores": {
+        "official_compatible": 0.19938618600326052,
+        "target_coverage": 1.0,
+        "target_conditional": 0.16666666666666666,
+        "target_strict": 0.16666666666666666
+      },
+      "by_target_status": {
+        "add": {
+          "tasks": 14,
+          "target_strict": 0.2857142857142857,
+          "official_compatible": 0.2799769333020565
+        },
+        "update": {
+          "tasks": 10,
+          "target_strict": 0.0,
+          "official_compatible": 0.08655913978494624
+        }
+      },
+      "cost": {
+        "input_tokens": {
+          "count": 24,
+          "sum": 70706,
+          "mean": 2946.0833333333335,
+          "p50": 3341.5,
+          "p95": 5031.05
+        },
+        "output_tokens": {
+          "count": 24,
+          "sum": 7733,
+          "mean": 322.2083333333333,
+          "p50": 274.5,
+          "p95": 619.1999999999999
+        },
+        "generation_seconds": {
+          "count": 24,
+          "sum": 210.92478780285455,
+          "mean": 8.78853282511894,
+          "p50": 7.261751347454265,
+          "p95": 16.04965381789952
+        }
+      }
+    },
+    "latest_guidelines_oracle": {
+      "mode": "oracle",
+      "tasks": 24,
+      "run_passed": 24,
+      "syntax_valid": 23,
+      "output_truncated": 1,
+      "scores": {
+        "official_compatible": 0.6585473424322145,
+        "target_coverage": 0.9583333333333334,
+        "target_conditional": 0.5652173913043478,
+        "target_strict": 0.5416666666666666
+      },
+      "by_target_status": {
+        "add": {
+          "tasks": 14,
+          "target_strict": 0.5714285714285714,
+          "official_compatible": 0.6904370943779811
+        },
+        "update": {
+          "tasks": 10,
+          "target_strict": 0.5,
+          "official_compatible": 0.6139016897081413
+        }
+      },
+      "cost": {
+        "input_tokens": {
+          "count": 24,
+          "sum": 5701,
+          "mean": 237.54166666666666,
+          "p50": 167.0,
+          "p95": 702.5999999999995
+        },
+        "output_tokens": {
+          "count": 24,
+          "sum": 9559,
+          "mean": 398.2916666666667,
+          "p50": 352.0,
+          "p95": 945.1999999999994
+        },
+        "generation_seconds": {
+          "count": 24,
+          "sum": 249.11024466436356,
+          "mean": 10.379593527681815,
+          "p50": 9.089517161948606,
+          "p95": 24.66987176162655
+        }
+      }
+    }
+  },
+  "paired": {
+    "memorycore_l0_vs_full_history_target_strict": {
+      "metric": "target_strict",
+      "wins": 1,
+      "losses": 0,
+      "ties": 23,
+      "mean_delta": 0.041666666666666664,
+      "bootstrap_seed": 20260913,
+      "bootstrap_95ci": [
+        0.0,
+        0.125
+      ],
+      "exact_sign_p_two_sided": 1.0
+    },
+    "memorycore_l0_vs_full_history_official_compatible": {
+      "metric": "official_compatible",
+      "wins": 3,
+      "losses": 7,
+      "ties": 14,
+      "mean_delta": -0.040529214559386975,
+      "bootstrap_seed": 20260913,
+      "bootstrap_95ci": [
+        -0.0949074074074074,
+        0.005214248654442576
+      ],
+      "exact_sign_p_two_sided": 0.34375
+    }
+  },
+  "retrieval": {
+    "k": 8,
+    "target_session_recall": 0.7083333333333334,
+    "target_session_recall_by_status": {
+      "add": 0.7857142857142857,
+      "update": 0.6
+    },
+    "selected_sessions": {
+      "count": 24,
+      "sum": 128,
+      "mean": 5.333333333333333,
+      "p50": 5.5,
+      "p95": 8.0
+    },
+    "latency_ms": {
+      "count": 24,
+      "sum": 39.95336799999791,
+      "mean": 1.6647236666665794,
+      "p50": 1.496614999999906,
+      "p95": 3.0178482999997747
+    },
+    "strategies": {
+      "fts": 24
+    }
+  },
+  "cost_comparison": {
+    "memorycore_over_full_input_ratio": 0.23204967476419583,
+    "memorycore_input_token_delta": -233996
+  },
+  "gates": {
+    "protocol_complete": true,
+    "memorycore_directional_gain": true,
+    "memorycore_high_confidence_gain": false,
+    "memorycore_update_no_net_loss": true,
+    "memorycore_input_cost_below_full_history": true
+  },
+  "metric_definitions": {
+    "official_compatible": "mean over active rules whose Python object appears; syntax errors score zero",
+    "target_coverage": "fraction of query-target rules producing a non-null official-compatible judgment",
+    "target_conditional": "correctness among covered query-target rules",
+    "target_strict": "query-target correctness with absent target objects scored zero",
+    "target_session_recall": "all latest source sessions for the query target occur in injected records"
+  }
+}

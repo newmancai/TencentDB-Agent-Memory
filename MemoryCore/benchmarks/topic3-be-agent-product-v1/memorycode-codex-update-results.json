@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "protocol": "memorycode-codex-update-diagnostic-v1",
+  "status": "complete",
+  "selection": {
+    "rule": "fewest-session update and fewest-session official long-history update",
+    "task_ids": [
+      "memorycode-079",
+      "memorycode-219"
+    ],
+    "session_counts": [
+      3,
+      20
+    ],
+    "arms": [
+      "no_history",
+      "raw_full"
+    ],
+    "source_packets_sha256": "ecabcda9142f5094cfa73b62ce1c41e6c87bad33633b2ccb2c29b1c69f1c76e4"
+  },
+  "execution": {
+    "requested_model": "gpt-5.6-sol",
+    "reasoning_effort": "medium",
+    "cli_version": "codex-cli 0.153.4",
+    "planned_calls": 4,
+    "completed_calls": 4,
+    "retries": 0,
+    "timeouts": 0,
+    "tool_event_violations": 0,
+    "nonempty_stderr_files": 0
+  },
+  "quality": {
+    "no_history_target_strict": 0.0,
+    "raw_full_target_strict": 1.0,
+    "raw_full_wins": 2,
+    "raw_full_losses": 0,
+    "ties": 0,
+    "per_task": [
+      {
+        "task_id": "memorycode-079",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "raw_full_official_compatible": 1.0
+      },
+      {
+        "task_id": "memorycode-219",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "raw_full_official_compatible": 0.8333333333333334
+      }
+    ]
+  },
+  "cost": {
+    "no_history": {
+      "input_tokens": 23247,
+      "cached_input_tokens": 11648,
+      "noncached_input_tokens": 11599,
+      "output_tokens": 1255,
+      "reasoning_output_tokens": 119,
+      "wall_seconds": 43.598006847081706
+    },
+    "raw_full": {
+      "input_tokens": 34488,
+      "cached_input_tokens": 16128,
+      "noncached_input_tokens": 18360,
+      "output_tokens": 2531,
+      "reasoning_output_tokens": 891,
+      "wall_seconds": 62.951044840039685
+    }
+  },
+  "local_evidence": {
+    "path": "/home/edarace/Tencent-Memory-2/.local-evidence/topic3-be-memorycode-codex-update-v1",
+    "selection_sha256": "1bd7a6f95325c57382ef5344db03d49239fabd40abb1a61bc71bf4fbef4d0e72",
+    "inputs_sha256": "42cadfb24a8dde551060500364d65973efe4502d8290398bc836d9e73c5afbcc",
+    "receipts_sha256": "d9b7a95f97abe43fb4c45de561a8d7cbd3e6164830b5ff8258b91a5bf1a426bd",
+    "summary_sha256": "140afc9bae614cae0c333e632973fc988c91fbe68c058afaba6ecaee0f1436bd"
+  },
+  "decision": "Codex can apply the latest verbatim update in both bounded dialogues; the prior Qwen zero is backend-dependent, while natural and representative product benefit remain untested."
+}
