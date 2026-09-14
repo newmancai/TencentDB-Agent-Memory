@@ -42,10 +42,13 @@ class MemoryCodeScoreTest(unittest.TestCase):
                 arms[arm] = {"mode": mode, "system": "s", "user": "u", "source_session_ids": [0]}
                 receipts.append({
                     "task_id": "t", "dialogue_id": 1, "arm": arm, "mode": mode,
+                    "model": "fixture-model", "decoding": "greedy",
                     "status": "passed", "output": output,
                     "prompt_sha256": hashlib.sha256(b"s\0u").hexdigest(), "source_session_ids": [0],
-                    "input_tokens": 10, "output_tokens": 5, "generation_seconds": 0.1,
+                    "input_tokens": 10, "max_input_tokens": 1024, "max_new_tokens": 128,
+                    "output_tokens": 5, "generation_seconds": 0.1,
                     "output_truncated": False,
+                    "shard": 0, "load_seconds": 0.01,
                 })
             packet = {
                 "task_id": "t", "history_class": "short", "session_count": 3,

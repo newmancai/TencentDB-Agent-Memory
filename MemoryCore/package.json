@@ -33,6 +33,7 @@
     "read-local-memory": "node ./bin/read-local-memory.mjs",
     "test": "vitest run",
     "test:project-agent": "python3 -m unittest discover -s scripts/project-agent -p 'test_*.py' -v",
+    "test:agent-product": "python3 -m unittest discover -s benchmarks/topic3-be-agent-product-v1 -p 'test_*.py' -v",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint:project-agent": "python3 -m black --line-length 100 --check scripts/project-agent/*.py && prettier --check --single-quote --print-width 100 src/core/memory-feedback/project-memory.ts src/core/memory-feedback/project-memory.test.ts src/core/memory-feedback/index.ts scripts/project-agent/store.ts bin/memory-agent.mjs",

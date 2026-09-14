@@ -74,6 +74,9 @@ jobs:
       - name: Test project-agent host
         run: npm run test:project-agent
 
+      - name: Test public-evaluation harnesses
+        run: npm run test:agent-product
+
   # ── 3. Pack validation ─────────────────────────────────────
   pack:
     name: Pack
