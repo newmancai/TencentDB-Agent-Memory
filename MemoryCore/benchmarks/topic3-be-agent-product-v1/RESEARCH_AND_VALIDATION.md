@@ -161,11 +161,11 @@ scope diagnostic.
 
 | Deliverable | Artifact | Status |
 |---|---|---|
-| Research and design | this document, `MEMORYCODE_PROTOCOL.md`, `OPTIMIZATION_REPORT.md` | pass |
-| Public long-dialogue runner and baseline result | MemoryCode prepare/packet/model/score runners and structured results | pass; high-confidence gain fails |
-| Implementation and comparison | native MemoryCore FTS adapter, full-history baseline and oracle ceiling | method complete; current raw retrieval not accepted |
-| Off switch and forced fallback | `runtime_contract_harness.ts`, `runtime-contract-results.json`, unit tests | pass |
-| Portable PR and internal notes | draft PR #3, `PORTING.md` | pass for review; not production-enabled |
+| Research and design | this document, `MEMORYCODE_PROTOCOL.md`, `OPTIMIZATION_REPORT.md`, final submission report | pass |
+| Public long-dialogue runner and baseline result | MemoryCode prepare/packet/model/score runners and structured results | pass; raw 7/10 vs no-history 0/10, independent focus 9/10 to 10/10 |
+| Implementation and comparison | `ProjectMemory`, project-agent host, public repository and MemoryCode comparisons | pass for the experimental product slice |
+| Off switch and forced fallback | `runtime_contract_harness.ts`, `runtime-contract-results.json`, unit and package tests | pass |
+| Portable PR and internal notes | draft PR #4, `PORTING.md`, final delivery index | pass for review; not production-enabled |
 
 Negative public gain is retained as a first-class result. It explains why a
 single classifier or reviewer is not high-confidence feedback and why the next

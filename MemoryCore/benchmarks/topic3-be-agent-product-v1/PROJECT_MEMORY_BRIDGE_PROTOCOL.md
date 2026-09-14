@@ -2,6 +2,9 @@
 
 Date: 2026-09-14
 
+This protocol records the first four-to-two consolidation. It remains reproducible, but the final
+installed path is specified by `PROJECT_MEMORY_RUNTIME_PROTOCOL.md`.
+
 ## Objective
 
 Reduce fixed local orchestration latency without changing the B+E prompt, stored observations,

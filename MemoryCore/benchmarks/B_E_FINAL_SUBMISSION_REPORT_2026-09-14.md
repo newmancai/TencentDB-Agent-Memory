@@ -21,12 +21,17 @@
 30/30 调用有效。该增益区间仍触及 0，只足以开放显式 experimental 路线。冷 focus 的非缓存输入为
 raw 的 2.026 倍；把编译状态移到反馈写入并按 revision 复用后，已执行 coding stage 为 1.101 倍，
 墙钟为 0.969 倍、调用数相同。后续 source-only 候选虽把热编码非缓存输入降至 0.693 倍，但主指标有
-1 胜 1 负，未启用；single-pass 候选也因质量回归停止。产品本地热路径则在上下文与最终快照逐字等价的
-20 轮配对中，将模型前 bridge 进程从 4 次降到 2 次，均值耗时由 0.680 秒降到 0.424 秒。当前能够支持
+1 胜 1 负，未启用；single-pass 候选也因质量回归停止。产品本地热路径先在上下文与最终快照逐字等价的
+20 轮配对中，将模型前 bridge 进程从 4 次降到 2 次。最终三臂 20 组配对又显示：source/`tsx`
+双调用、precompiled 双调用和 precompiled one-shot 的均值分别为 0.454、0.323、0.245 秒；最终路径
+相对上一版均值／p95 降低 46.1%／46.5%，结构为 4→1 个模型前进程，20/20 逐字等价。当前能够支持
 的是“无损项目历史与可复用的显式整理是一条已有窄范围行为收益、且工程开销可继续压缩的路线”，不能
 支持“已普遍优于 Codex、Claude Code 或某个开源方案”。
 
 ## 1. 最终上交材料
+
+五项必交 rubric 与导师三项上交物的逐项入口见
+[`B_E_DELIVERY_INDEX_2026-09-14.md`](B_E_DELIVERY_INDEX_2026-09-14.md)。
 
 | 要求 | 本次交付 | 状态 |
 | --- | --- | --- |
@@ -69,8 +74,9 @@ CLI 的用户与维护说明见
   不写入部分规则，只保留原话。引用合法不等于语义一定正确，因此该功能保持实验状态。
 - **编译不在编码热路径。** 接受的约束随项目 revision 持久化；同一 revision 的后续 `context`／`run`
   不再次调用编译模型。新增观察产生新 revision，失败的编译不缓存部分提议。
-- **读取复用同一快照。** 普通 `run` 的 `loadContext` 在一次 bridge 进程中返回 pre-task 快照和范围选择；
-  宿主用同一快照分配下一序号，再执行原有持久写入，不重复启动 bridge 读取同一 revision。
+- **读取与任务写入同进程。** 普通 `run` 的 `prepareRun` 先取得 pre-task 快照和范围选择，再按该快照
+  分配下一序号并调用原有持久写入；写入失败仍返回已加载上下文及明确错误。安装包直接执行预编译 bridge，
+  源码检出没有构建产物时才回退 `tsx`。
 - **三种对照模式。** `scoped` 使用范围化视图，`raw` 读取同项目原话，`off` 完全绕过本工具的记忆读写。
 
 ### 3.2 E：执行与证据闭环
@@ -106,8 +112,10 @@ memory-agent
 - 未自动接入 Gateway，未发布新的 npm 正式版本，也未实现自动语义纠错。
 - 提示 JSON 采用无损紧凑序列化；在既有 6 份顺序任务 context 上字节数从 4,383 降到 4,247
   （3.10%）。这是确定性重算，不是 token 价格或模型质量实验。
-- 本地 bridge 20 轮配对中上下文和最终快照均逐字一致；模型前进程 4→2，均值 0.680→0.424 秒、
-  p95 0.736→0.476 秒。该数字不包含模型、网络和 checker，不能当端到端 SLO。
+- 本地 bridge 初轮 20 对中模型前进程 4→2，均值 0.680→0.424 秒。最终三臂 20 组配对中，source/`tsx`
+  双调用、precompiled 双调用、precompiled one-shot 均值为 0.454／0.323／0.245 秒，p95 为
+  0.472／0.336／0.253 秒；最终相对上一版均值／p95 下降 46.1%／46.5%，模型前进程为 1。所有上下文
+  和最终快照逐字一致；旧轮次与新轮次的时延不拼接，数字也不包含模型、网络和 checker。
 
 ## 4. 实现与测试代码清单
 
@@ -133,7 +141,7 @@ memory-agent
 | `scripts/project-agent/test_backend.py` | 后端命令、实时日志、超时、取消、进程组终止和 usage |
 | `scripts/project-agent/test_changes.py` | 已有／新增文件差异、符号链接、容量和遗漏原因 |
 | `benchmarks/topic3-be-agent-product-v1/test_*.py` | runner 隔离合同、公共结果聚合、MemoryCode 评分和证据对齐 |
-| `benchmarks/topic3-be-agent-product-v1/project_memory_bridge_benchmark.py` | 旧／新 bridge 调用数、上下文与最终状态等价性、配对时延 |
+| `benchmarks/topic3-be-agent-product-v1/project_memory_runtime_benchmark.py` | source／预编译／one-shot 三臂调用数、上下文与最终状态等价性、配对时延 |
 | `scripts/ci/smoke-memory-agent-package.sh` | 从生成 tarball 安装后的入口、子路径导出及 remember→context→history |
 | `.github/workflows/pr-ci.yml` | 全量／最低版本测试、格式、构建、打包、尺寸、manifest 和隔离门禁 |
 
@@ -162,13 +170,13 @@ Actions 对 PR 的每个新 head 重跑相同门禁。
 | 检查 | 结果 |
 | --- | ---: |
 | MemoryCore Node 24 全量 Vitest | 24 个文件，204/204 通过 |
-| Python 项目代理 | 22/22 通过 |
+| Python 项目代理 | 25/25 通过 |
 | Python agent-product／公共评测 runner | 31/31 通过 |
-| 项目记忆 bridge 配对 | 20/20 上下文等价、最终快照等价；模型调用 0 |
+| 项目记忆 runtime 三臂配对 | 20/20 上下文、最终快照等价；模型调用 0 |
 | 最低 Node 22.19 反馈模块 | 5 个文件，30/30 通过 |
 | Black 25.1.0＋Prettier 3.5.3 | 通过 |
 | `npm run build` | 通过 |
-| 生成包 | 373 个文件，1,478,631 bytes，低于 2 MiB 门禁 |
+| 生成包 | 376 个文件，1,479,928 bytes，低于 2 MiB 门禁 |
 | 空目录安装后的 CLI／SQLite／子路径 smoke | 通过 |
 | Python 编译、shell 语法、`git diff --check` | 通过 |
 
@@ -237,7 +245,8 @@ focus 的第一批开发集出现 1 个回归，原因是编译器错误地把 m
 模型侧降本的完整失败门槛见
 [`MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md`](topic3-be-agent-product-v1/MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md)；
 已采用的本地 bridge 等价性与时延结果见
-[`PROJECT_MEMORY_BRIDGE_RESULTS.md`](topic3-be-agent-product-v1/PROJECT_MEMORY_BRIDGE_RESULTS.md)。
+[`PROJECT_MEMORY_BRIDGE_RESULTS.md`](topic3-be-agent-product-v1/PROJECT_MEMORY_BRIDGE_RESULTS.md) 和
+[`PROJECT_MEMORY_RUNTIME_OPTIMIZATION_RESULTS.md`](topic3-be-agent-product-v1/PROJECT_MEMORY_RUNTIME_OPTIMIZATION_RESULTS.md)。
 
 ### 6.4 明确未完成的效果结论
 
@@ -287,5 +296,7 @@ npx vitest run src/core/memory-feedback
 交付，并证明无损项目历史与可复用的显式整理在部分欠定维护决策和公开更新任务中有实际作用；稳定、普适
 收益和同条件开源优势仍是后续研究问题。**
 
-AI infra 方面已经得到一个可合入的无质量语义变化：复用同一 pre-task 快照后，模型前 bridge 调用减半，
-本地均值和 p95 固定开销分别降低约 37.6% 和 35.4%。它不改变上述质量分数，也不冒充端到端模型提速。
+AI infra 方面已经完成高收益的无质量语义变化：先复用同一 pre-task 快照，再使用预编译 bridge，最后把
+上下文读取与任务写入合成单进程顺序操作；模型前 bridge 进程由 4 个降到 1 个。最终 20 组三臂配对中，
+均值 0.454→0.245 秒、p95 0.472→0.253 秒，降低 46.1%／46.5%，上下文与最终快照 20/20 逐字一致。
+它不改变上述质量分数，也不冒充端到端模型提速；常驻 worker 或数据库重构因复杂度与当前收益证据不匹配而停止。

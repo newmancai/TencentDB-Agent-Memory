@@ -21,7 +21,9 @@ Python 主机的高层步骤不容易一眼辨认。它不是当前功能失败�
 | 新文件差异的容量与遗漏判断是魔法数字和密集分支 | 审阅证据边界不直观 | 命名超时/容量常量并提取 `_omission_reason` |
 | 只有一次性人工格式整理，没有回归约束 | 后续提交容易恢复压缩风格 | 固定 Black 25.1.0、Prettier 3.5.3；新增 `npm run lint:project-agent` 和 PR CI 检查 |
 | 组件关系只散落在长说明中 | 新维护者需要从入口反查职责 | 在 CLI README 增加单向运行链路和各层所有权 |
-| `run` 为同一 revision 多次启动 bridge，读取与渲染边界交织 | 固定延迟高，后续优化容易改变 fallback 语义 | 提取纯 `render_context`；`loadContext` 一次返回快照与选择，持久写入仍独立 |
+| `run` 为同一 revision 多次启动 bridge，读取与渲染边界交织 | 固定延迟高，后续优化容易改变 fallback 语义 | 提取纯 `render_context`；最终 `prepareRun` 只编排既有 `loadContext` 与 `ProjectMemory.ingest`，不复制 Memory 规则 |
+| 安装路径逐次用 `tsx` 转译 bridge | 每次进程启动重复解析 TypeScript | 将同一 `store.ts` 纳入既有 `tsdown` 构建；安装包使用预编译产物，未构建源码仍有明确 fallback |
+| 两个后续 infra runner 重复 seed、时延和配对循环 | 结果入口分散，修复容易遗漏一份 | 合并为单个三臂 `project_memory_runtime_benchmark.py`，复用首轮基准的 seed 与统计函数 |
 
 ## 量化变化
 
@@ -40,13 +42,16 @@ Python 主机的高层步骤不容易一眼辨认。它不是当前功能失败�
 保留的 9 个长行都位于提示／帮助文本、测试断言或内嵌子进程脚本，不承担多步业务控制流。
 没有为了数字拆碎用户可见提示或让进程测试更难对应实际命令。
 
+最终依赖方向保持单向：Python 宿主负责命令编排，`store.ts` 负责一次进程内的操作顺序，`ProjectMemory`
+仍唯一拥有选择、范围、谱系、容量、校验和持久化语义。性能优化没有形成第二套状态机或第二种 fallback。
+
 ## 验证
 
 - Black 与 Prettier 检查通过。
 - Python 语法编译通过。
-- 项目代理测试：22/22 通过。
+- 项目代理测试：25/25 通过。
 - agent-product／公共评测测试：31/31 通过。
-- bridge 20 轮配对上下文和最终快照逐字等价，模型前进程 4→2。
+- 最终 bridge 三臂 20 轮配对上下文和最终快照逐字等价，模型前进程由 4 个降到 1 个。
 - 项目记忆定向测试：3/3 通过。
 - MemoryCore Node 24 全量测试：24 个文件、204/204 通过。
 - 最低 Node 22.19 反馈模块：5 个文件、30/30 通过。

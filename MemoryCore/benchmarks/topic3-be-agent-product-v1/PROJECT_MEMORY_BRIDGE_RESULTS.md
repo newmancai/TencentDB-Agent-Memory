@@ -4,6 +4,9 @@ Date: 2026-09-14. Protocol: `PROJECT_MEMORY_BRIDGE_PROTOCOL.md`. Compact machine
 `project-memory-bridge-results.json`. Raw 20-pair evidence SHA-256:
 `67572aa14c1c8350fee09f4286617a39ca8f3af98f98aea7721368097397bdd1`.
 
+This is the retained first-stage result. The final installed runtime path and authoritative current
+numbers are in `PROJECT_MEMORY_RUNTIME_OPTIMIZATION_RESULTS.md`.
+
 ## Outcome
 
 Promote the `loadContext` bridge consolidation. It changes no model prompt or memory selection rule. Every
