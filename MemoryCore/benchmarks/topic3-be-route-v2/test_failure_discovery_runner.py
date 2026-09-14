@@ -36,6 +36,11 @@ class FakeHost:
                 'context_bytes': 10, 'memory_error': None}
 
 
+class ExplodingHost(FakeHost):
+    def run(self, text, evidence):
+        raise OSError('synthetic host failure')
+
+
 def fixture_manifest(root, source, arms=ARMS):
     for command in (['git', 'init', '-q'], ['git', 'add', '.'],
                     ['git', '-c', 'user.name=T', '-c', 'user.email=t@example.invalid',
@@ -63,6 +68,20 @@ def fixture_manifest(root, source, arms=ARMS):
 
 
 class FailureDiscoveryRunnerTest(unittest.TestCase):
+    def test_host_exception_writes_invalid_receipt_before_stop(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')
+            manifest = fixture_manifest(root, source, ('no_history', 'raw_full'))
+            with patch('failure_discovery_runner.Host', ExplodingHost), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(RuntimeError, 'before auditable completion'):
+                    run(manifest, root / 'out')
+            rows = [json.loads(line) for line in
+                    (root / 'out' / 'receipts.jsonl').read_text().splitlines()]
+            self.assertEqual(len(rows), 1)
+            self.assertEqual((rows[0]['status'], rows[0]['checker_status']),
+                             ('host_exception', 'not_run'))
+            self.assertTrue((root / 'out' / 'INVALID_EXECUTION.json').is_file())
+
     def test_natural_mode_rejects_handwritten_unfrozen_task(self):
         with TemporaryDirectory() as directory:
             root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')

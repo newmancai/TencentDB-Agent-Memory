@@ -8,11 +8,14 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+import fcntl
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
 import re
 import subprocess
+import tempfile
 from typing import Callable
 
 
@@ -346,26 +349,273 @@ def natural_manifest(freeze_path: Path) -> dict:
     return manifest
 
 
-def validate_registry(path: Path) -> dict:
-    registry = load_json(path)
+def evidence_tree(root: Path) -> list[dict]:
+    root = root.resolve()
+    if not root.is_dir():
+        raise ValueError(f'result directory is missing: {root}')
+    files = []
+    for path in sorted(root.rglob('*')):
+        if path.is_symlink():
+            raise ValueError(f'symlink is not allowed in sealed evidence: {path}')
+        if path.is_file():
+            raw = path.read_bytes()
+            files.append({'path': path.relative_to(root).as_posix(), 'bytes': len(raw),
+                          'sha256': sha256_bytes(raw)})
+    if not files:
+        raise ValueError('result directory contains no evidence files')
+    return files
+
+
+def validate_patch_audit(audit: dict, episode_id: str, freeze_sha256: str,
+                         frozen_at: str) -> dict:
+    if audit.get('schema') != 1 or audit.get('kind') != 'phase_b_patch_audit':
+        raise ValueError('not a Phase B patch-audit packet')
+    if audit.get('episode_id') != episode_id or audit.get('freeze_sha256') != freeze_sha256:
+        raise ValueError('patch audit does not bind the frozen episode')
+    if parse_timestamp(audit.get('audited_at', '')) < parse_timestamp(frozen_at):
+        raise ValueError('patch audit predates task freeze')
+    if not isinstance(audit.get('auditor'), str) or not audit['auditor'].strip():
+        raise ValueError('patch audit needs an auditor identifier')
+    if audit.get('verdict') not in ('valid', 'invalid'):
+        raise ValueError('patch audit verdict must be valid or invalid')
+    checks = audit.get('checks')
+    required = ('checker_semantics_complete', 'both_patches_reviewed',
+                'no_cross_arm_contamination', 'declared_scope_respected')
+    if not isinstance(checks, dict) or any(not isinstance(checks.get(key), bool) for key in required):
+        raise ValueError(f'patch audit needs boolean checks: {required}')
+    if audit['verdict'] == 'valid' and not all(checks[key] for key in required):
+        raise ValueError('a valid patch audit requires every audit check to pass')
+    if not isinstance(audit.get('notes'), str):
+        raise ValueError('patch audit notes must be a string')
+    return audit
+
+
+def validate_natural_results(freeze_path: Path, results: Path) -> tuple[dict, list[dict], dict]:
+    expected_manifest = natural_manifest(freeze_path)
+    actual_manifest = load_json(results / 'manifest.json')
+    if actual_manifest != expected_manifest:
+        raise ValueError('result manifest differs from the frozen natural manifest')
+    receipt_path = results / 'receipts.jsonl'
+    try:
+        rows = [json.loads(line) for line in receipt_path.read_text().splitlines() if line.strip()]
+    except (FileNotFoundError, json.JSONDecodeError) as error:
+        raise ValueError('natural result receipts are missing or malformed') from error
+    freeze = validate_freeze(load_json(freeze_path))
+    if not all(isinstance(row, dict) for row in rows):
+        raise ValueError('every natural receipt must be an object')
+    observed_arms = [row.get('arm') for row in rows]
+    if (not rows or len(rows) > len(ARMS) or len(observed_arms) != len(set(observed_arms))
+            or not set(observed_arms) <= set(ARMS)):
+        raise ValueError('natural results need at most one receipt for each known arm')
+    for row in rows:
+        arm = row['arm']
+        if (row.get('task_id') != freeze['id'] or row.get('cluster_id') != freeze['id']
+                or row.get('kind') != freeze['episode_kind']
+                or row.get('base_commit') != freeze['base_commit']
+                or row.get('changes_before') != []
+                or row.get('context_mode') != ('off' if arm == 'no_history' else 'raw')
+                or row.get('history_count') != (0 if arm == 'no_history' else 1)):
+            raise ValueError(f'natural receipt does not match freeze for {arm}')
+        if (not isinstance(row.get('checker_pass'), bool)
+                or not isinstance(row.get('severe_regression'), bool)
+                or not isinstance(row.get('filesystem_isolated'), bool)
+                or not isinstance(row.get('unexpected_changes'), list)
+                or not isinstance(row.get('visibility_violations'), list)
+                or row.get('usage') is not None and not isinstance(row.get('usage'), dict)):
+            raise ValueError(f'natural receipt has malformed audit fields for {arm}')
+    from failure_discovery_runner import summarize
+    expected_summary = summarize(rows, expected_manifest)
+    actual_summary = load_json(results / 'summary.json')
+    if actual_summary != expected_summary:
+        raise ValueError('natural result summary does not recompute from raw receipts')
+    return freeze, rows, actual_summary
+
+
+def outcome_fields(freeze: dict, rows: list[dict], summary: dict,
+                   results: Path, audit: dict) -> dict:
+    invalid_files = sorted(path.name for path in results.iterdir()
+                           if path.name.startswith('INVALID_') and path.is_file())
+    mechanically_valid = (len(rows) == len(ARMS) and {row['arm'] for row in rows} == set(ARMS)
+                          and summary.get('complete') is True and not invalid_files
+                          and all(row.get('status') == 'completed'
+                                  and row.get('checker_status') == 'completed'
+                                  and row.get('filesystem_isolated') is True
+                                  and not row.get('visibility_violations')
+                                  and not row.get('unexpected_changes')
+                                  and isinstance(row.get('usage'), dict) and bool(row['usage'])
+                                  for row in rows))
+    by_arm = {row['arm']: row for row in rows}
+    quality_comparable = (set(by_arm) == set(ARMS)
+                          and all(row.get('status') == 'completed'
+                                  and row.get('checker_status') == 'completed'
+                                  and row.get('filesystem_isolated') is True
+                                  and not row.get('visibility_violations')
+                                  and not row.get('unexpected_changes') for row in rows))
+    if quality_comparable:
+        no_history = by_arm['no_history']['checker_pass'] is True
+        raw_full = by_arm['raw_full']['checker_pass'] is True
+        comparison = ('win' if raw_full and not no_history else
+                      'loss' if no_history and not raw_full else 'tie')
+    else:
+        comparison = 'indeterminate'
+    return {
+        'id': freeze['id'],
+        'decision_thread': freeze['decision_thread'],
+        'episode_kind': freeze['episode_kind'],
+        'status': 'eligible' if mechanically_valid and audit['verdict'] == 'valid' else 'invalid',
+        'comparison': comparison,
+        'checker_pass': {arm: (by_arm[arm].get('checker_pass') is True if arm in by_arm else None)
+                         for arm in ARMS},
+        'severe_regression': any(row.get('severe_regression') is True for row in rows),
+        'invalid_files': invalid_files,
+    }
+
+
+def seal_outcome(root: Path, freeze_path: Path, results: Path, audit_path: Path,
+                 clock: Callable[[], str] = utc_now) -> Path:
+    freeze_raw = freeze_path.resolve().read_bytes()
+    freeze_sha = sha256_bytes(freeze_raw)
+    freeze, rows, summary = validate_natural_results(freeze_path.resolve(), results.resolve())
+    audit_raw = audit_path.resolve().read_bytes()
+    audit = validate_patch_audit(json.loads(audit_raw), freeze['id'], freeze_sha,
+                                 freeze['frozen_at'])
+    fields = outcome_fields(freeze, rows, summary, results, audit)
+    packet = {
+        'schema': 1,
+        'kind': 'phase_b_sealed_outcome',
+        **fields,
+        'freeze_path': str(freeze_path.resolve()),
+        'freeze_sha256': freeze_sha,
+        'results_path': str(results.resolve()),
+        'results_files': evidence_tree(results),
+        'audit_path': str(audit_path.resolve()),
+        'audit_sha256': sha256_bytes(audit_raw),
+        'sealed_at': clock(),
+    }
+    if parse_timestamp(packet['sealed_at']) < parse_timestamp(audit['audited_at']):
+        raise ValueError('outcome seal predates patch audit')
+    path = root.resolve() / 'outcomes' / f"{freeze['id']}.json"
+    write_exclusive(path, packet)
+    return path
+
+
+def validate_sealed_outcome(outcome: dict) -> dict:
+    if outcome.get('schema') != 1 or outcome.get('kind') != 'phase_b_sealed_outcome':
+        raise ValueError('not a sealed Phase B outcome')
+    require_identifier(outcome.get('id', ''), 'outcome id')
+    path_values = {key: outcome.get(key) for key in ('freeze_path', 'results_path', 'audit_path')}
+    if not all(isinstance(value, str) and value for value in path_values.values()):
+        raise ValueError('sealed outcome evidence paths must be non-empty strings')
+    freeze_path = Path(path_values['freeze_path'])
+    results_path = Path(path_values['results_path'])
+    audit_path = Path(path_values['audit_path'])
+    if not freeze_path.is_file() or sha256_bytes(freeze_path.read_bytes()) != outcome.get('freeze_sha256'):
+        raise ValueError('sealed outcome freeze evidence is missing or changed')
+    if not audit_path.is_file() or sha256_bytes(audit_path.read_bytes()) != outcome.get('audit_sha256'):
+        raise ValueError('sealed outcome audit evidence is missing or changed')
+    freeze, rows, summary = validate_natural_results(freeze_path, results_path)
+    audit = validate_patch_audit(load_json(audit_path), freeze['id'], outcome['freeze_sha256'],
+                                 freeze['frozen_at'])
+    if outcome.get('results_files') != evidence_tree(results_path):
+        raise ValueError('sealed outcome result evidence changed')
+    expected = outcome_fields(freeze, rows, summary, results_path, audit)
+    for key, value in expected.items():
+        if outcome.get(key) != value:
+            raise ValueError(f'sealed outcome field mismatch for {key}')
+    if parse_timestamp(outcome.get('sealed_at', '')) < parse_timestamp(audit['audited_at']):
+        raise ValueError('outcome seal predates patch audit')
+    return outcome
+
+
+def append_outcome(registry_path: Path, outcome_path: Path) -> dict:
+    outcome_raw = outcome_path.resolve().read_bytes()
+    outcome = validate_sealed_outcome(json.loads(outcome_raw))
+    lock_path = registry_path.resolve().with_suffix(registry_path.suffix + '.lock')
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        registry = validate_registry(registry_path.resolve())
+        if any(item['id'] == outcome['id'] for item in registry['attempts']):
+            raise ValueError(f'outcome already registered: {outcome["id"]}')
+        row = {
+            'id': outcome['id'],
+            'decision_thread': outcome['decision_thread'],
+            'kind': outcome['episode_kind'],
+            'status': outcome['status'],
+            'comparison': outcome['comparison'],
+            'severe_regression': outcome['severe_regression'],
+            'outcome_path': str(outcome_path.resolve()),
+            'outcome_sha256': sha256_bytes(outcome_raw),
+        }
+        registry['attempts'].append(row)
+        if outcome['status'] == 'eligible':
+            registry['episodes'].append(row.copy())
+        registry['attempts_total'] = len(registry['attempts'])
+        registry['invalid_attempts'] = sum(item['status'] == 'invalid' for item in registry['attempts'])
+        registry['eligible_sequences'] = len(registry['episodes'])
+        registry['decision_threads'] = len({item['decision_thread'] for item in registry['episodes']})
+        registry['natural_controls'] = sum(item['kind'] == 'same_topic_control'
+                                           for item in registry['episodes'])
+        if (registry['eligible_sequences'] >= registry['target_sequences']
+                and registry['decision_threads'] >= registry['minimum_decision_threads']
+                and registry['natural_controls'] >= registry['minimum_natural_controls']):
+            registry['status'] = 'ready_for_decision'
+        validate_registry_value(registry)
+        with tempfile.NamedTemporaryFile('wb', dir=registry_path.parent, delete=False) as handle:
+            temporary = Path(handle.name)
+            handle.write(json.dumps(registry, ensure_ascii=False, indent=2).encode() + b'\n')
+        os.replace(temporary, registry_path)
+        return registry
+
+
+def validate_registry_value(registry: dict) -> dict:
     if registry.get('schema') != 1 or registry.get('protocol') != 'topic3-be-route-v2-phase-b-natural':
         raise ValueError('unexpected Phase B registry schema or protocol')
+    attempts = registry.get('attempts')
     episodes = registry.get('episodes')
-    if not isinstance(episodes, list):
-        raise ValueError('episodes must be a list')
-    for episode in episodes:
-        if not isinstance(episode, dict):
-            raise ValueError('registry episode must be an object')
-        require_identifier(episode.get('id', ''), 'episode id')
-        require_identifier(episode.get('decision_thread', ''), 'decision thread')
-        if episode.get('kind') not in ('necessary_update', 'same_topic_control'):
-            raise ValueError('invalid registry episode kind')
-    ids = [episode['id'] for episode in episodes]
-    if len(ids) != len(set(ids)):
-        raise ValueError('duplicate episode id')
-    threads = {episode.get('decision_thread') for episode in episodes}
-    controls = sum(episode.get('kind') == 'same_topic_control' for episode in episodes)
+    if not isinstance(attempts, list) or not isinstance(episodes, list):
+        raise ValueError('attempts and episodes must be lists')
+    for item in attempts:
+        if not isinstance(item, dict):
+            raise ValueError('registry attempt must be an object')
+        require_identifier(item.get('id', ''), 'attempt id')
+        require_identifier(item.get('decision_thread', ''), 'decision thread')
+        if item.get('kind') not in ('necessary_update', 'same_topic_control'):
+            raise ValueError('invalid registry attempt kind')
+        if item.get('status') not in ('eligible', 'invalid'):
+            raise ValueError('invalid registry attempt status')
+        if item.get('comparison') not in ('win', 'loss', 'tie', 'indeterminate'):
+            raise ValueError('invalid registry attempt comparison')
+        if not isinstance(item.get('severe_regression'), bool):
+            raise ValueError('registry severe_regression must be boolean')
+        outcome_path_value = item.get('outcome_path')
+        outcome_sha = item.get('outcome_sha256')
+        if (not isinstance(outcome_path_value, str) or not Path(outcome_path_value).is_absolute()
+                or not isinstance(outcome_sha, str) or len(outcome_sha) != 64):
+            raise ValueError('registry attempt needs an absolute outcome path and SHA-256')
+        outcome_path = Path(outcome_path_value)
+        if not outcome_path.is_file() or sha256_bytes(outcome_path.read_bytes()) != outcome_sha:
+            raise ValueError(f'registered outcome evidence is missing or changed: {outcome_path}')
+        sealed = validate_sealed_outcome(load_json(outcome_path))
+        bound = {
+            'id': sealed['id'], 'decision_thread': sealed['decision_thread'],
+            'kind': sealed['episode_kind'], 'status': sealed['status'],
+            'comparison': sealed['comparison'], 'severe_regression': sealed['severe_regression'],
+            'outcome_path': str(outcome_path), 'outcome_sha256': outcome_sha,
+        }
+        if item != bound:
+            raise ValueError('registry attempt differs from its sealed outcome')
+    attempt_ids = [item['id'] for item in attempts]
+    if len(attempt_ids) != len(set(attempt_ids)):
+        raise ValueError('duplicate attempt id')
+    eligible_attempts = [item for item in attempts if item['status'] == 'eligible']
+    if episodes != eligible_attempts:
+        raise ValueError('episodes must exactly equal eligible attempts in append order')
+    threads = {episode['decision_thread'] for episode in episodes}
+    controls = sum(episode['kind'] == 'same_topic_control' for episode in episodes)
     expected = {
+        'attempts_total': len(attempts),
+        'invalid_attempts': len(attempts) - len(eligible_attempts),
         'eligible_sequences': len(episodes),
         'decision_threads': len(threads),
         'natural_controls': controls,
@@ -373,7 +623,22 @@ def validate_registry(path: Path) -> dict:
     for key, value in expected.items():
         if registry.get(key) != value:
             raise ValueError(f'derived registry count mismatch for {key}: {registry.get(key)} != {value}')
+    for key in ('target_sequences', 'minimum_decision_threads', 'minimum_natural_controls'):
+        if (not isinstance(registry.get(key), int) or isinstance(registry.get(key), bool)
+                or registry[key] <= 0):
+            raise ValueError(f'invalid registry threshold: {key}')
+    ready = (len(episodes) >= registry['target_sequences']
+             and len(threads) >= registry['minimum_decision_threads']
+             and controls >= registry['minimum_natural_controls'])
+    expected_status = 'ready_for_decision' if ready else 'collecting'
+    if registry.get('status') != expected_status:
+        raise ValueError(f'registry status mismatch: {registry.get("status")} != {expected_status}')
     return registry
+
+
+def validate_registry(path: Path) -> dict:
+    registry = load_json(path)
+    return validate_registry_value(registry)
 
 
 def main() -> None:
@@ -406,6 +671,14 @@ def main() -> None:
     manifest = subparsers.add_parser('build-manifest')
     manifest.add_argument('--freeze', type=Path, required=True)
     manifest.add_argument('--output', type=Path, required=True)
+    seal = subparsers.add_parser('seal-outcome')
+    seal.add_argument('--root', type=Path, required=True)
+    seal.add_argument('--freeze', type=Path, required=True)
+    seal.add_argument('--results', type=Path, required=True)
+    seal.add_argument('--audit', type=Path, required=True)
+    append = subparsers.add_parser('append-outcome')
+    append.add_argument('--registry', type=Path, required=True)
+    append.add_argument('--outcome', type=Path, required=True)
     validate = subparsers.add_parser('validate')
     validate.add_argument('path', type=Path)
     arguments = parser.parse_args()
@@ -432,6 +705,14 @@ def main() -> None:
     elif arguments.action == 'build-manifest':
         write_exclusive(arguments.output.resolve(), natural_manifest(arguments.freeze))
         print(arguments.output.resolve())
+    elif arguments.action == 'seal-outcome':
+        print(seal_outcome(arguments.root, arguments.freeze, arguments.results,
+                           arguments.audit))
+    elif arguments.action == 'append-outcome':
+        value = append_outcome(arguments.registry, arguments.outcome)
+        print(json.dumps({key: value[key] for key in
+                          ('status', 'attempts_total', 'invalid_attempts', 'eligible_sequences',
+                           'decision_threads', 'natural_controls')}))
     else:
         value = load_json(arguments.path)
         kind = value.get('kind')
@@ -439,6 +720,8 @@ def main() -> None:
             validate_correction(value)
         elif kind == 'phase_b_task_freeze':
             validate_freeze(value)
+        elif kind == 'phase_b_sealed_outcome':
+            validate_sealed_outcome(value)
         else:
             validate_registry(arguments.path)
         print(arguments.path.resolve())

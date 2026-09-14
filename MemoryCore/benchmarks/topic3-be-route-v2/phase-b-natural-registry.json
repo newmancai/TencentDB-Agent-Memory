@@ -10,5 +10,8 @@
   "eligible_sequences": 0,
   "decision_threads": 0,
   "natural_controls": 0,
+  "attempts_total": 0,
+  "invalid_attempts": 0,
+  "attempts": [],
   "episodes": []
 }

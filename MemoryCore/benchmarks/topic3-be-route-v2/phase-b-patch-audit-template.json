@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "kind": "phase_b_patch_audit",
+  "episode_id": "replace-me",
+  "freeze_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "audited_at": "1970-01-01T00:00:00Z",
+  "auditor": "replace-me",
+  "verdict": "invalid",
+  "checks": {
+    "checker_semantics_complete": false,
+    "both_patches_reviewed": false,
+    "no_cross_arm_contamination": false,
+    "declared_scope_respected": false
+  },
+  "notes": "Template only. Copy into local evidence, bind it to one frozen episode, and review sealed arm outputs."
+}

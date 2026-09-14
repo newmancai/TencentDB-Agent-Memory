@@ -75,6 +75,16 @@ Prospective evidence is created in two append-only local packets before the outc
 3. `phase_b_registry.py build-manifest` converts only that frozen packet into the runner's strict `natural`
    mode: one user task, two arms, raw history only in `raw_full`, output-scope enforcement, and immediate stop
    on isolation, visibility, undeclared-path, agent, or checker failure. It cannot add a synthetic paired step.
+4. After runner output is sealed, copy [the patch-audit template](phase-b-patch-audit-template.json) into local
+   evidence and review both patches against the frozen behavioral boundary. `seal-outcome` recomputes summary
+   from raw receipts and hashes every result file, freeze packet, and audit. Missing usage, partial execution,
+   invalid markers, audit failure, or later evidence drift makes the attempt invalid.
+5. `append-outcome` is the only registry writer. It uses a single-writer lock, refuses duplicate IDs, and
+   appends every sealed attempt. Valid pairs also enter `episodes`; invalid or incomplete attempts remain in
+   `attempts` as `invalid`/`indeterminate` but never increase the 10-sequence denominator. Registry validation
+   reopens all outcome evidence and derives every count and readiness state rather than trusting edited totals.
+   A host exception is written as a partial invalid receipt before the runner stops, so pre-checker
+   infrastructure failures can also be sealed instead of disappearing from attempt history.
 
 `phase_b_registry.py validate phase-b-natural-registry.json` recomputes the three public counts and rejects
 duplicate episode IDs. Synthetic fixtures may exercise the tooling in unit tests, but must never be appended

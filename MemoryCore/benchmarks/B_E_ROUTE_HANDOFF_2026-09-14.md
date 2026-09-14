@@ -322,5 +322,7 @@ v5/v8 一样继续浪费无效矩阵调用。
 Phase B 的前瞻证据链已可执行：`phase_b_registry.py` 以不可覆盖文件登记纠正原话、来源、实际记录时间和
 当时 revision；只有时间更晚的真实任务才能冻结，冻结时校验两个 worktree 独立、标记、干净且同 base，
 并锁定允许路径、外置 checker 文件哈希、模型／effort／超时。冻结包才能生成单任务 `natural` manifest；
-runner 会对照冻结包重建 manifest，拒绝手写替代、checker 漂移以及旧模式要求的合成第二步。相关 16 项
+runner 会对照冻结包重建 manifest，拒绝手写替代、checker 漂移以及旧模式要求的合成第二步。结果封存会
+从 raw receipts 重算 summary、哈希整棵结果证据、绑定补丁审计，并把有效、失败和不完整尝试全部追加登记；
+无 usage、执行不全或审计失败只进入 invalid attempts，不会计入 0/10，也不能被结果挑选后删除。相关 21 项
 route-v2 测试、16 项 agent-product 测试和 21 项 project-agent 测试通过；正式 registry 仍保持 0。

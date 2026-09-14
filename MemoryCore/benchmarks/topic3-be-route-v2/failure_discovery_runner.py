@@ -149,6 +149,14 @@ def unexpected_change_paths(changes, allowed):
     return violations
 
 
+def optional_json(path):
+    try:
+        value = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return value if isinstance(value, dict) else {}
+
+
 def summarize(rows, manifest):
     by_key = {(row['task_id'], row['arm']): row for row in rows}
     task_ids = [step['id'] for cluster in manifest['clusters'] for step in cluster['steps']]
@@ -269,6 +277,7 @@ def run(manifest, output):
                 started = time.perf_counter(); workspace = Path(cluster['workspaces'][arm]).resolve()
                 evidence = output / cluster['id'] / arm / step['id']; evidence.mkdir(parents=True)
                 state = output / 'states' / cluster['id'] / arm
+                state.mkdir(parents=True, exist_ok=True)
                 args = argparse.Namespace(state=state, workspace=workspace, project=cluster['id'], owner=arm,
                     backend=manifest.get('backend', 'codex'), model=manifest.get('model'),
                     effort=manifest.get('effort', 'medium'), timeout=manifest.get('timeout_seconds', 240),
@@ -276,36 +285,70 @@ def run(manifest, output):
                     paths=step['paths'], action='edit', max_bytes=manifest.get('max_context_bytes', 12000),
                     retrieval_k=8, check=json.dumps(step['checker']),
                     agent_isolation_root=HERE.parents[4])
-                host = Host(args); history = []
-                with (state / 'writer.lock').open('a') as handle:
-                    fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                    if arm != 'no_history':
-                        for index, text in enumerate(step.get('history', [])):
-                            history.append(host.record(text, evidence / f'history-{index}'))
-                    before = workspace_state(workspace, include_untracked=True)
-                    result = host.run(step['prompt'], evidence)
+                history = []; before = workspace_state(workspace, include_untracked=True)
+                try:
+                    host = Host(args)
+                    with (state / 'writer.lock').open('a') as handle:
+                        fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                        if arm != 'no_history':
+                            for index, text in enumerate(step.get('history', [])):
+                                history.append(host.record(text, evidence / f'history-{index}'))
+                        result = host.run(step['prompt'], evidence)
+                        if (not isinstance(result, dict)
+                                or not isinstance(result.get('calls'), list)):
+                            raise ValueError('host returned a malformed result')
+                except Exception as error:
+                    after = workspace_state(workspace, include_untracked=True)
+                    unexpected = (unexpected_change_paths(after['changes'], step['paths'])
+                                  if manifest.get('enforce_change_paths', False) else [])
+                    row = {
+                        'task_id': step['id'], 'kind': step['kind'], 'cluster_id': cluster['id'], 'arm': arm,
+                        'base_commit': before['base_commit'], 'changes_before': before['changes'],
+                        'changes_after': after['changes'], 'unexpected_changes': unexpected,
+                        'status': 'host_exception', 'agent_returncode': None,
+                        'checker_status': 'not_run', 'checker_returncode': None,
+                        'checker_pass': False, 'severe_regression': bool(unexpected), 'usage': None,
+                        'agent_wall_seconds': time.perf_counter() - started, 'checker_wall_seconds': 0,
+                        'total_wall_seconds': time.perf_counter() - started,
+                        'context_mode': MODES[arm], 'context_bytes': 0, 'selected_orders': None,
+                        'memory_error': type(error).__name__, 'filesystem_isolated': False,
+                        'visibility_violations': ['host exception before auditable completion'],
+                        'history_count': len(history), 'evidence': str(evidence),
+                    }
+                    rows.append(row)
+                    atomic_write(output / 'receipts.jsonl', ''.join(json.dumps(item) + '\n' for item in rows))
+                    atomic_write(output / 'summary.json', json.dumps(summarize(rows, manifest), indent=2) + '\n')
+                    atomic_write(output / 'INVALID_EXECUTION.json', json.dumps({
+                        'task_id': step['id'], 'arm': arm, 'status': 'host_exception',
+                        'checker_status': 'not_run', 'error_type': type(error).__name__,
+                        'error': str(error),
+                    }, indent=2) + '\n')
+                    raise RuntimeError('agent host raised before auditable completion') from error
                 call = result['calls'][-1] if result['calls'] else {}
                 violations = visibility_violations(evidence, workspace, manifest, output)
                 after = workspace_state(workspace, include_untracked=True)
                 unexpected = (unexpected_change_paths(after['changes'], step['paths'])
                               if manifest.get('enforce_change_paths', False) else [])
                 checker_path = evidence / 'checker.json'
-                checker = json.loads(checker_path.read_text()) if checker_path.exists() else {}
-                context = json.loads((evidence / 'context.json').read_text())
+                checker = optional_json(checker_path)
+                context_path = evidence / 'context.json'
+                context = optional_json(context_path)
                 row = {'task_id': step['id'], 'kind': step['kind'], 'cluster_id': cluster['id'], 'arm': arm,
                        'base_commit': before['base_commit'], 'changes_before': before['changes'],
                        'changes_after': after['changes'], 'unexpected_changes': unexpected,
                        'status': call.get('status', 'host_error'), 'agent_returncode': call.get('returncode'),
                        'checker_status': checker.get('status', 'not_run'),
                        'checker_returncode': checker.get('returncode'),
-                       'checker_pass': (result['checker_pass'] is True and not result['error'] and not unexpected
+                       'checker_pass': (result.get('checker_pass') is True and not result.get('error') and not unexpected
                                         and call.get('filesystem_isolated') is True and not violations),
                        'severe_regression': checker.get('returncode') == 2 or bool(unexpected),
                        'usage': call.get('usage'), 'agent_wall_seconds': call.get('wall_seconds', 0),
                        'checker_wall_seconds': checker.get('wall_seconds', 0),
                        'total_wall_seconds': time.perf_counter() - started,
-                       'context_mode': result['context_mode'], 'context_bytes': result['context_bytes'],
-                       'selected_orders': context.get('selected_orders'), 'memory_error': result['memory_error'],
+                       'context_mode': result.get('context_mode', MODES[arm]),
+                       'context_bytes': result.get('context_bytes', 0),
+                       'selected_orders': context.get('selected_orders'),
+                       'memory_error': result.get('memory_error'),
                        'filesystem_isolated': call.get('filesystem_isolated') is True,
                        'visibility_violations': violations,
                        'history_count': len(history), 'evidence': str(evidence)}
