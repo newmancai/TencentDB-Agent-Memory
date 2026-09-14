@@ -12,6 +12,13 @@ then supplies both the unchanged verbatim history and that focus list to the cod
 is navigation, not evidence replacement. It receives no target regex, instruction ID, source-session label,
 or expected code.
 
+The first disjoint comparison (`v1`) found a real compiler error on the 100-session item: it kept the
+latest method suffix but discarded the independently active method prefix, substring, and digit rules.
+The `v2` compiler therefore treats object type and rule category separately. Prefix, suffix, required
+substring, digit, and capitalization can coexist; an explicit update replaces only the same category for
+the same object type. Separately named decorators and imports also coexist unless explicitly revoked.
+This is a single mechanism correction from the observed failure, not a search over prompts.
+
 The extra compiler call deliberately optimizes quality before cost. If it helps on new public data, later
 AI-infra work must remove or amortize its additional non-cached input, call count, and latency without
 lowering the frozen quality result.
@@ -25,7 +32,8 @@ scoring are fixed before model output.
 
 The primary metric is strict target correctness with constructor attributes followed through the actual
 first receiver argument; this fixes the known literal-`self` extractor defect before the new calls. The old
-official-compatible strict score is also retained. Report paired wins/losses/ties, both accuracies, usage,
+frozen target score and mean official-compatible score across all active rules are also reported so a
+target-only gain cannot hide broad regressions. Report paired wins/losses/ties, accuracies, usage,
 non-cached input, model calls, and wall time. A timeout, missing usage, tool event, nonzero exit, or empty
 output invalidates the run.
 

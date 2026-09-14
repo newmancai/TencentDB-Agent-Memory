@@ -65,9 +65,13 @@ class MemoryCodeFocusTest(unittest.TestCase):
                         },
                         "wall_seconds": len(stages) * 0.5,
                         "scores": {
+                            "official_compatible": 1.0,
+                            "target_frozen_strict": (
+                                1.0 if arm == "focus_raw" else raw_score
+                            ),
                             "target_semantic_strict": (
                                 1.0 if arm == "focus_raw" else raw_score
-                            )
+                            ),
                         },
                     }
                 )
@@ -83,6 +87,10 @@ class MemoryCodeFocusTest(unittest.TestCase):
         )
         self.assertEqual(result["cost"]["raw_full"]["model_calls"], 2)
         self.assertEqual(result["cost"]["focus_raw"]["model_calls"], 4)
+        self.assertEqual(
+            result["quality"]["official_compatible_mean"],
+            {"raw_full": 1.0, "focus_raw": 1.0},
+        )
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ USAGE_KEYS = (
     "reasoning_output_tokens",
 )
 BOOTSTRAP_SEED = 20260914
-PROTOCOL = "memorycode-quality-first-focus-v1"
+PROTOCOL = "memorycode-quality-first-focus-v2"
 
 
 def file_sha256(path: Path) -> str:
@@ -66,7 +66,7 @@ Dataset role instruction:
 {history_only(packet)}
 </prior_history>
 
-Return a concise bullet list of explicit coding guidelines only. Resolve repeated or conflicting rules by keeping the latest version for the same naming, decorator, comment, import, assertion, annotation, docstring, or error-handling dimension. Preserve exact required prefixes, suffixes, substrings, capitalization, digits, module names, and boolean requirements. Omit workplace discussion and do not infer rules that were not stated."""
+Return a concise bullet list containing every currently active explicit coding guideline. Treat each object type and rule category independently. In particular, a required prefix, suffix, substring, digit, and capitalization can all apply to the same name at once; a later prefix replaces only an earlier prefix for that object type, not its suffix, substring, digit, or other rules. Likewise, keep every separately named decorator and import unless it is explicitly revoked. Preserve exact quoted tokens, capitalization, module names, and boolean requirements even when they appear beside unrelated workplace discussion. Omit the workplace discussion itself and do not infer rules that were not stated."""
 
 
 def focused_prompt(packet: dict[str, Any], focus: str) -> str:
@@ -204,6 +204,28 @@ def summarize(
         )
         costs[arm]["wall_seconds"] = sum(row["wall_seconds"] for row in arm_rows)
         costs[arm]["model_calls"] = sum(len(row["stages"]) for row in arm_rows)
+    frozen_strict_accuracy = {
+        arm: (
+            statistics.mean(
+                by_key[(task_id, arm)]["scores"]["target_frozen_strict"]
+                for task_id in task_ids
+            )
+            if complete
+            else None
+        )
+        for arm in ARMS
+    }
+    official_compatible_mean = {
+        arm: (
+            statistics.mean(
+                by_key[(task_id, arm)]["scores"]["official_compatible"]
+                for task_id in task_ids
+            )
+            if complete
+            else None
+        )
+        for arm in ARMS
+    }
     return {
         "schema": 1,
         "protocol": PROTOCOL,
@@ -219,6 +241,8 @@ def summarize(
             "focus_raw_accuracy": (
                 statistics.mean(row["focus_raw"] for row in pairs) if pairs else None
             ),
+            "frozen_strict_accuracy": frozen_strict_accuracy,
+            "official_compatible_mean": official_compatible_mean,
             "bootstrap_95ci": (
                 [quantile(bootstrap, 0.025), quantile(bootstrap, 0.975)]
                 if bootstrap
@@ -347,6 +371,7 @@ def run(arguments: argparse.Namespace) -> int:
                     stages[0]["output"] if arm == "focus_raw" and stages else None
                 ),
                 "scores": {
+                    "official_compatible": frozen["official_compatible"],
                     "target_frozen_strict": frozen["target_strict"],
                     "target_semantic_strict": (
                         semantic_target_score(packet, output, frozen["target_strict"])

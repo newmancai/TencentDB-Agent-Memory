@@ -14,17 +14,22 @@ from memorycode_prepare import _dialogue_id, _query_targets, _target_status
 
 
 SESSION_COUNTS = (3, 4, 5, 10, 15, 20, 30, 40, 50, 100)
-SELECTION_DOMAIN = "topic3-be-memorycode-focus-quality-v1"
+DEFAULT_SELECTION_DOMAIN = "topic3-be-memorycode-focus-quality-v1"
 
 
 def selection_hash(*parts: object) -> str:
     return hashlib.sha256(":".join(map(str, parts)).encode()).hexdigest()
 
 
-def select(dataset_root: Path, excluded_selection: Path) -> dict[str, Any]:
+def select(
+    dataset_root: Path,
+    excluded_selections: list[Path],
+    selection_domain: str,
+) -> dict[str, Any]:
     excluded = {
         row["dialogue_id"]
-        for row in json.loads(excluded_selection.read_text())["selection"]["tasks"]
+        for selection_path in excluded_selections
+        for row in json.loads(selection_path.read_text())["selection"]["tasks"]
     }
     topics = json.loads((dataset_root / "topics.json").read_text())
     instructions_by_query: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -51,7 +56,7 @@ def select(dataset_root: Path, excluded_selection: Path) -> dict[str, Any]:
                 candidates.append(
                     (
                         selection_hash(
-                            SELECTION_DOMAIN, session_count, dialogue_id, query
+                            selection_domain, session_count, dialogue_id, query
                         ),
                         dialogue_id,
                         query,
@@ -77,7 +82,7 @@ def select(dataset_root: Path, excluded_selection: Path) -> dict[str, Any]:
 
     return {
         "schema": 1,
-        "protocol": SELECTION_DOMAIN,
+        "protocol": selection_domain,
         "dataset": "CohereLabsCommunity/MemoryCode",
         "selection": {
             "unit": "dialogue",
@@ -94,10 +99,15 @@ def select(dataset_root: Path, excluded_selection: Path) -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset-root", type=Path, required=True)
-    parser.add_argument("--exclude-selection", type=Path, required=True)
+    parser.add_argument("--exclude-selection", type=Path, nargs="+", required=True)
+    parser.add_argument("--domain", default=DEFAULT_SELECTION_DOMAIN)
     parser.add_argument("--output", type=Path, required=True)
     arguments = parser.parse_args()
-    result = select(arguments.dataset_root, arguments.exclude_selection)
+    result = select(
+        arguments.dataset_root,
+        arguments.exclude_selection,
+        arguments.domain,
+    )
     arguments.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
 
 
