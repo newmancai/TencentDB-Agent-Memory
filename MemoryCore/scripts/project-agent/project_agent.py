@@ -91,13 +91,18 @@ def next_order(snapshot: dict) -> int:
     return observations[-1]["order"] + 1 if observations else 1
 
 
+def compact_json(value: object) -> str:
+    """Serialize prompt data without semantically irrelevant JSON whitespace."""
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+
 def new_observation(text: str, order: int, role: str = "user") -> dict:
     return {"id": uuid.uuid4().hex, "order": order, "role": role, "text": text}
 
 
 def extraction_prompt(snapshot: dict, observation: dict) -> str:
     payload = {"prior": snapshot, "NEW_USER_OBSERVATION": observation}
-    return EXTRACTION_INSTRUCTIONS + json.dumps(payload, ensure_ascii=False)
+    return EXTRACTION_INSTRUCTIONS + compact_json(payload)
 
 
 def agent_prompt(context: dict, task: str) -> str:
@@ -106,9 +111,7 @@ def agent_prompt(context: dict, task: str) -> str:
 
 def raw_user_context(observations: list[dict]) -> str:
     return "\n".join(
-        json.dumps(observation, ensure_ascii=False)
-        for observation in observations
-        if observation["role"] == "user"
+        compact_json(observation) for observation in observations if observation["role"] == "user"
     )
 
 
@@ -394,12 +397,11 @@ class Host:
                 "selection": selected,
                 "revision": snapshot["revision"],
             }
-        text = json.dumps(
+        text = compact_json(
             {
                 "scoped_constraints": [json.loads(line) for line in selected["text"].splitlines()],
                 "uncompiled_user_observations": unresolved_user_observations(snapshot),
             },
-            ensure_ascii=False,
         )
         # Never silently drop a constraint or unresolved source to fit a budget.
         if len(text.encode()) > budget:

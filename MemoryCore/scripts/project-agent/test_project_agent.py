@@ -8,10 +8,26 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import Mock, patch
 
-from project_agent import Host, final_text, retain_project_instructions, command_for
+from project_agent import (
+    Host,
+    command_for,
+    extraction_prompt,
+    final_text,
+    raw_user_context,
+    retain_project_instructions,
+)
 
 
 class ProjectAgentTest(unittest.TestCase):
+    def test_prompt_payloads_use_compact_lossless_json(self):
+        source = {"id": "u1", "order": 1, "role": "user", "text": "保留 0 值。"}
+        raw = raw_user_context([source])
+        self.assertEqual(json.loads(raw), source)
+        self.assertNotIn('": "', raw)
+        prompt = extraction_prompt({"observations": []}, source)
+        self.assertIn('{"prior":', prompt)
+        self.assertIn(',"NEW_USER_OBSERVATION":', prompt)
+
     def test_normal_product_use_retains_project_guidance(self):
         original = command_for("codex_memory", Path("/tmp"), "task", {})
         normal = retain_project_instructions(original)
@@ -109,6 +125,63 @@ class ProjectAgentTest(unittest.TestCase):
             context = host.context("scoped", ["."], "edit", 12000)
             self.assertEqual(context["mode"], "raw")
             self.assertEqual(json.loads(context["text"]), source)
+
+    def test_compiled_state_is_reused_without_run_path_compiler_calls(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            host = self.host(root)
+            quote = "Use a 10 second timeout."
+            host.store = Mock(
+                side_effect=[
+                    {"observations": [], "constraints": []},
+                    {"revision": 1, "accepted": [{"id": "c1"}]},
+                ]
+            )
+            host.call = Mock(
+                return_value=json.dumps(
+                    {
+                        "proposals": [
+                            {
+                                "key": "timeout",
+                                "quote": quote,
+                                "scope": {"paths": ["src/api"], "actions": ["edit"]},
+                            }
+                        ]
+                    }
+                )
+            )
+            remembered = host.remember(quote, root, compile_constraints=True)
+            self.assertEqual(host.call.call_count, 1)
+
+            source = remembered["observation"]
+            snapshot = {
+                "observations": [source],
+                "constraints": [{"sourceId": source["id"], "quote": quote}],
+                "retractions": [],
+                "revision": 1,
+            }
+            selected = {
+                "status": "selected",
+                "omittedForBudget": 0,
+                "text": json.dumps(
+                    {
+                        "id": "c1",
+                        "key": "timeout",
+                        "scope": {"paths": ["src/api"], "actions": ["edit"]},
+                        "sourceId": source["id"],
+                        "order": 1,
+                        "userQuote": quote,
+                    }
+                ),
+            }
+            host.store = Mock(side_effect=[snapshot, selected, snapshot, selected])
+            host.call.reset_mock()
+            first = host.context("scoped", ["src/api"], "edit", 12_000)
+            second = host.context("scoped", ["src/api"], "edit", 12_000)
+            host.call.assert_not_called()
+            self.assertEqual(first["mode"], "scoped")
+            self.assertEqual(first["text"], second["text"])
+            self.assertEqual(first["revision"], second["revision"])
 
     def test_partial_compilation_does_not_drop_other_user_requirements(self):
         with TemporaryDirectory() as directory:
