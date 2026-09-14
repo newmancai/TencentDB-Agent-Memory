@@ -2,6 +2,7 @@ import unittest
 
 from memorycode_focus import (
     active_rule_semantic_score,
+    compact_prompt,
     focused_prompt,
     history_only,
     semantic_target_score,
@@ -41,6 +42,12 @@ class MemoryCodeFocusTest(unittest.TestCase):
             prompt.index("attributes end in _t"),
             prompt.index("write a Linked list class"),
         )
+
+    def test_compact_prompt_omits_raw_history(self):
+        prompt = compact_prompt(self.packet(), "- attributes end in _t")
+        self.assertNotIn("use suffix _old", prompt)
+        self.assertIn("attributes end in _t", prompt)
+        self.assertIn("write a Linked list class", prompt)
 
     def test_semantic_attribute_score_follows_actual_receiver(self):
         output = "class Node:\n    def __init__(node, value):\n        node.value_t = value\n"
@@ -106,6 +113,44 @@ class MemoryCodeFocusTest(unittest.TestCase):
             result["quality"]["active_rule_semantic_mean"],
             {"raw_full": 1.0, "focus_raw": 1.0},
         )
+
+    def test_summary_accepts_compact_focus_arm(self):
+        packets = [{"task_id": "one"}]
+        receipts = []
+        for arm, calls in (("raw_full", 1), ("focus_compact", 2)):
+            receipts.append(
+                {
+                    "task_id": "one",
+                    "arm": arm,
+                    "status": "passed",
+                    "stages": [{"status": "passed"}] * calls,
+                    "usage": {
+                        key: 0
+                        for key in (
+                            "input_tokens",
+                            "cached_input_tokens",
+                            "output_tokens",
+                            "reasoning_output_tokens",
+                        )
+                    },
+                    "wall_seconds": 0.0,
+                    "scores": {
+                        "official_compatible": 1.0,
+                        "active_rule_semantic": 1.0,
+                        "target_frozen_strict": 1.0,
+                        "target_semantic_strict": 1.0,
+                    },
+                }
+            )
+        result = summarize(
+            packets,
+            receipts,
+            focus_arm="focus_compact",
+            protocol="memorycode-focus-compact-infra-v1",
+        )
+        self.assertEqual(result["quality"]["focus_arm"], "focus_compact")
+        self.assertEqual(result["quality"]["focus_compact_accuracy"], 1.0)
+        self.assertEqual(result["cost"]["focus_compact"]["model_calls"], 2)
 
 
 if __name__ == "__main__":

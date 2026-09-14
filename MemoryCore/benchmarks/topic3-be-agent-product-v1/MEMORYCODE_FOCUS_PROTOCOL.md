@@ -44,3 +44,16 @@ output invalidates the run.
 This is a public synthetic quality comparison, not a product-success rate. It is useful only if the focus
 arm repairs at least one raw miss without introducing a paired loss. No result from the removed natural
 validation route is involved.
+
+## AI-infra compact stage
+
+Once `focus_raw` has a frozen quality result, `focus_compact` removes the duplicated raw history from the
+second model call. The compiler still receives the full verbatim history; the coding call receives only
+the compiled active-guideline list and current request. This targets input-token transfer, prompt-prefill,
+and wall time without changing the quality model or compiler model.
+
+Compact validation uses a third domain-separated set and excludes the earlier 24-dialogue generation
+subset plus both 10-dialogue focus sets. Its quality anchor is the same receiver-aware target and active-rule
+scoring. It is an AI-infra improvement only if it preserves or improves both metrics against `raw_full` and
+materially lowers the focus-over-raw token and wall-time ratios observed for `focus_raw`; model-call count
+remains two until compiled state can be cached or incrementally maintained across requests.
