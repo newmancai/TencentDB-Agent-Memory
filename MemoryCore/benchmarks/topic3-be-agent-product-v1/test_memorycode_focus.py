@@ -138,6 +138,7 @@ class MemoryCodeFocusTest(unittest.TestCase):
             result["quality"]["active_rule_semantic_mean"],
             {"raw_full": 1.0, "focus_raw": 1.0},
         )
+        self.assertEqual(result["quality"]["active_rule_semantic_paired"]["ties"], 2)
 
     def test_summary_accepts_compact_focus_arm(self):
         packets = [{"task_id": "one"}]

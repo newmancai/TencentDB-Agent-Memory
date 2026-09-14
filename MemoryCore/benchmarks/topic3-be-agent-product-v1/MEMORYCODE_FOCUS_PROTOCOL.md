@@ -4,6 +4,9 @@ Date: 2026-09-14. The existing complete-update Codex diagnostic exposed one real
 dialogue: full raw history contained the active variable suffix but the generated code omitted it. This
 comparison tests one direct repair before any AI-infra cost optimization.
 
+Completed results: [quality and AI-infra report](MEMORYCODE_FOCUS_RESULTS.md) and
+[`memorycode-focus-results.json`](memorycode-focus-results.json).
+
 ## Method
 
 `raw_full` receives the complete verbatim history and current request exactly as before. `focus_raw`

@@ -323,6 +323,34 @@ def summarize(
             statistics.mean(generator.choices(deltas, k=len(deltas)))
             for _ in range(10_000)
         ]
+    active_pairs = []
+    if complete:
+        for task_id in task_ids:
+            raw = by_key[(task_id, RAW_ARM)]["scores"]["active_rule_semantic"]
+            focused = by_key[(task_id, focus_arm)]["scores"]["active_rule_semantic"]
+            delta = focused - raw
+            active_pairs.append(
+                {
+                    "task_id": task_id,
+                    RAW_ARM: raw,
+                    focus_arm: focused,
+                    "delta": delta,
+                    "comparison": (
+                        "win" if delta > 0 else "loss" if delta < 0 else "tie"
+                    ),
+                }
+            )
+    active_deltas = [row["delta"] for row in active_pairs]
+    active_wins = sum(delta > 0 for delta in active_deltas)
+    active_losses = sum(delta < 0 for delta in active_deltas)
+    active_ties = sum(delta == 0 for delta in active_deltas)
+    active_bootstrap = []
+    if active_deltas:
+        generator = random.Random(BOOTSTRAP_SEED)
+        active_bootstrap = [
+            statistics.mean(generator.choices(active_deltas, k=len(active_deltas)))
+            for _ in range(10_000)
+        ]
     costs = {}
     for arm in arms:
         arm_rows = [row for row in receipts if row["arm"] == arm]
@@ -421,6 +449,24 @@ def summarize(
             "frozen_strict_accuracy": frozen_strict_accuracy,
             "official_compatible_mean": official_compatible_mean,
             "active_rule_semantic_mean": active_rule_semantic_mean,
+            "active_rule_semantic_paired": {
+                "wins": active_wins,
+                "losses": active_losses,
+                "ties": active_ties,
+                "mean_delta": (
+                    statistics.mean(active_deltas) if active_deltas else None
+                ),
+                "bootstrap_95ci": (
+                    [
+                        quantile(active_bootstrap, 0.025),
+                        quantile(active_bootstrap, 0.975),
+                    ]
+                    if active_bootstrap
+                    else None
+                ),
+                "exact_sign_p_two_sided": exact_sign_p(active_wins, active_losses),
+                "pairs": active_pairs,
+            },
             "bootstrap_95ci": (
                 [quantile(bootstrap, 0.025), quantile(bootstrap, 0.975)]
                 if bootstrap
