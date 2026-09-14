@@ -1,8 +1,10 @@
 name: CI
 
 on:
-  pull_request:
-    branches: [main]
+  pull_request: {}
+
+permissions:
+  contents: read
 
 # Cancel previous runs for the same PR / branch
 concurrency:
@@ -23,7 +25,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "22.19.0"
 
       - name: Cache node_modules
         uses: actions/cache@v4
@@ -36,7 +38,35 @@ jobs:
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: npm install --ignore-scripts
 
-  # ── 2. Pack validation ─────────────────────────────────────
+  # ── 2. Focused runtime tests ───────────────────────────────
+  test:
+    name: Feedback and project-agent tests
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.19.0"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: MemoryCore/node_modules
+          key: deps-${{ runner.os }}-${{ hashFiles('MemoryCore/package.json') }}
+
+      - name: Test feedback runtime
+        run: npx vitest run src/core/memory-feedback
+
+      - name: Test project-agent host
+        run: npm run test:project-agent
+
+  # ── 3. Pack validation ─────────────────────────────────────
   pack:
     name: Pack
     needs: install
@@ -46,7 +76,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "22.19.0"
 
       - name: Restore node_modules
         uses: actions/cache@v4
@@ -60,6 +90,9 @@ jobs:
       - name: npm pack
         run: npm pack
 
+      - name: Smoke-test installed memory-agent package
+        run: bash scripts/ci/smoke-memory-agent-package.sh ./*.tgz
+
       - name: Upload .tgz artifact
         uses: actions/upload-artifact@v4
         with:
@@ -67,7 +100,7 @@ jobs:
           path: "MemoryCore/*.tgz"
           retention-days: 7
 
-  # ── 5. Plugin manifest validation ──────────────────────────
+  # ── 4. Plugin manifest validation ──────────────────────────
   manifest:
     name: Manifest
     runs-on: ubuntu-latest
@@ -108,7 +141,7 @@ jobs:
             console.log('   openclawVersion:', oc.build.openclawVersion);
           "
 
-  # ── 6. Package size guard ──────────────────────────────────
+  # ── 5. Package size guard ──────────────────────────────────
   size:
     name: Size Guard
     needs: pack
@@ -138,7 +171,7 @@ jobs:
             echo "✅ Size OK"
           fi
 
-  # ── 7. Skill queue isolation guard ─────────────────────────
+  # ── 6. Skill queue isolation guard ─────────────────────────
   # 强约束：禁止 PR 触碰记忆模块红线文件（state/pipeline-worker/integrations/redis），
   # 禁止 src/core/skill/** 新增直接 fs import。详见
   # docs/design/2026-06-16-skill-extract-queue.md
@@ -156,4 +189,3 @@ jobs:
         run: |
           git fetch origin "${{ github.base_ref || 'main' }}" --depth=50 || true
           bash scripts/ci/check-skill-queue-isolation.sh
-
