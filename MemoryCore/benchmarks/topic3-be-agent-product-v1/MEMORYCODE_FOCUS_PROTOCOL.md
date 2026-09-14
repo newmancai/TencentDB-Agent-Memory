@@ -45,15 +45,21 @@ This is a public synthetic quality comparison, not a product-success rate. It is
 arm repairs at least one raw miss without introducing a paired loss. No result from the removed natural
 validation route is involved.
 
-## AI-infra compact stage
+## AI-infra stages
 
 Once `focus_raw` has a frozen quality result, `focus_compact` removes the duplicated raw history from the
 second model call. The compiler still receives the full verbatim history; the coding call receives only
 the compiled active-guideline list and current request. This targets input-token transfer, prompt-prefill,
 and wall time without changing the quality model or compiler model.
 
-Compact validation uses a third domain-separated set and excludes the earlier 24-dialogue generation
-subset plus both 10-dialogue focus sets. Its quality anchor is the same receiver-aware target and active-rule
-scoring. It is an AI-infra improvement only if it preserves or improves both metrics against `raw_full` and
-materially lowers the focus-over-raw token and wall-time ratios observed for `focus_raw`; model-call count
-remains two until compiled state can be cached or incrementally maintained across requests.
+A development-only 40-session check rejected `focus_compact`: it lowered non-cached input substantially
+but moved state to class attributes, missing the frozen constructor-attribute target. It is not evaluated on
+the third held-out set and is not a release candidate.
+
+`focus_cached` instead retains verbatim history in the coding call and places the identical dataset role plus
+history at the beginning of both model prompts. Only the task-mode suffix differs. This allows provider prefix
+caching to reuse the long prefill while keeping the same evidence available to the quality model. Its third
+domain-separated set excludes the earlier 24-dialogue generation subset plus both 10-dialogue focus sets.
+It is an AI-infra improvement only if it preserves or improves receiver-aware target and active-rule scores
+against `raw_full` and materially lowers the focus-over-raw non-cached-token or wall-time ratios observed for
+`focus_raw`; model-call count remains two until compiled state can be cached or maintained across requests.

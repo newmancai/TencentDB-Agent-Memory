@@ -2,6 +2,9 @@ import unittest
 
 from memorycode_focus import (
     active_rule_semantic_score,
+    cacheable_history_prefix,
+    cached_compiler_prompt,
+    cached_focused_prompt,
     compact_prompt,
     focused_prompt,
     history_only,
@@ -49,6 +52,15 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertIn("attributes end in _t", prompt)
         self.assertIn("write a Linked list class", prompt)
 
+    def test_cached_prompts_share_verbatim_history_prefix(self):
+        prefix = cacheable_history_prefix(self.packet())
+        compiler = cached_compiler_prompt(self.packet())
+        code = cached_focused_prompt(self.packet(), "- attributes end in _t")
+        self.assertTrue(compiler.startswith(prefix))
+        self.assertTrue(code.startswith(prefix))
+        self.assertIn("use suffix _old", prefix)
+        self.assertNotIn("write a Linked list class", prefix)
+
     def test_semantic_attribute_score_follows_actual_receiver(self):
         output = "class Node:\n    def __init__(node, value):\n        node.value_t = value\n"
         self.assertEqual(semantic_target_score(self.packet(), output, 0.0), 1.0)
@@ -61,6 +73,16 @@ class MemoryCodeFocusTest(unittest.TestCase):
         ]
         output = "class Node:\n    def __init__(node, value):\n        node.value_t = value\n"
         self.assertEqual(active_rule_semantic_score(packet, output), 1.0)
+
+    def test_active_semantic_score_penalizes_missing_target_object(self):
+        packet = self.packet()
+        packet["active_rules"] = [
+            {"object_type": "attribute", "regex": ".*value.*"},
+            {"object_type": "attribute", "regex": ".*_t$"},
+        ]
+        self.assertEqual(
+            active_rule_semantic_score(packet, "class Node:\n    pass\n"), 0.0
+        )
 
     def test_summary_pairs_quality_and_counts_extra_focus_call(self):
         packets = [{"task_id": "one"}, {"task_id": "two"}]
