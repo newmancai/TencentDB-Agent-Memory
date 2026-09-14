@@ -124,20 +124,21 @@ checker 通过只证明该次被检查的行为；不能证明某条记忆长期
 
 ## 5. 工作区、提交与代码入口
 
-当前产品工作树：`/home/edarace/Tencent-Memory-2/topic3-be-product`，分支 `delivery/topic3-be-product-v1`。
-原始研究工作树：`/home/edarace/Tencent-Memory-2/topic3-be-delivery`，分支 `delivery/topic3-be-v1`，本地
-head 为 `8029d2f`；两者不能混用来报告提交或发布状态。
-
-本交接写入前实核产品代码 head 为 `498bb4a`，工作树仅有已有的未跟踪 `MemoryCore/node_modules`。
-最近四个产品提交如下；本地 tracking ref 显示 ahead 4，仅是缓存的远端跟踪状态，本轮没有 fetch、
-查询 PR、push 或发布 npm 包，不宣称远端实时 head 已核验。
+研究工作树：`/home/edarace/Tencent-Memory-2/topic3-be-product`，分支
+`delivery/topic3-be-product-v1`，focus 结果主提交为 `7da00f5`；除既有未跟踪
+`MemoryCore/node_modules` 和本交接同步外干净。
+最终产品 PR 工作树：`/home/edarace/Tencent-Memory-2/topic3-be-project-memory-pr`，分支
+`delivery/topic3-be-project-memory-v1`，当前 head `545eca4` 已推送到 PR #4。原始研究工作树仍为
+`/home/edarace/Tencent-Memory-2/topic3-be-delivery`、分支 `delivery/topic3-be-v1`。三者不能混用提交状态。
 
 | 提交 | 内容 |
 | --- | --- |
-| `faf5315` | 原生项目记忆与编码 CLI 原型 |
-| `10697bf` | 统一入口、默认原话、日志／取消／差异、真实仓库顺序试验 |
-| `5735767` | “其余不变”的历史前任引用及损坏链回退 |
-| `498bb4a` | 写入失败保留上下文、检查参数提前校验、check-run 恢复 |
+| `25d09a6` | 从研究主线删除自然验证协议、registry、runner 模式和测试 |
+| `ecaf3d0` | 新增第一批不重叠 MemoryCode focus 开发比较 |
+| `4fa13dc` | 修正前缀／后缀／子串／数字等独立规则维度 |
+| `a47528e` | 在模型调用前冻结第二批不重叠质量集 |
+| `7da00f5` | 发布 focus 质量、失败试验和冷／热 infra 成本结果 |
+| `545eca4` | 产品热路径复用测试、无损紧凑 JSON、最终上交报告更新 |
 
 | 文件 | 接手用途 |
 | --- | --- |
@@ -161,10 +162,10 @@ head 为 `8029d2f`；两者不能混用来报告提交或发布状态。
 
 ## 6. 已验证能力与尚未解决的使用限制
 
-最近一轮新增完整更新诊断与 receiver-aware 敏感性测试后，研究侧 19 项评测测试通过；20 次 Codex
-公开数据诊断完整，一次真实 Codex 恢复验证通过。
-更早 TypeScript 全量 204 项通过，随后损坏链修复的相关 3 项通过，插件构建通过；
-这些是各自提交阶段的历史验证，本次文档交接没有重新运行模型或全套测试。
+研究侧 28 项 agent-product 测试通过；第二批 focus 的 30/30 次 Codex 调用完整有效，开发与两个失败
+infra pilot 的原始证据均保留。产品侧本轮重新通过 Black／Prettier、TypeScript 全量 204/204、项目代理
+21/21、公共 runner 12/12、build、1,477,474-byte 包和空目录安装 smoke。产品提交 `545eca4` 已推送，
+其远端 CI 需以最新 Actions run 为准，不沿用旧 run ID。
 
 - 128 条观察仍是硬容量；通常每个 run 消耗两条。满后旧上下文可用，但新任务不会进入项目记忆。
 - scoped 预算不足时回退完整原话，可能超过字节目标；不代表已经有长期有界上下文策略。
