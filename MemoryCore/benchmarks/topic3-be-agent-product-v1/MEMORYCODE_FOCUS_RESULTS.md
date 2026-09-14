@@ -69,7 +69,7 @@ new bounded compilation; unchanged revisions reuse the persisted state.
 
 ## Rejected cost shortcuts
 
-Two development-only checks were retained as negative results:
+Four bounded checks are retained; none is silently promoted from a cheaper prompt:
 
 - `focus_compact` removed raw history from the second call. It reduced prompt transfer but changed the
   implementation to class-level state on the exposed 40-session task, moving the target from `1` to `0`.
@@ -77,6 +77,15 @@ Two development-only checks were retained as negative results:
 - `focus_cached` kept raw history and aligned both independent Codex CLI prompts to an identical long
   prefix. Quality tied `1/1`, but non-cached input remained `2.015x` raw; independent CLI processes did
   not demonstrate cross-call prefix reuse. It was also rejected before a new held-out set.
+- `focus_source_raw` preserved every mentor turn verbatim and removed only mentee turns. On a third
+  disjoint 10-task set its persisted coding stage used `0.693x` raw non-cached input, but the primary
+  quality result was 1 win, 1 loss, and 8 ties. It failed the frozen zero-regression gate and remains off.
+- `self_focus_raw` used one call with full raw history. It produced one target win and one target loss on
+  the first two exposed pilot tasks, regressed active-rule mean, used `1.107x` aggregate non-cached input,
+  and was stopped before the third task or a new selection.
+
+The complete follow-up accounting and failure review are in
+`MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md`.
 
 ## Release decision
 

@@ -2,6 +2,7 @@ import unittest
 
 from memorycode_focus import (
     active_rule_semantic_score,
+    authoritative_history,
     cacheable_history_prefix,
     cached_compiler_prompt,
     cached_focused_prompt,
@@ -9,6 +10,9 @@ from memorycode_focus import (
     focused_prompt,
     history_only,
     semantic_target_score,
+    self_focused_prompt,
+    source_compiler_prompt,
+    source_focused_prompt,
     summarize,
 )
 
@@ -23,8 +27,10 @@ class MemoryCodeFocusTest(unittest.TestCase):
                 "full_history": {
                     "system": "Return code.",
                     "user": (
-                        "This is context.\n\nSession 0\nMentor: use suffix _old\n\n"
-                        "Session 1\nMentor: use suffix _t\n\n"
+                        "This is context from your conversations with Mentor:\n\n"
+                        "Session 0\nMentor: use suffix _old\n\nMentee: understood\n\n"
+                        "Session 1\nMentor: use suffix _t\ncontinued exactly\n\n"
+                        "Mentee: I will do that\n\n"
                         "Based on this information, write a Linked list class.\n\n"
                         "Follow all latest applicable coding guidelines, including updates."
                     ),
@@ -61,6 +67,27 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertIn("use suffix _old", prefix)
         self.assertNotIn("write a Linked list class", prefix)
 
+    def test_source_prompts_keep_mentor_verbatim_and_drop_mentee(self):
+        history = authoritative_history(self.packet())
+        self.assertIn("Session 0\n\nMentor: use suffix _old", history)
+        self.assertIn("Mentor: use suffix _t\ncontinued exactly", history)
+        self.assertNotIn("Mentee:", history)
+
+        compiler = source_compiler_prompt(self.packet())
+        code = source_focused_prompt(self.packet(), "- attributes end in _t")
+        self.assertNotIn("Mentee:", compiler)
+        self.assertNotIn("Mentee:", code)
+        self.assertIn("write a Linked list class", code)
+        self.assertIn("attributes end in _t", code)
+
+    def test_single_pass_focus_keeps_raw_history_without_external_compiler_output(self):
+        prompt = self_focused_prompt(self.packet())
+        self.assertIn("Mentee: understood", prompt)
+        self.assertIn("use suffix _old", prompt)
+        self.assertIn("write a Linked list class", prompt)
+        self.assertIn("internally derive a complete checklist", prompt)
+        self.assertNotIn("<active_guidelines_focus>", prompt)
+
     def test_semantic_attribute_score_follows_actual_receiver(self):
         output = "class Node:\n    def __init__(node, value):\n        node.value_t = value\n"
         self.assertEqual(semantic_target_score(self.packet(), output, 0.0), 1.0)
@@ -80,9 +107,7 @@ class MemoryCodeFocusTest(unittest.TestCase):
             {"object_type": "attribute", "regex": ".*value.*"},
             {"object_type": "attribute", "regex": ".*_t$"},
         ]
-        self.assertEqual(
-            active_rule_semantic_score(packet, "class Node:\n    pass\n"), 0.0
-        )
+        self.assertEqual(active_rule_semantic_score(packet, "class Node:\n    pass\n"), 0.0)
 
     def test_summary_pairs_quality_and_counts_extra_focus_call(self):
         packets = [{"task_id": "one"}, {"task_id": "two"}]
@@ -106,12 +131,8 @@ class MemoryCodeFocusTest(unittest.TestCase):
                         "scores": {
                             "official_compatible": 1.0,
                             "active_rule_semantic": 1.0,
-                            "target_frozen_strict": (
-                                1.0 if arm == "focus_raw" else raw_score
-                            ),
-                            "target_semantic_strict": (
-                                1.0 if arm == "focus_raw" else raw_score
-                            ),
+                            "target_frozen_strict": (1.0 if arm == "focus_raw" else raw_score),
+                            "target_semantic_strict": (1.0 if arm == "focus_raw" else raw_score),
                         },
                     }
                 )
@@ -130,6 +151,7 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertEqual(result["infra"]["compiler_stage"]["model_calls"], 2)
         self.assertEqual(result["infra"]["warm_code_stage"]["model_calls"], 2)
         self.assertEqual(result["infra"]["warm_ratio_vs_raw"]["model_calls"], 1.0)
+        self.assertIn("extra model call", result["claim_boundary"])
         self.assertEqual(
             result["quality"]["official_compatible_mean"],
             {"raw_full": 1.0, "focus_raw": 1.0},
@@ -177,6 +199,43 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertEqual(result["quality"]["focus_arm"], "focus_compact")
         self.assertEqual(result["quality"]["focus_compact_accuracy"], 1.0)
         self.assertEqual(result["cost"]["focus_compact"]["model_calls"], 2)
+
+    def test_summary_accepts_single_pass_focus_arm(self):
+        packets = [{"task_id": "one"}]
+        receipts = []
+        for arm in ("raw_full", "self_focus_raw"):
+            receipts.append(
+                {
+                    "task_id": "one",
+                    "arm": arm,
+                    "status": "passed",
+                    "stages": [{"status": "passed"}],
+                    "usage": {
+                        "input_tokens": 10,
+                        "cached_input_tokens": 4,
+                        "output_tokens": 2,
+                        "reasoning_output_tokens": 1,
+                    },
+                    "wall_seconds": 0.5,
+                    "scores": {
+                        "official_compatible": 1.0,
+                        "active_rule_semantic": 1.0,
+                        "target_frozen_strict": 1.0,
+                        "target_semantic_strict": 1.0,
+                    },
+                }
+            )
+        result = summarize(
+            packets,
+            receipts,
+            focus_arm="self_focus_raw",
+            protocol="memorycode-single-pass-self-focus-v1",
+        )
+        self.assertEqual(result["quality"]["self_focus_raw_accuracy"], 1.0)
+        self.assertEqual(result["infra"]["compiler_stage"]["model_calls"], 0)
+        self.assertEqual(result["infra"]["warm_ratio_vs_raw"]["model_calls"], 1.0)
+        self.assertIn("one model call", result["claim_boundary"])
+        self.assertNotIn("extra model call", result["claim_boundary"])
 
 
 if __name__ == "__main__":
