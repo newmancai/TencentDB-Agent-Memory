@@ -89,7 +89,11 @@ checker 通过只证明该次被检查的行为；不能证明某条记忆长期
   为 20.01%；更新题 stale-only 为 24.12%。冻结 24 对话／72 次生成中，原话历史 strict 为
   12.50%，FTS 为 16.67%，1 胜 0 负 23 平，未达高置信增益；两者 10 项更新题均为 0%。
   特权最新规则 oracle 为 54.17%，只表示有信息组织空间，不是可部署方案。FTS 输入减少 76.80%
-  是该协议下的成本证据，不代表质量等价。详见 [MemoryCode 结果](topic3-be-agent-product-v1/MEMORYCODE_RESULTS.md)。
+  是该协议下的成本证据，不代表质量等价。后续仅 4 次的 Codex 有界诊断在两个固定更新 dialogue 上
+  得到完整原话 2/2、无历史 0/2，说明 Qwen 的更新题全零不能外推到 Codex；该子集刻意偏小且原话
+  输入／墙钟分别多 48.35%／44.39%，不是自然或产品成绩。详见
+  [MemoryCode 结果](topic3-be-agent-product-v1/MEMORYCODE_RESULTS.md)与
+  [Codex 更新诊断](topic3-be-agent-product-v1/MEMORYCODE_CODEX_UPDATE_RESULTS.md)。
 - **CUPID：** 当前两例纠正 ICL 对普通历史为 3 胜 4 负 5 平，输入 3.434 倍；没有稳定反馈学习收益。
 - **ValidMem：** 留出 374/406→387/406，15 胜 2 负；case 显著但 batch sign p=0.125。属于生命周期
   方法验证，不能当编码收益或实际 L1 写入验证。
@@ -326,3 +330,8 @@ runner 会对照冻结包重建 manifest，拒绝手写替代、checker 漂移�
 从 raw receipts 重算 summary、哈希整棵结果证据、绑定补丁审计，并把有效、失败和不完整尝试全部追加登记；
 无 usage、执行不全或审计失败只进入 invalid attempts，不会计入 0/10，也不能被结果挑选后删除。相关 21 项
 route-v2 测试、16 项 agent-product 测试和 21 项 project-agent 测试通过；正式 registry 仍保持 0。
+
+复盘后已开始真实 dogfood，而不是继续造题：用户关于“不要偏离主线”和“异常时先复盘”的两段原话已由
+默认 `remember` 路径写入项目状态，模型调用 0；其中后一条另有带原消息 ID、时间和当时 revision 的前瞻
+纠正包。它证明纠正先发生并可被后续读取，但还没有更晚的具体编码任务，因此不是自然 episode，正式
+registry 仍是 0/10。

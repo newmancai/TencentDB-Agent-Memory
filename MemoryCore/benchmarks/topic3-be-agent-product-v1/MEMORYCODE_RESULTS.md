@@ -58,6 +58,19 @@ privileged latest-guideline ceiling scores 50%. That gap is stronger evidence
 for an extraction/versioning bottleneck than the one strict-score win is for a
 retrieval benefit.
 
+### Bounded Codex update diagnostic (2026-09-14)
+
+A later four-call transfer diagnostic reused two fixed update dialogues but
+changed the execution path to Codex `gpt-5.6-sol`, medium. Full verbatim history
+scored 2/2 on the updated target versus 0/2 without history; both of the earlier
+Qwen full-history and top-8 outputs were wrong on these IDs. This shows that the
+Qwen update zero is model/backend dependent, not that raw history is inherently
+unusable. Full raw cost 48.35% more total input and 44.39% more wall time in the
+two-call aggregate. The subset was deliberately small and cost-bounded, so it
+does not replace the 24-dialogue result, establish natural use, or validate
+MemoryCore retrieval. See
+[the bounded Codex result](MEMORYCODE_CODEX_UPDATE_RESULTS.md).
+
 MemoryCore uses 23.20% of baseline input tokens, saving 233,996 tokens, and its
 generation total is 210.92 seconds versus 398.24 seconds. These are valid cost
 results, not a license to claim quality parity. Generation latency includes

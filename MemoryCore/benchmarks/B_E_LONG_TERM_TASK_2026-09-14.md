@@ -122,3 +122,13 @@ PR 重放、旧题或 evaluator 生成任务补数。runner 的未来汇总已�
 单任务 `natural` manifest，手写自然任务会被 runner 拒绝；目前没有因此虚增任何 episode。不得提前进入
 复杂机制或开源对照。结果端会从 raw receipts 重算汇总并哈希整棵证据树；有效、失败和不完整尝试都只追加
 不删除，后两者保留为 invalid/indeterminate 且不计入 0/10，从机制上避免只登记有利样本。
+
+一次复盘后恢复的 4-call Codex 公共数据诊断另行回答了基础模型问题：MemoryCode 两个固定更新
+dialogue 上，完整原话 target strict 为 2/2、无历史为 0/2，而此前 Qwen 在相同 ID 的完整历史与
+top-8 均失败。它支持“强 Codex 能直接利用原话中的版本更新”，不改变自然 Phase B 的 0/10，也不
+自动进入更多公共题、复杂编译或开源对照。成本与边界见
+[Codex 更新诊断](topic3-be-agent-product-v1/MEMORYCODE_CODEX_UPDATE_RESULTS.md)。
+
+同轮已用当前产品默认路径保存两条真实用户纠正，未调用模型；一条同时进入 Phase B 前瞻纠正包。由于
+尚无更晚的具体编码任务，它不增加自然 episode，0/10 不变。后续真实任务到来时直接读取该原话并按既有
+两臂合同执行，不为凑数生成任务。
