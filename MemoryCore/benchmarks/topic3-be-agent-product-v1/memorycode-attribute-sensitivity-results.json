@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "protocol": "memorycode-receiver-aware-attribute-sensitivity-v1",
+  "status": "post_hoc_sensitivity_not_primary",
+  "quality": {
+    "wins": 9,
+    "losses": 0,
+    "ties": 1,
+    "no_history_accuracy": 0.0,
+    "raw_full_accuracy": 0.9,
+    "pairs": [
+      {
+        "task_id": "memorycode-079",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-113",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-150",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-179",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-197",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-219",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-249",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-278",
+        "no_history": 0.0,
+        "raw_full": 0.0,
+        "comparison": "tie"
+      },
+      {
+        "task_id": "memorycode-321",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      },
+      {
+        "task_id": "memorycode-359",
+        "no_history": 0.0,
+        "raw_full": 1.0,
+        "comparison": "win"
+      }
+    ]
+  },
+  "changed_rows": [
+    {
+      "task_id": "memorycode-197",
+      "arm": "raw_full",
+      "frozen": 0.0,
+      "receiver_aware": 1.0,
+      "attributes": [
+        "value_t",
+        "next_t",
+        "head_t",
+        "tail_t",
+        "size_t"
+      ]
+    },
+    {
+      "task_id": "memorycode-359",
+      "arm": "raw_full",
+      "frozen": 0.0,
+      "receiver_aware": 1.0,
+      "attributes": [
+        "q_chx1value_xt",
+        "q_chx2next_xt",
+        "q_chx1head_xt",
+        "q_chx2tail_xt",
+        "q_chx3size_xt"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "packets": "ecabcda9142f5094cfa73b62ce1c41e6c87bad33633b2ccb2c29b1c69f1c76e4",
+    "receipts": "56e18a77b099a6965f182dda3baa0a30ece06b1eae6773540645766f7f55c690"
+  },
+  "claim_boundary": "Changes only attribute extraction to follow the constructor's actual receiver name; the frozen scorer remains the primary result."
+}

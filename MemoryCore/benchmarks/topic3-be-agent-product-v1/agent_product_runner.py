@@ -8,9 +8,12 @@ import math
 import os
 from pathlib import Path
 import re
+import sys
 import subprocess
-import time
 
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts/project-agent"))
+from backend import command_for, events_from, parse_usage, run_command, terminal_error
 
 ARMS = ("codex_clean", "codex_memory", "claude_clean", "claude_memory")
 TASK_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
@@ -29,7 +32,10 @@ def git_output(workspace: Path, *args: str) -> str:
     )
     if result.returncode != 0:
         raise ValueError(f"git {' '.join(args)} failed in {workspace}: {result.stderr.strip()}")
-    return result.stdout.strip()
+    # Porcelain v1 uses a leading space as part of the two-column status.  Removing
+    # all leading whitespace turns `` M path`` into ``M path`` and corrupts paths
+    # consumed by output-scope enforcement.
+    return result.stdout.rstrip("\r\n")
 
 
 def workspace_state(workspace: Path, *, include_untracked: bool = False) -> dict:
@@ -47,26 +53,6 @@ def atomic_write(path: Path, text: str) -> None:
     os.replace(temporary, path)
 
 
-def run_command(command: list[str], workspace: Path, timeout: int, **kwargs) -> dict:
-    started = time.perf_counter()
-    try:
-        result = subprocess.run(
-            command, cwd=workspace, text=True, capture_output=True, timeout=timeout, **kwargs,
-        )
-        status, returncode = "completed", result.returncode
-        stdout, stderr = result.stdout or "", result.stderr or ""
-    except subprocess.TimeoutExpired as error:
-        status, returncode = "timeout", None
-        stdout, stderr = error.stdout or "", error.stderr or ""
-    except OSError as error:
-        status, returncode = "launch_error", None
-        stdout, stderr = "", str(error)
-    if isinstance(stdout, bytes):
-        stdout = stdout.decode(errors="replace")
-    if isinstance(stderr, bytes):
-        stderr = stderr.decode(errors="replace")
-    return {"status": status, "returncode": returncode, "stdout": stdout, "stderr": stderr,
-            "wall_seconds": time.perf_counter() - started}
 
 
 def read_manifest(path: Path) -> dict:
@@ -77,6 +63,8 @@ def read_manifest(path: Path) -> dict:
     timeout = manifest.get("timeout_seconds", 900)
     if not isinstance(timeout, int) or isinstance(timeout, bool) or timeout < 1:
         raise ValueError("timeout_seconds must be a positive integer")
+    if manifest.get("evaluation_mode", "diagnostic") not in {"diagnostic", "pilot", "heldout"}:
+        raise ValueError("invalid evaluation_mode")
     task_ids = set()
     workspace_paths = set()
     for index, task in enumerate(manifest["tasks"]):
@@ -104,8 +92,8 @@ def read_manifest(path: Path) -> dict:
             workspace = Path(task["workspaces"][arm]).resolve()
             if not (workspace / ".agent-benchmark-worktree").is_file():
                 raise ValueError(f"unmarked benchmark workspace: {workspace}")
-            if any((workspace / name).exists() for name in ("CLAUDE.md", "CLAUDE.local.md")):
-                raise ValueError(f"benchmark workspace contains Claude instructions: {workspace}")
+            # Both controlled arms explicitly disable instruction discovery below;
+            # checked-in project instructions are still ordinary readable files.
             state = workspace_state(workspace, include_untracked=True)
             if state["changes"]:
                 raise ValueError(f"benchmark workspace is not clean: {workspace}")
@@ -129,53 +117,28 @@ def read_manifest(path: Path) -> dict:
 
 def prompt_for(task: dict, memory: bool) -> str:
     if not memory:
+        raw_path = task.get("baseline_context")
+        if raw_path:
+            raw = Path(raw_path).read_text()
+            return f"Prior project observations (respect source and scope):\n{raw}\n\n{task['prompt']}"
         return task["prompt"]
     context_path = Path(task.get("memory_context", ""))
     if not context_path.is_file():
         raise ValueError(f"memory arm lacks context for {task['id']}")
     context = context_path.read_text()
+    if len(context.encode()) > task.get("max_context_bytes", 16000):
+        raise ValueError(f"memory context exceeds its byte budget: {task['id']}")
     return ("Use the following bounded project memory as evidence, respecting its scope and timestamps. "
             "It may nominate facts for verification but does not override repository evidence.\n\n"
             f"<memorycore_context>\n{context}\n</memorycore_context>\n\n{task['prompt']}")
 
 
-def command_for(arm: str, workspace: Path, prompt: str, manifest: dict) -> list[str]:
-    backend = arm.split("_", 1)[0]
-    if backend == "codex":
-        command = ["codex", "exec", "--sandbox", "workspace-write", "-C", str(workspace),
-                   "--ephemeral", "--ignore-user-config", "--ignore-rules", "--json"]
-        if manifest.get("codex_model"):
-            command += ["--model", manifest["codex_model"]]
-        command += ["-"]
-        return command
-    command = ["claude", "--print", "--no-session-persistence",
-               "--permission-mode", "acceptEdits", "--allowedTools", "Read,Edit,Write,Bash",
-               "--output-format", "json", "--effort", manifest.get("claude_effort", "medium")]
-    if manifest.get("claude_model"):
-        command += ["--model", manifest["claude_model"]]
-    command += [prompt]
-    return command
 
 
-def parse_usage(backend: str, stdout: str) -> dict | None:
-    if backend == "codex":
-        usage = None
-        for line in stdout.splitlines():
-            try:
-                event = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if event.get("type") == "turn.completed":
-                usage = event.get("usage")
-        return usage
-    try:
-        result = json.loads(stdout)
-    except json.JSONDecodeError:
-        return None
-    usage = result.get("usage")
-    if isinstance(usage, dict) and "total_cost_usd" in result:
-        usage = {**usage, "reported_cost_usd": result["total_cost_usd"]}
-    return usage if isinstance(usage, dict) else None
+
+
+
+
 
 
 def quantile(values: list[float], q: float) -> float | None:
@@ -187,7 +150,31 @@ def quantile(values: list[float], q: float) -> float | None:
     return values[low] if low == high else values[low] + (values[high] - values[low]) * (position - low)
 
 
-def summarize(receipts: list[dict]) -> dict:
+def summarize(receipts: list[dict], manifest: dict | None = None) -> dict:
+    observed = [r for r in receipts if r["status"] != "dry_run"]
+    keys = [(r["task_id"], r["arm"]) for r in observed]
+    errors = []
+    if len(keys) != len(set(keys)):
+        errors.append("duplicate_task_arm")
+    tasks = {t["id"]: t for t in (manifest or {}).get("tasks", [])}
+    expected = {(task, arm) for task in tasks for arm in ARMS}
+    if not tasks:
+        errors.append("missing_expected_manifest")
+    elif set(keys) != expected:
+        errors.append("incomplete_or_unexpected_task_arm_matrix")
+    for r in observed:
+        if r["task_id"] in tasks and (r["kind"] != tasks[r["task_id"]]["kind"]
+                or r.get("cluster_id") != tasks[r["task_id"]].get("cluster_id")):
+            errors.append("receipt_metadata_mismatch")
+    clusters = {t.get("cluster_id") for t in tasks.values() if t.get("cluster_id")}
+    if any(not t.get("cluster_id") for t in tasks.values()):
+        errors.append("missing_cluster_id")
+    if len(tasks) < 12 or len(clusters) < 4:
+        errors.append("insufficient_tasks_or_clusters")
+    for cluster in clusters:
+        kinds = {t["kind"] for t in tasks.values() if t.get("cluster_id") == cluster}
+        if kinds != {"necessary_update", "same_topic_control"}:
+            errors.append("missing_within_cluster_control")
     arms = {}
     for arm in ARMS:
         rows = [row for row in receipts if row["arm"] == arm and row["status"] != "dry_run"]
@@ -203,6 +190,7 @@ def summarize(receipts: list[dict]) -> dict:
                      "execution_failures": failures,
                      "severe_regressions": sum(row["severe_regression"] for row in rows),
                      "usage": dict(numeric_usage) if numeric_usage else None,
+                     "usage_missing_tasks": sum(row.get("usage") is None for row in rows),
                      "agent_wall_seconds": {"sum": sum(wall), "p50": quantile(wall, .5), "p95": quantile(wall, .95)}}
     paired = {}
     by_key = {(row["task_id"], row["arm"]): row for row in receipts if row["status"] != "dry_run"}
@@ -218,15 +206,20 @@ def summarize(receipts: list[dict]) -> dict:
             counts[f"{memory['kind']}_{outcome}"] += 1
         paired[backend] = dict(counts)
     complete = all(arms[arm]["tasks"] > 0 and arms[arm]["execution_failures"] == 0 for arm in ARMS)
-    passed = complete
+    passed = complete and not errors
     for backend in ("codex", "claude"):
         counts = paired[backend]
         passed = passed and counts.get("win", 0) > counts.get("loss", 0)
         passed = passed and counts.get("necessary_update_win", 0) >= 1
         passed = passed and counts.get("same_topic_control_win", 0) >= counts.get("same_topic_control_loss", 0)
         passed = passed and arms[f"{backend}_memory"]["severe_regressions"] <= arms[f"{backend}_clean"]["severe_regressions"]
+    mode = (manifest or {}).get("evaluation_mode", "diagnostic")
     return {"protocol": "topic3-be-agent-product-v1", "arms": arms, "paired_memory_vs_clean": paired,
-            "pass": bool(passed), "scope": "Isolated coding-task product comparison; cross-backend totals are secondary."}
+            "evaluation_mode": mode, "contract_errors": sorted(set(errors)),
+            "observed_protocol_conditions_met": bool(passed),
+            "pass": bool(passed and mode == "heldout"),
+            "product_readiness": "not_established_by_this_pilot",
+            "scope": "Within-backend paired coding tasks; a pass alone is not evidence of product parity."}
 
 
 def run(manifest: dict, output: Path, dry_run: bool) -> None:
@@ -246,7 +239,11 @@ def run(manifest: dict, output: Path, dry_run: bool) -> None:
             command = command_for(arm, workspace, prompt, manifest)
             receipt = {"task_id": task["id"], "kind": task["kind"], "arm": arm, "backend": arm.split("_", 1)[0],
                        "memory_injected": memory, "workspace": str(workspace),
-                       "base_commit": before["base_commit"]}
+                       "base_commit": before["base_commit"], "cluster_id": task.get("cluster_id"),
+                       "model_requested": manifest.get(f'{arm.split("_", 1)[0]}_model'),
+                       "effort": manifest.get(f'{arm.split("_", 1)[0]}_effort', "medium"),
+                       "context_mode": "scoped_memory" if memory else "raw_history" if task.get("baseline_context") else "none",
+                       "instruction_mode": "controlled_discovery_disabled"}
             if dry_run:
                 receipt.update({"status": "dry_run", "command": command[:-1]})
                 receipts.append(receipt)
@@ -254,9 +251,12 @@ def run(manifest: dict, output: Path, dry_run: bool) -> None:
             environment = os.environ.copy()
             if arm.startswith("claude"):
                 environment["CLAUDE_CODE_DISABLE_AUTO_MEMORY"] = "1"
+                environment["CLAUDE_CODE_DISABLE_CLAUDE_MDS"] = "1"
             agent = run_command(command, workspace, timeout,
                                 input=prompt if arm.startswith("codex") else None,
                                 env=environment)
+            if agent["status"] == "completed" and terminal_error(agent["stdout"]):
+                agent["status"] = "agent_error"
             stem = f"{task['id']}-{arm}"
             (output / f"{stem}.stdout").write_text(agent["stdout"])
             (output / f"{stem}.stderr").write_text(agent["stderr"])
@@ -283,7 +283,7 @@ def run(manifest: dict, output: Path, dry_run: bool) -> None:
             atomic_write(output / "receipts.jsonl", "".join(json.dumps(row) + "\n" for row in receipts))
     atomic_write(output / "receipts.jsonl", "".join(json.dumps(row) + "\n" for row in receipts))
     if not dry_run:
-        atomic_write(output / "summary.json", json.dumps(summarize(receipts), indent=2) + "\n")
+        atomic_write(output / "summary.json", json.dumps(summarize(receipts, manifest), indent=2) + "\n")
 
 
 def main() -> None:

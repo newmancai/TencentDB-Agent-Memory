@@ -58,6 +58,19 @@ privileged latest-guideline ceiling scores 50%. That gap is stronger evidence
 for an extraction/versioning bottleneck than the one strict-score win is for a
 retrieval benefit.
 
+### Bounded Codex update diagnostic (2026-09-14)
+
+A later four-call transfer diagnostic reused two fixed update dialogues but
+changed the execution path to Codex `gpt-5.6-sol`, medium. Full verbatim history
+scored 2/2 on the updated target versus 0/2 without history; both of the earlier
+Qwen full-history and top-8 outputs were wrong on these IDs. This shows that the
+Qwen update zero is model/backend dependent, not that raw history is inherently
+unusable. Full raw cost 48.35% more total input and 44.39% more wall time in the
+two-call aggregate. The subset was deliberately small and cost-bounded, so it
+does not replace the 24-dialogue result, establish natural use, or validate
+MemoryCore retrieval. See
+[the bounded Codex result](MEMORYCODE_CODEX_UPDATE_RESULTS.md).
+
 MemoryCore uses 23.20% of baseline input tokens, saving 233,996 tokens, and its
 generation total is 210.92 seconds versus 398.24 seconds. These are valid cost
 results, not a license to claim quality parity. Generation latency includes
@@ -71,13 +84,12 @@ pair. All 20 calls completed without retry, timeout, tool event, missing usage, 
 frozen scorer, no history scored 0/10 and full verbatim history scored 7/10: 7 wins, 0 losses, 3 ties,
 bootstrap 95% interval `[+0.40, +1.00]`, exact sign `p=0.015625`. Short history was 4/5 and long history 3/5.
 
-Two frozen ties are scorer false negatives caused by the pinned official-compatible extractor recognizing
-attributes only through a receiver literally named `self`; the outputs correctly used `_t`/`_xt` attributes
-while following another rule that renamed the receiver. A post-hoc receiver-aware sensitivity is 9/10, but
-the primary score remains 7/10. The one semantic target miss is retained. Full raw used 120.56% more total
-input, 411.37% more non-cached input, and 51.68% more wall time, so this is quality evidence rather than an
-efficient context policy. The frozen protocol, task-level table, compact results, sensitivity implementation,
-and receipt hashes are preserved on the separate research branch rather than duplicated into this product PR.
+Two frozen ties are scorer false negatives caused by the pinned official-compatible extractor recognizing attributes only
+through a receiver literally named `self`; the outputs correctly used `_t`/`_xt` attributes while following
+another rule that renamed the receiver. A post-hoc receiver-aware sensitivity is 9/10, but the primary score
+remains 7/10. The one semantic target miss is retained. Full raw used 120.56% more total input, 411.37% more
+non-cached input, and 51.68% more wall time, so this is quality evidence rather than an efficient context
+policy. See [the complete update result](MEMORYCODE_CODEX_UPDATE_FULL_RESULTS.md).
 
 ## Artifact map
 

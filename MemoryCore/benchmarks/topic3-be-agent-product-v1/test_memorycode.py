@@ -66,6 +66,7 @@ class MemoryCodeScoreTest(unittest.TestCase):
             self.assertEqual(result["status"], "pass")
             self.assertEqual(result["paired"]["memorycore_l0_vs_full_history_target_strict"]["wins"], 1)
             self.assertEqual(result["arms"]["full_history"]["scores"]["target_strict"], 0.0)
+            self.assertEqual(result["execution"]["model_load_seconds_by_shard"], {"0": 0.01})
 
             receipts[0].pop("shard")
             runs.write_text("".join(json.dumps(row) + "\n" for row in receipts))

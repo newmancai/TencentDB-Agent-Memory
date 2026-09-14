@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "protocol": "topic3-be-memorycode-focus-quality-v2",
+  "dataset": "CohereLabsCommunity/MemoryCode",
+  "selection": {
+    "unit": "dialogue",
+    "method": "one disjoint single-target update dialogue per update-capable official session-count stratum, selected by domain-separated SHA-256 ordering",
+    "excluded_dialogue_count": 34,
+    "tasks": [
+      {
+        "id": "memorycode-067",
+        "dialogue_id": 67,
+        "session_count": 3,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that determines if an array is a valid sudoku",
+        "targets": [
+          {
+            "instruction_id": 7,
+            "update_id": 5,
+            "occurrence": 2,
+            "source_session_id": 2,
+            "object_type": "variable",
+            "regex": "^n_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-117",
+        "dialogue_id": 117,
+        "session_count": 4,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that determines if an array is a valid sudoku",
+        "targets": [
+          {
+            "instruction_id": 7,
+            "update_id": 4,
+            "occurrence": 2,
+            "source_session_id": 3,
+            "object_type": "variable",
+            "regex": "^m_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-139",
+        "dialogue_id": 139,
+        "session_count": 5,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that determines if an array is a valid sudoku",
+        "targets": [
+          {
+            "instruction_id": 7,
+            "update_id": 0,
+            "occurrence": 3,
+            "source_session_id": 2,
+            "object_type": "variable",
+            "regex": "^x_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-151",
+        "dialogue_id": 151,
+        "session_count": 10,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "function that determines if an array is a valid sudoku",
+        "targets": [
+          {
+            "instruction_id": 7,
+            "update_id": 2,
+            "occurrence": 2,
+            "source_session_id": 6,
+            "object_type": "variable",
+            "regex": "^z_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-185",
+        "dialogue_id": 185,
+        "session_count": 15,
+        "history_class": "short",
+        "target_status": "update",
+        "eval_query": "LRU cache class with get and put methods",
+        "targets": [
+          {
+            "instruction_id": 9,
+            "update_id": 2,
+            "occurrence": 6,
+            "source_session_id": 13,
+            "object_type": "attribute",
+            "regex": "^s_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-240",
+        "dialogue_id": 240,
+        "session_count": 20,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "LRU cache class with get and put methods",
+        "targets": [
+          {
+            "instruction_id": 9,
+            "update_id": 7,
+            "occurrence": 3,
+            "source_session_id": 17,
+            "object_type": "attribute",
+            "regex": "^xt_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-250",
+        "dialogue_id": 250,
+        "session_count": 30,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that given two vectors compute their dot product",
+        "targets": [
+          {
+            "instruction_id": 10,
+            "update_id": 1,
+            "occurrence": 8,
+            "source_session_id": 27,
+            "object_type": "function argument",
+            "regex": "^f_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-300",
+        "dialogue_id": 300,
+        "session_count": 40,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "Linked list class",
+        "targets": [
+          {
+            "instruction_id": 14,
+            "update_id": 7,
+            "occurrence": 3,
+            "source_session_id": 19,
+            "object_type": "attribute",
+            "regex": ".*_xt$"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-301",
+        "dialogue_id": 301,
+        "session_count": 50,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that given an array of integer citations, computes the h-index",
+        "targets": [
+          {
+            "instruction_id": 6,
+            "update_id": 0,
+            "occurrence": 3,
+            "source_session_id": 46,
+            "object_type": "function",
+            "regex": "^a_.*"
+          }
+        ]
+      },
+      {
+        "id": "memorycode-352",
+        "dialogue_id": 352,
+        "session_count": 100,
+        "history_class": "long",
+        "target_status": "update",
+        "eval_query": "function that merges two sorted lists",
+        "targets": [
+          {
+            "instruction_id": 15,
+            "update_id": 6,
+            "occurrence": 5,
+            "source_session_id": 73,
+            "object_type": "function argument",
+            "regex": ".*_x$"
+          }
+        ]
+      }
+    ]
+  }
+}
