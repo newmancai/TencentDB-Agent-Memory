@@ -1,4 +1,10 @@
-# Internal porting notes
+# Project-memory porting guide
+
+This guide defines the smallest integration surface needed to move the B+E
+implementation into another coding host while preserving its baseline, source
+identity and failure semantics. The core rule is that host adaptation may map
+events and storage, but must not silently widen memory scope or convert an
+unverified observation into a durable rule.
 
 ## Runtime integration surface
 
@@ -13,7 +19,7 @@ import {
 } from "@tencentdb-agent-memory/memory-tencentdb-v2/memory-feedback";
 ```
 
-No Gateway hook is installed by import. An internal host needs four local changes:
+Importing the module installs no Gateway hook. A host needs four local changes:
 
 1. expose a default-off feature flag;
 2. map its answer/checker receipt to `AnswerFeedbackObservation`;
@@ -103,9 +109,10 @@ The host integration test must reproduce the four cases in
 `runtime-contract-results.json` and confirm its logger/config wrapper cannot alter
 the returned decision.
 
-## What remains host-owned
+## Host-owned responsibilities
 
 Authentication, privacy retention, checker authority, configuration rollout,
 logger availability, distributed single-writer coordination and traffic
-experimentation remain internal responsibilities. The sidecar deliberately does
-not invent those policies or modify Gateway to simulate them.
+experimentation remain the responsibility of the integrating host. They are
+kept outside the sidecar so that deployment policy does not leak into the memory
+state machine.
