@@ -35,3 +35,9 @@ result unless every rendered context and the final snapshots are exactly equal. 
 
 These timings measure this machine's process/SQLite bridge only. They are not an end-to-end agent SLO,
 model latency, token reduction, or a claim about another deployment topology.
+
+## Outcome
+
+All promotion gates passed. Across 20 paired iterations, pre-model bridge calls fell from 4 to 2, mean
+wall time from `0.680 s` to `0.424 s`, and p95 from `0.736 s` to `0.476 s`; every context and the final
+snapshots were exactly equal. See `PROJECT_MEMORY_BRIDGE_RESULTS.md`.

@@ -20,8 +20,11 @@
 修正已定位的独立命名维度混淆后，在第二批再不重叠的 10 项上为 **9/10→10/10、1 胜 0 负 9 平**，
 30/30 调用有效。该增益区间仍触及 0，只足以开放显式 experimental 路线。冷 focus 的非缓存输入为
 raw 的 2.026 倍；把编译状态移到反馈写入并按 revision 复用后，已执行 coding stage 为 1.101 倍，
-墙钟为 0.969 倍、调用数相同。因此当前能够支持的是“无损项目历史与可复用的显式整理是一条已有窄范围
-行为收益的路线”，不能支持“已普遍优于 Codex、Claude Code 或某个开源方案”。
+墙钟为 0.969 倍、调用数相同。后续 source-only 候选虽把热编码非缓存输入降至 0.693 倍，但主指标有
+1 胜 1 负，未启用；single-pass 候选也因质量回归停止。产品本地热路径则在上下文与最终快照逐字等价的
+20 轮配对中，将模型前 bridge 进程从 4 次降到 2 次，均值耗时由 0.680 秒降到 0.424 秒。当前能够支持
+的是“无损项目历史与可复用的显式整理是一条已有窄范围行为收益、且工程开销可继续压缩的路线”，不能
+支持“已普遍优于 Codex、Claude Code 或某个开源方案”。
 
 ## 1. 最终上交材料
 
@@ -66,6 +69,8 @@ CLI 的用户与维护说明见
   不写入部分规则，只保留原话。引用合法不等于语义一定正确，因此该功能保持实验状态。
 - **编译不在编码热路径。** 接受的约束随项目 revision 持久化；同一 revision 的后续 `context`／`run`
   不再次调用编译模型。新增观察产生新 revision，失败的编译不缓存部分提议。
+- **读取复用同一快照。** 普通 `run` 的 `loadContext` 在一次 bridge 进程中返回 pre-task 快照和范围选择；
+  宿主用同一快照分配下一序号，再执行原有持久写入，不重复启动 bridge 读取同一 revision。
 - **三种对照模式。** `scoped` 使用范围化视图，`raw` 读取同项目原话，`off` 完全绕过本工具的记忆读写。
 
 ### 3.2 E：执行与证据闭环
@@ -101,6 +106,8 @@ memory-agent
 - 未自动接入 Gateway，未发布新的 npm 正式版本，也未实现自动语义纠错。
 - 提示 JSON 采用无损紧凑序列化；在既有 6 份顺序任务 context 上字节数从 4,383 降到 4,247
   （3.10%）。这是确定性重算，不是 token 价格或模型质量实验。
+- 本地 bridge 20 轮配对中上下文和最终快照均逐字一致；模型前进程 4→2，均值 0.680→0.424 秒、
+  p95 0.736→0.476 秒。该数字不包含模型、网络和 checker，不能当端到端 SLO。
 
 ## 4. 实现与测试代码清单
 
@@ -126,6 +133,7 @@ memory-agent
 | `scripts/project-agent/test_backend.py` | 后端命令、实时日志、超时、取消、进程组终止和 usage |
 | `scripts/project-agent/test_changes.py` | 已有／新增文件差异、符号链接、容量和遗漏原因 |
 | `benchmarks/topic3-be-agent-product-v1/test_*.py` | runner 隔离合同、公共结果聚合、MemoryCode 评分和证据对齐 |
+| `benchmarks/topic3-be-agent-product-v1/project_memory_bridge_benchmark.py` | 旧／新 bridge 调用数、上下文与最终状态等价性、配对时延 |
 | `scripts/ci/smoke-memory-agent-package.sh` | 从生成 tarball 安装后的入口、子路径导出及 remember→context→history |
 | `.github/workflows/pr-ci.yml` | 全量／最低版本测试、格式、构建、打包、尺寸、manifest 和隔离门禁 |
 
@@ -154,12 +162,13 @@ Actions 对 PR 的每个新 head 重跑相同门禁。
 | 检查 | 结果 |
 | --- | ---: |
 | MemoryCore Node 24 全量 Vitest | 24 个文件，204/204 通过 |
-| Python 项目代理 | 21/21 通过 |
-| Python agent-product／公共评测 runner | 28/28 通过 |
+| Python 项目代理 | 22/22 通过 |
+| Python agent-product／公共评测 runner | 31/31 通过 |
+| 项目记忆 bridge 配对 | 20/20 上下文等价、最终快照等价；模型调用 0 |
 | 最低 Node 22.19 反馈模块 | 5 个文件，30/30 通过 |
 | Black 25.1.0＋Prettier 3.5.3 | 通过 |
 | `npm run build` | 通过 |
-| 生成包 | 373 个文件，1,477,486 bytes，低于 2 MiB 门禁 |
+| 生成包 | 373 个文件，1,478,631 bytes，低于 2 MiB 门禁 |
 | 空目录安装后的 CLI／SQLite／子路径 smoke | 通过 |
 | Python 编译、shell 语法、`git diff --check` | 通过 |
 
@@ -195,6 +204,8 @@ no-history 选择了合理但不被项目接受的另一实现。
 | MemoryCode 冻结生成 | 24 对话、72 调用；full history strict 12.50%，FTS 16.67%，1 胜 0 负 23 平；10 个更新题两者均 0% | 小模型下普通检索没有高置信质量收益 |
 | MemoryCode Codex 完整更新层 | 固定全部 10 个更新 dialogue、20/20 调用有效；full raw 7/10，no history 0/10，即 7 胜 0 负 3 平；bootstrap 95% `[+0.40,+1.00]`，sign `p=0.015625` | Codex 能从原话历史恢复多数更新约定；这是公开开发数据的方法诊断，不是产品成绩 |
 | MemoryCode focus 不重叠确认 | 新 10 个 update dialogue、与此前 34 个已用 dialogue 零重叠；raw 9/10，focus 10/10，1 胜 0 负 9 平；30/30 调用有效 | 修正后的两阶段整理得到方向性零观察回归；区间 `[0,0.3]`、sign `p=1.0`，仍非高置信普适收益 |
+| MemoryCode source-context 不重叠确认 | 再新 10 个 update dialogue、与此前 44 个已用 dialogue 零重叠；raw 9/10、source 9/10，1 胜 1 负 8 平；热编码非缓存输入 0.693 倍 | 有明确降本线索，但未过零回归门槛，不启用 |
+| MemoryCode single-pass pilot | 两个已暴露机制题 1 胜 1 负；active-rule 均分回退；非缓存输入 1.107 倍 | 在第三题和新留出前按协议停止 |
 | CUPID 纠正 ICL | 相比普通历史 3 胜 4 负 5 平，输入 3.434 倍 | 当前规则／画像式反馈学习无稳定净收益 |
 | ValidMem 生命周期 | 374/406→387/406，15 胜 2 负；batch sign p=0.125 | 支持来源绑定与生命周期方法，不能当编码收益 |
 | Trigger 微任务 | 112/140→130/140，21 胜 3 负 | 能减少无关记忆操作；同源场景簇限制外推 |
@@ -214,11 +225,19 @@ focus 的第一批开发集出现 1 个回归，原因是编译器错误地把 m
 输出后新增，只作次级诊断。逐请求冷 focus 为 2.011 倍输入、2.026 倍非缓存输入、1.706 倍墙钟和
 2 倍调用；持久复用编译状态后的实际 coding stage 为 1.009 倍输入、1.101 倍非缓存输入、0.969 倍
 墙钟和相同调用数。compact-history pilot 有目标回归，独立 CLI 的共享前缀 pilot 没有产生非缓存收益，
-两者均已关闭。完整可重算结果位于研究分支 `delivery/topic3-be-product-v1`，当前冻结 head 为 `c7c6c49`。
+两者均已关闭。再进一步的 source-context 在 54 个已用包上确定性减少 37.03% 历史字节，第三批不重叠
+确认的热编码输入／非缓存输入为 raw 的 0.809／0.693 倍，active-rule 为 4 胜 0 负 6 平；但冻结主指标
+为 1 胜 1 负 8 平，仍保持 off。single-pass 在两个机制题上 1 胜 1 负且成本门槛失败，未扩样。
+完整可重算结果位于研究分支 `delivery/topic3-be-product-v1`，当前冻结 head 为 `7e19d4f`。
 
 有效公开仓库矩阵和 Codex 诊断的协议、回执哈希与原始证据保存在研究分支
 `delivery/topic3-be-product-v1` 及本机 `.local-evidence/` 归档；产品交付分支通过冻结研究基线继承提交内
 证据，但产品 PR 的增量审阅仍聚焦方案实现、测试与最终报告，不把本机生成产物加入 Git。
+
+模型侧降本的完整失败门槛见
+[`MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md`](topic3-be-agent-product-v1/MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md)；
+已采用的本地 bridge 等价性与时延结果见
+[`PROJECT_MEMORY_BRIDGE_RESULTS.md`](topic3-be-agent-product-v1/PROJECT_MEMORY_BRIDGE_RESULTS.md)。
 
 ### 6.4 明确未完成的效果结论
 
@@ -267,3 +286,6 @@ npx vitest run src/core/memory-feedback
 长历史检索与开源系统对照尚未完成。最合适的成果表述是：**已完成一个高质量、可复核的 B+E 实验产品
 交付，并证明无损项目历史与可复用的显式整理在部分欠定维护决策和公开更新任务中有实际作用；稳定、普适
 收益和同条件开源优势仍是后续研究问题。**
+
+AI infra 方面已经得到一个可合入的无质量语义变化：复用同一 pre-task 快照后，模型前 bridge 调用减半，
+本地均值和 p95 固定开销分别降低约 37.6% 和 35.4%。它不改变上述质量分数，也不冒充端到端模型提速。

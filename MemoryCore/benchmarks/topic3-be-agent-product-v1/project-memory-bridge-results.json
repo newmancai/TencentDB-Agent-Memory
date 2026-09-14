@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "protocol": "project-memory-bridge-hot-path-v1",
+  "iterations": 20,
+  "equivalence": {
+    "all_rendered_contexts_equal": true,
+    "final_snapshots_equal": true
+  },
+  "operations": {
+    "legacy_pre_model_bridge_calls": 4,
+    "optimized_pre_model_bridge_calls": 2,
+    "call_ratio": 0.5
+  },
+  "latency": {
+    "legacy": {
+      "total_seconds": 13.592191370204091,
+      "mean_seconds": 0.6796095685102046,
+      "p50_seconds": 0.6695600334787741,
+      "p95_seconds": 0.7356863641180098
+    },
+    "optimized": {
+      "total_seconds": 8.484215927077457,
+      "mean_seconds": 0.4242107963538729,
+      "p50_seconds": 0.4129655135329813,
+      "p95_seconds": 0.47552495496347547
+    }
+  },
+  "latency_ratio": {
+    "total": 0.6241977982796798,
+    "mean": 0.6241977982796797,
+    "p50": 0.6167714512280141,
+    "p95": 0.646369129776609
+  },
+  "promotion_gates": {
+    "all_rendered_contexts_equal": true,
+    "final_snapshots_equal": true,
+    "operation_sequences_match_protocol": true,
+    "aggregate_wall_time_lower": true,
+    "p95_wall_time_lower": true
+  },
+  "promoted": true,
+  "raw_evidence_sha256": "67572aa14c1c8350fee09f4286617a39ca8f3af98f98aea7721368097397bdd1",
+  "claim_boundary": "local Python-to-Node process and SQLite bridge only; excludes model, checker, network, token, and end-to-end task latency"
+}

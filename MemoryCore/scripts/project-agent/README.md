@@ -82,6 +82,9 @@ memory-agent \
 `run` 保存当前任务和执行／检查回执，下一次调用读取相同 `--state`、`--owner`、`--project`
 下的历史。原始模型输出、提示词、上下文和 checker 回执保存在状态目录的 `runs/`；它们不进入
 项目源码。一个逻辑项目在不同 worktree 中使用同一 project ID；实验各臂则必须使用独立状态副本。
+普通 scoped `run` 通过一次 `loadContext` bridge 同时取得同一 pre-task revision 的快照和范围选择，
+再以现有 `ingest` 写入当前任务；因此模型前 bridge 进程由 4 次降为 2 次。任务写入和模型后的工具回执
+仍是独立持久化动作，不以性能名义合并或省略。
 
 编码已经完成、检查失败或中断时，可用结果中的 `run_id` 补跑检查，**不再调用模型或写入项目记忆**：
 
