@@ -305,3 +305,16 @@ no-history 5/8。jmespath 首任务按接受历史实现 FIFO/512/并发删除�
 作为正式收益。精确数据见 [v9 失效复盘](topic3-be-route-v2/HELDOUT_V9_INVALID_REVIEW.md)。下一矩阵不得
 复用这四家族，且须按 [checker 编写标准](topic3-be-route-v2/CHECKER_AUTHORING_STANDARD.md) 为每个关键
 语义提供会被拒绝的近错实现；仅验证 base fail、上游和等价实现 pass 已被证明不够。
+
+v10 首次按近错标准冻结：42 个预检阶段覆盖 8 个 base 拒绝、8 个上游通过、8 个独立等价通过和
+18 个近错拒绝。正式 16/16 调用、checker、usage、隔离和路径回执完整；raw-full 8/8、no-history 6/8，
+独立首任务为 importlib_resources 一胜、h2／pycodestyle／path 三平，raw-full 控制回归 0。无历史臂根据
+仓内线索选择 `ValueError`，完整原话保留维护者接受的 `TypeError` 及模块名/spec 边界。逐补丁审计通过，
+详见 [v10 结果](topic3-be-route-v2/HELDOUT_V10_RESULTS.md)。它与 v4 的 tqdm 分叉构成两个有效矩阵中的
+两个不同家族收益，达到 Phase A，而非证明普遍有效或优于开源产品。
+
+当前已进入[自然 Phase B 协议](topic3-be-route-v2/PHASE_B_NATURAL_PROTOCOL.md)，registry 明确为 0/10。
+只收录协议提交后真实用户纠正及后来自然发生的相关编码任务，至少四个决策线程、三个自然控制；公开 PR、
+assistant 结论、evaluator 造题和旧 benchmark 都不能补数。未积累到样本前不得声称自然验证完成，也不提前
+启动复杂编译、学习器或开源产品对照。未来 runner 在第一个输出越界或执行不完整回执后立即停止，避免像
+v5/v8 一样继续浪费无效矩阵调用。

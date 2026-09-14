@@ -95,6 +95,25 @@ class FailureDiscoveryRunnerTest(unittest.TestCase):
         })
         self.assertEqual(summary['execution_failed_tasks'], ['no_history/update'])
         self.assertEqual(summary['memory_dependent_wins'], ['control'])
+        self.assertEqual(summary['decision'], 'incomplete_or_execution_invalid')
+
+    def test_complete_necessary_win_is_a_candidate_until_patch_audit(self):
+        manifest = {'schema': 1, 'evaluation_mode': 'heldout', 'task_source': 'test',
+                    'arms': ['no_history', 'raw_full'], 'clusters': [{'id': 'repo', 'steps': [
+                        {'id': 'update', 'kind': 'necessary_update'},
+                        {'id': 'control', 'kind': 'same_topic_control'},
+                    ]}]}
+        common = {'status': 'completed', 'checker_status': 'completed',
+                  'severe_regression': False, 'usage': None, 'total_wall_seconds': 1,
+                  'filesystem_isolated': True, 'visibility_violations': []}
+        rows = [
+            dict(common, task_id='update', kind='necessary_update', arm='no_history', checker_pass=False),
+            dict(common, task_id='update', kind='necessary_update', arm='raw_full', checker_pass=True),
+            dict(common, task_id='control', kind='same_topic_control', arm='no_history', checker_pass=True),
+            dict(common, task_id='control', kind='same_topic_control', arm='raw_full', checker_pass=True),
+        ]
+        self.assertEqual(summarize(rows, manifest)['decision'],
+                         'phase_a_candidate_pending_patch_audit')
 
     def test_two_arm_replication_omits_closed_retrieval_candidate(self):
         with TemporaryDirectory() as directory:
@@ -106,6 +125,31 @@ class FailureDiscoveryRunnerTest(unittest.TestCase):
             self.assertEqual(set(summary['arms']), {'no_history', 'raw_full'})
             self.assertEqual(len((root / 'out' / 'receipts.jsonl').read_text().splitlines()), 4)
             self.assertEqual(set(summary['paired']), {'raw_full_vs_no_history'})
+
+    def test_enforced_output_scope_stops_after_first_invalid_cell(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')
+            manifest = fixture_manifest(root, source, ('no_history', 'raw_full'))
+            manifest['enforce_change_paths'] = True
+            with patch('failure_discovery_runner.Host', FakeHost), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(RuntimeError, 'outside the declared output scope'):
+                    run(manifest, root / 'out')
+            rows = (root / 'out' / 'receipts.jsonl').read_text().splitlines()
+            self.assertEqual(len(rows), 1)
+            self.assertTrue((root / 'out' / 'INVALID_OUTPUT_SCOPE.json').is_file())
+
+    def test_output_scope_violation_stops_after_first_receipt(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')
+            manifest = fixture_manifest(root, source, ('no_history', 'raw_full'))
+            manifest['enforce_change_paths'] = True
+            with patch('failure_discovery_runner.Host', FakeHost), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(RuntimeError, 'outside the declared output scope'):
+                    run(manifest, root / 'out')
+            rows = (root / 'out' / 'receipts.jsonl').read_text().splitlines()
+            self.assertEqual(len(rows), 1)
+            invalid = json.loads((root / 'out' / 'INVALID_OUTPUT_SCOPE.json').read_text())
+            self.assertEqual(invalid['unexpected_changes'], ['?? progress.txt'])
 
     def test_web_search_event_is_a_visibility_violation(self):
         with TemporaryDirectory() as directory:

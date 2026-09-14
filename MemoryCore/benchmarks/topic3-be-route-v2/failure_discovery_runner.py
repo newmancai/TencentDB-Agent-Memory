@@ -166,9 +166,25 @@ def summarize(rows, manifest):
                 counts[outcome] += 1; counts[f"{step['kind']}_{outcome}"] += 1
         comparisons[f'{candidate}_vs_{baseline}'] = dict(counts)
     expected = len(configured_arms) * sum(len(cluster['steps']) for cluster in manifest['clusters'])
+    raw_regressions = [task for task in task_ids
+                       if quality_comparable(by_key.get((task, 'raw_full')))
+                       and quality_comparable(by_key.get((task, 'no_history')))
+                       and by_key[(task, 'no_history')]['checker_pass'] is True
+                       and by_key[(task, 'raw_full')]['checker_pass'] is False]
+    necessary_wins = [step['id'] for cluster in manifest['clusters'] for step in cluster['steps']
+                      if step['kind'] == 'necessary_update'
+                      and quality_comparable(by_key.get((step['id'], 'raw_full')))
+                      and quality_comparable(by_key.get((step['id'], 'no_history')))
+                      and by_key[(step['id'], 'raw_full')]['checker_pass'] is True
+                      and by_key[(step['id'], 'no_history')]['checker_pass'] is False]
+    complete = len(rows) == expected and all(value['execution_failures'] == 0 for value in arms.values())
+    decision = ('incomplete_or_execution_invalid' if not complete else
+                'raw_full_regression_requires_review' if raw_regressions else
+                'phase_a_candidate_pending_patch_audit' if necessary_wins else
+                'no_independent_quality_replication')
     return {'schema': 1, 'protocol': 'topic3-be-route-v2-failure-discovery',
             'evaluation_mode': manifest['evaluation_mode'], 'task_source': manifest.get('task_source'),
-            'complete': len(rows) == expected and all(value['execution_failures'] == 0 for value in arms.values()),
+            'complete': complete,
             'arms': arms, 'paired': comparisons,
             'current_system_failures': [row['task_id'] for row in rows
                                         if row['arm'] == 'raw_full' and quality_comparable(row)
@@ -180,11 +196,7 @@ def summarize(rows, manifest):
                                       and quality_comparable(by_key.get((task, 'no_history')))
                                       and by_key[(task, 'raw_full')]['checker_pass'] is True
                                       and by_key[(task, 'no_history')]['checker_pass'] is False],
-            'raw_full_regressions_vs_no_history': [task for task in task_ids
-                                                   if quality_comparable(by_key.get((task, 'raw_full')))
-                                                   and quality_comparable(by_key.get((task, 'no_history')))
-                                                   and by_key[(task, 'no_history')]['checker_pass'] is True
-                                                   and by_key[(task, 'raw_full')]['checker_pass'] is False],
+            'raw_full_regressions_vs_no_history': raw_regressions,
             'retrieval_misses_vs_raw_full': [task for task in task_ids
                                              if quality_comparable(by_key.get((task, 'raw_full')))
                                              and quality_comparable(by_key.get((task, 'raw_top8')))
@@ -198,7 +210,7 @@ def summarize(rows, manifest):
                                        if row['arm'] == 'raw_full' and row['kind'] == 'same_topic_control'
                                        and quality_comparable(row)
                                        and not row['checker_pass']],
-            'decision': 'diagnosis_only_no_candidate_fix_tested'}
+            'decision': decision}
 
 
 def visibility_violations(evidence, workspace, manifest, output):
@@ -286,8 +298,19 @@ def run(manifest, output):
                         'filesystem_isolated': call.get('filesystem_isolated') is True,
                     }, indent=2) + '\n')
                     raise RuntimeError('agent filesystem isolation audit failed')
-                if call.get('status') == 'cancelled':
-                    raise KeyboardInterrupt
+                if unexpected:
+                    atomic_write(output / 'INVALID_OUTPUT_SCOPE.json', json.dumps({
+                        'task_id': step['id'], 'arm': arm, 'unexpected_changes': unexpected,
+                    }, indent=2) + '\n')
+                    raise RuntimeError('agent changed a path outside the declared output scope')
+                if call.get('status') != 'completed' or checker.get('status') != 'completed':
+                    atomic_write(output / 'INVALID_EXECUTION.json', json.dumps({
+                        'task_id': step['id'], 'arm': arm, 'status': call.get('status'),
+                        'checker_status': checker.get('status', 'not_run'),
+                    }, indent=2) + '\n')
+                    if call.get('status') == 'cancelled':
+                        raise KeyboardInterrupt
+                    raise RuntimeError('agent or checker execution did not complete')
     return summarize(rows, manifest)
 
 

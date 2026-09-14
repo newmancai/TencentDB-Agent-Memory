@@ -44,11 +44,15 @@
    机械 8/8、no-history 5/8；jmespath 首任务出现历史臂通过、无历史失败，zipp 控制也分叉。但 typeguard
    no-history 把值相等放在类型相等之前仍获通过；合法 Enum 事后探针证明其会抛出错误。违反冻结语义条款，
    整组不计 Phase A。后续 checker 新增强制近错实现拒绝门槛。
+10. **v10 近错预检矩阵有效复现。** 冻结前 42 格预检覆盖 base、上游、独立等价与 18 个近错阶段；
+    正式 16/16 完整，raw-full 8/8、no-history 6/8、严重回归和范围违规 0。独立首任务中
+    importlib_resources 因 `TypeError`／`ValueError` 维护决策出现一胜，另三家族平；事后补丁审计无漏项。
+    与 v4 的 tqdm 合计构成两个不同有效矩阵、两个不同项目家族的复现，Phase A 完成。
 
 证据和限制见 [v4 结果](topic3-be-route-v2/HELDOUT_V4_RESULTS.md)。这支持继续复现完整原话路线，
 不支持“已普遍有效”“优于开源产品”或“已可默认推广”。
 
-## Phase A：新家族复现（当前）
+## Phase A：新家族复现（已完成）
 
 建立干净两臂协议：`no_history` 与 `raw_full`。使用四个此前从未收到模型调用的项目家族，每个家族
 一个必要更新和一个累积同主题控制，共 16 次调用。任务来自可核验的真实 issue／PR 决策，但明确标注为
@@ -67,7 +71,7 @@
 质量损失，先按来源、范围、过期或执行失败分类，当前完整原话默认不得扩大采用范围。任何执行失败、隔离
 违规或 checker 缺陷使整组失效，不作为质量输赢。
 
-## Phase B：自然顺序使用验证（Phase A 通过后）
+## Phase B：自然顺序使用验证（当前）
 
 选择一个实际维护项目，记录至少 10 个自然发生的用户纠正—后续任务序列，不由结果倒推挑题。当前产品和
 no-history 在独立工作区按同一请求运行，使用项目原测试或维护者可接受的行为检查。报告项目级首次重复错误、
@@ -106,9 +110,11 @@ prompt 追分、production、Gateway 自动启用或操作他人 GPU。
 [v6 失效复盘](topic3-be-route-v2/HELDOUT_V6_INVALID_REVIEW.md)与
 [v7 失效复盘](topic3-be-route-v2/HELDOUT_V7_INVALID_REVIEW.md)及
 [v8 失效复盘](topic3-be-route-v2/HELDOUT_V8_INVALID_REVIEW.md)与
-[v9 失效复盘](topic3-be-route-v2/HELDOUT_V9_INVALID_REVIEW.md)。完整原话仍只有 v4 是完整有效矩阵；
-v5 至 v9 都不能报告复制成功或成本优势。runner 现已强制允许变更路径、保留 porcelain 前导状态位，隔离
-执行也禁写 Python bytecode；五项 route-runner、16 项 agent-product 和 21 项 project-agent 测试通过。
-精确下一步必须遵守[checker 编写标准](topic3-be-route-v2/CHECKER_AUTHORING_STANDARD.md)，换四个未调用
-家族，并为每个关键语义加入至少一个应被拒绝的近错实现后再冻结新矩阵。v9 四家族均已暴露不可重跑，
-不得引用其机械三胜或成本差进入 Phase B。
+[v9 失效复盘](topic3-be-route-v2/HELDOUT_V9_INVALID_REVIEW.md)。v10 前只有 v4 是完整有效矩阵；
+v5 至 v9 都不能报告复制成功或成本优势。有效 [v10 结果](topic3-be-route-v2/HELDOUT_V10_RESULTS.md)
+新增一个独立家族收益，达到 Phase A 预注册门槛。runner 现已强制允许变更路径、保留 porcelain 前导状态位，隔离
+执行也禁写 Python bytecode；八项 route-runner、16 项 agent-product 和 21 项 project-agent 测试通过。
+下一步已冻结为[自然 Phase B 协议](topic3-be-route-v2/PHASE_B_NATURAL_PROTOCOL.md)：从现在起前瞻收集
+至少 10 个真实用户纠正—后续任务序列、至少四个决策线程和三个自然控制；当前 registry 为 0，不用公开
+PR 重放、旧题或 evaluator 生成任务补数。runner 的未来汇总已改为候选需补丁审计，并在首个越界或未完成
+执行后自动停止。不得提前进入复杂机制或开源对照。

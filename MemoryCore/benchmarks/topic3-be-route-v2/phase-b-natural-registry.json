@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "protocol": "topic3-be-route-v2-phase-b-natural",
+  "date_opened": "2026-09-14",
+  "status": "collecting",
+  "project": "MemoryCore project-agent product",
+  "target_sequences": 10,
+  "minimum_decision_threads": 4,
+  "minimum_natural_controls": 3,
+  "eligible_sequences": 0,
+  "decision_threads": 0,
+  "natural_controls": 0,
+  "episodes": []
+}
