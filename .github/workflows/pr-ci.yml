@@ -50,7 +50,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.19.0"
+          node-version: "24.15.0"
 
       - uses: actions/setup-python@v5
         with:
@@ -85,6 +85,9 @@ jobs:
         with:
           path: MemoryCore/node_modules
           key: deps-${{ runner.os }}-${{ hashFiles('MemoryCore/package.json') }}
+
+      - name: Test feedback runtime on minimum Node
+        run: npx vitest run src/core/memory-feedback
 
       - name: npm pack (dry-run)
         run: npm pack --dry-run
