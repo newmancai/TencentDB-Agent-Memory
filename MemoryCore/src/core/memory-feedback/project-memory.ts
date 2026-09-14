@@ -67,6 +67,8 @@ export interface ProjectContextOptions {
   enabled?: boolean;
 }
 
+export type ProjectLoadContextOptions = Omit<ProjectContextOptions, 'beforeOrder'>;
+
 export interface ProjectContextResult {
   text: string;
   selectedIds: string[];
@@ -74,6 +76,11 @@ export interface ProjectContextResult {
   revision: number;
   status: 'off' | 'selected' | 'fallback';
   reason: string | null;
+}
+
+export interface ProjectLoadedContextResult {
+  snapshot: ProjectMemorySnapshot;
+  selection: ProjectContextResult;
 }
 
 const PROJECT_ACTIONS: ReadonlySet<ProjectAction> = new Set([
@@ -421,7 +428,39 @@ export class ProjectMemory {
   }
 
   async context(options: ProjectContextOptions): Promise<ProjectContextResult> {
-    const result: ProjectContextResult = {
+    const result = this.emptyContextResult();
+    if (options.enabled === false) return result;
+    const budget = this.validateContextOptions(options);
+
+    try {
+      return this.selectContext(await this.snapshot(), options, budget, result);
+    } catch (error) {
+      return this.fallbackContext(result, error);
+    }
+  }
+
+  /** Load one revision and select against that exact immutable snapshot. */
+  async loadContext(options: ProjectLoadContextOptions): Promise<ProjectLoadedContextResult> {
+    const result = this.emptyContextResult();
+    const currentOptions: ProjectContextOptions = { ...options, beforeOrder: 1 };
+    const budget =
+      currentOptions.enabled === false ? null : this.validateContextOptions(currentOptions);
+    const snapshot = await this.snapshot();
+    if (budget === null) return { snapshot, selection: result };
+    currentOptions.beforeOrder = (snapshot.observations.at(-1)?.order ?? 0) + 1;
+
+    try {
+      return {
+        snapshot,
+        selection: this.selectContext(snapshot, currentOptions, budget, result),
+      };
+    } catch (error) {
+      return { snapshot, selection: this.fallbackContext(result, error) };
+    }
+  }
+
+  private emptyContextResult(): ProjectContextResult {
+    return {
       text: '',
       selectedIds: [],
       omittedForBudget: 0,
@@ -429,8 +468,9 @@ export class ProjectMemory {
       status: 'off',
       reason: null,
     };
-    if (options.enabled === false) return result;
+  }
 
+  private validateContextOptions(options: ProjectContextOptions): number {
     const validQuery =
       Array.isArray(options.paths) &&
       options.paths.length >= 1 &&
@@ -444,58 +484,63 @@ export class ProjectMemory {
     if (!Number.isInteger(budget) || budget < 1 || budget > 64_000) {
       throw Error('invalid context budget');
     }
+    return budget;
+  }
 
-    try {
-      const state = await this.snapshot();
-      const rules = activeAt(state, options.beforeOrder - 1).filter(
-        (rule) =>
-          rule.scope.actions.includes(options.action) &&
-          options.paths.some((path) =>
-            rule.scope.paths.some((prefix) => pathsOverlap(path, prefix)),
-          ),
-      );
+  private selectContext(
+    state: ProjectMemorySnapshot,
+    options: ProjectContextOptions,
+    budget: number,
+    result: ProjectContextResult,
+  ): ProjectContextResult {
+    const rules = activeAt(state, options.beforeOrder - 1).filter(
+      (rule) =>
+        rule.scope.actions.includes(options.action) &&
+        options.paths.some((path) => rule.scope.paths.some((prefix) => pathsOverlap(path, prefix))),
+    );
 
-      // Keep applicable broader and narrower quotes, with scope visible. Do not
-      // silently use one directory's exception for another requested directory.
-      rules.sort((a, b) => b.order - a.order || a.id.localeCompare(b.id));
+    // Keep applicable broader and narrower quotes, with scope visible. Do not
+    // silently use one directory's exception for another requested directory.
+    rules.sort((a, b) => b.order - a.order || a.id.localeCompare(b.id));
 
-      const lines: string[] = [];
-      for (const rule of rules) {
-        const predecessorEvidence = this.predecessorEvidence(state, rule);
-        const line = JSON.stringify({
-          id: rule.id,
-          key: rule.key,
-          scope: rule.scope,
-          sourceId: rule.sourceId,
-          order: rule.order,
-          userQuote: rule.quote,
-          ...(predecessorEvidence.length ? { predecessorEvidence } : {}),
-        });
+    const lines: string[] = [];
+    for (const rule of rules) {
+      const predecessorEvidence = this.predecessorEvidence(state, rule);
+      const line = JSON.stringify({
+        id: rule.id,
+        key: rule.key,
+        scope: rule.scope,
+        sourceId: rule.sourceId,
+        order: rule.order,
+        userQuote: rule.quote,
+        ...(predecessorEvidence.length ? { predecessorEvidence } : {}),
+      });
 
-        if (Buffer.byteLength([...lines, line].join('\n')) > budget) {
-          result.omittedForBudget++;
-          continue;
-        }
-        lines.push(line);
-        result.selectedIds.push(rule.id);
+      if (Buffer.byteLength([...lines, line].join('\n')) > budget) {
+        result.omittedForBudget++;
+        continue;
       }
-
-      return {
-        ...result,
-        text: lines.join('\n'),
-        revision: state.revision,
-        status: 'selected',
-      };
-    } catch (error) {
-      return {
-        ...result,
-        text: '',
-        selectedIds: [],
-        omittedForBudget: 0,
-        status: 'fallback',
-        reason: String(error),
-      };
+      lines.push(line);
+      result.selectedIds.push(rule.id);
     }
+
+    return {
+      ...result,
+      text: lines.join('\n'),
+      revision: state.revision,
+      status: 'selected',
+    };
+  }
+
+  private fallbackContext(result: ProjectContextResult, error: unknown): ProjectContextResult {
+    return {
+      ...result,
+      text: '',
+      selectedIds: [],
+      omittedForBudget: 0,
+      status: 'fallback',
+      reason: String(error),
+    };
   }
 
   private predecessorEvidence(

@@ -56,6 +56,12 @@ it('preserves scoped updates, historical views, retractions, and source identity
       status: 'historical',
       userQuote: 'Use a 10 second timeout.',
     });
+    const snapshotRead = vi.spyOn(memory, 'snapshot');
+    const loaded = await memory.loadContext({ paths: query.paths, action: query.action });
+    expect(snapshotRead).toHaveBeenCalledTimes(1);
+    expect(loaded.snapshot.revision).toBe(3);
+    expect(loaded.selection).toEqual(current);
+    snapshotRead.mockRestore();
     expect((await memory.context({ ...query, beforeOrder: 3 })).text).toContain('10 second');
     expect((await memory.context({ ...query, paths: ['src/workers/run.ts'] })).text).toContain(
       '20 second',

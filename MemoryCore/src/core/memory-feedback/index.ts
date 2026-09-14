@@ -41,6 +41,8 @@ export type {
   ProjectContextOptions,
   ProjectContextResult,
   ProjectIngestResult,
+  ProjectLoadContextOptions,
+  ProjectLoadedContextResult,
   ProjectMemorySnapshot,
   ProjectObservation,
 } from './project-memory.js';
