@@ -10,6 +10,10 @@ const store = new VectorStore(request.database, 0);
 store.init();
 try {
   const memory = new ProjectMemory(store, request.owner, request.project);
+  const loadRequestedContext = async () => {
+    if (request.options) return memory.loadContext(request.options);
+    return { snapshot: await memory.snapshot(), selection: null };
+  };
   let result: unknown;
   switch (request.operation) {
     case 'snapshot':
@@ -25,11 +29,28 @@ try {
       result = await memory.context(request.options);
       break;
     case 'loadContext': {
-      if (request.options) {
-        result = await memory.loadContext(request.options);
-      } else {
-        result = { snapshot: await memory.snapshot(), selection: null };
+      result = await loadRequestedContext();
+      break;
+    }
+    case 'prepareRun': {
+      const loaded = await loadRequestedContext();
+      const lastOrder = loaded.snapshot.observations.at(-1)?.order ?? 0;
+      // Keep the host's canonical field order because raw fallback is byte-visible prompt data.
+      const observation = {
+        id: request.observation.id,
+        order: lastOrder + 1,
+        role: request.observation.role,
+        text: request.observation.text,
+      };
+      let ingest: unknown = null;
+      let taskError: string | null = null;
+      try {
+        ingest = await memory.ingest(observation, []);
+      } catch (error) {
+        // Context loading succeeded. Preserve it even when the task write fails.
+        taskError = String(error);
       }
+      result = { ...loaded, task: { observation, ingest, error: taskError } };
       break;
     }
     default:

@@ -1,14 +1,20 @@
 #!/usr/bin/env node
 import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const script = fileURLToPath(new URL('../scripts/project-agent/project_agent.py', import.meta.url));
+const storeBundle = fileURLToPath(new URL('../dist/project-agent-store.mjs', import.meta.url));
+const childEnv = { ...process.env, MEMORY_AGENT_NODE: process.execPath };
+if (!childEnv.MEMORY_AGENT_STORE_BUNDLE && existsSync(storeBundle)) {
+  childEnv.MEMORY_AGENT_STORE_BUNDLE = storeBundle;
+}
 const child = spawn(
   process.env.MEMORY_AGENT_PYTHON || 'python3',
   [script, ...process.argv.slice(2)],
   {
     stdio: 'inherit',
-    env: { ...process.env, MEMORY_AGENT_NODE: process.execPath },
+    env: childEnv,
   },
 );
 child.on('error', (error) => {

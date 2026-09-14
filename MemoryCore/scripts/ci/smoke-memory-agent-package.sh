@@ -29,6 +29,10 @@ if ! grep -qx 'package/scripts/project-agent/project_agent.py' "$contents"; then
   echo "project-agent host is missing from the package" >&2
   exit 1
 fi
+if ! grep -qx 'package/dist/project-agent-store.mjs' "$contents"; then
+  echo "precompiled project-agent store bridge is missing from the package" >&2
+  exit 1
+fi
 if grep -q '/benchmarks/' "$contents"; then
   echo "benchmark artifacts must not be shipped in the runtime package" >&2
   exit 1

@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "protocol": "project-memory-runtime-optimization-v2",
+  "decision": "promote the precompiled installed bridge and one-shot pre-model prepareRun operation; stop further infra expansion",
+  "iterations": 20,
+  "equivalence": {
+    "all_rendered_contexts_equal": true,
+    "final_snapshots_equal": true
+  },
+  "operations_per_iteration": {
+    "source_tsx_two_call": 2,
+    "precompiled_two_call": 2,
+    "precompiled_one_shot": 1
+  },
+  "latency_seconds": {
+    "source_tsx_two_call": {
+      "mean": 0.4541495436686091,
+      "p50": 0.4568590665003285,
+      "p95": 0.47236141306348145
+    },
+    "precompiled_two_call": {
+      "mean": 0.32344823277089746,
+      "p50": 0.3288408649386838,
+      "p95": 0.3356789432000369
+    },
+    "precompiled_one_shot": {
+      "mean": 0.24464572676224633,
+      "p50": 0.24515973252709955,
+      "p95": 0.25290326680988073
+    }
+  },
+  "latency_ratio": {
+    "precompiled_vs_source": {
+      "mean": 0.7122064467093601,
+      "p50": 0.719786229608398,
+      "p95": 0.7106400605904793
+    },
+    "one_shot_vs_precompiled": {
+      "mean": 0.7563674862788076,
+      "p50": 0.745526966585532,
+      "p95": 0.7534081953397098
+    },
+    "final_vs_source": {
+      "mean": 0.5386897998091202,
+      "p50": 0.5366200443499861,
+      "p95": 0.535402045585575
+    }
+  },
+  "promotion_gates": {
+    "all_rendered_contexts_equal": true,
+    "final_snapshots_equal": true,
+    "operation_sequences_match_protocol": true,
+    "final_aggregate_wall_time_lower": true,
+    "final_p95_wall_time_lower": true
+  },
+  "promoted": true,
+  "failed_candidate_review": {
+    "cause": "the first one-shot object placed order after role and text, changing byte-visible JSON key order",
+    "resolution": "construct id, order, role, text explicitly and rerun the complete protocol",
+    "failed_evidence_sha256": "aea1a3686071247ecd4edb067dd3d79911008d2bf231440eb0c00d0dec442f0a"
+  },
+  "structural_result": {
+    "original_pre_model_processes": 4,
+    "final_pre_model_processes": 1,
+    "process_reduction_fraction": 0.75
+  },
+  "raw_evidence_sha256": "4c15b6d028c681e8a627ad14920d0bf945f0ba4845823c8da85793d3e8828c7f",
+  "claim_boundary": "one local rotating matched-triplet benchmark with zero model calls; not an end-to-end or production SLO claim"
+}

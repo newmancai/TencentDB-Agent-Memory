@@ -55,6 +55,43 @@ class ProjectAgentTest(unittest.TestCase):
         )
         return Host(args)
 
+    def test_store_uses_precompiled_bundle_when_wrapper_supplies_it(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            completed = Mock(stdout='{"ok":true,"result":{"revision":0}}', stderr="")
+            with (
+                patch.dict(
+                    "project_agent.os.environ",
+                    {
+                        "MEMORY_AGENT_NODE": "/runtime/node",
+                        "MEMORY_AGENT_STORE_BUNDLE": "/package/dist/project-agent-store.mjs",
+                    },
+                ),
+                patch("project_agent.subprocess.run", return_value=completed) as execute,
+            ):
+                result = self.host(root).store("snapshot")
+
+            self.assertEqual(result, {"revision": 0})
+            self.assertEqual(
+                execute.call_args.args[0],
+                ["/runtime/node", "/package/dist/project-agent-store.mjs"],
+            )
+
+    def test_prepare_run_bridge_retains_context_when_task_ingest_fails(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            prepared = self.host(root).store(
+                "prepareRun",
+                options={"paths": ["src/api"], "action": "edit", "maxBytes": 12_000},
+                observation={"id": "invalid-empty-task", "role": "user", "text": ""},
+            )
+
+            self.assertEqual(prepared["snapshot"]["revision"], 0)
+            self.assertEqual(prepared["selection"]["status"], "selected")
+            self.assertIsNone(prepared["task"]["ingest"])
+            self.assertIn("invalid observation", prepared["task"]["error"])
+            self.assertEqual(list(prepared["task"]["observation"]), ["id", "order", "role", "text"])
+
     def test_off_and_store_failure_still_run_ordinary_agent(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
@@ -254,10 +291,20 @@ class ProjectAgentTest(unittest.TestCase):
                 "revision": 128,
             }
             host.store = Mock(
-                side_effect=[
-                    {"snapshot": snapshot, "selection": None},
-                    ValueError("capacity exceeded"),
-                ]
+                return_value={
+                    "snapshot": snapshot,
+                    "selection": None,
+                    "task": {
+                        "observation": {
+                            "id": "task",
+                            "order": 129,
+                            "role": "user",
+                            "text": "Fix the retry default.",
+                        },
+                        "ingest": None,
+                        "error": "Error: project observation capacity",
+                    },
+                }
             )
             host.call = Mock(return_value="edited")
             result = host.run("Fix the retry default.", root)
@@ -270,7 +317,7 @@ class ProjectAgentTest(unittest.TestCase):
                 json.loads((root / "task.json").read_text())["text"], "Fix the retry default."
             )
 
-    def test_run_uses_two_pre_model_bridge_calls_and_one_receipt_write(self):
+    def test_run_uses_one_pre_model_bridge_call_and_one_receipt_write(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
             host = self.host(root)
@@ -302,8 +349,20 @@ class ProjectAgentTest(unittest.TestCase):
             }
             host.store = Mock(
                 side_effect=[
-                    {"snapshot": snapshot, "selection": selected},
-                    {"revision": 2, "accepted": []},
+                    {
+                        "snapshot": snapshot,
+                        "selection": selected,
+                        "task": {
+                            "observation": {
+                                "id": "task",
+                                "order": 2,
+                                "role": "user",
+                                "text": "Fix the retry default.",
+                            },
+                            "ingest": {"revision": 2, "accepted": []},
+                            "error": None,
+                        },
+                    },
                     {"revision": 3, "accepted": []},
                 ]
             )
@@ -313,13 +372,55 @@ class ProjectAgentTest(unittest.TestCase):
 
             self.assertEqual(
                 [call.args[0] for call in host.store.call_args_list],
-                ["loadContext", "ingest", "ingest"],
+                ["prepareRun", "ingest"],
             )
             self.assertTrue(result["task_persisted"])
             self.assertTrue(result["receipt_persisted"])
             self.assertEqual(result["context_revision"], 1)
-            self.assertEqual(host.store.call_args_list[1].kwargs["observation"]["order"], 2)
-            self.assertEqual(host.store.call_args_list[2].kwargs["observation"]["order"], 3)
+            pending = host.store.call_args_list[0].kwargs["observation"]
+            self.assertNotIn("order", pending)
+            self.assertEqual(pending["text"], "Fix the retry default.")
+            self.assertEqual(host.store.call_args_list[1].kwargs["observation"]["order"], 3)
+
+    def test_raw_run_uses_one_shot_without_scoped_options(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            host = self.host(root, "raw")
+            source = {"id": "u1", "order": 1, "role": "user", "text": "Keep zero values."}
+            host.store = Mock(
+                side_effect=[
+                    {
+                        "snapshot": {
+                            "observations": [source],
+                            "constraints": [],
+                            "retractions": [],
+                            "revision": 1,
+                        },
+                        "selection": None,
+                        "task": {
+                            "observation": {
+                                "id": "task",
+                                "order": 2,
+                                "role": "user",
+                                "text": "Edit code.",
+                            },
+                            "ingest": {"revision": 2, "accepted": []},
+                            "error": None,
+                        },
+                    },
+                    {"revision": 3, "accepted": []},
+                ]
+            )
+            host.call = Mock(return_value="edited")
+
+            result = host.run("Edit code.", root)
+
+            self.assertEqual(result["context_mode"], "raw")
+            self.assertIn("Keep zero values.", host.call.call_args.args[0])
+            self.assertNotIn("options", host.store.call_args_list[0].kwargs)
+            self.assertEqual(
+                [call.args[0] for call in host.store.call_args_list], ["prepareRun", "ingest"]
+            )
 
     def test_invalid_checker_fails_before_memory_or_model(self):
         with TemporaryDirectory() as directory:

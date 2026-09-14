@@ -301,13 +301,15 @@ class Host:
             operation=operation,
             **payload,
         )
+        node = os.environ.get("MEMORY_AGENT_NODE", "node")
+        bundle = os.environ.get("MEMORY_AGENT_STORE_BUNDLE")
+        command = (
+            [node, bundle]
+            if bundle
+            else [node, "--import", "tsx", str(Path(__file__).with_name("store.ts"))]
+        )
         result = subprocess.run(
-            [
-                os.environ.get("MEMORY_AGENT_NODE", "node"),
-                "--import",
-                "tsx",
-                str(Path(__file__).with_name("store.ts")),
-            ],
+            command,
             cwd=ROOT,
             input=json.dumps(request),
             text=True,
@@ -436,26 +438,33 @@ class Host:
 
     def _load_context_for_run(self, text: str) -> tuple[dict, str | None, int | None]:
         memory_error, order = None, None
-        snapshot = None
+        if self.args.mode == "off":
+            return {"text": "", "mode": "off", "revision": None}, None, None
+        payload = {
+            "observation": {"id": uuid.uuid4().hex, "role": "user", "text": text},
+        }
+        if self.args.mode == "scoped":
+            payload["options"] = {
+                "paths": self.args.paths,
+                "action": self.args.action,
+                "maxBytes": self.args.max_bytes,
+            }
         try:
-            context, snapshot = self._context_with_snapshot(
-                self.args.mode, self.args.paths, self.args.action, self.args.max_bytes
+            prepared = self.store("prepareRun", **payload)
+            task = prepared["task"]
+            if task["error"] is None:
+                order = task["observation"]["order"]
+            else:
+                memory_error = task["error"]
+            context = render_context(
+                prepared["snapshot"],
+                self.args.mode,
+                prepared["selection"],
+                self.args.max_bytes,
             )
         except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
             memory_error = str(exc)
             context = {"text": "", "mode": "off_fallback", "revision": None}
-        if self.args.mode != "off" and memory_error is None and snapshot is not None:
-            observation = new_observation(text, next_order(snapshot))
-            try:
-                self.store(
-                    "ingest",
-                    observation=observation,
-                    proposals=[],
-                )
-                order = observation["order"]
-            except (ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
-                # A write failure does not invalidate a successfully loaded context.
-                memory_error = str(exc)
         return context, memory_error, order
 
     def _call_and_check(
