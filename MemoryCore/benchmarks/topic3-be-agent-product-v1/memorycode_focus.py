@@ -580,7 +580,11 @@ def summarize(
         "cost": costs,
         "infra": infra,
         "completed_model_calls": sum(len(row["stages"]) for row in receipts),
-        "claim_boundary": "public synthetic quality validation; focus uses an extra model call",
+        "claim_boundary": (
+            "public synthetic quality validation; focus uses an extra model call"
+            if focus_stage_counts == {2}
+            else "public synthetic quality validation; single-pass focus uses one model call"
+        ),
     }
 
 

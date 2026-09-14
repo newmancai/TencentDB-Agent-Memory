@@ -33,3 +33,10 @@ Promotion requires zero target regressions, all calls valid, and aggregate warm 
 input below raw. A failure is retained and the route stays experimental/off. This protocol does not use a
 natural-validation count and cannot establish production SLOs, dollar cost, or superiority to an external
 memory system.
+
+## Outcome
+
+The pilot passed and the disjoint confirmation completed with `30/30` valid calls. Persisted coding-stage
+non-cached input fell to `0.693x` raw, but primary quality was 1 win, 1 loss, and 8 ties. The arm therefore
+failed its frozen zero-regression promotion gate and remains off. See
+`MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md`.

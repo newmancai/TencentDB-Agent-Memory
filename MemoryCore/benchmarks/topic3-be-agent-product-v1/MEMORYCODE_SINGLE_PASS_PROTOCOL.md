@@ -31,3 +31,10 @@ regression. Otherwise retain the result and keep the route off.
 
 This is public synthetic method evidence, not natural validation, a dollar-cost estimate, or a production
 SLO.
+
+## Outcome
+
+Stopped at the frozen pilot gate after `memorycode-339` and `memorycode-300`. Self-focus had one target
+win and one loss, an aggregate active-rule regression, `1.107x` non-cached input, and `1.640x` wall time.
+The planned `memorycode-206` call and fourth disjoint selection were not run. See
+`MEMORYCODE_INFRA_OPTIMIZATION_RESULTS.md`.

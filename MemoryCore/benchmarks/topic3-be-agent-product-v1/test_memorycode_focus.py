@@ -151,6 +151,7 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertEqual(result["infra"]["compiler_stage"]["model_calls"], 2)
         self.assertEqual(result["infra"]["warm_code_stage"]["model_calls"], 2)
         self.assertEqual(result["infra"]["warm_ratio_vs_raw"]["model_calls"], 1.0)
+        self.assertIn("extra model call", result["claim_boundary"])
         self.assertEqual(
             result["quality"]["official_compatible_mean"],
             {"raw_full": 1.0, "focus_raw": 1.0},
@@ -233,6 +234,8 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertEqual(result["quality"]["self_focus_raw_accuracy"], 1.0)
         self.assertEqual(result["infra"]["compiler_stage"]["model_calls"], 0)
         self.assertEqual(result["infra"]["warm_ratio_vs_raw"]["model_calls"], 1.0)
+        self.assertIn("one model call", result["claim_boundary"])
+        self.assertNotIn("extra model call", result["claim_boundary"])
 
 
 if __name__ == "__main__":
