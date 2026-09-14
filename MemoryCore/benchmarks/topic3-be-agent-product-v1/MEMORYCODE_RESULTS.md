@@ -77,6 +77,20 @@ results, not a license to claim quality parity. Generation latency includes
 prefill and excludes the separately logged 3.35–3.63 second model load on each
 of four parallel shards.
 
+### Complete Codex update stratum (2026-09-14)
+
+The follow-up ran all ten update dialogues from the same frozen 24-dialogue subset, not another selected
+pair. All 20 calls completed without retry, timeout, tool event, missing usage, or stderr. Under the unchanged
+frozen scorer, no history scored 0/10 and full verbatim history scored 7/10: 7 wins, 0 losses, 3 ties,
+bootstrap 95% interval `[+0.40, +1.00]`, exact sign `p=0.015625`. Short history was 4/5 and long history 3/5.
+
+Two frozen ties are scorer false negatives caused by the pinned official-compatible extractor recognizing attributes only
+through a receiver literally named `self`; the outputs correctly used `_t`/`_xt` attributes while following
+another rule that renamed the receiver. A post-hoc receiver-aware sensitivity is 9/10, but the primary score
+remains 7/10. The one semantic target miss is retained. Full raw used 120.56% more total input, 411.37% more
+non-cached input, and 51.68% more wall time, so this is quality evidence rather than an efficient context
+policy. See [the complete update result](MEMORYCODE_CODEX_UPDATE_FULL_RESULTS.md).
+
 ## Artifact map
 
 - `memorycode-selection.json`: fixed IDs, labels and source hashes;
