@@ -36,7 +36,9 @@ jobs:
 
       - name: npm install
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm install --ignore-scripts
+        # npm 10.9.3 (bundled with Node 22.19) can fail while resolving this
+        # development tree's optional peers. CI does not need those peers.
+        run: npm install --ignore-scripts --legacy-peer-deps
 
   # ── 2. Focused runtime tests ───────────────────────────────
   test:
