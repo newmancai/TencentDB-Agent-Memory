@@ -5,6 +5,11 @@
 [`B_E_FINAL_SUBMISSION_REPORT_2026-09-14.md`](B_E_FINAL_SUBMISSION_REPORT_2026-09-14.md) 为准；
 可审阅实现位于 [PR #4](https://github.com/newmancai/TencentDB-Agent-Memory/pull/4)。
 
+导师最终提交请直接使用
+[`B_E_导师最终交付_2026-09-14.zip`](../deliverables/B_E_导师最终交付_2026-09-14/B_E_导师最终交付_2026-09-14.zip)。
+压缩包内含 17 页白底 PDF、报告 Markdown 源文、完整可运行源码快照、相对原始 MemoryCore 基线的
+精确 patch、代码／测试索引以及 SHA-256 清单。
+
 ## 五项必交材料
 
 | 序号 | 要求 | 对应交付物 | 状态与结论 |
@@ -24,7 +29,7 @@
 | --- | --- | --- |
 | 方案实现代码 | [项目记忆核心](../src/core/memory-feedback/project-memory.ts)、[编码代理宿主](../scripts/project-agent/project_agent.py)、[SQLite bridge](../scripts/project-agent/store.ts) | B 的来源／范围／演化与 E 的执行、检查、回执、恢复；安装入口为 [`memory-agent.mjs`](../bin/memory-agent.mjs) |
 | 测试代码 | [`project-memory.test.ts`](../src/core/memory-feedback/project-memory.test.ts)、[`test_project_agent.py`](../scripts/project-agent/test_project_agent.py)、[公开评测测试目录](topic3-be-agent-product-v1/) | 204 个 TypeScript 测试、25 个项目代理测试、31 个公共 runner 测试；另含安装包 smoke 与 CI |
-| 方案介绍＋测试结论报告 | [`B_E_FINAL_SUBMISSION_REPORT_2026-09-14.md`](B_E_FINAL_SUBMISSION_REPORT_2026-09-14.md) | 主报告，包含研究问题、设计创新、工作量、实验结果、失败复盘和适用范围 |
+| 方案介绍＋测试结论报告 | [白底 PDF](../deliverables/B_E_导师最终交付_2026-09-14/B_E_方案介绍与测试结论报告.pdf)、[`Markdown` 源文](../deliverables/B_E_导师最终交付_2026-09-14/B_E_方案介绍与测试结论报告.md) | 17 页主报告，包含原始题目、研究问题、设计创新、逐环节指标、失败复盘和适用范围 |
 
 ## 方案亮点与完成规模
 
