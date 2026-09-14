@@ -40,7 +40,7 @@ jobs:
 
   # ── 2. Focused runtime tests ───────────────────────────────
   test:
-    name: Feedback and project-agent tests
+    name: MemoryCore and project-agent tests
     needs: install
     runs-on: ubuntu-latest
     steps:
@@ -60,8 +60,8 @@ jobs:
           path: MemoryCore/node_modules
           key: deps-${{ runner.os }}-${{ hashFiles('MemoryCore/package.json') }}
 
-      - name: Test feedback runtime
-        run: npx vitest run src/core/memory-feedback
+      - name: Test MemoryCore
+        run: npm test
 
       - name: Test project-agent host
         run: npm run test:project-agent
