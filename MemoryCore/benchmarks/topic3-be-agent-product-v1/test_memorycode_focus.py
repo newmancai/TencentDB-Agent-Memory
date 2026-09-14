@@ -10,6 +10,7 @@ from memorycode_focus import (
     focused_prompt,
     history_only,
     semantic_target_score,
+    self_focused_prompt,
     source_compiler_prompt,
     source_focused_prompt,
     summarize,
@@ -78,6 +79,14 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertNotIn("Mentee:", code)
         self.assertIn("write a Linked list class", code)
         self.assertIn("attributes end in _t", code)
+
+    def test_single_pass_focus_keeps_raw_history_without_external_compiler_output(self):
+        prompt = self_focused_prompt(self.packet())
+        self.assertIn("Mentee: understood", prompt)
+        self.assertIn("use suffix _old", prompt)
+        self.assertIn("write a Linked list class", prompt)
+        self.assertIn("internally derive a complete checklist", prompt)
+        self.assertNotIn("<active_guidelines_focus>", prompt)
 
     def test_semantic_attribute_score_follows_actual_receiver(self):
         output = "class Node:\n    def __init__(node, value):\n        node.value_t = value\n"
@@ -189,6 +198,41 @@ class MemoryCodeFocusTest(unittest.TestCase):
         self.assertEqual(result["quality"]["focus_arm"], "focus_compact")
         self.assertEqual(result["quality"]["focus_compact_accuracy"], 1.0)
         self.assertEqual(result["cost"]["focus_compact"]["model_calls"], 2)
+
+    def test_summary_accepts_single_pass_focus_arm(self):
+        packets = [{"task_id": "one"}]
+        receipts = []
+        for arm in ("raw_full", "self_focus_raw"):
+            receipts.append(
+                {
+                    "task_id": "one",
+                    "arm": arm,
+                    "status": "passed",
+                    "stages": [{"status": "passed"}],
+                    "usage": {
+                        "input_tokens": 10,
+                        "cached_input_tokens": 4,
+                        "output_tokens": 2,
+                        "reasoning_output_tokens": 1,
+                    },
+                    "wall_seconds": 0.5,
+                    "scores": {
+                        "official_compatible": 1.0,
+                        "active_rule_semantic": 1.0,
+                        "target_frozen_strict": 1.0,
+                        "target_semantic_strict": 1.0,
+                    },
+                }
+            )
+        result = summarize(
+            packets,
+            receipts,
+            focus_arm="self_focus_raw",
+            protocol="memorycode-single-pass-self-focus-v1",
+        )
+        self.assertEqual(result["quality"]["self_focus_raw_accuracy"], 1.0)
+        self.assertEqual(result["infra"]["compiler_stage"]["model_calls"], 0)
+        self.assertEqual(result["infra"]["warm_ratio_vs_raw"]["model_calls"], 1.0)
 
 
 if __name__ == "__main__":
