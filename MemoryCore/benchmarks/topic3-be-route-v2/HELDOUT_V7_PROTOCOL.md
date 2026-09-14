@@ -64,7 +64,7 @@ The family-level first necessary task is the independent unit; a cumulative cont
 additional win.
 
 - At least one completed, checkable new-family first-task split in favor of full raw, and no full-raw
-  family regression, is the required Phase A replication and opens natural sequential validation.
+  family regression, is the required Phase A replication.
 - Four family ties keep full raw experimental and do not upgrade v4.
 - A full-raw family loss blocks expansion until classified.
 - Any timeout, cancellation, checker defect, actual isolation leak, or missing audit receipt makes v7

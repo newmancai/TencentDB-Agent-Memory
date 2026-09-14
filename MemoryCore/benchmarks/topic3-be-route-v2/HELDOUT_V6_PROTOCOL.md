@@ -68,7 +68,7 @@ Count project families and the first necessary task. A following control only te
 it is not another independent win when a first-task implementation remains wrong.
 
 - At least one new family where full raw passes a completed first task and no-history completes but
-  fails, with no full-raw family regression, is the required clean replication and opens Phase B.
+  fails, with no full-raw family regression, is the required clean replication of the v4 result.
 - Four family ties leave full raw experimental and do not upgrade the v4 signal.
 - Any full-raw family loss blocks expansion until its source, scope, staleness, or execution mechanism
   is classified.

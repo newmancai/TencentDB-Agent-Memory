@@ -82,33 +82,6 @@ class FailureDiscoveryRunnerTest(unittest.TestCase):
                              ('host_exception', 'not_run'))
             self.assertTrue((root / 'out' / 'INVALID_EXECUTION.json').is_file())
 
-    def test_natural_mode_rejects_handwritten_unfrozen_task(self):
-        with TemporaryDirectory() as directory:
-            root = Path(directory); source = root / 'source'; source.mkdir(); (source / 'a').write_text('base')
-            manifest = fixture_manifest(root, source, ('no_history', 'raw_full'))
-            manifest['evaluation_mode'] = 'natural'
-            cluster = manifest['clusters'][0]
-            cluster['source'] = {'kind': 'user_correction', 'ref': 'message:42',
-                                 'packet_sha256': 'a' * 64}
-            cluster['forbidden_commits'] = []
-            cluster['steps'] = cluster['steps'][:1]
-            with self.assertRaisesRegex(ValueError, 'freeze packet'):
-                validate(manifest)
-
-    def test_natural_summary_uses_phase_b_decision(self):
-        manifest = {'schema': 1, 'evaluation_mode': 'natural', 'task_source': 'test',
-                    'arms': ['no_history', 'raw_full'], 'clusters': [{
-                        'id': 'episode', 'steps': [{'id': 'task', 'kind': 'necessary_update'}]}]}
-        common = {'status': 'completed', 'checker_status': 'completed',
-                  'severe_regression': False, 'usage': None, 'total_wall_seconds': 1,
-                  'filesystem_isolated': True, 'visibility_violations': []}
-        rows = [dict(common, task_id='task', kind='necessary_update',
-                     arm='no_history', checker_pass=False),
-                dict(common, task_id='task', kind='necessary_update',
-                     arm='raw_full', checker_pass=True)]
-        self.assertEqual(summarize(rows, manifest)['decision'],
-                         'phase_b_candidate_pending_patch_audit')
-
     def test_unexpected_change_paths_accepts_exact_file_and_directory(self):
         changes = [' M src/pkg/core.py', '?? src/pkg/generated.py', ' M tests/test_core.py']
         self.assertEqual(unexpected_change_paths(changes, ['src/pkg']), [' M tests/test_core.py'])

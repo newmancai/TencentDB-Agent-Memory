@@ -73,7 +73,7 @@ The first necessary task per family is the independent quality unit; a cumulativ
 additional win.
 
 - At least one completed first-task split favoring full raw, with no completed first-task full-raw loss
-  and no full-raw control regression, is the minimum independent replication of v4 and opens Phase B.
+  and no full-raw control regression, is the minimum independent replication of v4.
 - Four first-task ties leave full raw experimental and do not upgrade v4.
 - A completed first-task full-raw loss blocks expansion pending mechanism review.
 - Any timeout, cancellation, checker defect, isolation leak, output-scope violation, or missing audit

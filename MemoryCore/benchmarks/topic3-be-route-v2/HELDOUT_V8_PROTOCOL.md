@@ -61,7 +61,7 @@ The first necessary task of each family is the independent quality unit; the cum
 an additional win.
 
 - At least one completed new-family first-task split favoring full raw, with no completed first-task
-  full-raw loss, is the minimum replication of v4's qualitative mechanism and opens Phase B.
+  full-raw loss, is the minimum replication of v4's qualitative mechanism.
 - Four first-task ties leave lossless full raw experimental and do not upgrade v4.
 - A completed first-task full-raw loss blocks expansion pending mechanism review.
 - Any timeout, cancellation, checker defect, isolation leak, output-scope violation, or missing audit

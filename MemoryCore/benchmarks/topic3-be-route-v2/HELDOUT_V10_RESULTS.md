@@ -1,8 +1,8 @@
 # Held-out v10 results: Phase A replication achieved
 
 Date: 2026-09-14. v10 is a complete valid matrix under the near-miss checker standard. It replicates
-one independent full-raw benefit beyond v4 and opens Phase B. It does not establish general product or
-open-source superiority.
+one independent full-raw benefit beyond v4. It does not establish general product or open-source
+superiority.
 
 ## Integrity
 
@@ -69,6 +69,5 @@ a new project and decision type (importlib_resources), with no raw-full family l
 The supported mechanism is narrow: verbatim accepted maintenance history disambiguates a choice that
 the current repository and generic coding ability do not uniquely determine.
 
-Proceed to prospective natural sequential validation under
-[Phase B protocol](PHASE_B_NATURAL_PROTOCOL.md). Do not add a compiler, learned selector, new retrieval
-layer, or open-source superiority claim. Public PR replay is no longer eligible Phase B data.
+Proceed to a broader public quality comparison and a same-model open-source comparator. Do not add a
+compiler, learned selector, or new retrieval layer unless a repeated quality failure motivates it.

@@ -22,7 +22,6 @@ ARMS = ('no_history', 'raw_full', 'raw_top8')
 MODES = {'no_history': 'off', 'raw_full': 'raw', 'raw_top8': 'raw_topk'}
 TASK_ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$')
 COMMIT_ID = re.compile(r'^[0-9a-f]{40}$')
-SHA256_ID = re.compile(r'^[0-9a-f]{64}$')
 
 
 def arms_for(manifest):
@@ -42,16 +41,10 @@ def quantile(values, q):
 
 
 def validate(manifest):
-    if manifest.get('schema') != 1 or manifest.get('evaluation_mode') not in {'development', 'heldout', 'natural'}:
-        raise ValueError('expected schema=1 and development, heldout, or natural evaluation_mode')
-    natural = manifest['evaluation_mode'] == 'natural'
-    if natural:
-        freeze_path = manifest.get('phase_b_freeze_path')
-        if not isinstance(freeze_path, str) or not freeze_path:
-            raise ValueError('natural mode requires a Phase B freeze packet')
-        from phase_b_registry import natural_manifest
-        if manifest != natural_manifest(Path(freeze_path)):
-            raise ValueError('natural manifest differs from its frozen Phase B packet')
+    if manifest.get('schema') != 1 or manifest.get('evaluation_mode') not in {
+        'development', 'heldout'
+    }:
+        raise ValueError('expected schema=1 and development or heldout evaluation_mode')
     if not isinstance(manifest.get('clusters'), list) or not manifest['clusters']:
         raise ValueError('clusters must be nonempty')
     if not isinstance(manifest.get('enforce_change_paths', False), bool):
@@ -66,16 +59,12 @@ def validate(manifest):
         public_source = (isinstance(source, dict)
                          and source.get('kind') in {'github_issue', 'github_pr', 'repository_failure'}
                          and isinstance(source.get('url'), str) and source['url'].startswith('https://'))
-        natural_source = (isinstance(source, dict) and source.get('kind') == 'user_correction'
-                          and isinstance(source.get('ref'), str) and bool(source['ref'])
-                          and isinstance(source.get('packet_sha256'), str)
-                          and bool(SHA256_ID.fullmatch(source['packet_sha256'])))
-        if not (natural_source if natural else public_source):
+        if not public_source:
             raise ValueError('each cluster needs a reviewable real source')
         if set(cluster.get('workspaces', {})) != set(arms):
             raise ValueError('each cluster needs one independent workspace per arm')
         forbidden = cluster.get('forbidden_commits')
-        if (not isinstance(forbidden, list) or (not natural and not forbidden)
+        if (not isinstance(forbidden, list) or not forbidden
                 or not all(isinstance(value, str) and COMMIT_ID.fullmatch(value) for value in forbidden)):
             raise ValueError('each cluster needs known post-base commits to exclude')
         revisions = set()
@@ -97,9 +86,8 @@ def validate(manifest):
                     raise ValueError(f'future commit is visible in {cluster["id"]}/{arm}')
         if revisions != {cluster.get('base_commit')}:
             raise ValueError('all arms must use the declared base commit')
-        minimum_steps = 1 if natural else 2
-        if not isinstance(cluster.get('steps'), list) or len(cluster['steps']) < minimum_steps:
-            raise ValueError(f'a sequence needs at least {minimum_steps} step(s)')
+        if not isinstance(cluster.get('steps'), list) or len(cluster['steps']) < 2:
+            raise ValueError('a sequence needs at least two steps')
         kinds = set()
         for step in cluster['steps']:
             if not TASK_ID.fullmatch(step.get('id', '')) or step['id'] in tasks:
@@ -112,7 +100,7 @@ def validate(manifest):
                     or not all(isinstance(value, str) and value for value in step['checker'])
                     or not all(isinstance(value, str) and value.strip() for value in step.get('history', []))):
                 raise ValueError('invalid step')
-        if not natural and kinds != {'necessary_update', 'same_topic_control'}:
+        if kinds != {'necessary_update', 'same_topic_control'}:
             raise ValueError('each cluster needs an update and a same-topic control')
     return manifest
 
@@ -202,16 +190,10 @@ def summarize(rows, manifest):
                       and by_key[(step['id'], 'raw_full')]['checker_pass'] is True
                       and by_key[(step['id'], 'no_history')]['checker_pass'] is False]
     complete = len(rows) == expected and all(value['execution_failures'] == 0 for value in arms.values())
-    if manifest['evaluation_mode'] == 'natural':
-        decision = ('incomplete_or_execution_invalid' if not complete else
-                    'raw_full_regression_requires_review' if raw_regressions else
-                    'phase_b_candidate_pending_patch_audit' if necessary_wins else
-                    'phase_b_tie_or_no_gain_pending_patch_audit')
-    else:
-        decision = ('incomplete_or_execution_invalid' if not complete else
-                    'raw_full_regression_requires_review' if raw_regressions else
-                    'phase_a_candidate_pending_patch_audit' if necessary_wins else
-                    'no_independent_quality_replication')
+    decision = ('incomplete_or_execution_invalid' if not complete else
+                'raw_full_regression_requires_review' if raw_regressions else
+                'phase_a_candidate_pending_patch_audit' if necessary_wins else
+                'no_independent_quality_replication')
     return {'schema': 1, 'protocol': 'topic3-be-route-v2-failure-discovery',
             'evaluation_mode': manifest['evaluation_mode'], 'task_source': manifest.get('task_source'),
             'complete': complete,

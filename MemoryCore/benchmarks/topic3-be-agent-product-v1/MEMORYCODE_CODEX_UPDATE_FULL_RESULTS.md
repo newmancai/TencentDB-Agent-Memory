@@ -3,7 +3,7 @@
 Date: 2026-09-14. The complete fixed update stratum finished with 20/20 valid Codex calls. Under the
 unchanged frozen scorer, full verbatim history beat no history on 7 of 10 dialogues, lost none, and tied
 three. This materially strengthens the earlier selected two-dialogue observation, while remaining an
-open public-data diagnostic rather than a natural-use or product-comparison result.
+open public-data diagnostic rather than a product-comparison result.
 
 ## Execution integrity
 
@@ -87,8 +87,8 @@ promote the existing compiler or top-8 selector. The remaining real miss and lar
 a safe, update-aware representation on new development data, not to tune these ten outputs.
 
 MemoryCode is synthetic, the full dataset is already open, prompts inject history directly, and no repository
-tools or behavior checker are involved. This result does not replace the valid public-repository result,
-natural Phase B, or a same-condition open-source system comparison. It supports a stronger public method
+tools or behavior checker are involved. This result does not replace the valid public-repository result or
+a same-condition open-source system comparison. It supports a stronger public method
 claim only: Codex can use verbatim multi-session history to follow updated coding conventions on most rows
 of this complete frozen update stratum.
 

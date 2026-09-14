@@ -321,21 +321,11 @@ v10 首次按近错标准冻结：42 个预检阶段覆盖 8 个 base 拒绝、8
 详见 [v10 结果](topic3-be-route-v2/HELDOUT_V10_RESULTS.md)。它与 v4 的 tqdm 分叉构成两个有效矩阵中的
 两个不同家族收益，达到 Phase A，而非证明普遍有效或优于开源产品。
 
-当前已进入[自然 Phase B 协议](topic3-be-route-v2/PHASE_B_NATURAL_PROTOCOL.md)，registry 明确为 0/10。
-只收录协议提交后真实用户纠正及后来自然发生的相关编码任务，至少四个决策线程、三个自然控制；公开 PR、
-assistant 结论、evaluator 造题和旧 benchmark 都不能补数。未积累到样本前不得声称自然验证完成，也不提前
-启动复杂编译、学习器或开源产品对照。未来 runner 在第一个输出越界或执行不完整回执后立即停止，避免像
-v5/v8 一样继续浪费无效矩阵调用。
+用户已明确删除自然验证路线。`PHASE_B_NATURAL_PROTOCOL.md`、registry、冻结工具、审计模板以及 runner 的
+`natural` 模式和专用测试均从主线移除；此前的 0/10 不是产品成绩，不再进入摘要、门槛或下一步判断。本地
+原始纠正记录不作为量化数据，也不阻塞公开数据和开源产品对照。
 
-Phase B 的前瞻证据链已可执行：`phase_b_registry.py` 以不可覆盖文件登记纠正原话、来源、实际记录时间和
-当时 revision；只有时间更晚的真实任务才能冻结，冻结时校验两个 worktree 独立、标记、干净且同 base，
-并锁定允许路径、外置 checker 文件哈希、模型／effort／超时。冻结包才能生成单任务 `natural` manifest；
-runner 会对照冻结包重建 manifest，拒绝手写替代、checker 漂移以及旧模式要求的合成第二步。结果封存会
-从 raw receipts 重算 summary、哈希整棵结果证据、绑定补丁审计，并把有效、失败和不完整尝试全部追加登记；
-无 usage、执行不全或审计失败只进入 invalid attempts，不会计入 0/10，也不能被结果挑选后删除。相关 21 项
-route-v2 测试、16 项 agent-product 测试和 21 项 project-agent 测试通过；正式 registry 仍保持 0。
-
-复盘后已开始真实 dogfood，而不是继续造题：用户关于“不要偏离主线”和“异常时先复盘”的两段原话已由
-默认 `remember` 路径写入项目状态，模型调用 0；其中后一条另有带原消息 ID、时间和当时 revision 的前瞻
-纠正包。它证明纠正先发生并可被后续读取，但还没有更晚的具体编码任务，因此不是自然 episode，正式
-registry 仍是 0/10。
+新的主线是：先在未运行的新公开样本上验证一个最简单的 update-aware 表示，提高当前 MemoryCode 冻结主
+结果 7/10 所暴露的真实遗漏；同时保留公开仓库 2 胜 0 负 6 平及其独立家族计数。随后直接适配一个能在同一
+Codex 任务上运行的开源项目记忆方案。公开质量、开源对照、安装／恢复／CI 闭包完成后发布 experimental
+版本，再冻结质量下限，从 AI infra 角度优化非缓存 token、上下文字节、缓存复用、调用次数和 p95 时延。

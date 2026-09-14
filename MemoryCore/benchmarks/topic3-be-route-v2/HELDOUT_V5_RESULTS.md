@@ -68,8 +68,8 @@ in the raw logs rather than silently omitted; no obtained cross-arm or future in
 
 ## Decision
 
-Do not advance to natural sequential-use validation and do not rerun or raise the timeout on these
-exposed projects. Preserve lossless full raw as an experimental default candidate, with v4 still the
+Do not count this matrix as a replication, and do not rerun or raise the timeout on these exposed
+projects. Preserve lossless full raw as an experimental default candidate, with v4 still the
 only fully admissible matrix. The next Phase A attempt must use new families, smaller checkable tasks,
 two arms only, and a summary schema that records execution failures as `indeterminate` rather than
 quality losses. The runner was corrected after v5 for that reporting error; the frozen v5 summary is

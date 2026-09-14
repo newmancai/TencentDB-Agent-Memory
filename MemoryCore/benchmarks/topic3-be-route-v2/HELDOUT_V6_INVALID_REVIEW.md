@@ -1,7 +1,7 @@
 # v6 invalid review: correct partial edit without completion
 
 Date: 2026-09-14. v6 stopped after the first no-history call timed out. It is not a Phase A
-replication and contributes no quality win, loss, tie, cost comparison, or natural-validation gate.
+replication and contributes no quality win, loss, tie, or cost comparison.
 
 ## Exact stop state
 

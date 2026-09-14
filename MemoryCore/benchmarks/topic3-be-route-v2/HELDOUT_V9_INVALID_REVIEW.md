@@ -56,4 +56,5 @@ or a product claim.
 v9 will not be rerun, and jmespath, pluggy, zipp, and typeguard are now exposed. Future matrices must use
 new families and comply with [checker authoring standard](CHECKER_AUTHORING_STANDARD.md): in addition to
 base fail, reviewed pass, and independent-equivalent pass, every critical clause needs a plausible
-near-miss implementation that the checker rejects. Only a fully clean new matrix can open Phase B.
+near-miss implementation that the checker rejects. Only a fully clean new matrix can contribute a
+quality result.

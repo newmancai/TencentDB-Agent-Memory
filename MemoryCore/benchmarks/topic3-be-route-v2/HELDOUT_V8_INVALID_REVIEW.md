@@ -1,7 +1,7 @@
 # Held-out v8 invalid execution review
 
 Date: 2026-09-14. v8 is formally invalid and stopped after two initiated calls. It provides no
-memory-versus-no-history quality result and does not open Phase B.
+memory-versus-no-history quality result.
 
 ## What happened
 

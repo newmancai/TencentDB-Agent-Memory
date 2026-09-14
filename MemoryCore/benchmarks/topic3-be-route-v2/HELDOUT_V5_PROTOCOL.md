@@ -57,8 +57,8 @@ checks the accumulated implementation and scope; a second failure caused by an u
 not another independent loss or win.
 
 - If full raw supplies the correct necessary decision in at least one new family and causes no
-  family-level regression, the v4 mechanism has one independent replication and may enter natural
-  sequential-use validation.
+  family-level regression, the v4 mechanism has one independent replication and may enter broader
+  public quality comparison.
 - If all four families tie, retain full raw as experimental and do not upgrade the v4 single-family
   signal.
 - If full raw loses a family, classify source, scope, staleness, or execution cause before any product
